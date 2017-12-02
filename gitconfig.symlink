@@ -1,0 +1,30 @@
+[user]
+	email = abn@posteo.de
+	name = Alexander Ben Nasrallah
+	signingKey = DF6D22A22FA2D5A8
+[commit]
+	gpgSign = true
+[core]
+	excludesfile = $HOME/.gitignore
+	editor = $EDITOR
+[alias]
+	log-graph = log --pretty=oneline --graph --decorate
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
+	rebase-sign = rebase --exec 'git commit --amend --no-verify --no-edit -n -S'
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[gui]
+	fontui = -family \"Liberation Sans\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"Liberation Mono\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+[format]
+	pretty = format:commit %C(yellow)%H %Cblue%D%nParent(s): %P%nAuthor   : %an <%ae> %ad%nCommitter: %cn <%ce> %cd%n%CredSignature: %-GS %-GK %-G? %Creset%w(0,0,11)%+s%n%w(0,0,11)%+b
+[gpg]
+	program = gpg2

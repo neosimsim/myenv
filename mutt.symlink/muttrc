@@ -1,0 +1,79 @@
+set my_pass = "`keystore show web/posteo | sed -n 1p`"
+set my_user = "`keystore show web/posteo | sed -n 2p | sed 's/@/@/'`"
+
+set folder        = ~/.mail/posteo
+set spoolfile     = +Inbox
+mailboxes         = +Inbox
+set postponed     = +Drafts
+set record        = ~/.mail/sent
+set move          = no
+set trash         = +Trash
+
+set realname      = "Alexander Ben Nasrallah"
+set from          = "abn@posteo.de"
+set use_from      = yes
+set smtp_url      = "smtps://$my_user@posteo.de:465/"
+set smtp_pass     = "$my_pass"
+set ssl_force_tls = yes
+set postpone      = yes
+my_hdr Bcc: $realname <$from>
+
+set sort     = threads
+set sort_aux = last-date-received
+set editor   = $EDITOR
+
+source ~/.mutt/gpgrc
+set pgp_use_gpg_agent = yes
+#set pgp_autosign = no
+#set pgp_autoencrypt = no
+#set pgp_replyencrypt = yes
+set pgp_replysign = yes
+#set pgp_replysignencrypted = yes
+set pgp_verify_sig = yes
+#set pgp_sign_as=
+send-hook "~f abn@posteo.de" set pgp_sign_as=DF6D22A22FA2D5A8
+
+source ~/.mutt/smimerc
+# Global crypto options -- these affect PGP operations as well.
+set crypt_autosign = yes
+set crypt_autoencrypt = yes
+set crypt_replyencrypt = yes
+set crypt_replysign = yes
+set crypt_replysignencrypted = yes
+set crypt_verify_sig = yes
+send-hook "~f abn@posteo.de" set smime_default_key="57c64b96.0"
+
+set mailcap_path     = ~/.mutt/mailcap
+auto_view text/html
+alternative_order text/plain text/html
+
+# Open attachment using shell command. See http://stackoverflow.com/questions/21564892/open-attachment-with-macro-in-mutt-email-client
+macro attach O \
+	"\
+	<enter-command>unset wait_key<enter>\
+	<shell-escape>rm -f /tmp/mutt-attach<enter>\
+	<save-entry><kill-line>/tmp/mutt-attach<enter>\
+	<shell-escape> /tmp/mutt-attach &^A\
+	"
+
+ignore *
+unignore From:
+unignore To:
+unignore Cc:
+unignore User-Agent:
+unignore Date:
+
+color header magenta black .*
+
+color quoted cyan black
+color quoted1 yellow black
+color quoted2 red black
+color quoted3 green black
+color quoted4 cyan black
+color quoted5 yellow black
+color quoted6 red black
+color quoted7 green black
+
+color index green black "~C $from"
+
+save-hook . +/Archiv

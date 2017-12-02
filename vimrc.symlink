@@ -1,0 +1,135 @@
+" = Plugin Manager =============================================================
+call plug#begin('~/.vim/plugged')
+Plug 'aklt/plantuml-syntax'
+Plug 'fatih/vim-go'
+Plug 'majutsushi/tagbar'
+Plug 'mbbill/undotree'
+Plug 'nanotech/jellybeans.vim'
+Plug 'scrooloose/nerdcommenter'
+"Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-latex/vim-latex'
+Plug 'vim-scripts/Align'
+call plug#end()
+
+" ============================ Personal Configuration ==========================
+filetype plugin indent on
+syntax enable
+syntax on
+colorscheme abn
+set background=dark
+set number
+set autoindent
+set copyindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
+set textwidth=0
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set list
+set wrap
+set spelllang=de,en
+set spellsuggest=10
+set scrolloff=2
+set laststatus=2
+set wildmenu
+set backspace=2
+set undofile
+set undodir=~/.vim/undo/,.
+set backup
+set backupdir=~/.vim/backup//,.
+set directory=~/.vim/swap//,.
+set showcmd
+set mouse=a
+set belloff=all
+
+set statusline=%F%m%r%w[TYPE=%Y]%<[FORMAT=%{&ff}][ENC=%{&encoding}][ASCII=\%03.3b][HEX=\%02.2B]%=[%p%%]\[BUF=%n][LEN=%L][POS=%04l,%04v]
+
+" = Key Bindings ===============================================================
+nnoremap <F5> :w<CR> :silent make<CR>
+inoremap <F5> <Esc>:w<CR>:silent make<CR>
+vnoremap <F5> :<C-U>:w<CR>:silent make<CR>
+
+nmap <F6> :NERDTreeToggle<CR>
+nmap <F8> :TagbarToggle<CR>
+nmap <F9> :SyntasticToggle<CR>
+nmap <F10> :UndotreeToggle<CR>
+nmap <S-F10> :UndotreeFocus<CR>
+
+nmap <leader>h <Esc>:call ToggleHardMode()<CR>
+nmap <leader>wr <Esc>:set wrap!<CR>
+nmap <leader>li <Esc>:set list!<CR>
+nmap <Leader>wn :match unwantedPatterns /.\+\t\|\w\zs\t\+\ze\|\W\zs\t\+\ze\|\s\+$/<CR>
+nmap <Leader>fn :echo expand('%:p')<CR>
+nmap [g :tabprevious<CR>
+nmap ]g :tabnext<CR>
+nmap [G :tabfirst<CR>
+nmap ]G :tablast<CR>
+
+inoremap <Leader>Ae Ä
+inoremap <Leader>ae ä
+inoremap <Leader>Oe Ö
+inoremap <Leader>oe ö
+inoremap <Leader>Ue Ü
+inoremap <Leader>ue ü
+inoremap <Leader>ss ß
+
+" vimrc_example.vim might map Q to format text (gq) instead of enetering the
+" ex mode. (see :help mode-Ex)
+"!unmap Q
+
+" ==== LaTeX-suit ==============================================================
+
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
+" ==== bufferline ==============================================================
+let g:bufferline_echo = 0
+let g:bufferline_rotate = 0
+let g:bufferline_fixed_index = 1
+let g:bufferline_solo_highlight = 0
+
+" = syntastic ==================================================================
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_tex_chktex_args = "-n9 -n17"
+
+" = tagbar =====================================================================
+let g:tagbar_left = 1
+let g:tagbar_ctags_bin = '/usr/bin/ctags'
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'h:Heading_L1',
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+    \ ],
+    \ 'sort'    : 0,
+\ }
+let g:tagbar_type_tex = {
+    \ 'ctagstype' : 'latex',
+    \ 'kinds'     : [
+        \ 's:sections',
+        \ 'g:graphics:0:0',
+        \ 'l:labels',
+        \ 'r:refs:1:0',
+        \ 'p:pagerefs:1:0'
+    \ ],
+    \ 'sort'    : 0,
+\ }
+
+" ==============================================================================
+" ============================ END OF FILE =====================================

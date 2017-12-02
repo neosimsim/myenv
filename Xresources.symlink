@@ -1,0 +1,30 @@
+#Xft.dpi: 163
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+! jelly beans colorscheme
+
+*foreground: #adadad
+*background: #141414
+
+*color0:    #141414
+*color1:    #cf6a4c
+*color2:    #99ad6a
+*color3:    #d8ad4c
+*color4:    #597bc5
+*color5:    #a037b0
+*color6:    #71b9f8
+*color7:    #adadad
+
+*color8:    #141414
+*color9:    #cf6a4c
+*color10:   #99ad6a
+*color11:   #d8ad4c
+*color12:   #597bc5
+*color13:   #a037b0
+*color14:   #71b9f8
+*color15:   #adadad

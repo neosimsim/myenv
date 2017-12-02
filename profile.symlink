@@ -1,0 +1,36 @@
+set -o vi
+export LC_ALL=en_US.UTF-8
+export ENV=~/.shinit
+export HISTFILE=$HOME/.sh_history
+export HISTSIZE=4096
+export EDITOR=vim
+export FCEDIT=$EDITOR
+export VISUAL=view
+export MAILPATH=$MAIL:$HOME/.mail/posteo?"Neue Mails."
+export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
+export TEXMFHOME=$HOME/.local/texmf
+export WORKSPACE=$HOME/workspace
+export OPT=$HOME/.local/opt
+export PLAN9=/usr/local/plan9
+export GOPATH=$WORKSPACE/go
+export GOOS=linux
+export GOARCH=amd64
+export GOBIN=$HOME/.local/bin
+export BROWSER=chrome
+
+OWNPATH=$HOME/.local/bin
+OWNPATH=$OWNPATH:$OPT/go/bin
+OWNPATH=$OWNPATH:$OPT/android-sdk-linux/tools
+OWNPATH=$OWNPATH:$OPT/android-sdk-linux/platform-tools
+export PATH=$OWNPATH:$PATH:/usr/local/plan9/bin:/usr/games
+
+export MANPATH=$HOME/.local/share/man:
+
+alias ed='ed -p"* "'
+alias ll='ls -l'
+alias l='ls -1'
+alias my_rsync='rsync -rlHtu --include-from=$HOME/.rsync_include --exclude-from=$HOME/.rsync_exclude'
+alias cmatrix='cmatrix -b -u 6'
+alias rm='rm -i'
+alias mv='mv -i'
+alias tmux-sp='tmux split-window -c $PWD'

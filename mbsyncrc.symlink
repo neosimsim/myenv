@@ -1,0 +1,24 @@
+IMAPAccount posteo
+Host posteo.de
+Port 993
+User MAILUSER
+PassCmd "keystore show web/posteo | sed -n 1p"
+SSLType IMAPS
+
+IMAPStore posteo-remote
+Account posteo
+
+MaildirStore posteo-local
+# The trailing "/" is important
+Path ~/.mail/posteo/
+Inbox ~/.mail/posteo/Inbox/
+MapInbox Inbox
+Flatten .
+
+Channel posteo
+Master :posteo-remote:
+Slave :posteo-local:
+Patterns * !Inbox
+Create Both
+Expunge Both
+SyncState *
