@@ -46,7 +46,7 @@ set showcmd
 set mouse=a
 set belloff=all
 
-set statusline=%F%m%r%w[TYPE=%Y]%<[FORMAT=%{&ff}][ENC=%{&encoding}][ASCII=\%03.3b][HEX=\%02.2B]%=[%p%%]\[BUF=%n][LEN=%L][POS=%04l,%04v]
+set statusline=%F:%l:%v\ %m%r%w\|%Y\|%{&ff}\|%{&encoding}%<\|%=%3p%%\ %L
 
 " = Key Bindings ===============================================================
 nnoremap <F5> :w<CR> :silent make<CR>
