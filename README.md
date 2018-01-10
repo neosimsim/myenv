@@ -12,4 +12,4 @@ To install dotfiles call
 This will symlink all \*.symlink files to your $HOME. To select a subset of
 \*.symlink call, e.g.
 
-	DOTFILES=vim.symlink ./install
+	./install vim.symlink

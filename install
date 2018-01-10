@@ -43,6 +43,7 @@ backupExistingFile () {
 	fi
 }
 
+DOTFILES=${DOTFILES:-$*}
 # If no $DOTFILES are specified install all *.symlinks
 if test -z "$DOTFILES"; then
 	DOTFILES=$(find . -name "*.symlink" | sed 's+^\./++' | grep -v '^vim\.symlink/..*' | xargs)
