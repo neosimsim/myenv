@@ -1,0 +1,11 @@
+set my_pass = "`keystore show web/posteo | sed -n 1p`"
+set my_user = "`keystore show web/posteo | sed -n 2p`"
+
+save-hook . =posteo/Archiv
+set postponed     = =posteo/Drafts
+set trash         = =posteo/Trash
+set from          = "abn@posteo.de"
+set smtp_url      = "smtps://$my_user@posteo.de:465/"
+set smtp_pass     = "$my_pass"
+my_hdr Bcc: $realname <$from>
+

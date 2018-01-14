@@ -1,26 +1,24 @@
-set my_pass = "`keystore show web/posteo | sed -n 1p`"
-set my_user = "`keystore show web/posteo | sed -n 2p | sed 's/@/@/'`"
-
-set folder        = ~/.mail/posteo
-set spoolfile     = +Inbox
-mailboxes         = +Inbox
-set postponed     = +Drafts
+set folder        = ~/.mail/
+set spoolfile     = =abn/Inbox
 set record        = ~/.mail/sent
-set move          = no
-set trash         = +Trash
-
 set realname      = "Alexander Ben Nasrallah"
-set from          = "abn@posteo.de"
 set use_from      = yes
-set smtp_url      = "smtps://$my_user@posteo.de:465/"
-set smtp_pass     = "$my_pass"
-set ssl_force_tls = yes
 set postpone      = yes
-my_hdr Bcc: $realname <$from>
+set ssl_force_tls = yes
+set sort          = threads
+set sort_aux      = last-date-received
+set editor        = $EDITOR
+set mailcap_path  = ~/.mutt/mailcap
+set move          = no
 
-set sort     = threads
-set sort_aux = last-date-received
-set editor   = $EDITOR
+subscribe @openbsd.org @lists.gentoo.org
+auto_view text/html
+alternative_order text/plain text/html
+
+mailboxes =abn/Inbox =posteo/Inbox =posteo/lists.gentoo =posteo/lists.openbsd
+
+folder-hook =abn/ source ~/.mutt/abnrc
+folder-hook =posteo/ source ~/.mutt/posteorc
 
 source ~/.mutt/gpgrc
 set pgp_use_gpg_agent = yes
@@ -31,7 +29,7 @@ set pgp_replysign = yes
 #set pgp_replysignencrypted = yes
 set pgp_verify_sig = yes
 #set pgp_sign_as=
-send-hook "~f abn@posteo.de" set pgp_sign_as=DF6D22A22FA2D5A8
+set pgp_sign_as=DF6D22A22FA2D5A8
 
 source ~/.mutt/smimerc
 # Global crypto options -- these affect PGP operations as well.
@@ -74,6 +72,3 @@ color quoted5 yellow black
 color quoted6 red black
 color quoted7 green black
 
-color index green black "~C $from"
-
-save-hook . +/Archiv
