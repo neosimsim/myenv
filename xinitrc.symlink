@@ -3,4 +3,4 @@ xrdb ~/.Xresources
 xmodmap ~/.Xmodmap
 sh ~/.fehbg
 
-i3 -c ~/.i3.conf
+exec dwm
