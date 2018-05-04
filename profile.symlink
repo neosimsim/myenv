@@ -20,7 +20,7 @@ export BROWSER=chrome
 OWNPATH=$HOME/bin
 OWNPATH=$OWNPATH:$OPT/android-sdk-linux/tools
 OWNPATH=$OWNPATH:$OPT/android-sdk-linux/platform-tools
-export PATH=$OWNPATH:$PATH:/usr/local/plan9/bin:/usr/games
+export PATH=$OWNPATH:$PATH:$PLAN9/bin:/usr/games
 
 export MANPATH=$HOME/share/man:
 
