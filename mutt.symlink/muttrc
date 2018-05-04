@@ -72,3 +72,35 @@ color quoted5 yellow black
 color quoted6 red black
 color quoted7 green black
 
+uncolor index *
+uncolor header *
+uncolor body *
+#color attachment red white
+#color error brightred white
+#color hdrdefault blue white
+#color index blue white ~F
+#color index green default "~C balle@sernet.de"
+#color index green default "~C ball@sernet.de"
+#color index green default "~C $from"
+#color index green default "~C iverninice@sernet.de"
+#color index red white "~N|~O"
+color indicator white black
+#color markers red white
+color message default default
+color normal default default
+color prompt default default
+color quoted1 green default
+color quoted2 red default
+color quoted3 green default
+color quoted4 cyan default
+color quoted5 yellow default
+color quoted6 red default
+color quoted7 green default
+color quoted blue default
+color search black white
+#color signature blue white
+color status white black
+#color tilde brightmagenta white
+color tree default default
+color search white black
+
