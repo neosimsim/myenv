@@ -9,13 +9,12 @@ export VISUAL=view
 export MAILPATH=$MAIL:$HOME/.mail/posteo?"Neue Mails."
 export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 export TEXMFHOME=$HOME/texmf
-export WORKSPACE=$HOME/workspace
+export WORKSPACE=$HOME/src
 export OPT=$HOME/opt
 export PLAN9=/usr/local/plan9
-export GOPATH=$WORKSPACE/go
+export GOPATH=$HOME
 export GOOS=openbsd
 export GOARCH=amd64
-export GOBIN=$HOME/bin
 export BROWSER=chrome
 
 OWNPATH=$HOME/bin
