@@ -18,6 +18,13 @@
 	type = cat-file -t
 	dump = cat-file -p
 	rebase-sign = rebase --exec 'git commit --amend --no-verify --no-edit -n -S'
+	# golang contribution
+	change = codereview change
+	gofmt = codereview gofmt
+	mail = codereview mail
+	pending = codereview pending
+	submit = codereview submit
+	sync = codereview sync
 [diff]
 	tool = vimdiff
 [merge]
@@ -29,3 +36,5 @@
 	pretty = format:commit %C(yellow)%H %Cblue%D%nParent(s): %P%nAuthor   : %an <%ae> %ad%nCommitter: %cn <%ce> %cd%n%CredSignature: %-GS %-GK %-G? %Creset%w(0,0,11)%+s%n%w(0,0,11)%+b
 [gpg]
 	program = gpg2
+[http]
+	cookiefile = /home/abn/.gitcookies
