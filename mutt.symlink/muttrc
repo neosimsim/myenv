@@ -1,9 +1,10 @@
 set folder        = ~/.mail/
 set spoolfile     = =abn/Inbox
-set record        = ~/.mail/sent
+set record        = $folder/sent
 set realname      = "Alexander Ben Nasrallah"
 set use_from      = yes
 set postpone      = yes
+set postponed     = $folder/draft
 set ssl_force_tls = yes
 set sort          = threads
 set sort_aux      = last-date-received
