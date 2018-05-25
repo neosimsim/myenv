@@ -16,6 +16,7 @@ export GOPATH=$HOME
 export GOOS=openbsd
 export GOARCH=amd64
 export BROWSER=chrome
+export GPG_TTY=`tty`
 
 OWNPATH=$HOME/bin
 OWNPATH=$OWNPATH:$OPT/android-sdk-linux/tools
