@@ -11,12 +11,14 @@ export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 export TEXMFHOME=$HOME/texmf
 export WORKSPACE=$HOME/src
 export OPT=$HOME/opt
-export PLAN9=/usr/local/plan9
 export GOPATH=$HOME
 export GOOS=openbsd
 export GOARCH=amd64
+export PLAN9=/usr/local/plan9
+export tabstop=4
 export BROWSER=chrome
 export GPG_TTY=`tty`
+export NAMESPACE=$HOME/9p
 
 OWNPATH=$HOME/bin
 OWNPATH=$OWNPATH:$OPT/android-sdk-linux/tools
