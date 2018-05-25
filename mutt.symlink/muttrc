@@ -81,10 +81,7 @@ uncolor body *
 #color error brightred white
 #color hdrdefault blue white
 #color index blue white ~F
-#color index green default "~C balle@sernet.de"
-#color index green default "~C ball@sernet.de"
 #color index green default "~C $from"
-#color index green default "~C iverninice@sernet.de"
 #color index red white "~N|~O"
 color indicator white black
 #color markers red white
