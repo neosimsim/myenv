@@ -20,6 +20,7 @@ mailboxes =abn/Inbox =posteo/Inbox =posteo/lists.gentoo =posteo/lists.openbsd
 
 folder-hook =abn/ source ~/.mutt/abnrc
 folder-hook =posteo/ source ~/.mutt/posteorc
+source ~/.mutt/abnrc # default
 
 source ~/.mutt/gpgrc
 set pgp_use_gpg_agent = yes
