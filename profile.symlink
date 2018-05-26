@@ -17,7 +17,6 @@ export GOARCH=amd64
 export PLAN9=/usr/local/plan9
 export tabstop=4
 export BROWSER=chrome
-export GPG_TTY=`tty`
 export NAMESPACE=$HOME/9p
 
 OWNPATH=$HOME/bin
