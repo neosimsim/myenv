@@ -20,7 +20,7 @@ syntax enable
 syntax off
 colorscheme neosimsim
 set background=dark
-set number
+set nonumber
 set autoindent
 set copyindent
 set tabstop=4
