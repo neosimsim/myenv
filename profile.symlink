@@ -20,6 +20,8 @@ export BROWSER=chrome
 export NAMESPACE=$HOME/9p
 
 OWNPATH=$HOME/bin
+OWNPATH=$OWNPATH:$HOME/.local/bin
+OWNPATH=$OWNPATH:$OPT/go/bin
 OWNPATH=$OWNPATH:$OPT/android-sdk-linux/tools
 OWNPATH=$OWNPATH:$OPT/android-sdk-linux/platform-tools
 export PATH=$OWNPATH:$PATH:$PLAN9/bin:/usr/games
