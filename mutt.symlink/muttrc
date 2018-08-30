@@ -48,13 +48,7 @@ auto_view text/html
 alternative_order text/plain text/html
 
 # Open attachment using shell command. See http://stackoverflow.com/questions/21564892/open-attachment-with-macro-in-mutt-email-client
-macro attach O \
-	"\
-	<enter-command>unset wait_key<enter>\
-	<shell-escape>rm -f /tmp/mutt-attach<enter>\
-	<save-entry><kill-line>/tmp/mutt-attach<enter>\
-	<shell-escape> /tmp/mutt-attach &^A\
-	"
+macro attach O "<enter-command>unset wait_key<enter><shell-escape>rm -f /tmp/mutt-attach<enter><save-entry><kill-line>/tmp/mutt-attach<enter><shell-escape> /tmp/mutt-attach &^A"
 
 ignore *
 unignore From:
