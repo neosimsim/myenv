@@ -26,7 +26,7 @@ OWNPATH=$OWNPATH:$OPT/android-sdk-linux/tools
 OWNPATH=$OWNPATH:$OPT/android-sdk-linux/platform-tools
 export PATH=$OWNPATH:$PATH:$PLAN9/bin:/usr/games
 
-export MANPATH=$HOME/share/man:
+export MANPATH=$HOME/man:
 
 alias ed='ed -p"* "'
 alias ll='ls -l'
