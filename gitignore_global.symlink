@@ -1,0 +1,4 @@
+.syntastic_*_config
+*.latexmain
+.cabal-sandbox
+cabal.sandbox.config
