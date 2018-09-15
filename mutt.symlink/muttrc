@@ -16,7 +16,7 @@ subscribe @openbsd.org @lists.gentoo.org
 auto_view text/html
 alternative_order text/plain text/html
 
-mailboxes =abn/Inbox =posteo/Inbox =posteo/lists.gentoo =posteo/lists.openbsd =posteo/lists.haskell
+mailboxes =abn/Inbox =posteo/Inbox =abn/Lists.Gentoo =abn/Lists.OpenBSD =abn/Lists.Haskell
 
 folder-hook =abn/ source ~/.mutt/abnrc
 folder-hook =posteo/ source ~/.mutt/posteorc
