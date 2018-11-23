@@ -21,6 +21,7 @@ export NAMESPACE=$HOME/9p
 export PS1="$USER@`hostname`\$ "
 
 OWNPATH=$HOME/bin
+OWNPATH=$OWNPATH:$HOME/.cabal/bin
 OWNPATH=$OWNPATH:$HOME/.local/bin
 OWNPATH=$OWNPATH:$OPT/go/bin
 OWNPATH=$OWNPATH:$OPT/android-sdk-linux/tools
@@ -38,6 +39,8 @@ alias rm='rm -i'
 alias mv='mv -i'
 alias tmux-sp='tmux split-window -c $PWD'
 alias Watch='Watch -x \\.git'
+# workaround for haskell, due to w^x on OpenBSD
+alias cabal='env TMPDIR=/usr/local/cabal/build/ cabal'
 
 . ~/.ssh-agent-thing > /dev/null
 if ! [ -e $SSH_AUTH_SOCK ]
