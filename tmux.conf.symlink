@@ -3,6 +3,7 @@ set -g pane-base-index 1
 set -g mouse
 set -g prefix C-t
 set -g status-position top
+set -g default-command rc
 
 bind-key -T copy-mode-vi    P                 send-keys -X copy-pipe-and-cancel "sed 's/ / SPACE /g' | xargs tmux send-keys"
 # pass the word under cursor to `open`
