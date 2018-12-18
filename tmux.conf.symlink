@@ -1,6 +1,6 @@
 set -g base-index 1
 set -g pane-base-index 1
-set -g mouse
+set -g mouse on
 set -g prefix C-t
 set -g status-position top
 set -g default-command rc
