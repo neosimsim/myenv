@@ -16,4 +16,5 @@ bind-key -T copy-mode-vi    MouseDrag3Pane    send-keys -X begin-selection
 bind-key -T copy-mode-vi    MouseDragEnd3Pane send-keys -X copy-pipe-and-cancel "xargs tmux split-window -c #{pane_current_path} open"
 
 bind-key -T root            MouseDown2Pane    paste-buffer
+bind-key -T root            MouseDown3Status  choose-tree -Zw
 
