@@ -3,7 +3,7 @@ set -g pane-base-index 1
 set -g mouse on
 set -g prefix C-t
 set -g status-position top
-set -g default-command rc
+set -g default-command $SHELL
 set -g mode-keys vi
 set -g status-keys vi
 
