@@ -9,6 +9,8 @@ keysym b = b B leftsinglequotemark leftdoublequotemark
 keysym minus = minus underscore figdash
 keysym period = period greater ellipsis U0262F
 keysym c = c C copyright
+keysym comma = comma less guillemotleft
+keysym period = period greater guillemotright
 
 remove Lock = Caps_Lock
 keysym Caps_Lock = Escape
