@@ -30,7 +30,6 @@ export PATH=$OWNPATH:$PATH:/usr/games:$PLAN9/bin
 
 export MANPATH=$HOME/man:
 
-alias ed='ed -p"* "'
 alias ll='ls -l'
 alias l='ls -1'
 alias my_rsync='rsync -rlHtu --include-from=$HOME/.rsync_include --exclude-from=$HOME/.rsync_exclude'
