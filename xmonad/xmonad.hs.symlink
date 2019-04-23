@@ -1,0 +1,52 @@
+import           Graphics.X11.ExtraTypes
+import           System.IO                (hPutStrLn)
+import           XMonad
+import           XMonad.Layout
+import           XMonad.Layout.Grid
+import           XMonad.Layout.Spiral
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.SetWMName
+import           XMonad.Util.EZConfig     (additionalKeys)
+import           XMonad.Util.Run          (spawnPipe)
+
+main = do
+  xmproc <- spawnPipe "xmobar -o $HOME/.xmobarrc"
+  xmonad $ myConfig xmproc `additionalKeys` myKeys
+
+myModMask = mod4Mask
+
+myConfig xmproc =
+  def
+    { borderWidth = 2
+    , modMask = myModMask
+    , terminal = "st"
+    , manageHook = manageDocks <+> myManageHook <+> manageHook def
+    , layoutHook = avoidStruts $ Grid ||| Full ||| spiral (6/7) ||| Tall 1 (1/300) (1/2) ||| Mirror (Tall 1 (1/300) (1/2))
+    , handleEventHook = handleEventHook def <+> docksEventHook
+    , logHook =
+        dynamicLogWithPP
+          xmobarPP
+            { ppOutput = hPutStrLn xmproc
+            , ppTitle = shorten 50
+            , ppCurrent = \id -> "[" ++ id ++ "]"
+            }
+    , normalBorderColor = "#cccccc"
+    , focusedBorderColor = "#cd8b00"
+    , startupHook = setWMName "LG3D"
+    }
+  where
+    myManageHook =
+      composeAll
+        [ className =? "Gimp" --> doFloat
+        , className =? "Chromium" --> doShift "3"
+        ]
+
+myKeys =
+  [ ((myModMask .|. shiftMask, xK_p), spawn "dpass")
+  , ((myModMask, xF86XK_AudioLowerVolume), spawn "amixer set Master 5%-")
+  , ((myModMask, xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+")
+  , ((myModMask, xF86XK_AudioMute), spawn "amixer set Master toggle")
+  , ((myModMask, xK_Print), spawn "scrot -s")
+  , ((0, xK_Print), spawn "scrot")
+  ]

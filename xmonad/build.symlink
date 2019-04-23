@@ -1,0 +1,4 @@
+#!/bin/sh
+
+stack exec ghc xmonad.hs
+mv xmonad xmonad-`uname -m`-`uname -s | tr [A-Z] [a-z]`
