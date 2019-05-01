@@ -19,6 +19,7 @@ export tabstop=4
 export BROWSER=chrome
 export NAMESPACE=$HOME/9p
 export PS1="$USER@`hostname`\$ "
+export CDPATH=".:$HOME:$HOME/src/github.com/neosimsim"
 
 OWNPATH=$HOME/bin
 OWNPATH=$OWNPATH:$HOME/.cabal/bin
