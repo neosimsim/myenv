@@ -44,9 +44,11 @@ myConfig xmproc =
 
 myKeys =
   [ ((myModMask .|. shiftMask, xK_p), spawn "dpass")
-  , ((myModMask, xF86XK_AudioLowerVolume), spawn "amixer set Master 5%-")
-  , ((myModMask, xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+")
-  , ((myModMask, xF86XK_AudioMute), spawn "amixer set Master toggle")
+  , ((0, xF86XK_AudioLowerVolume), spawn "amixer set Master 5%-")
+  , ((0, xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+")
+  , ((0, xF86XK_AudioMute), spawn "amixer set Master toggle")
+  , ((0, xF86XK_MonBrightnessUp), spawn "bl_inc")
+  , ((0, xF86XK_MonBrightnessDown), spawn "bl_dec")
   , ((myModMask, xK_Print), spawn "scrot -s")
   , ((0, xK_Print), spawn "scrot")
   ]
