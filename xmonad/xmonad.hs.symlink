@@ -20,7 +20,7 @@ myConfig xmproc =
   def
     { borderWidth = 2
     , modMask = myModMask
-    , terminal = "st"
+    , terminal = "mlterm"
     , manageHook = manageDocks <+> myManageHook <+> manageHook def
     , layoutHook = avoidStruts $ Grid ||| Full ||| spiral (6/7) ||| Tall 1 (1/300) (1/2) ||| Mirror (Tall 1 (1/300) (1/2))
     , handleEventHook = handleEventHook def <+> docksEventHook
@@ -52,4 +52,7 @@ myKeys =
   , ((0, xF86XK_MonBrightnessDown), spawn "bl_dec")
   , ((myModMask, xK_Print), spawn "scrot -s")
   , ((0, xK_Print), spawn "scrot")
+  , ((myModMask, xK_a), spawn "rotatekb")
+  , ((myModMask, xK_Arabic_sheen), spawn "rotatekb")
+  , ((myModMask .|. shiftMask , xK_t), spawn "mlterm -V -1 55")
   ]
