@@ -1,0 +1,5 @@
+DEFAULT=Deja Vu Serif
+U+0590-05FF=Free Serif # Hebrew
+U+0600-06FF=Free Serif # Arabic
+U+0700-074F=Free Serif # Syriac
+U+0750-077F=Free Serif # Arabic Supplement
