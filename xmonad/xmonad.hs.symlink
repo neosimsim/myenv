@@ -34,6 +34,7 @@ myConfig xmproc =
     , normalBorderColor = "#cccccc"
     , focusedBorderColor = "#cd8b00"
     , startupHook = setWMName "LG3D"
+    , focusFollowsMouse = False
     }
   where
     myManageHook =
