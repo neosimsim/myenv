@@ -10,6 +10,7 @@ hi Error		ctermbg=1 ctermfg=0
 hi Special		cterm=none
 hi LineNr		ctermfg=7
 hi SpellBad		ctermbg=1 ctermfg=0
+hi Visual		ctermbg=0 ctermfg=7
 hi DiffAdd		ctermfg=0 ctermbg=2
 hi DiffDelete	ctermfg=0 ctermbg=1
 hi clear DiffChange
