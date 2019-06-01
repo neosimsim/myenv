@@ -6,11 +6,11 @@ endif
 
 let colors_name = "neosimsim"
 
-hi Error		ctermbg=1 ctermfg=0
+hi Error		ctermfg=0 ctermbg=1
 hi Special		cterm=none
 hi LineNr		ctermfg=7
-hi SpellBad		ctermbg=1 ctermfg=0
-hi Visual		ctermbg=0 ctermfg=7
+hi SpellBad		ctermfg=0 ctermbg=1
+hi Visual		ctermfg=7 ctermbg=0
 hi DiffAdd		ctermfg=0 ctermbg=2
 hi DiffDelete	ctermfg=0 ctermbg=1
 hi clear DiffChange

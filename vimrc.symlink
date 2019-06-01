@@ -18,8 +18,8 @@ call plug#end()
 filetype plugin indent on
 syntax enable
 syntax off
+set t_Co=256
 colorscheme neosimsim
-set background=dark
 set nonumber
 set autoindent
 set copyindent
