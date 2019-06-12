@@ -12,7 +12,7 @@ import           XMonad.Util.Run          (spawnPipe)
 
 main = do
   xmproc <- spawnPipe "xmobar -o $HOME/.xmobarrc"
-  xmonad $ myConfig xmproc `additionalKeys` myKeys
+  xmonad . docks $ myConfig xmproc `additionalKeys` myKeys
 
 myModMask = mod4Mask
 
