@@ -54,5 +54,4 @@ myKeys =
   , ((0, xK_Print), spawn "scrot")
   , ((myModMask, xK_a), spawn "rotatekb")
   , ((myModMask, xK_Arabic_sheen), spawn "rotatekb")
-  , ((myModMask .|. shiftMask , xK_t), spawn "mlterm -V -1 55")
   ]
