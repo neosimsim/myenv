@@ -3,4 +3,4 @@ xrdb ~/.Xresources
 xmodmap ~/.Xmodmap
 sh ~/.fehbg
 
-exec dwm
+exec xmonad
