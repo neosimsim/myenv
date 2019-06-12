@@ -43,7 +43,7 @@ alias Watch='Watch -x \\.git'
 alias cabal='env TMPDIR=/usr/local/cabal/build/ cabal'
 
 . ~/.ssh-agent-thing > /dev/null
-if ! [ -e $SSH_AUTH_SOCK ]
+if ! [ -e "$SSH_AUTH_SOCK" ]
 then
 	ssh-agent > ~/.ssh-agent-thing
 	. ~/.ssh-agent-thing
