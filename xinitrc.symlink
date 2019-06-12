@@ -1,4 +1,4 @@
-xautolock -cornerdelay 1 -cornerredelay 5 -time 1 -locker 'i3lock -c000000' -corners 0-00 &
+xautolock -cornerdelay 1 -cornerredelay 5 -time 1 -locker 'slock -c000000' -corners 0-00 &
 xrdb ~/.Xresources
 xmodmap ~/.Xmodmap
 sh ~/.fehbg
