@@ -12,6 +12,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-latex/vim-latex'
 Plug 'vim-scripts/Align'
+Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()
 
 " ============================ Personal Configuration ==========================
@@ -130,6 +131,10 @@ let g:tagbar_type_tex = {
     \ ],
     \ 'sort'    : 0,
 \ }
+
+" = Indent Guides ==============================================================
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
 
 " ==============================================================================
 " ============================ END OF FILE =====================================
