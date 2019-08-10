@@ -4,6 +4,7 @@ import           XMonad
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
+import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.Grid
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.Spiral
@@ -13,7 +14,7 @@ import           XMonad.Util.Run            (spawnPipe)
 main :: IO ()
 main = do
   xmproc <- spawnPipe "xmobar -o $HOME/.xmobarrc"
-  xmonad . docks $ myConfig xmproc `additionalKeys` myKeys
+  xmonad . docks . fullscreenSupport $ myConfig xmproc `additionalKeys` myKeys
   where
     myConfig xmproc =
       def
