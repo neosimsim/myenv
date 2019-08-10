@@ -1,48 +1,48 @@
 import           Graphics.X11.ExtraTypes
-import           System.IO                (hPutStrLn)
+import           System.IO                  (hPutStrLn)
 import           XMonad
-import           XMonad.Layout
-import           XMonad.Layout.Grid
-import           XMonad.Layout.Spiral
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
-import           XMonad.Util.EZConfig     (additionalKeys)
-import           XMonad.Util.Run          (spawnPipe)
+import           XMonad.Layout.Grid
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.Spiral
+import           XMonad.Util.EZConfig       (additionalKeys)
+import           XMonad.Util.Run            (spawnPipe)
 
+main :: IO ()
 main = do
   xmproc <- spawnPipe "xmobar -o $HOME/.xmobarrc"
   xmonad . docks $ myConfig xmproc `additionalKeys` myKeys
+  where
+    myConfig xmproc =
+      def
+        { borderWidth = 2
+        , modMask = myModMask
+        , terminal = "mlterm"
+        , manageHook =
+            composeAll
+              [manageHook def, manageDocks, className =? "Gimp" --> doFloat]
+        , layoutHook =
+            smartBorders . avoidStruts $ Grid ||| Full ||| spiral (6 / 7)
+        , handleEventHook = handleEventHook def <+> docksEventHook
+        , logHook =
+            dynamicLogWithPP
+              xmobarPP
+                { ppOutput = hPutStrLn xmproc
+                , ppTitle = shorten 50
+                , ppCurrent = \x -> "[" ++ x ++ "]"
+                }
+        , normalBorderColor = "#cccccc"
+        , focusedBorderColor = "#cd8b00"
+        , startupHook = setWMName "LG3D"
+        , focusFollowsMouse = False
+        }
 
+myModMask :: KeyMask
 myModMask = mod4Mask
 
-myConfig xmproc =
-  def
-    { borderWidth = 2
-    , modMask = myModMask
-    , terminal = "mlterm"
-    , manageHook = manageDocks <+> myManageHook <+> manageHook def
-    , layoutHook = avoidStruts $ Grid ||| Full ||| spiral (6/7) ||| Tall 1 (1/300) (1/2) ||| Mirror (Tall 1 (1/300) (1/2))
-    , handleEventHook = handleEventHook def <+> docksEventHook
-    , logHook =
-        dynamicLogWithPP
-          xmobarPP
-            { ppOutput = hPutStrLn xmproc
-            , ppTitle = shorten 50
-            , ppCurrent = \id -> "[" ++ id ++ "]"
-            }
-    , normalBorderColor = "#cccccc"
-    , focusedBorderColor = "#cd8b00"
-    , startupHook = setWMName "LG3D"
-    , focusFollowsMouse = False
-    }
-  where
-    myManageHook =
-      composeAll
-        [ className =? "Gimp" --> doFloat
-        , className =? "Chromium" --> doShift "3"
-        ]
-
+myKeys :: [((KeyMask, KeySym), X ())]
 myKeys =
   [ ((myModMask .|. shiftMask, xK_p), spawn "dpass")
   , ((0, xF86XK_AudioLowerVolume), spawn "amixer set Master 5%-")
