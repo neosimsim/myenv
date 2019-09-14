@@ -1,4 +1,4 @@
 #!/bin/sh
 
-stack exec ghc xmonad.hs
+stack exec --package xmonad --package xmonad-contrib  -- ghc xmonad.hs -Wall -Werror
 mv xmonad xmonad-`uname -m`-`uname -s | tr [A-Z] [a-z]`
