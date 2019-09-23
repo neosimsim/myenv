@@ -13,6 +13,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-latex/vim-latex'
 Plug 'vim-scripts/Align'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 " ============================ Personal Configuration ==========================
