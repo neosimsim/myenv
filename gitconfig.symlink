@@ -25,6 +25,13 @@
 	pending = codereview pending
 	submit = codereview submit
 	sync = codereview sync
+	authors = ! git log --pretty='format:%an' | sort | uniq | awk 'NF >= 2'
+	conflicts = ! git status -uno --short | awk '/^UU/ {print $2}'
+	show-files = show --name-only --pretty=""
+	log-files = log --name-only --pretty=""
+	untracked =  ! git status --short | awk '/^\\?\\?/ {print $2}'
+	touched =  ! git status -uno --short | awk '{print $2}'
+	dropped-stash = ! git fsck --no-reflog | awk '/dangling commit/ {print $3}' # | while read i; do git log -1 --date iso --pretty=format:"%cd %H%n" $i; done | sort | awk '{print $2}'
 [diff]
 	tool = vimdiff
 [merge]
