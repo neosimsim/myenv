@@ -1,9 +1,6 @@
 # dotfiles
 Collection of my personal dotfiles.
 
-# Note
-- Everything is testet under [OpenBSD](http://www.openbsd.org/).
-
 # Install
 To install dotfiles call
 
