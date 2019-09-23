@@ -14,6 +14,7 @@ Plug 'vim-latex/vim-latex'
 Plug 'vim-scripts/Align'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'altercation/vim-colors-solarized'
+Plug 'derekelkins/agda-vim'
 call plug#end()
 
 " ============================ Personal Configuration ==========================
