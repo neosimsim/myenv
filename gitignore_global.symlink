@@ -1,4 +1,5 @@
-.syntastic_*_config
+*.agda.vim
 *.latexmain
 .cabal-sandbox
+.syntastic_*_config
 cabal.sandbox.config
