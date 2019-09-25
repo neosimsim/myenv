@@ -6,7 +6,6 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'nanotech/jellybeans.vim'
 Plug 'scrooloose/nerdcommenter'
-"Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -82,12 +81,7 @@ inoremap <Leader>Ue Ü
 inoremap <Leader>ue ü
 inoremap <Leader>ss ß
 
-" vimrc_example.vim might map Q to format text (gq) instead of enetering the
-" ex mode. (see :help mode-Ex)
-"!unmap Q
-
-" ==== LaTeX-suit ==============================================================
-
+" LaTeX-suit
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
@@ -98,15 +92,15 @@ set grepprg=grep\ -nH\ $*
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
 
-" = syntastic ==================================================================
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+" syntastic
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_tex_chktex_args = "-n9 -n17"
 
-" = tagbar =====================================================================
+" tagbar
 let g:tagbar_left = 1
 let g:tagbar_ctags_bin = '/usr/bin/ctags'
 let g:tagbar_type_markdown = {
@@ -130,9 +124,7 @@ let g:tagbar_type_tex = {
     \ 'sort'    : 0,
 \ }
 
-" = Indent Guides ==============================================================
+" Indent Guides
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
-" ==============================================================================
-" ============================ END OF FILE =====================================
