@@ -23,6 +23,7 @@ syntax enable
 syntax off
 set t_Co=256
 colorscheme neosimsim
+set background=light
 set nonumber
 set autoindent
 set copyindent
