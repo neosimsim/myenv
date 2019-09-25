@@ -37,9 +37,10 @@ Config
           , "Charged"
           ]
           50
+      , Run Alsa "default" "Master" []
       ]
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-      "%StdinReader% }{ %battery% |  %cpu% | %memory% || <fc=#073642>%date%</fc>"
+      "%StdinReader% }{ %battery% | %alsa:default:Master% |  %cpu% | %memory% || <fc=#073642>%date%</fc>"
   }
