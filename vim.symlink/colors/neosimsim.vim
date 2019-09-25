@@ -6,13 +6,12 @@ endif
 
 let colors_name = "neosimsim"
 
-hi Error		ctermfg=0 ctermbg=1
-hi Special		cterm=none
-hi LineNr		ctermfg=7
-hi SpellBad		ctermfg=0 ctermbg=1
-hi Visual		ctermfg=7 ctermbg=0
-hi DiffAdd		ctermfg=0 ctermbg=2
-hi DiffDelete	ctermfg=0 ctermbg=1
-hi clear DiffChange
-hi clear DiffText
-hi DiffText		cterm=NONE ctermfg=3
+hi Error      cterm=none ctermfg=0 ctermbg=1
+hi Special    cterm=none
+hi LineNr     cterm=none ctermfg=7
+hi SpellBad   cterm=none ctermfg=0 ctermbg=1
+hi Visual     cterm=none ctermfg=7 ctermbg=0
+hi DiffAdd    cterm=none ctermfg=0 ctermbg=2
+hi DiffDelete cterm=none ctermfg=0 ctermbg=1
+hi DiffChange cterm=none ctermfg=0 ctermbg=3
+hi DiffText   cterm=none ctermfg=0 ctermbg=4
