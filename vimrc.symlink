@@ -49,6 +49,7 @@ set directory=~/.vim/swap//,.
 set showcmd
 set mouse=a
 set belloff=all
+set nohls
 
 set statusline=%F:%l:%v\ %m%r%w\|%Y\|%{&ff}\|%{&encoding}%<\|%=%3p%%\ %L
 
