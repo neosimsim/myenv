@@ -20,7 +20,7 @@ main = do
       def
         { borderWidth = 2
         , modMask = myModMask
-        , terminal = "mlterm"
+        , terminal = "mlterm -L"
         , manageHook =
             composeAll
               [manageHook def, manageDocks, className =? "Gimp" --> doFloat]
