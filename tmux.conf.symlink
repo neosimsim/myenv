@@ -5,6 +5,9 @@ set -g prefix C-t
 set -g status-position top
 set -g mode-keys vi
 set -g status-keys vi
+set -g status-interval 1
+set -g status-right "#{pane_current_path} | #(date +'%a %b %y %H:%M')"
+set -g status-right-length 70
 
 bind-key -T copy-mode-vi    P                 send-keys -X copy-pipe-and-cancel "sed 's/ / SPACE /g' | xargs tmux send-keys"
 # pass the word under cursor to `open`
