@@ -4,4 +4,7 @@ xmodmap ~/.Xmodmap
 sh ~/.fehbg
 amixer set Master mute
 
+which plumber && 9 plumber -p $HOME/.plumbing
+which fontsrv && fontsrv &
+
 exec xmonad
