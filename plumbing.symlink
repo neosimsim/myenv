@@ -52,7 +52,7 @@ data matches '[a-zA-Z¡-￿0-9_\-./]+'
 data matches '([a-zA-Z¡-￿0-9_\-./]+)\.(ps|PS|eps|EPS|pdf|PDF|dvi|DVI)'
 arg isfile	$0
 plumb to postscript
-plumb start 9 mupdf $file
+plumb start 9 zathura $file
 
 # open office - s[xt][cdigmw], doc, xls, ppt
 data matches '[a-zA-Z¡-￿0-9_\-./]+'
@@ -152,7 +152,7 @@ plumb start 9 sxiv $data
 # start rule for postscript without known suffixes
 dst is postscript
 arg isfile $data
-plumb start 9 mupdf $file
+plumb start 9 zathura $file
 
 # show git log on SHA1
 type is text
