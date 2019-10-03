@@ -8,6 +8,7 @@ plumb to seemail
 plumb to showmail
 
 editor=sam
+browser=firefox
 
 # relative files as file: urls get made into absolute paths
 type is text
@@ -15,13 +16,19 @@ data matches 'file:([.a-zA-Z¡-￿0-9_\-]([.a-zA-Z¡-￿0-9_/\-]*[a-zA-Z¡-￿0-
 arg isfile	$1
 data set	file://$file
 plumb to web
-plumb start web $data
+plumb start 9 $browser $data
 
 # urls go to web browser
 type is text
 data matches '(https?|ftp|file|gopher|mailto|news|nntp|telnet|wais|prospero)://[a-zA-Z0-9_@/\-]+([.:][a-zA-Z0-9_@\-]+)*[a-zA-Z0-9_?,%#~&/\-+=]+([:.][a-zA-Z0-9_?,%#~&/\-+=]+)*'
 plumb to web
-plumb start web $0
+plumb start 9 $browser $data
+
+# html documents got to web browser
+type is text
+data matches '/[a-zA-Z0-9_@/\-]+([.:][a-zA-Z0-9_@\-]+)*[a-zA-Z0-9_?,%#~&/\-+=]+([:.][a-zA-Z0-9_?,%#~&/\-+=]+)*.html'
+plumb to web
+plumb start 9 $browser $data
 
 # doc and rtf files go to wdoc2txt
 type is text
