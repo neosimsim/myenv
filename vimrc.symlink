@@ -80,6 +80,10 @@ inoremap <Leader>oe ö
 inoremap <Leader>Ue Ü
 inoremap <Leader>ue ü
 inoremap <Leader>ss ß
+inoremap <Leader>,  
+
+nnoremap <Leader>u :.!uni<CR>
+vnoremap <Leader>u :!uni<CR>
 
 " LaTeX-suit
 " IMPORTANT: grep will sometimes skip displaying the file name if you
