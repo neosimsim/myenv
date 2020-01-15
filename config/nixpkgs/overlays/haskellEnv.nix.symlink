@@ -1,9 +1,0 @@
-self: super: {
-  myHaskellEnv = self.haskell.packages.ghc881.ghcWithHoogle (haskellPackages: with haskellPackages; [
-    cabal-fmt
-    cabal-install
-    hfmt
-    stylish-haskell
-  ]);
-}
-
