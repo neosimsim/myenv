@@ -1,5 +1,0 @@
-self: super: {
-  myAgda = self.haskell.packages.ghc865.ghcWithHoogle (haskellPackages: with haskellPackages; [
-    Agda
-  ]);
-}
