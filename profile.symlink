@@ -48,3 +48,11 @@ then
 	ssh-agent > ~/.ssh-agent-thing
 	. ~/.ssh-agent-thing
 fi
+
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]
+then
+	source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+	export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
+	# https://github.com/NixOS/nix/issues/599
+	#export LOCALE_ARCHIVE="$(nix-env --installed --no-name --out-path --query glibc-locales)/lib/locale/locale-archive"
+fi
