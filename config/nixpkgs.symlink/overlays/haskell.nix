@@ -7,7 +7,7 @@ self: super: {
     # see: https://github.com/haskell/cabal/issues/6228
     myHaskell =
       let
-        myGhc = self.haskell.packages.ghc881.ghcWithPackages (haskellPackages: with haskellPackages; [
+        myGhc = super.haskell.packages.ghc881.ghcWithPackages (haskellPackages: with haskellPackages; [
                   # Some packages require a "pre-build" Haskell library zlib, otherwise
                   # I get:
                   #
@@ -17,7 +17,7 @@ self: super: {
                   zlib
                 ]);
       in
-        with self; [
+        with super; [
           myGhc
           haskellPackages.cabal-install
           haskellPackages.hindent
