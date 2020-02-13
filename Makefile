@@ -3,5 +3,8 @@
 PREFIX=$(HOME)
 
 install:
-	$(MAKE) -C cabal-extras INSTALL_FLAGS="--installdir $(PREFIX)/bin --install-method copy" install-cabal-env
-	$(MAKE) -C packages install
+	$(MAKE) -C dotfiles install
+	$(MAKE) PREFIX=$(PREFIX) -C scripts install-posix
+	$(MAKE) PREFIX=$(PREFIX) -C packages install
+	$(MAKE) PREFIX=$(PREFIX) -C scripts install
+

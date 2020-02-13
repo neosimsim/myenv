@@ -9,8 +9,8 @@ POSIX_BIN = \
 	a+ \
 	a- \
 	agda \
-	agda-mode \
 	agda2 \
+	agda-mode \
 	agofmt \
 	Ahfmt \
 	bat \
