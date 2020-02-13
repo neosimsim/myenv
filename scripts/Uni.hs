@@ -12,7 +12,6 @@ import qualified Data.Text               as Text
 import           Data.Text.Encoding
 import qualified Data.Text.IO            as Text (putStrLn)
 import           Data.Void               (Void)
-import           System.IO               (getContents)
 import           Text.Megaparsec         as P
 import           Text.Megaparsec.Char    as P
 
