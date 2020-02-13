@@ -8,9 +8,6 @@ POSIX_BIN = \
 	a \
 	a+ \
 	a- \
-	agda \
-	agda2 \
-	agda-mode \
 	agofmt \
 	Ahfmt \
 	bat \
@@ -31,6 +28,7 @@ POSIX_BIN = \
 	license \
 	lower \
 	mkgit \
+	myagda \
 	open \
 	overwrite \
 	passgen \
