@@ -1,0 +1,4 @@
+.POSIX:
+
+install:
+	sh hackage

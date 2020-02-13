@@ -1,0 +1,3 @@
+[submodule "cabal-extras"]
+	path = cabal-extras
+	url = https://github.com/neosimsim/cabal-extras.git

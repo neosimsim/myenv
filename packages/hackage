@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+INSTALL_FLAGS="--installdir $HOME/bin --install-method copy"
+cabal v2-update
+cabal v2-install $INSTALL_FLAGS cabal-install
+cabal v2-install $INSTALL_FLAGS -f with_alsa -f with_xft xmobar
+cabal v2-install $INSTALL_FLAGS xmonad
+cabal-env -n xmonad-env xmonad xmonad-contrib X11
