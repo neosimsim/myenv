@@ -1,0 +1,31 @@
+#!/bin/sh
+
+case $# in
+	0) echo "usage: $0 <git log args>" >&2 ; exit 1 ;;
+esac
+
+git log --date-order --reverse --pretty=format:"%H -- %P" "$@" \
+|awk '
+BEGIN {
+	FS=" *-- *"
+	print "digraph {"
+}
+
+{
+	idxs[$1] = NR
+	# print the node
+	printf("%d [label=\"%s\"]\n", NR, $1)
+
+	# print the edges
+	printf("%s -> {", NR)
+	split($2, xs, " *")
+	for (x in xs) {
+		printf(" %s", idxs[xs[x]])
+	}
+	printf(" };\n")
+}
+
+END {
+	print "}"
+}
+'

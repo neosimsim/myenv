@@ -1,0 +1,19 @@
+#!/bin/sh
+
+usage () {
+cat <<EOF
+usage: filter cmd
+
+Runs cmd for each each line from stdin with the line as arguments.
+Prints the line if cmd exits successful.
+EOF
+}
+
+case $# in
+	0) usage ; exit 1 ;;
+esac
+
+while read line
+do
+	$* $line && echo $line
+done

@@ -10,3 +10,5 @@ dotfiles/vim.symlink/autoload/plug.vim.old
 dotfiles/vim.symlink/undo
 dotfiles/vim.symlink/backup
 dotfiles/vim.symlink/swap
+
+dist-newstyle

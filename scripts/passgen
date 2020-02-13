@@ -1,0 +1,3 @@
+#!/bin/sh
+
+tr -cd '[:alnum:]-+*_$()^%' < /dev/urandom | fold -w30 | sed 1q

@@ -1,0 +1,36 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+	FS = "."
+	currentFileName=""
+	extension=""
+
+	for (i=1; i < ARGC; ++i) {
+		extensions[i-1] = ARGV[i]
+	}
+	for (i in ARGV) {
+		delete ARGV[i]
+	}
+}
+
+$1 == currentFileName {
+	for (i in extensions) {
+		if ($2 == extensions[i] || extension == extensions[i]) {
+			extension = extensions[i]
+			return
+		}
+	}
+}
+
+$1 != currentFileName {
+	if (currentFileName) {
+		print currentFileName "." extension
+	}
+
+	currentFileName=$1
+	extension=$2
+}
+
+END {
+	print currentFileName "." extension
+}

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if ! which setxkbmap >/dev/null 2>&1
+then
+	echo "setxbmap not installed" >&2
+	exit 1
+fi
+
+layout=`setxkbmap -query | grep layout | awk '{ print $2 }'`
+
+case $layout in
+	us) setxkbmap -layout ara -variant mac ;;
+	*) setxkbmap -layout us; xmodmap ~/.Xmodmap ;;
+esac

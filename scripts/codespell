@@ -1,0 +1,10 @@
+#!/bin/sh
+
+files=$@
+if [ $# -lt 1 ]
+then
+	files=/dev/stdin
+fi
+
+splitcammel < $files | aspell -l en_US list | sort | uniq
+

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd "$HOME/games"
+
+selection=`ls | dmenu`
+
+exec "$selection/start.sh"

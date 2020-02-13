@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# split a cammel case word by space
+
+testInput() {
+cat <<EOF
+in : splitMeTti
+out: split Me Tti
+DONTSPLIT
+EOF
+}
+
+ssam -e 'x/[a-z][A-Z]/ -#0+#1i/ /'
+

@@ -1,0 +1,46 @@
+#!/bin/sh
+
+usage () {
+cat <<EOF >&2
+usage: tmux-ws DIRECTORY
+
+. and .. are not allowes ad DIRECTORY.
+EOF
+exit 1
+}
+
+case $# in
+	0) usage ;;
+esac
+
+projectdir="$1"
+
+if [ "$projectdir" == "." ] || [ "$projectdir" == ".." ]
+then 
+	echo "invalid project name $projectdir"
+	usage
+fi
+
+if ! [ -d "$projectdir" ]
+then
+	echo "$projectdir is not a directory" >&2
+	usage
+fi
+
+cd "$projectdir"
+
+projectname="`basename $projectdir`"
+
+if ! tmux has-session -t "$projectname" >/dev/null 2>&1
+then 
+	tmux new-session -d -s "$projectname"
+	tmux split-window -l 10  -t "$projectname":1
+	tmux select-pane -t "$projectname":1.1
+fi
+
+if [ -z "$TMUX" ]
+then
+	exec tmux attach -t "$projectname"
+else
+	exec tmux switch-client -t "$projectname"
+fi

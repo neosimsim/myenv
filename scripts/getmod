@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]
+then
+	echo usage: $0 filename >&2
+fi
+
+ls -ld $1 |
+	awk '{ print $1 }' |
+	sed 's/^.//' |
+	sed 's/---/0/g' |
+	sed 's/--x/1/g' |
+	sed 's/-w-/2/g' |
+	sed 's/-wx/3/g' |
+	sed 's/r--/4/g' |
+	sed 's/r-x/5/g' |
+	sed 's/rw-/6/g' |
+	sed 's/rwx/7/g'

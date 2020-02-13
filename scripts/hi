@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ -z $1 ]; then
+	echo Highlighting pattern required.
+	exit 1
+fi
+
+esc=$(printf '\033')
+sed "s,$1,${esc}[31m&${esc}[0m,"

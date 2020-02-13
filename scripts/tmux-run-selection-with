@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cmd=${1:-open}
+
+if [ $# -gt 0 ]; then shift; fi
+
+tmux send-keys $@ -X copy-pipe-and-cancel "xargs tmux split-window -c #{pane_current_path} $cmd"
+

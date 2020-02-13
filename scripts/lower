@@ -1,0 +1,4 @@
+#!/bin/sh
+
+tr [:upper:]ÄÖÜ [:lower:]äöü
+

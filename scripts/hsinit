@@ -1,0 +1,374 @@
+#!/bin/sh
+
+# To unbundle, run this file
+echo ./app
+mkdir -p ./app
+chmod 755 ./app
+echo ./app
+mkdir -p ./app
+chmod 755 ./app
+echo ./app/Main.hs
+sed 's/.//' >./app/Main.hs <<'//GO.SYSIN DD ./app/Main.hs'
+-module Main
+-  ( main
+-  ) where
+-
+-import           Lib
+-
+-main :: IO ()
+-main = someFunc
+//GO.SYSIN DD ./app/Main.hs
+chmod 644 ./app/Main.hs
+echo ./ChangeLog.md.template
+sed 's/.//' >./ChangeLog.md.template <<'//GO.SYSIN DD ./ChangeLog.md.template'
+-# Changelog for stack-template
+-
+-## Unreleased changes
+//GO.SYSIN DD ./ChangeLog.md.template
+chmod 644 ./ChangeLog.md.template
+echo ./.gitignore
+sed 's/.//' >./.gitignore <<'//GO.SYSIN DD ./.gitignore'
+-*.lock
+-.stack-work/
+-dist-newstyle/
+-dist/
+//GO.SYSIN DD ./.gitignore
+chmod 644 ./.gitignore
+echo ./.gitlab-ci.yml.template
+sed 's/.//' >./.gitlab-ci.yml.template <<'//GO.SYSIN DD ./.gitlab-ci.yml.template'
+-stages:
+-- build
+-
+-variables:
+-  STACK_ROOT: "$CI_PROJECT_DIR/.cache/stack"
+-
+-.stack: &stack_build
+-  stage: build
+-  script:
+-  - stack --stack-yaml stack-build.yaml exec --package cabal-fmt -- cabal-fmt <project>.cabal | diff <project>.cabal -
+-  - stack --stack-yaml stack-build.yaml exec --package hfmt -- hfmt
+-  - stack build --pedantic
+-  - stack test --pedantic
+-  cache:
+-    key: "$CI_JOB_NAME"
+-    paths:
+-    - .cache/stack
+-
+-stack-latest:
+-  <<: *stack_build
+-  image: fpco/stack-build-small:lts
+-  allow_failure: true
+-  script:
+-  - stack --stack-yaml stack-build.yaml exec --package cabal-fmt cabal-fmt <project>.cabal | diff <project>.cabal -
+-  - stack --stack-yaml stack-build.yaml exec --package hfmt hfmt
+-  - stack --resolver lts build --pedantic
+-  - stack --resolver lts test --pedantic
+-
+-stack-14.6:
+-  <<: *stack_build
+-  image: fpco/stack-build-small:lts-14.6
+-  variables:
+-    STACK_YAML: stack-lts-14.6.yaml
+-
+-.cabal: &cabal_job
+-  stage: build
+-  script:
+-  - cabal v2-update
+-  - cabal v2-build
+-  - cabal v2-test test
+-
+-cabal-latest:
+-  <<: *cabal_job
+-  image: haskell:latest
+-  allow_failure: true
+-
+-cabal-8.8.1:
+-  <<: *cabal_job
+-  image: haskell:8.8.1
+-
+-cabal-8.6.5:
+-  <<: *cabal_job
+-  image: haskell:8.6.5
+//GO.SYSIN DD ./.gitlab-ci.yml.template
+chmod 644 ./.gitlab-ci.yml.template
+echo ./init
+sed 's/.//' >./init <<'//GO.SYSIN DD ./init'
+-#!/bin/sh -e
+-
+-dirname=$(basename `pwd`)
+-name=${1:-$dirname}
+-year=$(date +%Y)
+-
+-sed "s/<project>/$name/g;s/<year>/$year/" package.cabal.template >$name.cabal
+-stack --stack-yaml stack-build.yaml exec -- cabal-fmt -i $name.cabal
+-sed "s/<project>/$name/g" misc/git/pre-commit.template >misc/git/pre-commit
+-sed "s/<project>/$name/g" README.md.template >README.md
+-sed "s/<project>/$name/g" ChangeLog.md.template >ChangeLog.md
+-sed "s/<year>/$year/" LICENSE.template >LICENSE
+-sed "s/<project>/$name/g" .gitlab-ci.yml.template >.gitlab-ci.yml
+-chmod +x misc/git/pre-commit
+-ln -s stack-lts-14.6.yaml stack.yaml
+-
+-rm package.cabal.template
+-rm README.md.template
+-rm ChangeLog.md.template
+-rm misc/git/pre-commit.template
+-rm LICENSE.template
+-rm .gitlab-ci.yml.template
+-rm $0
+-
+-git init .
+-cp misc/git/pre-commit .git/hooks/
+-git add .
+-git commit -m 'initial commit'
+//GO.SYSIN DD ./init
+chmod 755 ./init
+echo ./LICENSE.template
+sed 's/.//' >./LICENSE.template <<'//GO.SYSIN DD ./LICENSE.template'
+-BSD 3-Clause License
+-
+-Copyright © <year>, Alexander Ben Nasrallah <me@abn.sh>
+-All rights reserved.
+-
+-Redistribution and use in source and binary forms, with or without
+-modification, are permitted provided that the following conditions are met:
+-
+-*	Redistributions of source code must retain the above copyright notice, this
+-	list of conditions and the following disclaimer.
+-
+-*	Redistributions in binary form must reproduce the above copyright notice,
+-	this list of conditions and the following disclaimer in the documentation
+-	and/or other materials provided with the distribution.
+-
+-*	Neither the name of the copyright holder nor the names of its contributors
+-	may be used to endorse or promote products derived from this software
+-	without specific prior written permission.
+-
+-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-
+//GO.SYSIN DD ./LICENSE.template
+chmod 644 ./LICENSE.template
+echo ./misc
+mkdir -p ./misc
+chmod 755 ./misc
+echo ./misc
+mkdir -p ./misc
+chmod 755 ./misc
+echo ./misc/git
+mkdir -p ./misc/git
+chmod 755 ./misc/git
+echo ./misc
+mkdir -p ./misc
+chmod 755 ./misc
+echo ./misc/git
+mkdir -p ./misc/git
+chmod 755 ./misc/git
+echo ./misc/git/pre-commit.template
+sed 's/.//' >./misc/git/pre-commit.template <<'//GO.SYSIN DD ./misc/git/pre-commit.template'
+-#!/bin/sh
+-#
+-# An example hook script to verify what is about to be committed.
+-# Called by "git commit" with no arguments.  The hook should
+-# exit with non-zero status after issuing an appropriate message if
+-# it wants to stop the commit.
+-#
+-# To enable this hook, rename this file to "pre-commit".
+-
+-if git rev-parse --verify HEAD >/dev/null 2>&1
+-then
+-	against=HEAD
+-else
+-	# Initial commit: diff against an empty tree object
+-	against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+-fi
+-
+-# If you want to allow non-ASCII filenames set this variable to true.
+-allownonascii=$(git config --bool hooks.allownonascii)
+-
+-# Redirect output to stderr.
+-exec 1>&2
+-
+-# Cross platform projects tend to avoid non-ASCII filenames; prevent
+-# them from being added to the repository. We exploit the fact that the
+-# printable range starts at the space character and ends with tilde.
+-if [ "$allownonascii" != "true" ] &&
+-	# Note that the use of brackets around a tr range is ok here, (it's
+-	# even required, for portability to Solaris 10's /usr/bin/tr), since
+-	# the square bracket bytes happen to fall in the designated range.
+-	test $(git diff --cached --name-only --diff-filter=A -z $against |
+-	  LC_ALL=C tr -d '[ -~]\0' | wc -c) != 0
+-then
+-	cat <<\EOF
+-Error: Attempt to add a non-ASCII file name.
+-
+-This can cause problems if you want to work with people on other platforms.
+-
+-To be portable it is advisable to rename the file.
+-
+-If you know what you are doing you can disable this check using:
+-
+-  git config hooks.allownonascii true
+-EOF
+-	exit 1
+-fi
+-
+-# If there are whitespace errors, print the offending file names and fail.
+-if ! git diff-index --check --cached $against --
+-then
+-	exit 1
+-fi
+-
+-if ! (stack --stack-yaml stack-build.yaml exec --package cabal-fmt -- cabal-fmt <project>.cabal | diff <project>.cabal - >/dev/null )
+-then
+-	echo "Cabal file must be formatted with cabal-fmt. Please run:"
+-	echo "cabal-fmt -i <project>.cabal"
+-	exit 1
+-fi
+-
+-unformatted=$(stack --stack-yaml stack-build.yaml exec --package hfmt -- hfmt -l)
+-if [ -n "$unformatted" ]
+-then
+-	echo "Haskell files must be formatted with hfmt. Please run:"
+-	for fn in $unformatted; do
+-		echo "  hfmt -w $fn"
+-	done
+-	exit 1
+-fi
+-
+-if ! (stack clean && stack build --pedantic && stack test --pedantic); then
+-	echo "Project can't be build. Please fix before committing."
+-	exit 1
+-fi
+//GO.SYSIN DD ./misc/git/pre-commit.template
+chmod 644 ./misc/git/pre-commit.template
+echo ./package.cabal.template
+sed 's/.//' >./package.cabal.template <<'//GO.SYSIN DD ./package.cabal.template'
+-cabal-version:      1.12
+-name:               <project>
+-version:            0.0.0.0
+-synopsis:           Template Synopsis. Should be edited before release.
+-description:
+-  Please see the README on GitHub at <https://gitlab.com/neosimsim/<project>#readme>
+-
+-category:           cli-tool
+-homepage:           https://gitlab.com/neosimsim/<project>
+-bug-reports:        https://gitlab.com/neosimsim/<project>/issues
+-author:             Alexander Ben Nasrallah
+-maintainer:         me@abn.sh
+-copyright:          <year> © Alexander Ben Nasrallah
+-license:            BSD3
+-license-file:       LICENSE
+-build-type:         Simple
+-extra-source-files:
+-  README.md
+-  ChangeLog.md
+-
+-source-repository head
+-  type:     git
+-  location: https://gitlab.com/neosimsim/<project>.git
+-
+-flag static
+-  description: Statically link the application
+-  manual:      True
+-  default:     False
+-
+-library
+-  exposed-modules: Lib
+-  hs-source-dirs:  src
+-  build-depends:
+-      base              >=4.7 && <5
+-
+-  default-language: Haskell2010
+-
+-executable <project>
+-  main-is:          Main.hs
+-  hs-source-dirs:   app
+-  ghc-options:      -threaded -rtsopts -with-rtsopts=-N
+-  build-depends:
+-      base                  >=4.7 && <5
+-    , <project>
+-
+-  if flag(static)
+-    ld-options: -static -pthread
+-
+-  default-language: Haskell2010
+-
+-test-suite test
+-  type:             exitcode-stdio-1.0
+-  main-is:          Spec.hs
+-  hs-source-dirs:   test
+-  ghc-options:      -threaded -rtsopts -with-rtsopts=-N
+-  build-depends:
+-      base              >=4.7 && <5
+-
+-  default-language: Haskell2010
+//GO.SYSIN DD ./package.cabal.template
+chmod 644 ./package.cabal.template
+echo ./README.md.template
+sed 's/.//' >./README.md.template <<'//GO.SYSIN DD ./README.md.template'
+-# <project>
+-
+-[![pipeline status](https://gitlab.com/neosimsim/<project>/badges/master/pipeline.svg)](https://gitlab.com/neosimsim/<project>/commits/master)
+//GO.SYSIN DD ./README.md.template
+chmod 644 ./README.md.template
+echo ./Setup.hs
+sed 's/.//' >./Setup.hs <<'//GO.SYSIN DD ./Setup.hs'
+-import           Distribution.Simple
+-
+-main = defaultMain
+//GO.SYSIN DD ./Setup.hs
+chmod 644 ./Setup.hs
+echo ./src
+mkdir -p ./src
+chmod 755 ./src
+echo ./src
+mkdir -p ./src
+chmod 755 ./src
+echo ./src/Lib.hs
+sed 's/.//' >./src/Lib.hs <<'//GO.SYSIN DD ./src/Lib.hs'
+-module Lib
+-  ( someFunc
+-  ) where
+-
+-someFunc :: IO ()
+-someFunc = putStrLn "someFunc"
+//GO.SYSIN DD ./src/Lib.hs
+chmod 644 ./src/Lib.hs
+echo ./stack-build.yaml
+sed 's/.//' >./stack-build.yaml <<'//GO.SYSIN DD ./stack-build.yaml'
+-resolver: lts-14.6
+-
+-extra-deps:
+-# needed by hfmt
+-- hindent-5.3.1@sha256:23dc3d423820a1de4a11f54eb87992f2c9fa1b686b2230bb06d1af46edc85c4b,3452
+-- stylish-haskell-0.9.2.2@sha256:7852ea649b83f899888fdc2559d25495d0959d832cb9ca9da53bae78df66dc0e,4581
+-# needed by cabal-fmt
+-- Cabal-3.0.0.0@sha256:1ba37b8d80e89213b17db7b8b9ea0108da55ca65f8c0cbb7433881a284c5cf67,26027
+//GO.SYSIN DD ./stack-build.yaml
+chmod 644 ./stack-build.yaml
+echo ./stack-lts-14.6.yaml
+sed 's/.//' >./stack-lts-14.6.yaml <<'//GO.SYSIN DD ./stack-lts-14.6.yaml'
+-resolver: lts-14.6
+//GO.SYSIN DD ./stack-lts-14.6.yaml
+chmod 644 ./stack-lts-14.6.yaml
+echo ./test
+mkdir -p ./test
+chmod 755 ./test
+echo ./test
+mkdir -p ./test
+chmod 755 ./test
+echo ./test/Spec.hs
+sed 's/.//' >./test/Spec.hs <<'//GO.SYSIN DD ./test/Spec.hs'
+-main :: IO ()
+-main = putStrLn "Test suite not yet implemented"
+//GO.SYSIN DD ./test/Spec.hs
+chmod 644 ./test/Spec.hs
