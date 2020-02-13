@@ -1,7 +1,6 @@
 {-# OPTIONS_GHC -Wall -Werror #-}
 
 import           Data.Function   ((&))
-import           System.FilePath (FilePath)
 
 data FileModification
   = Added { filePath :: FilePath }
