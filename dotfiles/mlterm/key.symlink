@@ -1,0 +1,4 @@
+Control+F11="proto:;use_variable_column_width=true;screen_width_ratio=55"
+Control+F12="proto:use_variable_column_width=false;screen_width_ratio=100"
+Control+Shift+plus="proto:fontsize=larger"
+Control+Shift+underscore="proto:fontsize=smaller"

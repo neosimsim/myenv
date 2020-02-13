@@ -1,0 +1,58 @@
+set -o vi
+export LC_ALL=en_US.UTF-8
+export ENV=~/.shinit
+export HISTFILE=$HOME/.sh_history
+export HISTSIZE=4096
+export EDITOR=vim
+export FCEDIT=$EDITOR
+export MAILPATH=$MAIL:$HOME/.mail/posteo?"Neue Mails."
+export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
+export TEXMFHOME=$HOME/texmf
+export WORKSPACE=$HOME/src
+export APPLICATIONS=$HOME/apps
+export GOOS=linux
+export GOARCH=amd64
+export GOBIN="$HOME/bin"
+export PLAN9="$HOME/src/plan9port"
+export tabstop=4
+export BROWSER=chrome
+export NAMESPACE=$HOME/9p
+export PS1="$USER@`hostname`\$ "
+export CDPATH=".:$HOME:$HOME/src"
+
+OWNPATH=$HOME/bin
+OWNPATH=$OWNPATH:$HOME/.cabal/bin
+OWNPATH=$OWNPATH:$HOME/.local/bin
+OWNPATH=$OWNPATH:$APPLICATIONS/go/bin
+OWNPATH=$OWNPATH:$APPLICATIONS/ghc/bin
+OWNPATH=$OWNPATH:$APPLICATIONS/android-sdk-linux/tools
+OWNPATH=$OWNPATH:$APPLICATIONS/android-sdk-linux/platform-tools
+export PATH=$OWNPATH:$PATH:/usr/games:$PLAN9/bin
+
+export MANPATH=$HOME/man:
+
+alias ll='ls -l'
+alias l='ls -1'
+alias my_rsync='rsync -rlHtu --include-from=$HOME/.rsync_include --exclude-from=$HOME/.rsync_exclude'
+alias cmatrix='cmatrix -b -u 6'
+alias rm='rm -i'
+alias mv='mv -i'
+alias tmux-sp='tmux split-window -c $PWD'
+alias Watch='Watch -x \\.git'
+# workaround for haskell, due to w^x on OpenBSD
+#alias cabal='env TMPDIR=/usr/local/cabal/build/ cabal'
+
+[ -f ~/.ssh-agent-thing ] && . ~/.ssh-agent-thing > /dev/null
+if ! [ -e "$SSH_AUTH_SOCK" ]
+then
+	ssh-agent > ~/.ssh-agent-thing
+	. ~/.ssh-agent-thing
+fi
+
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]
+then
+	source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+	export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
+	# https://github.com/NixOS/nix/issues/599
+	#export LOCALE_ARCHIVE="$(nix-env --installed --no-name --out-path --query glibc-locales)/lib/locale/locale-archive"
+fi

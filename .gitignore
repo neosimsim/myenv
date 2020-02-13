@@ -1,0 +1,12 @@
+dotfiles/mutt.symlink/gpgrc
+dotfiles/mutt.symlink/smimerc
+dotfiles/mutt.symlink/cache
+
+dotfiles/vim.symlink/plugged
+dotfiles/vim.symlink/spell/*
+dotfiles/!vim.symlink/spell/*.add
+dotfiles/vim.symlink/.netrwhist
+dotfiles/vim.symlink/autoload/plug.vim.old
+dotfiles/vim.symlink/undo
+dotfiles/vim.symlink/backup
+dotfiles/vim.symlink/swap

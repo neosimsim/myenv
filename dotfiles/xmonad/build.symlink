@@ -1,0 +1,3 @@
+#!/bin/sh
+
+stack --resolver lts-14.6 ghc --package xmonad --package xmonad-contrib  -- -Wall -Werror -threaded -rtsopts -with-rtsopts=-N -static -o xmonad-`uname -m`-`uname -s | tr [A-Z] [a-z]` xmonad.hs

@@ -1,0 +1,10 @@
+set my_pass = "`keystore show web/mailbox | sed -n 1p`"
+set my_user = "`keystore show web/mailbox | sed -n 2p`"
+
+save-hook . =abn/Archiv
+set trash         = =abn/Trash
+set from          = "me@abn.sh"
+set smtp_url      = "smtps://$my_user@smtp.mailbox.org:465/"
+set smtp_pass     = "$my_pass"
+my_hdr Bcc: $realname <$from>
+

@@ -1,0 +1,47 @@
+[user]
+	email = me@abn.sh
+	name = Alexander Ben Nasrallah
+	signingKey = DF6D22A22FA2D5A8
+[commit]
+	gpgSign = true
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = $EDITOR
+	whitespace = -blank-at-eof
+[alias]
+	log-graph = log --pretty=oneline --graph --decorate
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
+	rebase-sign = rebase --exec 'git commit --amend --no-verify --no-edit -n -S'
+	# golang contribution
+	change = codereview change
+	gofmt = codereview gofmt
+	mail = codereview mail
+	pending = codereview pending
+	submit = codereview submit
+	sync = codereview sync
+	authors = ! git log --pretty='format:%an' | sort | uniq | awk 'NF >= 2'
+	conflicts = ! git status -uno --short | awk '/^UU/ {print $2}'
+	show-files = show --name-only --pretty=""
+	log-files = log --name-only --pretty=""
+	untracked =  ! git status --short | awk '/^\\?\\?/ {print $2}'
+	touched =  ! git status -uno --short | awk '{print $2}'
+	dropped-stash = ! git fsck --no-reflog | awk '/dangling commit/ {print $3}' # | while read i; do git log -1 --date iso --pretty=format:"%cd %H%n" $i; done | sort | awk '{print $2}'
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[gui]
+	fontui = -family \"Liberation Sans\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"Liberation Mono\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+[format]
+	pretty = format:commit %C(yellow)%H %Cblue%D%nParent(s): %P%nAuthor   : %an <%ae> %ad%nCommitter: %cn <%ce> %cd%n%CredSignature: %-GS %-GK %-G? %Creset%w(0,0,11)%+s%n%w(0,0,11)%+b
+[gpg]
+	program = gpg2
+[http]
+	cookiefile = /home/abn/.gitcookies

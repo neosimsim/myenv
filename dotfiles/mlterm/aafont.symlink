@@ -1,0 +1,6 @@
+DEFAULT=Liberation Mono
+U+0590-05FF=Free Mono # Hebrew
+U+0600-06FF=Free Mono # Arabic
+U+0700-074F=Free Mono # Syriac
+U+0750-077F=Free Mono # Arabic Supplement
+U+2190-21FF=Free Mono # Arrows

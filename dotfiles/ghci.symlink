@@ -1,0 +1,10 @@
+:set prompt "λ "
+:set prompt-cont "| "
+:set +t
+
+:m +Control.Monad
+:m +Data.Function
+:m +Data.Text
+
+:seti -XOverloadedStrings
+:seti -XTypeApplications

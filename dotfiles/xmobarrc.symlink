@@ -1,0 +1,46 @@
+Config
+  { font = "xft:Liberation Sans:pixelsize=20:antialias=true:autohint=true"
+  , bgColor = "#fdf6e3"
+  , fgColor = "#073642"
+  , position = TopW L 90
+  , commands =
+      [ Run
+          Cpu
+          ["-L", "3", "-H", "50", "--normal", "black", "--high", "red"]
+          10
+      , Run Memory ["-t", "Mem: <usedratio>%"] 10
+      , Run Date "%a %b %_d %H:%M" "date" 10
+      , Run StdinReader
+      , Run
+          Battery
+          [ "--template"
+          , "Batt: <acstatus>"
+          , "--Low"
+          , "10" -- units: %
+          , "--High"
+          , "80" -- units: %
+          , "--low"
+          , "darkred"
+          , "--normal"
+          , "darkorange"
+          , "--high"
+          , "darkgreen"
+          , "--" -- battery specific options
+                                     -- discharging status
+          , "-o"
+          , "<left> % (<timeleft>)"
+                                     -- AC "on" status
+          , "-O"
+          , "Charging"
+                                     -- charged status
+          , "-i"
+          , "Charged"
+          ]
+          50
+      , Run Alsa "default" "Master" []
+      ]
+  , sepChar = "%"
+  , alignSep = "}{"
+  , template =
+      "%StdinReader% }{ %battery% | %alsa:default:Master% |  %cpu% | %memory% || <fc=#073642>%date%</fc>"
+  }
