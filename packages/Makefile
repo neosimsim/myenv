@@ -17,5 +17,5 @@ install:
 	cabal v2-install $(CABAL_FLAGS) cabal-fmt
 	cabal v2-install $(CABAL_FLAGS) pandoc pandoc-include-code
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
-	g -v 8.6.5 cabal-env -n agda ieee
+	g -v 8.6.5 cabal-env -n agda ieee text
 
