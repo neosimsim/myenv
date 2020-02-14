@@ -3,16 +3,19 @@
 PREFIX=$(HOME)
 CABAL_FLAGS=--installdir $(PREFIX)/bin --install-method copy --overwrite-policy always
 GHC_VERSION=8.6.5
-GHC_CONFIG=
+GHC_CONFIG=--disable-ld-override
 
 all: noX xmonad
 
 noX: cabal cabal-env agda pandoc cabal-fmt hfmt
 
 ghcs:
-	$(MAKE) GHC_VERSION=8.4.2 ghc
+	# You might need to adopt this from system to system, depending on the system installed ghc.
+	# Not every ghc version is installable with every ghc version.
+	@echo bootsrapping with `which ghc` version `ghc --numeric-version`
+	$(MAKE) GHC_VERSION=8.2.2 ghc
+	g -v 8.2.2 $(MAKE) GHC_VERSION=8.4.2 ghc
 	g -v 8.4.2 $(MAKE) GHC_VERSION=8.6.5 ghc
-	cd $(PREFIX)/apps && ln -sf ghc-8.6.5 ghc
 	g -v 8.6.5 $(MAKE) GHC_VERSION=8.8.2 ghc
 
 hfmt: cabal
@@ -24,7 +27,7 @@ cabal-fmt: cabal
 	cabal v2-install $(CABAL_FLAGS) cabal-fmt
 
 cabal-env: cabal
-	make -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
+	$(MAKE) -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
 
 agda: cabal
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
@@ -46,12 +49,23 @@ alex: cabal
 happy: cabal
 	cabal v2-install $(CABAL_FLAGS) happy
 
-ghc: $(PREFIX)/src/ghc-$(GHC_VERSION) alex happy
+ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)
+
+$(PREFIX)/apps/ghc-$(GHC_VERSION): $(PREFIX)/src/ghc-$(GHC_VERSION)
+	$(MAKE) alex happy
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && cp build.mk.sample build.mk
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'HADDOCK_DOCS = NO' >> build.mk
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_HTML = NO' >> build.mk
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_PDF = NO' >> build.mk
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_PS = NO' >> build.mk
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'INTEGER_LIBRARY = integer-simple' >> build.mk
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BuildFlavour = perf' >> build.mk
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && ./configure --prefix=$(PREFIX)/apps/ghc-$(GHC_VERSION) $(GHC_CONFIG)
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make -j6
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make install
 
 $(PREFIX)/src/ghc-$(GHC_VERSION):
+	mkdir -p $(PREFIX)/src
 	cd $(PREFIX)/src && wget https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
 	cd $(PREFIX)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
 
