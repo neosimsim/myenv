@@ -7,11 +7,13 @@ GHC_CONFIG=
 
 all: noX xmonad
 
-noX: cabal agda pandoc cabal-fmt hfmt
+noX: cabal cabal-env agda pandoc cabal-fmt hfmt
 
 ghcs:
-	$(MAKE) GHC_VERSION=8.6.5 ghc
-	$(MAKE) GHC_VERSION=8.8.2 ghc
+	$(MAKE) GHC_VERSION=8.4.2 ghc
+	g -v 8.4.2 $(MAKE) GHC_VERSION=8.6.5 ghc
+	cd $(PREFIX)/apps && ln -sf ghc-8.6.5 ghc
+	g -v 8.6.5 $(MAKE) GHC_VERSION=8.8.2 ghc
 
 hfmt: cabal
 	# Unable to install hfmt with haskell-src-exts 1.22
@@ -20,6 +22,9 @@ hfmt: cabal
 
 cabal-fmt: cabal
 	cabal v2-install $(CABAL_FLAGS) cabal-fmt
+
+cabal-env: cabal
+	make -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
 
 agda: cabal
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
@@ -41,22 +46,17 @@ alex: cabal
 happy: cabal
 	cabal v2-install $(CABAL_FLAGS) happy
 
-ghc: $(HOME)/src/ghc-$(GHC_VERSION) alex happy
-	cd $(HOME)/src/ghc-$(GHC_VERSION) && ./configure --prefix=$(HOME)/apps/ghc-$(GHC_VERSION)
-	mkdir -p $(HOME)/src
-	cd $(HOME)/src && wget https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
-	cd $(HOME)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
-	cd $(HOME)/src/ghc-$(GHC_VERSION) && ./configure --prefix=$(HOME)/apps/ghc-$(GHC_VERSION) $(GHC_CONFIG)
-	cd $(HOME)/src/ghc-$(GHC_VERSION) && make -j6
-	cd $(HOME)/src/ghc-$(GHC_VERSION) && make install
+ghc: $(PREFIX)/src/ghc-$(GHC_VERSION) alex happy
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && ./configure --prefix=$(PREFIX)/apps/ghc-$(GHC_VERSION) $(GHC_CONFIG)
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make -j6
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make install
 
-$(HOME)/src/ghc-$(GHC_VERSION):
-	cd $(HOME)/src && wget https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
-	cd $(HOME)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
+$(PREFIX)/src/ghc-$(GHC_VERSION):
+	cd $(PREFIX)/src && wget https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
+	cd $(PREFIX)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
 
 cabal:
 	mkdir -p $(PREFIX)/bin
 	cabal v2-update
-	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) cabal-install
-	make -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
+	cabal v2-install $(CABAL_FLAGS) cabal-install
 
