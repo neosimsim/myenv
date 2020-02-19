@@ -35,7 +35,7 @@ then
 	exit 0
 fi
 
-printf 'running `%s` within ghc-%s\n' "$*" "$version"
+printf 'running `%s` within ghc-%s\n' "$*" "$version" >&2
 
 ghcpath="$APPLICATIONS/ghc-$version"
 
