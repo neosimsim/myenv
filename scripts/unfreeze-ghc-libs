@@ -34,7 +34,7 @@ removeTrailingVersion() {
 }
 
 removeMatchingLines() {
-	sed -in "$1" "$2"
+	sed -i "$1" "$2"
 }
 
 ghcLibDir=$(dirname $(which ghc))/../lib/ghc-$(ghc --numeric-version)
