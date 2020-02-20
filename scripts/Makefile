@@ -66,7 +66,7 @@ install-posix: phony
 
 install-haskell: phony
 	@echo install Haskell scripts
-	cabal v2-install --installdir $(PREFIX)/bin --install-method copy
+	g cabal v2-install --installdir $(PREFIX)/bin --install-method copy --overwrite-policy always
 
 uninstall: phony
 	cd $(PREFIX)/bin && rm -f $(BIN)
