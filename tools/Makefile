@@ -31,7 +31,7 @@ cabal-env: cabal
 
 agda: cabal
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
-	g -v 8.6.5 cabal-env -n agda ieee text
+	g -v 8.6.5 cabal-env -n agda Agda ieee text
 
 xmonad: cabal xmobar
 	cabal v2-install $(CABAL_FLAGS) xmonad
