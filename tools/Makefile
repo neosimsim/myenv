@@ -34,8 +34,8 @@ agda: cabal
 	g -v 8.6.5 cabal-env -n agda Agda ieee754 text
 
 xmonad: cabal xmobar
-	cabal v2-install $(CABAL_FLAGS) xmonad
-	cabal-env -n xmonad xmonad xmonad-contrib X11
+	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) xmonad
+	g -v 8.8.2 cabal-env -n xmonad xmonad xmonad-contrib X11
 
 xmobar: cabal
 	cabal v2-install $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
