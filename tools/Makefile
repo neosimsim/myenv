@@ -1,7 +1,7 @@
 .POSIX:
 
 PREFIX=$(HOME)
-CABAL_FLAGS=--installdir $(PREFIX)/bin --install-method copy --overwrite-policy always
+CABAL_FLAGS=--installdir $(PREFIX)/bin --install-method copy --overwrite-policy always --constraint 'hashable -integer-gmp' --constraint 'cryptonite -integer-gmp' --constraint 'scientific +integer-simple' --constraint 'integer-logarithms -integer-gmp'
 GHC_VERSION=8.6.5
 GHC_CONFIG=--disable-ld-override
 
