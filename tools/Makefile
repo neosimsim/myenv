@@ -5,9 +5,17 @@ CABAL_FLAGS=--installdir $(PREFIX)/bin --install-method copy --overwrite-policy 
 GHC_VERSION=8.6.5
 GHC_CONFIG=--disable-ld-override
 
-all: noX xmonad
+all:
+	$(MAKE) noX
+	$(MAKE) xmonad
 
-noX: cabal cabal-env agda pandoc cabal-fmt hfmt
+noX:
+	$(MAKE) cabal
+	$(MAKE) cabal-env
+	$(MAKE) agda
+	$(MAKE) pandoc
+	$(MAKE) cabal-fmt
+	$(MAKE) hfmt
 
 ghcs:
 	# You might need to adopt this from system to system, depending on the system installed ghc.
@@ -18,35 +26,35 @@ ghcs:
 	g -v 8.4.2 $(MAKE) GHC_VERSION=8.6.5 ghc
 	g -v 8.6.5 $(MAKE) GHC_VERSION=8.8.2 ghc
 
-hfmt: cabal
+hfmt: cabal-update
 	# Unable to install hfmt with haskell-src-exts 1.22
 	# https://github.com/chrisdone/hindent/issues/562
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) --constraint 'haskell-src-exts < 1.22' hfmt hindent hlint stylish-haskell
 
-cabal-fmt: cabal
+cabal-fmt: cabal-update
 	cabal v2-install $(CABAL_FLAGS) cabal-fmt
 
-cabal-env: cabal
+cabal-env: cabal-update
 	$(MAKE) -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
 
-agda: cabal
+agda: cabal-update
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
 	g -v 8.6.5 cabal-env -n agda Agda ieee754 text
 
-xmonad: cabal xmobar
+xmonad: cabal-update xmobar
 	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) xmonad
 	g -v 8.8.2 cabal-env -n xmonad xmonad xmonad-contrib X11
 
-xmobar: cabal
+xmobar: cabal-update
 	cabal v2-install $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
 
-pandoc: cabal
+pandoc: cabal-update
 	cabal v2-install $(CABAL_FLAGS) pandoc pandoc-include-code
 
-alex: cabal
+alex: cabal-update
 	cabal v2-install $(CABAL_FLAGS) alex
 
-happy: cabal
+happy: cabal-update
 	cabal v2-install $(CABAL_FLAGS) happy
 
 ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)
@@ -69,8 +77,10 @@ $(PREFIX)/src/ghc-$(GHC_VERSION):
 	cd $(PREFIX)/src && wget https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
 	cd $(PREFIX)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
 
-cabal:
-	mkdir -p $(PREFIX)/bin
+cabal-update:
 	cabal v2-update
+
+cabal: cabal-update
+	mkdir -p $(PREFIX)/bin
 	cabal v2-install $(CABAL_FLAGS) cabal-install
 
