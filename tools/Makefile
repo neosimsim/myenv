@@ -13,6 +13,7 @@ all:
 
 noX:
 	$(MAKE) cabal
+	$(MAKE) ghcs
 	$(MAKE) cabal-env
 	$(MAKE) agda
 	$(MAKE) pandoc
@@ -65,7 +66,7 @@ ghcs:
 	g -v 8.4.2 $(MAKE) GHC_VERSION=8.6.5 ghc
 	g -v 8.6.5 $(MAKE) GHC_VERSION=8.8.2 ghc
 
-ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)
+ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)/bin/ghc
 
 $(PREFIX)/apps/ghc-$(GHC_VERSION): $(PREFIX)/src/ghc-$(GHC_VERSION)
 	$(MAKE) alex happy

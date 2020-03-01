@@ -14,10 +14,6 @@ you may want to adapt the `ghcs` target in [tools/Makefile](tools/Makefile).
 
 you can then run
 
-	make -C tools ghcs
-
-followed by
-
 	make install
 
 or
@@ -27,7 +23,7 @@ or
 if you don't have or need X11 tools, e. g. xmonad.
 
 # Troubleshooting
-# unknown package `interger-gmp`
+## unknown package `interger-gmp`
 ghc is compiled with `INTEGER_LIBRARY = integer-simple`. This might cause
 trouble if cabal already cached some packages built with integer-gmp. In this
 case it might help to remove *$HOME/.cabal/store* and *$HOME/.cabal/packages*.
