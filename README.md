@@ -33,3 +33,7 @@ call `make` with
 ghc is compiled with `INTEGER_LIBRARY = integer-simple`. This might cause
 trouble if cabal already cached some packages built with integer-gmp. In this
 case it might help to remove *$HOME/.cabal/store* and *$HOME/.cabal/packages*.
+
+# Dockerfiles
+The Dockerfiles are not actually meant to build production images. There shall
+only verify that my setup works in my supported environment.
