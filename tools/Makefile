@@ -20,35 +20,35 @@ noX:
 	$(MAKE) cabal-fmt
 	$(MAKE) hfmt
 
-hfmt: cabal-update
+hfmt:
 	# Unable to install hfmt with haskell-src-exts 1.22
 	# https://github.com/chrisdone/hindent/issues/562
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) --constraint 'haskell-src-exts < 1.22' hfmt hindent hlint stylish-haskell
 
-cabal-fmt: cabal-update
+cabal-fmt:
 	cabal v2-install $(CABAL_FLAGS) cabal-fmt
 
-cabal-env: cabal-update
+cabal-env:
 	$(MAKE) -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
 
-agda: cabal-update
+agda:
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
 	g -v 8.6.5 cabal-env -n agda Agda ieee754 text
 
-xmonad: cabal-update xmobar
+xmonad: xmobar
 	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) xmonad
 	g -v 8.8.2 cabal-env -n xmonad xmonad xmonad-contrib X11
 
-xmobar: cabal-update
+xmobar:
 	cabal v2-install $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
 
-pandoc: cabal-update
+pandoc:
 	cabal v2-install $(CABAL_FLAGS) pandoc pandoc-include-code
 
-alex: cabal-update
+alex:
 	cabal v2-install $(CABAL_FLAGS) alex
 
-happy: cabal-update
+happy:
 	cabal v2-install $(CABAL_FLAGS) happy
 
 editinacme:
@@ -86,9 +86,6 @@ $(PREFIX)/src/ghc-$(GHC_VERSION):
 	cd $(PREFIX)/src && wget https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
 	cd $(PREFIX)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
 
-cabal-update:
-	cabal v2-update
-
-cabal: cabal-update
+cabal:
 	mkdir -p $(PREFIX)/bin
 	cabal v2-install $(CABAL_FLAGS) cabal-install
