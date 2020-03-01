@@ -8,6 +8,8 @@ GHC_CONFIG=--disable-ld-override
 all:
 	$(MAKE) noX
 	$(MAKE) xmonad
+	$(MAKE) editinacme
+	$(MAKE) Watch
 
 noX:
 	$(MAKE) cabal
@@ -16,15 +18,6 @@ noX:
 	$(MAKE) pandoc
 	$(MAKE) cabal-fmt
 	$(MAKE) hfmt
-
-ghcs:
-	# You might need to adopt this from system to system, depending on the system installed ghc.
-	# Not every ghc version is installable with every ghc version.
-	@echo bootsrapping with `which ghc` version `ghc --numeric-version`
-	$(MAKE) GHC_VERSION=8.2.2 ghc
-	g -v 8.2.2 $(MAKE) GHC_VERSION=8.4.2 ghc
-	g -v 8.4.2 $(MAKE) GHC_VERSION=8.6.5 ghc
-	g -v 8.6.5 $(MAKE) GHC_VERSION=8.8.2 ghc
 
 hfmt: cabal-update
 	# Unable to install hfmt with haskell-src-exts 1.22
@@ -57,6 +50,21 @@ alex: cabal-update
 happy: cabal-update
 	cabal v2-install $(CABAL_FLAGS) happy
 
+editinacme:
+	go get 9fans.net/go/acme/editinacme
+
+Watch:
+	go get github.com/eaburns/Watch
+
+ghcs:
+	# You might need to adopt this from system to system, depending on the system installed ghc.
+	# Not every ghc version is installable with every ghc version.
+	@echo bootsrapping with `which ghc` version `ghc --numeric-version`
+	$(MAKE) GHC_VERSION=8.2.2 ghc
+	g -v 8.2.2 $(MAKE) GHC_VERSION=8.4.2 ghc
+	g -v 8.4.2 $(MAKE) GHC_VERSION=8.6.5 ghc
+	g -v 8.6.5 $(MAKE) GHC_VERSION=8.8.2 ghc
+
 ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)
 
 $(PREFIX)/apps/ghc-$(GHC_VERSION): $(PREFIX)/src/ghc-$(GHC_VERSION)
@@ -83,4 +91,3 @@ cabal-update:
 cabal: cabal-update
 	mkdir -p $(PREFIX)/bin
 	cabal v2-install $(CABAL_FLAGS) cabal-install
-

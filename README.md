@@ -5,6 +5,7 @@ To install everything you need
 
 - ghc-8.0.2, ghc-8.4.2 or ghc-8.6.5
 - cabal >2.4
+- go
 
 i. e. installed from you systems packages manager.
 
