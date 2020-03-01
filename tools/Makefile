@@ -88,4 +88,13 @@ $(PREFIX)/src/ghc-$(GHC_VERSION):
 
 cabal:
 	mkdir -p $(PREFIX)/bin
+	cabal v2-update
+	# if cabal v2 is currently used, bootstrap v3
+	version=$$(cabal --numeric-version); \
+	major=$${version%%.*}; \
+	if [ "$major" -lt 3 ]; \
+	then \
+		cabal v2-install --bindir $(PREFIX)/bin cabal-install; \
+		cabal user-config update; \
+	fi
 	cabal v2-install $(CABAL_FLAGS) cabal-install
