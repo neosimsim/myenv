@@ -45,12 +45,6 @@ xmobar:
 pandoc:
 	cabal v2-install $(CABAL_FLAGS) pandoc pandoc-include-code
 
-alex:
-	cabal v2-install $(CABAL_FLAGS) alex
-
-happy:
-	cabal v2-install $(CABAL_FLAGS) happy
-
 editinacme:
 	go get 9fans.net/go/acme/editinacme
 
@@ -66,10 +60,9 @@ ghcs:
 	g -v 8.4.2 $(MAKE) GHC_VERSION=8.6.5 ghc
 	g -v 8.6.5 $(MAKE) GHC_VERSION=8.8.2 ghc
 
-ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)/bin/ghc
+ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)
 
 $(PREFIX)/apps/ghc-$(GHC_VERSION): $(PREFIX)/src/ghc-$(GHC_VERSION)
-	$(MAKE) alex happy
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && cp build.mk.sample build.mk
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'HADDOCK_DOCS = NO' >> build.mk
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_HTML = NO' >> build.mk
