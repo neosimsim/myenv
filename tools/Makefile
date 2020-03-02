@@ -26,10 +26,10 @@ hfmt:
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) --constraint 'haskell-src-exts < 1.22' hfmt hindent hlint stylish-haskell
 
 cabal-fmt:
-	cabal v2-install $(CABAL_FLAGS) cabal-fmt
+	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) cabal-fmt
 
 cabal-env:
-	$(MAKE) -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
+	g -v 8.8.2 $(MAKE) -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
 
 agda:
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
@@ -40,10 +40,10 @@ xmonad: xmobar
 	g -v 8.8.2 cabal-env -n xmonad xmonad xmonad-contrib X11
 
 xmobar:
-	cabal v2-install $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
+	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
 
 pandoc:
-	cabal v2-install $(CABAL_FLAGS) pandoc pandoc-include-code
+	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) pandoc pandoc-include-code
 
 editinacme:
 	go get 9fans.net/go/acme/editinacme
@@ -87,7 +87,7 @@ cabal:
 	major=$${version%%.*}; \
 	if [ "$major" -lt 3 ]; \
 	then \
-		cabal v2-install --bindir $(PREFIX)/bin cabal-install; \
+		g -v 8.6.5 cabal v2-install --bindir $(PREFIX)/bin cabal-install; \
 		cabal user-config update; \
 	fi
-	cabal v2-install $(CABAL_FLAGS) cabal-install
+	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) cabal-install
