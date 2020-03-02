@@ -80,6 +80,7 @@ $(PREFIX)/src/ghc-$(GHC_VERSION):
 	mkdir -p $(PREFIX)/src
 	cd $(PREFIX)/src && wget https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
 	cd $(PREFIX)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
+	cd $(PREFIX)/src && rm ghc-$(GHC_VERSION)-src.tar.xz
 
 cabal:
 	mkdir -p $(PREFIX)/bin
