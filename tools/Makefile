@@ -12,8 +12,8 @@ all:
 	$(MAKE) Watch
 
 noX:
-	$(MAKE) cabal
 	$(MAKE) ghcs
+	$(MAKE) cabal
 	$(MAKE) cabal-env
 	$(MAKE) agda
 	$(MAKE) pandoc
