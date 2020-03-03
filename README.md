@@ -9,6 +9,10 @@ To install everything you need
 
 i. e. installed from you systems packages manager.
 
+If your distribution is supported, you can run the preparation script, e. g.
+
+	sh prepare.alpine
+
 Depending on the installed GHC version already installed and to install
 you may want to adapt the `GHC_VERSIONS` in [tools/Makefile](tools/Makefile):
 

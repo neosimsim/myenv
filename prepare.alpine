@@ -1,0 +1,24 @@
+apk add \
+    autoconf \
+    automake \
+    binutils-gold \
+    build-base \
+    cabal \
+    coreutils \
+    cpio \
+    curl \
+    ghc \
+    go \
+    linux-headers \
+    libffi-dev \
+    llvm5 \
+    musl-dev \
+    ncurses-dev \
+    libxrandr-dev \
+    libxscrnsaver-dev \
+    libxft-dev \
+    xz-dev \
+    zlib-dev
+
+# needed to run ssh-agent int profile. Should this be optional?
+apk add openssh
