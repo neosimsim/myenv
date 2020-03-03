@@ -85,7 +85,7 @@ $(PREFIX)/apps/ghc-$(GHC_VERSION)/bin/ghc: $(PREFIX)/src/ghc-$(GHC_VERSION)/INST
 
 $(PREFIX)/src/ghc-$(GHC_VERSION)/INSTALL.md:
 	mkdir -p $(PREFIX)/src
-	cd $(PREFIX)/src && wget https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
+	cd $(PREFIX)/src && wget -q https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
 	cd $(PREFIX)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
 	cd $(PREFIX)/src && rm ghc-$(GHC_VERSION)-src.tar.xz
 
