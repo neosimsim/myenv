@@ -28,6 +28,13 @@ call `make` with
 
 	make GHC_VERSIONS='8.2.2 8.4.2 8.6.5 8.8.2' install
 
+# Customizations
+You can specify workstation specific settings in $HOME/.profile.local, e. g.
+
+	export BROWSER=firefox
+	export ACME_VARFONT=/mnt/font/FreeSans/12a/font
+	export ACME_FIXFONT=/mnt/font/DejaVuSansMono/13a/font
+
 # Troubleshooting
 ## unknown package `interger-gmp`
 ghc is compiled with `INTEGER_LIBRARY = integer-simple`. This might cause
