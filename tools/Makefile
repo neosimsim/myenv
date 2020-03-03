@@ -92,7 +92,7 @@ cabal:
 	# if cabal v2 is currently used, bootstrap v3
 	version=$$(cabal --numeric-version); \
 	major=$${version%%.*}; \
-	if [ "$major" -lt 3 ]; \
+	if [ "$$major" -lt 3 ]; \
 	then \
 		g -v 8.6.5 cabal v2-install --bindir $(PREFIX)/bin cabal-install; \
 		cabal user-config update; \
