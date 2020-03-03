@@ -1,5 +1,5 @@
 Config
-  { font = "xft:Liberation Sans:pixelsize=20:antialias=true:autohint=true"
+  { font = "xft:Free Sans:pixelsize=16:antialias=true:autohint=true"
   , bgColor = "#fdf6e3"
   , fgColor = "#073642"
   , position = TopW L 90
