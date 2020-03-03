@@ -1,7 +1,7 @@
 .POSIX:
 
 install: install-noX
-	. $(HOME)/.profile && $(MAKE) PREFIX=$(PREFIX) -C tools all
+	. $(HOME)/.profile && $(MAKE) -C tools all
 
 install-noX:
 	$(MAKE) -C dotfiles install
