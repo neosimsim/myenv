@@ -24,6 +24,8 @@ noX:
 	$(MAKE) cabal-fmt
 	$(MAKE) hfmt
 
+# Haskell
+
 hfmt:
 	# Unable to install hfmt with haskell-src-exts 1.22
 	# https://github.com/chrisdone/hindent/issues/562
@@ -50,12 +52,6 @@ xmobar:
 
 pandoc:
 	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) pandoc pandoc-include-code
-
-editinacme:
-	go get 9fans.net/go/acme/editinacme
-
-Watch:
-	go get github.com/eaburns/Watch
 
 all-ghc:
 	# You might need to adopt GHC_VERSIONS.
@@ -105,3 +101,12 @@ cabal:
 		cabal user-config update; \
 	fi
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) cabal-install
+
+# go
+
+editinacme:
+	go get 9fans.net/go/acme/editinacme
+
+Watch:
+	go get github.com/eaburns/Watch
+
