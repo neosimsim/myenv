@@ -14,3 +14,6 @@ install-noX:
 	# We can now install every other script.
 	. $(HOME)/.profile && $(MAKE) -C scripts install
 
+test:
+	$(MAKE) -C scripts test
+	$(MAKE) -C texfiles pdf
