@@ -1,10 +1,13 @@
 .POSIX:
 
 PREFIX=$(HOME)
-CABAL_FLAGS=--installdir $(PREFIX)/bin --install-method copy --overwrite-policy always --constraint 'hashable -integer-gmp' --constraint 'cryptonite -integer-gmp' --constraint 'scientific +integer-simple' --constraint 'integer-logarithms -integer-gmp'
+
 GHC_VERSION=8.6.5
 GHC_VERSIONS=8.2.2 8.4.2 8.6.5 8.8.2 8.8.3
 GHC_CONFIG=--disable-ld-override
+BuildFlavour=perf
+
+CABAL_FLAGS=--installdir $(PREFIX)/bin --install-method copy --overwrite-policy always --constraint 'hashable -integer-gmp' --constraint 'cryptonite -integer-gmp' --constraint 'scientific +integer-simple' --constraint 'integer-logarithms -integer-gmp'
 
 all:
 	$(MAKE) noX
@@ -76,9 +79,12 @@ $(PREFIX)/apps/ghc-$(GHC_VERSION): $(PREFIX)/src/ghc-$(GHC_VERSION)
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_PDF = NO' >> build.mk
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_PS = NO' >> build.mk
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'INTEGER_LIBRARY = integer-simple' >> build.mk
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BuildFlavour = perf' >> build.mk
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'V = 0' >> build.mk
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && ./configure --prefix=$(PREFIX)/apps/ghc-$(GHC_VERSION) $(GHC_CONFIG)
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make -j6
+	# The BuildFlavour file is sourced in build.mk, therefore the BuildFlavour
+	# has to be set in the beginning of the file, or passed to make(1). We choose
+	# to pass it, to avoid cat(1) hacking.
+	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make BuildFlavour=$(BuildFlavour) -j6
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make install
 
 $(PREFIX)/src/ghc-$(GHC_VERSION):
