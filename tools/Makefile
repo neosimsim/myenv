@@ -30,6 +30,8 @@ cabal-fmt:
 
 cabal-env:
 	g -v 8.8.2 $(MAKE) -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
+	# Currently cabal-env fails if .ghc does not exist.
+	mkdir -p $(HOME)/.ghc
 
 agda:
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
