@@ -6,7 +6,7 @@ export SHELL="$PLAN9/bin/rc"
 export acmeshell="$SHELL"
 export PAGER=cat
 export GIT_PAGER=$PAGER
-export EDITOR=E
+export EDITOR=editinacme
 
 #$PLAN9/bin/acme $load -f /mnt/font/DejaVuSerif/14a/font -F /mnt/font/DejaVuSansMono/14a/font
 #$PLAN9/bin/acme $load -f /mnt/font/FreeSans/14a/font -F /mnt/font/FreeMono/14a/font
