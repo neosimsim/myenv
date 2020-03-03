@@ -12,9 +12,11 @@ dotfiles/vim.symlink/backup
 dotfiles/vim.symlink/swap
 
 dist-newstyle
+MAlonzo
 
 *.aux
 *.log
 *.pdf
 *.out
 *.toc
+*.agdai

@@ -17,3 +17,4 @@ install-noX:
 test:
 	$(MAKE) -C scripts test
 	$(MAKE) -C texfiles pdf
+	$(MAKE) -C tests all
