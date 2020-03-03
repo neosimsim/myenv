@@ -7,6 +7,10 @@ RUN time make 'GHC_VERSIONS=8.6.5 8.8.2 8.8.3' install
 # the second call should be fast
 RUN time make 'GHC_VERSIONS=8.6.5 8.8.2 8.8.3'  install
 
+# Until latex is installed, we have to manually select the other tests.
+RUN make -C scripts test
+RUN make -C tests all
+
 # smoke tests
 RUN which runinacme
 RUN which hfmt
