@@ -5,6 +5,7 @@ install: install-noX
 
 install-noX:
 	$(MAKE) -C dotfiles install
+	$(MAKE) -C texfiles install
 	# Some scripts are required by tools (e. g. `g`) BUT tools can only use
 	# posix compatible scripts which don't require additional programs like
 	# GHC.

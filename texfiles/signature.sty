@@ -1,0 +1,62 @@
+%                      Version 2, December 2004
+%
+%   Copyright (C) 2017 Ben Nasrallah, Alexander <alexander.nasrallah@posteo.de>
+%
+%   Everyone is permitted to copy and distribute verbatim or modified
+%   copies of this license document, and changing it is allowed as long
+%   as the name is changed.
+%
+%              DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+%     TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+%
+%    0. You just DO WHAT THE FUCK YOU WANT TO.
+%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{signature}[2017/04/17 Privides a nicer banner]
+
+% TODO: new options for offset and color
+
+\ProcessOptions\relax
+
+%%%%%%%%%%
+% Colors %
+%%%%%%%%%%
+
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+
+\definecolor{white}{RGB}{255,255,255}
+
+\definecolor{darkgray}{HTML}{444444}
+\definecolor{gray}{HTML}{4D4D4D}
+\definecolor{lightgray}{HTML}{999999}
+
+\definecolor{green}{HTML}{548235}
+\definecolor{orange}{HTML}{FDA333}
+\definecolor{purple}{HTML}{D3A4F9}
+\definecolor{red}{HTML}{FB4485}
+\definecolor{blue}{HTML}{6CE0F1}
+
+\colorlet{themecolor}{green}
+\colorlet{headercolor}{gray}
+\colorlet{fillheader}{headercolor}
+\colorlet{linkcolor}{darkgray}
+
+%%%%%%%%%%
+% Banner %
+%%%%%%%%%%
+
+\newcommand{\banner}[1]{%
+	\begin{tikzpicture}[remember picture,overlay]
+		\node [anchor=north west, minimum width=2.5cm] (padding) at (current page.north west){};
+		\node [rectangle, fill=themecolor, anchor=north west, minimum width=4cm, minimum height=2cm] (box) at (padding.north east){};
+		\node [anchor=north] (title) at (box.center){{\large\textcolor{white}{\textbf{#1}}}};
+	\end{tikzpicture}
+}
+
+\AtBeginDocument{%
+	\banner{\@title}
+}
+
+\endinput

@@ -1,0 +1,75 @@
+%                      Version 2, December 2004
+%
+%   Copyright (C) 2017 Ben Nasrallah, Alexander <alexander.nasrallah@posteo.de>
+%
+%   Everyone is permitted to copy and distribute verbatim or modified
+%   copies of this license document, and changing it is allowed as long
+%   as the name is changed.
+%
+%              DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+%     TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+%
+%    0. You just DO WHAT THE FUCK YOU WANT TO.
+%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{lists}[2017/04/17 Privides list environments]
+
+\ProcessOptions\relax
+
+\RequirePackage{array}
+\RequirePackage{etoolbox}
+
+% Define a base table class each table and column has the same width.
+\newenvironment{basictable}{
+	\newcommand{\basicrow}[2]{%
+			##1 & ##2
+	}
+	\begin{tabular*}{\textwidth}{@{}>{\raggedleft\arraybackslash}p{4cm}l@{}}
+}{%
+	\end{tabular*}
+}
+
+% Every \item can be followed by one or more paragraphs
+% of description:
+%
+%     \item
+%         {date range}
+%         {company}
+%         {role}
+%     	  {One or more paragraphs describing what achieved during this application.}
+\newenvironment{eventlist}{
+	\renewcommand{\item}[4]{%
+			\basicrow{##1}{\parbox[t]{0.7\linewidth}{##2 \medskip\\ {\Large ##3} \ifstrempty{##4}{}{\medskip\\ ##4}}} \bigskip \\%
+	}
+	\begin{basictable}
+}{
+	\end{basictable}
+}
+
+% Every \item can be followed by one or more paragraphs
+% of description:
+%
+%     \item
+%         {name}
+%         {description}
+%         {url}
+\newenvironment{projectlist}{
+	\renewcommand{\item}[3]{%
+		\basicrow{##1}{\parbox[t]{0.7\linewidth}{##2 \ifstrempty{##3}{}{\medskip \\\footnotesize\url{##3}}}} \medskip \\%
+	}
+	\begin{basictable}
+}{
+	\end{basictable}
+}
+
+\newenvironment{factlist}{
+	\renewcommand{\item}[2]{%
+			\basicrow{##1}{\parbox[t]{0.7\linewidth}{##2}} \medskip \\%
+	}
+	\begin{basictable}
+}{
+	\end{basictable}
+}
+
+\endinput

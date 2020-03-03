@@ -12,3 +12,9 @@ dotfiles/vim.symlink/backup
 dotfiles/vim.symlink/swap
 
 dist-newstyle
+
+*.aux
+*.log
+*.pdf
+*.out
+*.toc
