@@ -10,17 +10,17 @@ To install everything you need
 i. e. installed from you systems packages manager.
 
 Depending on the installed GHC version already installed and to install
-you may want to adapt the `ghcs` target in [tools/Makefile](tools/Makefile).
+you may want to adapt the `GHC_VERSIONS` in [tools/Makefile](tools/Makefile):
 
-you can then run
-
-	make install
+	make GHC_VERSIONS='8.6.5 8.8.2' install
 
 or
 
-	make install-noX
+	make GHC_VERSIONS='8.6.5 8.8.2' install-noX
 
 if you don't have or need X11 tools, e. g. xmonad.
+
+Note that 8.6.5 8.8.2 are required.
 
 # Troubleshooting
 ## unknown package `interger-gmp`

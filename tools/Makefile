@@ -3,6 +3,7 @@
 PREFIX=$(HOME)
 CABAL_FLAGS=--installdir $(PREFIX)/bin --install-method copy --overwrite-policy always --constraint 'hashable -integer-gmp' --constraint 'cryptonite -integer-gmp' --constraint 'scientific +integer-simple' --constraint 'integer-logarithms -integer-gmp'
 GHC_VERSION=8.6.5
+GHC_VERSIONS=8.2.2 8.4.2 8.6.5 8.8.2 8.8.3
 GHC_CONFIG=--disable-ld-override
 
 all:
@@ -12,7 +13,7 @@ all:
 	$(MAKE) Watch
 
 noX:
-	$(MAKE) ghcs
+	$(MAKE) all-ghc
 	$(MAKE) cabal
 	$(MAKE) cabal-env
 	$(MAKE) agda
@@ -53,14 +54,18 @@ editinacme:
 Watch:
 	go get github.com/eaburns/Watch
 
-ghcs:
-	# You might need to adopt this from system to system, depending on the system installed ghc.
-	# Not every ghc version is installable with every ghc version.
+all-ghc:
+	# You might need to adopt GHC_VERSIONS.
 	@echo bootsrapping with `which ghc` version `ghc --numeric-version`
-	$(MAKE) GHC_VERSION=8.2.2 ghc
-	g -v 8.2.2 $(MAKE) GHC_VERSION=8.4.2 ghc
-	g -v 8.4.2 $(MAKE) GHC_VERSION=8.6.5 ghc
-	g -v 8.6.5 $(MAKE) GHC_VERSION=8.8.2 ghc
+	# We install the first version in the list twice, but `make` should take care of it.
+	versions="$(GHC_VERSIONS)"; \
+	bootstrapVersion=$${versions%% *}; \
+	$(MAKE) GHC_VERSION=$$bootstrapVersion ghc; \
+	for version in $(GHC_VERSIONS); \
+	do \
+		g -v $$bootstrapVersion $(MAKE) GHC_VERSION=$$version ghc; \
+		bootstrapVersion=$$version; \
+	done
 
 ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)
 
