@@ -66,9 +66,9 @@ all-ghc:
 		bootstrapVersion=$$version; \
 	done
 
-ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)
+ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)/bin/ghc
 
-$(PREFIX)/apps/ghc-$(GHC_VERSION): $(PREFIX)/src/ghc-$(GHC_VERSION)
+$(PREFIX)/apps/ghc-$(GHC_VERSION)/bin/ghc: $(PREFIX)/src/ghc-$(GHC_VERSION)/INSTALL.md
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && cp build.mk.sample build.mk
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'HADDOCK_DOCS = NO' >> build.mk
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_HTML = NO' >> build.mk
@@ -83,7 +83,7 @@ $(PREFIX)/apps/ghc-$(GHC_VERSION): $(PREFIX)/src/ghc-$(GHC_VERSION)
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make BuildFlavour=$(BuildFlavour) -j6
 	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make install
 
-$(PREFIX)/src/ghc-$(GHC_VERSION):
+$(PREFIX)/src/ghc-$(GHC_VERSION)/INSTALL.md:
 	mkdir -p $(PREFIX)/src
 	cd $(PREFIX)/src && wget https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
 	cd $(PREFIX)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
