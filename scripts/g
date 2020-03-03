@@ -41,7 +41,8 @@ ghcpath="$APPLICATIONS/ghc-$version"
 
 if ! [ -d "$ghcpath" ]
 then
-	printf '%s not present' "$ghcpath"
+	printf '%s not present' "$ghcpath" >&2
+	exit 1
 fi
 
 env PATH="$ghcpath/bin:$PATH" "$@"
