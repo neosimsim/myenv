@@ -77,9 +77,9 @@ TESTS=\
 test: $(TESTS)
 
 test_uni: phony
-	cabal run -v0 exe:uni < uni_test_in | diff - uni_test_out
+	g cabal v2-run -v0 exe:uni < uni_test_in | diff - uni_test_out
 	@echo test broken pipes
-	cabal run -v0 exe:uni < uni_test_in | sed 2q >/dev/null
+	g cabal v2-run -v0 exe:uni < uni_test_in | sed 2q >/dev/null
 
 verify:
 	cabal-fmt scripts.cabal | diff scripts.cabal -
