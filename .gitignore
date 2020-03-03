@@ -11,6 +11,8 @@ dotfiles/vim.symlink/undo
 dotfiles/vim.symlink/backup
 dotfiles/vim.symlink/swap
 
+tests/hello-agda
+
 dist-newstyle
 MAlonzo
 

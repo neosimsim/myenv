@@ -1,8 +1,8 @@
-module hello-world where
+module hello-agda where
 
 open import IO using (run; putStrLn)
 import Agda.Builtin.IO as Builtin using (IO)
 open import Data.Unit using (⊤)
 
 main : Builtin.IO ⊤
-main = run (putStrLn "Hello, World!")
+main = run (putStrLn "Hello, Agda!")
