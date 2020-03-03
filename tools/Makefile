@@ -20,6 +20,7 @@ noX:
 	$(MAKE) cabal
 	$(MAKE) cabal-env
 	$(MAKE) agda
+	$(MAKE) agda-stdlib
 	$(MAKE) pandoc
 	$(MAKE) cabal-fmt
 	$(MAKE) hfmt
@@ -38,10 +39,6 @@ cabal-env:
 	g -v 8.8.2 $(MAKE) -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
 	# Currently cabal-env fails if .ghc does not exist.
 	mkdir -p $(HOME)/.ghc
-
-agda:
-	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
-	g -v 8.6.5 cabal-env -n agda Agda ieee754 text
 
 xmonad: xmobar
 	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) xmonad
@@ -101,6 +98,20 @@ cabal:
 		cabal user-config update; \
 	fi
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) cabal-install
+
+# Agda
+
+agda:
+	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
+	g -v 8.6.5 cabal-env -n agda Agda ieee754 text
+
+agda-stdlib: $(PREFIX)/src/agda/std-lib/standard-library.agda-lib
+	mkdir -p $(HOME)/.agda
+	grep -q standard-library $(HOME)/.agda/libraries || echo $(PREFIX)/src/agda/std-lib/standard-library.agda-lib >> $(HOME)/.agda/libraries
+	grep -q standard-library $(HOME)/.agda/defaults || echo standard-library >> $(HOME)/.agda/defaults
+
+ $(PREFIX)/src/agda/std-lib/standard-library.agda-lib:
+	cd  $(PREFIX)/src/ && git clone --recursive https://github.com/agda/agda
 
 # go
 
