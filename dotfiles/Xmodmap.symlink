@@ -22,6 +22,8 @@ keysym comma = comma less guillemotleft
 keysym period = period greater guillemotright ellipsis
 keysym apostrophe = apostrophe quotedbl leftsinglequotemark rightsinglequotemark
 keysym backslash = backslash bar leftdoublequotemark rightdoublequotemark
+keysym equal = equal plus U0301 U0300
+keysym grave = grave asciitilde U0300 U0302
 
 remove Lock = Caps_Lock
 keysym Caps_Lock = Escape
