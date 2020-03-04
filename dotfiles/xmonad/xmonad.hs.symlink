@@ -1,5 +1,5 @@
 import           Graphics.X11.ExtraTypes
-import           System.IO                  (hPutStrLn)
+import           System.IO                (hPutStrLn)
 import           XMonad
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
@@ -8,8 +8,8 @@ import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.Grid
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.Spiral
-import           XMonad.Util.EZConfig       (additionalKeys)
-import           XMonad.Util.Run            (spawnPipe)
+import           XMonad.Util.EZConfig     (additionalKeys)
+import           XMonad.Util.Run          (spawnPipe)
 
 main :: IO ()
 main = do
@@ -23,9 +23,13 @@ main = do
         , terminal = "mlterm -L"
         , manageHook =
             composeAll
-              [manageHook def, manageDocks, className =? "Gimp" --> doFloat]
+              [ manageHook def
+              , manageDocks
+              , className =? "Gimp" --> doFloat
+              , className =? "Chromium" --> doShift "3"
+              ]
         , layoutHook =
-            smartBorders . avoidStruts $ Grid ||| Full ||| spiral (6 / 7)
+            smartBorders . avoidStruts $ Grid ||| Full ||| spiral (6 / 7) -- ||| Tall 1 (1/300) (1/2) ||| Mirror (Tall 1 (1/300) (1/2))
         , handleEventHook = handleEventHook def <+> docksEventHook
         , logHook =
             dynamicLogWithPP
@@ -46,6 +50,7 @@ myModMask = mod4Mask
 myKeys :: [((KeyMask, KeySym), X ())]
 myKeys =
   [ ((myModMask .|. shiftMask, xK_p), spawn "dpass")
+  , ((myModMask .|. shiftMask, xK_l), spawn "slock")
   , ((0, xF86XK_AudioLowerVolume), spawn "amixer set Master 5%-")
   , ((0, xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+")
   , ((0, xF86XK_AudioMute), spawn "amixer set Master toggle")
