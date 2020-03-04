@@ -8,6 +8,7 @@ apk add \
     cpio \
     curl \
     ghc \
+    git \
     go \
     linux-headers \
     libffi-dev \
