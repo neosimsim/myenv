@@ -18,7 +18,6 @@ all:
 noX:
 	$(MAKE) all-ghc
 	$(MAKE) cabal
-	$(MAKE) cabal-env
 	$(MAKE) agda
 	$(MAKE) agda-stdlib
 	$(MAKE) pandoc
@@ -35,14 +34,9 @@ hfmt:
 cabal-fmt:
 	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) cabal-fmt
 
-cabal-env:
-	g -v 8.8.2 $(MAKE) -C cabal-extras CABAL_FLAGS="$(INSTALL_FLAGS)" install-cabal-env
-	# Currently cabal-env fails if .ghc does not exist.
-	mkdir -p $(HOME)/.ghc
-
 xmonad: xmobar
 	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) xmonad
-	g -v 8.8.2 cabal-env -n xmonad xmonad xmonad-contrib X11
+	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) --lib --package-env xmonad xmonad xmonad-contrib X11
 
 xmobar:
 	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
@@ -103,7 +97,7 @@ cabal:
 
 agda:
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
-	g -v 8.6.5 cabal-env -n agda Agda ieee754 text
+	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) --lib --package-env agda Agda ieee754 text
 
 agda-stdlib: $(PREFIX)/src/agda/std-lib/standard-library.agda-lib
 	mkdir -p $(HOME)/.agda
