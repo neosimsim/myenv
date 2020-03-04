@@ -1,3 +1,5 @@
+apk update
+
 apk add \
     autoconf \
     automake \
@@ -15,11 +17,17 @@ apk add \
     llvm5 \
     musl-dev \
     ncurses-dev \
-    libxrandr-dev \
-    libxscrnsaver-dev \
-    libxft-dev \
+    openssh \
     xz-dev \
     zlib-dev
 
-# needed to run ssh-agent int profile. Should this be optional?
-apk add openssh
+# X11
+apk add \
+    libxrandr-dev \
+    libxscrnsaver-dev \
+    libxft-dev \
+    alsa-lib-dev \
+    ttf-dejavu \
+    ttf-freefont
+
+apk add texlive-full
