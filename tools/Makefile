@@ -11,6 +11,9 @@ CABAL_FLAGS=--installdir $(PREFIX)/bin --install-method copy --overwrite-policy 
 
 all:
 	$(MAKE) noX
+	$(MAKE) X
+
+X:
 	$(MAKE) xmonad
 	$(MAKE) editinacme
 	$(MAKE) Watch
