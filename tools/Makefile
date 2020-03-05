@@ -15,6 +15,7 @@ all:
 
 X:
 	$(MAKE) xmonad
+	$(MAKE) plan9port
 	$(MAKE) editinacme
 	$(MAKE) Watch
 
@@ -118,3 +119,13 @@ editinacme:
 Watch:
 	go get github.com/eaburns/Watch
 
+
+# Plan9
+
+plan9port: $(PREFIX)/apps/plan9port/bin/9p
+
+$(PREFIX)/apps/plan9port/bin/9p: $(PREFIX)/apps/plan9port/INSTALL
+	cd $(PREFIX)/apps/plan9port && ./INSTALL
+
+$(PREFIX)/apps/plan9port/INSTALL:
+	cd  $(PREFIX)/apps/ && git clone --recursive https://github.com/9fans/plan9port

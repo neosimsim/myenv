@@ -1,5 +1,10 @@
 FROM alpine:latest
 
+# Until a working port is available, we create a phony plan9port project,
+# which does nothing on installation. 
+RUN mkdir -p $HOME/apps/plan9port
+RUN touch $HOME/apps/plan9port/INSTALL
+RUN chmod +x $HOME/apps/plan9port/INSTALL
 
 COPY . .
 RUN ./prepare.alpine

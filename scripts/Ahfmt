@@ -1,4 +1,4 @@
-#!/home/neosimsim/src/plan9port/bin/rc
+#!/home/neosimsim/apps/plan9port/bin/rc
 
 fn aread { 9p read acme/$winid/$1 }
 fn awrite { 9p write acme/$winid/$1 }
