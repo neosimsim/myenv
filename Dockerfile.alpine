@@ -2,7 +2,7 @@ FROM alpine:latest
 
 
 COPY . .
-RUN sh prepare.alpine
+RUN ./prepare.alpine
 RUN time make 'GHC_VERSIONS=8.6.5 8.8.2 8.8.3' install
 # the second call should be fast
 RUN time make 'GHC_VERSIONS=8.6.5 8.8.2 8.8.3'  install
