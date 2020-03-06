@@ -101,7 +101,7 @@ cabal:
 
 agda:
 	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
-	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) --lib --package-env agda Agda ieee754 text
+	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) --lib --package-env agda Agda ieee754
 
 agda-stdlib: $(PREFIX)/src/agda/std-lib/standard-library.agda-lib
 	mkdir -p $(HOME)/.agda
