@@ -10,7 +10,7 @@ RUN time make 'GHC_VERSIONS=8.6.5 8.8.2 8.8.3'  install
 RUN make test
 
 # smoke tests
-RUN which runinacme
+RUN which editinacme
 RUN which hfmt
 RUN which agda
 RUN which xmonad
