@@ -15,6 +15,6 @@ install-noX:
 	. $(HOME)/.profile && $(MAKE) -C scripts install
 
 test:
-	$(MAKE) -C scripts test
-	$(MAKE) -C texfiles pdf
-	$(MAKE) -C tests all
+	. $(HOME)/.profile && $(MAKE) -C scripts test
+	. $(HOME)/.profile && $(MAKE) -C texfiles pdf
+	. $(HOME)/.profile && $(MAKE) -C tests all
