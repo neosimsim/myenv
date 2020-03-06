@@ -17,6 +17,7 @@ X:
 	$(MAKE) xmonad
 	$(MAKE) plan9port
 	$(MAKE) editinacme
+	$(MAKE) acmego
 	$(MAKE) Watch
 
 noX:
@@ -112,6 +113,9 @@ agda-stdlib: $(PREFIX)/src/agda/std-lib/standard-library.agda-lib
 	cd  $(PREFIX)/src/ && git clone --recursive https://github.com/agda/agda
 
 # go
+
+acmego:
+	go get 9fans.net/go/acme/acmego
 
 editinacme:
 	go get 9fans.net/go/acme/editinacme
