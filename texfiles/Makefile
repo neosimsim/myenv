@@ -9,6 +9,7 @@ FILES=banner.sty \
 	brief.cls \
 	colorsections.sty \
 	neosimsim.sty \
+	neosimsim-literate-programming.sty \
 	neosimsim-a4paper.sty \
 	neosimsim-a5paper.sty \
 
