@@ -45,4 +45,11 @@ then
 	exit 1
 fi
 
-env PATH="$ghcpath/bin:$PATH" "$@"
+PATH="$ghcpath/bin:$PATH"
+export PATH
+
+case $# in
+[1-9]*)
+       exec "$@"
+       ;;
+esac
