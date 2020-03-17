@@ -4,6 +4,8 @@ PREFIX=$(HOME)
 
 GHC_VERSION=8.6.5
 GHC_VERSIONS=8.2.2 8.4.2 8.6.5 8.8.2 8.8.3
+AGDA_VERSION=2.6.1
+AGDA_STDLIB_VERSION=1.3
 GHC_CONFIG=--disable-ld-override
 BuildFlavour=perf
 
@@ -101,16 +103,19 @@ cabal:
 # Agda
 
 agda:
-	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) Agda
-	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) --lib --package-env agda Agda ieee754
+	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) Agda-$(AGDA_VERSION)
+	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) --lib --package-env agda Agda-$(AGDA_VERSION) ieee754
 
-agda-stdlib: $(PREFIX)/src/agda/std-lib/standard-library.agda-lib
+agda-stdlib: $(PREFIX)/lib/agda/agda-stdlib-$(AGDA_STDLIB_VERSION)/standard-library.agda-lib
 	mkdir -p $(HOME)/.agda
-	grep -q standard-library $(HOME)/.agda/libraries || echo $(PREFIX)/src/agda/std-lib/standard-library.agda-lib >> $(HOME)/.agda/libraries
+	grep -q standard-library $(HOME)/.agda/libraries-$(AGDA_VERSION) || echo $(PREFIX)/lib/agda/agda-stdlib-$(AGDA_STDLIB_VERSION)/standard-library.agda-lib >> $(HOME)/.agda/libraries-$(AGDA_VERSION)
 	grep -q standard-library $(HOME)/.agda/defaults || echo standard-library >> $(HOME)/.agda/defaults
 
- $(PREFIX)/src/agda/std-lib/standard-library.agda-lib:
-	cd  $(PREFIX)/src/ && git clone --recursive https://github.com/agda/agda
+$(PREFIX)/lib/agda/agda-stdlib-$(AGDA_STDLIB_VERSION)/standard-library.agda-lib:
+	mkdir -p $(PREFIX)/lib/agda
+	cd $(PREFIX)/lib/agda && wget -q https://github.com/agda/agda-stdlib/archive/v$(AGDA_STDLIB_VERSION).zip
+	cd $(PREFIX)/lib/agda && unzip v$(AGDA_STDLIB_VERSION).zip
+	cd $(PREFIX)/lib/agda && rm v$(AGDA_STDLIB_VERSION).zip
 
 # go
 
