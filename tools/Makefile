@@ -108,7 +108,9 @@ agda:
 
 agda-stdlib: $(PREFIX)/lib/agda/agda-stdlib-$(AGDA_STDLIB_VERSION)/standard-library.agda-lib
 	mkdir -p $(HOME)/.agda
+	touch $(HOME)/.agda/libraries-$(AGDA_VERSION)
 	grep -q standard-library $(HOME)/.agda/libraries-$(AGDA_VERSION) || echo $(PREFIX)/lib/agda/agda-stdlib-$(AGDA_STDLIB_VERSION)/standard-library.agda-lib >> $(HOME)/.agda/libraries-$(AGDA_VERSION)
+	touch $(HOME)/.agda/defaults
 	grep -q standard-library $(HOME)/.agda/defaults || echo standard-library >> $(HOME)/.agda/defaults
 
 $(PREFIX)/lib/agda/agda-stdlib-$(AGDA_STDLIB_VERSION)/standard-library.agda-lib:
