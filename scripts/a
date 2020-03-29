@@ -1,7 +1,7 @@
 #!/bin/sh
 
-ACME_VARFONT=${ACME_VARFONT:-/mnt/font/FreeSans/14a/font}
-ACME_FIXFONT=${ACME_FIXFONT:-/mnt/font/DejaVuSansMono/13a/font}
+ACME_VARFONT=${ACME_VARFONT:-/mnt/font/DejaVuSansMono/14a/font}
+ACME_FIXFONT=${ACME_FIXFONT:-/mnt/font/FreeSans/13a/font}
 
 export tabstop=4
 export TERM=dumb
