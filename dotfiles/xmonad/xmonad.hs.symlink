@@ -7,7 +7,6 @@ import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.Grid
 import           XMonad.Layout.NoBorders
-import           XMonad.Layout.Spiral
 import           XMonad.Util.EZConfig     (additionalKeys)
 import           XMonad.Util.Run          (spawnPipe)
 
@@ -29,7 +28,7 @@ main = do
               , className =? "Chromium" --> doShift "3"
               ]
         , layoutHook =
-            smartBorders . avoidStruts $ Grid ||| Full ||| spiral (6 / 7) -- ||| Tall 1 (1/300) (1/2) ||| Mirror (Tall 1 (1/300) (1/2))
+            smartBorders . avoidStruts $ Grid ||| Full ||| Tall 1 (1/300) (1/2)
         , handleEventHook = handleEventHook def <+> docksEventHook
         , logHook =
             dynamicLogWithPP
