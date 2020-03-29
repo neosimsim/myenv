@@ -11,4 +11,4 @@ export PAGER=cat
 export GIT_PAGER=$PAGER
 export EDITOR=editinacme
 
-$PLAN9/bin/acme $load -f $ACME_VARFONT -F $ACME_FIXFONT
+$PLAN9/bin/acme -f $ACME_VARFONT -F $ACME_FIXFONT "$@"
