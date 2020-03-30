@@ -2,8 +2,10 @@
 
 \usepackage{neosimsim}
 \usepackage{neosimsim-a4paper}
+\usepackage{neosimsim-literate-programming}
 \usepackage{ngerman}
 \usepackage{lipsum}
+\usepackage{float} % force flaoting position / unfloat / enables position H
 
 \geometry{paper=a5paper}
 
@@ -21,14 +23,20 @@ Hello World!!!
 \subsection{Unicode Math}
 \begin{align}
 	∫_0^∞ 1 = ∞ \\
-	\mathbb{N} = ℕ \label{equation}\\
+	\mathbb{N} = ℕ \label{equation} \\
 	ω = b ⇔ b = ω
 \end{align}
 
 See. (\ref{equation}).
 
 \subsection{Unicode Listing}
-\begin{lstlisting}
+\begin{listing}[H]
+\caption{Agda supports Unicode}\label{lst:agda}
+\begin{code}
+data Bool : Set where
+  false : Bool
+  true  : Bool
+
 and : Bool → Bool → Bool
 and = λ { true x → x ; false _ → false }
 
@@ -38,14 +46,22 @@ xor = λ { true  true  → false
         ; _     _     → true
         }
 
+data Σ (A : Set) (B : A → Set) : Set where
+  _,_ : (x : A) → (B x) → Σ A B
+
 fst : {A : Set} {B : A → Set} → Σ A B → A
 fst = λ { (a , b) → a }
 
 snd : {A : Set} {B : A → Set} (p : Σ A B) → B (fst p)
 snd = λ { (a , b) → b }
+\end{code}
+\end{listing}
+As you can see, Listing~\ref{lst:agda} points out that Agda supports Unicode.
+You could changes this file extenstion to \verb|lagda.tex| and compile this file.
 
-zero = 0
-\end{lstlisting}
+Listing~\ref{lst:agda} also illustrates, why I don't use the \verb|listings| package anymore.
+You can change the code environment by and \verb|lstlisting| environment and see, that
+\verb|listings| has an awful unicode support.
 
 \section{Layout}
 \subsection{Lorem}
@@ -54,4 +70,6 @@ zero = 0
 \subsection{Lorem -- Serif}
 \textrm{\lipsum[2-4]}
 
+\clearpage
+\listoflistings
 \end{document}

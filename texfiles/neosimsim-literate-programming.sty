@@ -17,8 +17,9 @@
 
 \ProcessOptions\relax
 
-\RequirePackage{neosimsim}
 \RequirePackage{verbatim}
-\newenvironment{code}{\footnotesize\verbatim}{\endverbatim\normalsize}
+\newenvironment{code}{\verbatim}{\endverbatim}
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[fileext=lst,placement={!h},name=Listing]{listing}
 
 \endinput
