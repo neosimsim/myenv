@@ -18,6 +18,8 @@ export BROWSER=chrome
 export NAMESPACE=$HOME/9p
 export PS1="$USER@`hostname`\$ "
 export CDPATH=".:$HOME:$HOME/src"
+# font for plan9 sam, 9term etc. (not acme)
+export font=/mnt/font/DejaVuSansMono/18a/font
 
 OWNPATH=$HOME/bin
 OWNPATH=$OWNPATH:$HOME/.cabal/bin
