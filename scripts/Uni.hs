@@ -190,6 +190,11 @@ mapping
   , ("`", "̀") -- Combining Grave Accent, e. g. è
   , ("--", "–")
   , ("---", "—")
+  , ("prime", "′")
+  , ("''", "″")
+  , ("'''", "‴")
+  , ("''''", "⁗")
+  , ("apos", "ʼ")
   ]
 
 data Fragment
