@@ -1,3 +1,14 @@
 #!/bin/sh
 
-g -v 8.8.2 ghc -package-env xmonad -Wall -Werror -threaded -rtsopts -with-rtsopts=-N -static -o xmonad-`uname -m`-`uname -s | tr [A-Z] [a-z]` xmonad.hs
+exec >$HOME/var/log/xmonad
+exec 2>&1
+
+dataDir=$XDG_DATA_HOME/xmonad
+mkdir -p $dataDir
+g -v 8.8.2 ghc \
+	-package-env xmonad \
+	-Wall -Werror -threaded -rtsopts -with-rtsopts=-N -static \
+	-odir $dataDir \
+	-hidir $dataDir \
+	-o $dataDir/xmonad-`uname -m`-`uname -s | tr [A-Z] [a-z]` \
+	xmonad.hs

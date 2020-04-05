@@ -12,7 +12,7 @@ import           XMonad.Util.Run          (spawnPipe)
 
 main :: IO ()
 main = do
-  xmproc <- spawnPipe "xmobar -o $HOME/.xmobarrc"
+  xmproc <- spawnPipe "xmobar -o $XDG_CONFIG_HOME/xmobarrc"
   xmonad . docks . fullscreenSupport $ myConfig xmproc `additionalKeys` myKeys
   where
     myConfig xmproc =

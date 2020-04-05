@@ -9,7 +9,7 @@ set ssl_force_tls = yes
 set sort          = threads
 set sort_aux      = last-date-received
 set editor        = $EDITOR
-set mailcap_path  = ~/.mutt/mailcap
+set mailcap_path  = ~/lib/mutt/mailcap
 set move          = no
 
 subscribe @openbsd.org @lists.gentoo.org
@@ -18,11 +18,11 @@ alternative_order text/plain text/html
 
 mailboxes =abn/Inbox =posteo/Inbox =abn/Lists.Gentoo =abn/Lists.OpenBSD =abn/Lists.Haskell
 
-folder-hook =abn/ source ~/.mutt/abnrc
-folder-hook =posteo/ source ~/.mutt/posteorc
-source ~/.mutt/abnrc # default
+folder-hook =abn/ source ~/lib/mutt/abnrc
+folder-hook =posteo/ source ~/lib/mutt/posteorc
+source ~/lib/mutt/abnrc # default
 
-source ~/.mutt/gpgrc
+source ~/lib/mutt/gpgrc
 set pgp_use_gpg_agent = yes
 #set pgp_autosign = no
 #set pgp_autoencrypt = no
@@ -33,7 +33,7 @@ set pgp_verify_sig = yes
 #set pgp_sign_as=
 set pgp_sign_as=DF6D22A22FA2D5A8
 
-source ~/.mutt/smimerc
+source ~/lib/mutt/smimerc
 # Global crypto options -- these affect PGP operations as well.
 set crypt_autosign = yes
 set crypt_autoencrypt = yes
@@ -43,7 +43,7 @@ set crypt_replysignencrypted = yes
 set crypt_verify_sig = yes
 send-hook "~f abn@posteo.de" set smime_default_key="57c64b96.0"
 
-set mailcap_path     = ~/.mutt/mailcap
+set mailcap_path     = ~/lib/mutt/mailcap
 auto_view text/html
 alternative_order text/plain text/html
 

@@ -10,8 +10,8 @@ Account posteo
 
 MaildirStore posteo-local
 # The trailing "/" is important
-Path ~/.mail/posteo/
-Inbox ~/.mail/posteo/Inbox/
+Path ~/var/mail/posteo/
+Inbox ~/var/mail/posteo/Inbox/
 MapInbox Inbox
 Flatten .
 
@@ -35,8 +35,8 @@ Account mailbox
 
 MaildirStore mailbox-local
 # The trailing "/" is important
-Path ~/.mail/abn/
-Inbox ~/.mail/abn/Inbox/
+Path ~/var/mail/abn/
+Inbox ~/var/mail/abn/Inbox/
 MapInbox Inbox
 Flatten .
 
