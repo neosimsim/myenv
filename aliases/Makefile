@@ -3,6 +3,9 @@
 PREFIX=$(HOME)
 
 BIN = \
+	agda \
+	ghc \
+	ghc-pkg \
 	_unalias \
 
 install: phony

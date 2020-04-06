@@ -17,7 +17,6 @@ POSIX_BIN = \
 	dpass \
 	fext \
 	filter \
-	g \
 	games \
 	getmod \
 	git-to-dot \
@@ -28,7 +27,6 @@ POSIX_BIN = \
 	license \
 	lower \
 	mkgit \
-	myagda \
 	open \
 	overwrite \
 	passgen \
@@ -66,7 +64,7 @@ install-posix: phony
 
 install-haskell: phony
 	@echo install Haskell scripts
-	g cabal v2-install --installdir $(PREFIX)/bin --install-method copy --overwrite-policy always
+	cabal v2-install --installdir $(PREFIX)/bin --install-method copy --overwrite-policy always
 
 uninstall: phony
 	cd $(PREFIX)/bin && rm -f $(BIN)
@@ -77,9 +75,9 @@ TESTS=\
 test: $(TESTS)
 
 test_uni: phony
-	g cabal v2-run -v0 exe:uni < uni_test_in | diff - uni_test_out
+	cabal v2-run -v0 exe:uni < uni_test_in | diff - uni_test_out
 	@echo test broken pipes
-	g cabal v2-run -v0 exe:uni < uni_test_in | sed 2q >/dev/null
+	cabal v2-run -v0 exe:uni < uni_test_in | sed 2q >/dev/null
 
 verify:
 	cabal-fmt scripts.cabal | diff scripts.cabal -

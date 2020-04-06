@@ -1,3 +1,0 @@
-#!/bin/sh
-
-env GHC_ENVIRONMENT=agda g -v 8.8.2 agda "$@"

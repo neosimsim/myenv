@@ -2,7 +2,7 @@
 
 PREFIX=$(HOME)
 
-GHC_VERSION=8.6.5
+INSTALL_GHC_VERSION=8.6.5
 GHC_VERSIONS=8.2.2 8.4.2 8.6.5 8.8.2 8.8.3 8.10.1
 AGDA_VERSION=2.6.1
 AGDA_STDLIB_VERSION=1.3
@@ -37,56 +37,61 @@ noX:
 hfmt:
 	# Unable to install hfmt with haskell-src-exts 1.22
 	# https://github.com/chrisdone/hindent/issues/562
-	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) --constraint 'haskell-src-exts < 1.22' hfmt hindent hlint stylish-haskell
+	cabal v2-install -w ghc-8.6.5 $(CABAL_FLAGS) --constraint 'haskell-src-exts < 1.22' hfmt hindent hlint stylish-haskell
 
 cabal-fmt:
-	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) cabal-fmt
+	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) cabal-fmt
 
 xmonad: xmobar
-	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) xmonad
-	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) --lib --package-env xmonad xmonad xmonad-contrib X11
+	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) xmonad
+	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) --lib --package-env xmonad xmonad xmonad-contrib X11
 
 xmobar:
-	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
+	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
 
 pandoc:
-	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) pandoc pandoc-include-code
+	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) pandoc pandoc-include-code
 
 all-ghc:
-	# You might need to adopt GHC_VERSIONS.
+	# You might need to adapt GHC_VERSIONS.
 	@echo bootsrapping with `which ghc` version `ghc --numeric-version`
 	# We install the first version in the list twice, but `make` should take care of it.
 	versions="$(GHC_VERSIONS)"; \
 	bootstrapVersion=$${versions%% *}; \
-	$(MAKE) GHC_VERSION=$$bootstrapVersion ghc; \
+	$(MAKE) INSTALL_GHC_VERSION=$$bootstrapVersion ghc; \
 	for version in $(GHC_VERSIONS); \
 	do \
-		g -v $$bootstrapVersion $(MAKE) GHC_VERSION=$$version ghc; \
+		GHC_VERSION=$$bootstrapVersion $(MAKE) INSTALL_GHC_VERSION=$$version ghc; \
 		bootstrapVersion=$$version; \
 	done
 
-ghc: $(PREFIX)/apps/ghc-$(GHC_VERSION)/bin/ghc
+ghc: $(PREFIX)/bin/ghc-$(INSTALL_GHC_VERSION)
 
-$(PREFIX)/apps/ghc-$(GHC_VERSION)/bin/ghc: $(PREFIX)/src/ghc-$(GHC_VERSION)/INSTALL.md
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && cp build.mk.sample build.mk
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'HADDOCK_DOCS = NO' >> build.mk
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_HTML = NO' >> build.mk
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_PDF = NO' >> build.mk
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'BUILD_SPHINX_PS = NO' >> build.mk
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'INTEGER_LIBRARY = integer-simple' >> build.mk
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION)/mk && echo 'V = 0' >> build.mk
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && ./configure --prefix=$(PREFIX)/apps/ghc-$(GHC_VERSION) $(GHC_CONFIG)
+$(PREFIX)/bin/ghc-$(INSTALL_GHC_VERSION): $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION)/INSTALL.md
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION)/mk && cp build.mk.sample build.mk
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION)/mk && echo 'HADDOCK_DOCS = NO' >> build.mk
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION)/mk && echo 'BUILD_SPHINX_HTML = NO' >> build.mk
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION)/mk && echo 'BUILD_SPHINX_PDF = NO' >> build.mk
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION)/mk && echo 'BUILD_SPHINX_PS = NO' >> build.mk
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION)/mk && echo 'INTEGER_LIBRARY = integer-simple' >> build.mk
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION)/mk && echo 'V = 0' >> build.mk
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION) \
+		&& ./configure \
+		--prefix=$(PREFIX) \
+		--datarootdir=$(PREFIX) \
+		--localedir=$(PREFIX) \
+		$(GHC_CONFIG)
 	# The BuildFlavour file is sourced in build.mk, therefore the BuildFlavour
 	# has to be set in the beginning of the file, or passed to make(1). We choose
 	# to pass it, to avoid cat(1) hacking.
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make BuildFlavour=$(BuildFlavour) -j6
-	cd $(PREFIX)/src/ghc-$(GHC_VERSION) && make install
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION) && make BuildFlavour=$(BuildFlavour) -j6
+	cd $(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION) && make install
 
-$(PREFIX)/src/ghc-$(GHC_VERSION)/INSTALL.md:
+$(PREFIX)/src/ghc-$(INSTALL_GHC_VERSION)/INSTALL.md:
 	mkdir -p $(PREFIX)/src
-	cd $(PREFIX)/src && wget -q https://downloads.haskell.org/~ghc/$(GHC_VERSION)/ghc-$(GHC_VERSION)-src.tar.xz
-	cd $(PREFIX)/src && tar xf ghc-$(GHC_VERSION)-src.tar.xz
-	cd $(PREFIX)/src && rm ghc-$(GHC_VERSION)-src.tar.xz
+	cd $(PREFIX)/src && wget -q https://downloads.haskell.org/~ghc/$(INSTALL_GHC_VERSION)/ghc-$(INSTALL_GHC_VERSION)-src.tar.xz
+	cd $(PREFIX)/src && tar xf ghc-$(INSTALL_GHC_VERSION)-src.tar.xz
+	cd $(PREFIX)/src && rm ghc-$(INSTALL_GHC_VERSION)-src.tar.xz
 
 cabal:
 	mkdir -p $(PREFIX)/bin
@@ -96,16 +101,16 @@ cabal:
 	major=$${version%%.*}; \
 	if [ "$$major" -lt 3 ]; \
 	then \
-		g -v 8.6.5 cabal v2-install --bindir $(PREFIX)/bin cabal-install; \
+		cabal v2-install -w ghc-8.6.5 --bindir $(PREFIX)/bin cabal-install; \
 		cabal user-config update; \
 	fi
-	g -v 8.6.5 cabal v2-install $(CABAL_FLAGS) cabal-install
+	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) cabal-install
 
 # Agda
 
 agda:
-	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) Agda-$(AGDA_VERSION)
-	g -v 8.8.2 cabal v2-install $(CABAL_FLAGS) --lib --package-env agda Agda-$(AGDA_VERSION) ieee754
+	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) Agda-$(AGDA_VERSION)
+	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) --lib --package-env agda Agda-$(AGDA_VERSION) ieee754
 
 agda-stdlib: $(PREFIX)/lib/agda/agda-stdlib-$(AGDA_STDLIB_VERSION)/standard-library.agda-lib
 	mkdir -p $(HOME)/.agda

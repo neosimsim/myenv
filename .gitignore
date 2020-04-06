@@ -3,9 +3,10 @@ tests/hello-agda
 dist-newstyle/
 MAlonzo/
 
+*.agdai
 *.aux
 *.log
-*.pdf
+*.lst
 *.out
+*.pdf
 *.toc
-*.agdai

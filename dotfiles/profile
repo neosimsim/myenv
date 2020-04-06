@@ -21,11 +21,11 @@ export CDPATH=".:$HOME:$HOME/src"
 # font for plan9 sam, 9term etc. (not acme)
 export font=/mnt/font/DejaVuSansMono/18a/font
 
-OWNPATH=$HOME/bin
+OWNPATH=$HOME/bin/aliases
+OWNPATH=$OWNPATH:$HOME/bin
 OWNPATH=$OWNPATH:$HOME/.cabal/bin
 OWNPATH=$OWNPATH:$HOME/.local/bin
 OWNPATH=$OWNPATH:$APPLICATIONS/go/bin
-OWNPATH=$OWNPATH:$APPLICATIONS/ghc/bin
 OWNPATH=$OWNPATH:$APPLICATIONS/android-sdk-linux/tools
 OWNPATH=$OWNPATH:$APPLICATIONS/android-sdk-linux/platform-tools
 export PATH=$OWNPATH:$PATH:/usr/games:$PLAN9/bin
