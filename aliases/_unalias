@@ -1,0 +1,4 @@
+#!/bin/sh
+
+which -a $1 |uniq |sed -n 2p
+
