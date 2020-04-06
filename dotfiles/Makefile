@@ -57,7 +57,7 @@ DOTFILES= \
 install: phony $(DOTFILES)
 
 $(DOTFILES): phony
-	mkdir -p `dirname $(HOME)/.$@`
+	@mkdir -p `dirname $(HOME)/.$@`
 	cp $@ $(HOME)/.$@
 	@mkdir -p $(HOME)/.vim/swap
 	@mkdir -p $(HOME)/.vim/undo
