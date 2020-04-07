@@ -21,6 +21,7 @@ X:
 	$(MAKE) editinacme
 	$(MAKE) acmego
 	$(MAKE) Watch
+	$(MAKE) xplor
 
 noX:
 	$(MAKE) all-ghc
@@ -130,6 +131,8 @@ editinacme:
 Watch:
 	go get github.com/eaburns/Watch
 
+xplor:
+	go get github.com/mpl/xplor
 
 # Plan9
 
