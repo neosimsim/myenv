@@ -15,6 +15,12 @@ install-noX:
 	# We can now install every other script.
 	. $(HOME)/.profile && $(MAKE) -C scripts install
 
+uninstall:
+	$(MAKE) -C dotfiles uninstall
+	$(MAKE) -C texfiles uninstall
+	$(MAKE) -C scripts uninstall
+	$(MAKE) -C aliases uninstall
+
 test:
 	. $(HOME)/.profile && $(MAKE) -C scripts test
 	. $(HOME)/.profile && $(MAKE) -C texfiles pdf
