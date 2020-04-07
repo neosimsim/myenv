@@ -44,6 +44,7 @@ cabal-fmt:
 
 xmonad: xmobar
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) xmonad
+	rm -f $(HOME)/.ghc/`uname -m`-`uname -s | tr [A-Z] [a-z]`-8.8.2/environments/xmonad
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) --lib --package-env xmonad xmonad xmonad-contrib X11
 
 xmobar:
@@ -110,6 +111,7 @@ cabal:
 
 agda:
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) Agda-$(AGDA_VERSION)
+	rm -f $(HOME)/.ghc/`uname -m`-`uname -s | tr [A-Z] [a-z]`-8.8.2/environments/agda
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) --lib --package-env agda Agda-$(AGDA_VERSION) ieee754
 
 agda-stdlib: $(PREFIX)/lib/agda/agda-stdlib-$(AGDA_STDLIB_VERSION)/standard-library.agda-lib
