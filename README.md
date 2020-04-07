@@ -1,4 +1,8 @@
 # NeoSimSim Env
+TL;DR
+
+	make install && make test
+
 Scripts to install tools and configurations I use on a daily basis.
 
 To install everything, you need
