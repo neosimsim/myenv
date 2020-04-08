@@ -1,4 +1,15 @@
 #!/bin/sh
+# This script assumes that the alias installation directory
+# in the first in PATH. It then return the second match
+# of a binary name in PATH or fails of no second match is present.
 
-which -a $1 |uniq |sed -n 2p
+alias=$1
+orig_cmd=`which -a $alias 2>/dev/null |uniq |sed -n 2p`
 
+if [ -z "$orig_cmd" ]
+then
+	echo alias points to missing "'$alias'" >&2
+	exit 1
+fi
+
+echo $orig_cmd
