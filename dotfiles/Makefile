@@ -7,6 +7,7 @@ DOTFILES= \
 	config/nixpkgs/overlays/xmobar.nix \
 	config/nixpkgs/overlays/xmonad.nix \
 	ctags \
+	cabal/config \
 	ghci \
 	gitconfig \
 	gitignore_global \

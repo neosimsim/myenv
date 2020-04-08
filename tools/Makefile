@@ -9,7 +9,7 @@ MAKE_AGDA_STDLIB_VERSION=1.3
 GHC_CONFIG=--disable-ld-override
 BuildFlavour=perf
 
-CABAL_FLAGS=--installdir $(PREFIX)/bin --install-method copy --overwrite-policy always --constraint 'hashable -integer-gmp' --constraint 'cryptonite -integer-gmp' --constraint 'scientific +integer-simple' --constraint 'integer-logarithms -integer-gmp'
+CABAL_FLAGS=--constraint 'hashable -integer-gmp' --constraint 'cryptonite -integer-gmp' --constraint 'scientific +integer-simple' --constraint 'integer-logarithms -integer-gmp'
 
 all:
 	$(MAKE) noX
@@ -105,6 +105,10 @@ cabal:
 		cabal v2-install -w ghc-8.6.5 --bindir $(PREFIX)/bin cabal-install; \
 		cabal user-config update; \
 	fi
+#	cabal user-config update -a 'installdir: $(PREFIX)/bin'
+#	cabal user-config update -a 'install-method: copy'
+#	cabal user-config update -a 'overwrite-policy: always'
+#	cabal user-config update -a 'constraint: hashable -integer-gmp, cryptonite -integer-gmp, scientific +integer-simple, integer-logarithms -integer-gmp'
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) cabal-install
 
 # Agda
