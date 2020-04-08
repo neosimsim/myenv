@@ -130,16 +130,16 @@ $(PREFIX)/lib/agda/agda-stdlib-$(MAKE_AGDA_STDLIB_VERSION)/standard-library.agda
 # go
 
 acmego:
-	go get 9fans.net/go/acme/acmego
+	go get -u 9fans.net/go/acme/acmego
 
 editinacme:
-	go get 9fans.net/go/acme/editinacme
+	go get -u 9fans.net/go/acme/editinacme
 
 Watch:
-	go get github.com/eaburns/Watch
+	go get -u github.com/eaburns/Watch
 
 xplor:
-	go get github.com/mpl/xplor
+	go get -u github.com/mpl/xplor
 
 # Plan9
 
