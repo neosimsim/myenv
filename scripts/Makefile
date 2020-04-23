@@ -1,6 +1,7 @@
 PREFIX=$(HOME)
 MANPREFIX=$(PREFIX)/man
 
+# Edit .+2;/^$/-|sort
 POSIX_BIN = \
 	1 \
 	2 \
@@ -21,6 +22,7 @@ POSIX_BIN = \
 	getmod \
 	git-to-dot \
 	hi \
+	Hsfmt \
 	hsinit \
 	keystore \
 	lessk \
@@ -45,9 +47,10 @@ POSIX_BIN = \
 	year \
 	zap \
 
+# Edit .+2;/^$/-|sort
 HASKELL_BIN = \
-	uni \
 	git-files \
+	uni \
 
 BIN = \
 	$(POSIX_BIN) \
