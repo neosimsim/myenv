@@ -32,6 +32,7 @@ noX:
 	$(MAKE) pandoc-include-code
 	$(MAKE) cabal-fmt
 	$(MAKE) hlint
+	$(MAKE) apply-refact
 	$(MAKE) hindent
 	$(MAKE) stylish-haskell
 
@@ -39,6 +40,7 @@ noX:
 
 ## installable with GHC 8.10.1
 hlint \
+apply-refact \
 stylish-haskell:
 	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) $@
 
