@@ -9,7 +9,7 @@ MAKE_AGDA_STDLIB_VERSION=1.3
 GHC_CONFIG=--disable-ld-override
 BuildFlavour=perf
 
-CABAL_FLAGS=--constraint 'hashable -integer-gmp' --constraint 'cryptonite -integer-gmp' --constraint 'scientific +integer-simple' --constraint 'integer-logarithms -integer-gmp'
+CABAL_FLAGS=--ghc-options '-j6' --constraint 'hashable -integer-gmp' --constraint 'cryptonite -integer-gmp' --constraint 'scientific +integer-simple' --constraint 'integer-logarithms -integer-gmp'
 
 all:
 	$(MAKE) noX
