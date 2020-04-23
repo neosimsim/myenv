@@ -29,18 +29,28 @@ noX:
 	$(MAKE) agda
 	$(MAKE) agda-stdlib
 	$(MAKE) pandoc
+	$(MAKE) pandoc-include-code
 	$(MAKE) cabal-fmt
-	$(MAKE) hfmt
+	$(MAKE) hlint
+	$(MAKE) hindent
+	$(MAKE) stylish-haskell
 
 # Haskell
 
-hfmt:
-	# Unable to install hfmt with haskell-src-exts 1.22
-	# https://github.com/chrisdone/hindent/issues/562
-	cabal v2-install -w ghc-8.6.5 $(CABAL_FLAGS) --constraint 'haskell-src-exts < 1.22' hfmt hindent hlint stylish-haskell
+## installable with GHC 8.10.1
+hlint \
+stylish-haskell:
+	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) $@
 
-cabal-fmt:
-	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) cabal-fmt
+## installable with GHC 8.8.2
+cabal-fmt \
+pandoc \
+pandoc-include-code:
+	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) $@
+
+## tools with special flags, constraints etc.
+hindent:
+	cabal v2-install -w ghc-8.6.5 $(CABAL_FLAGS) --constraint 'haskell-src-exts < 1.22' $@
 
 xmonad: xmobar
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) xmonad
@@ -49,9 +59,6 @@ xmonad: xmobar
 
 xmobar:
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
-
-pandoc:
-	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) pandoc pandoc-include-code
 
 all-ghc:
 	# You might need to adapt MAKE_GHC_VERSIONS.
