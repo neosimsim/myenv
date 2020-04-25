@@ -35,6 +35,7 @@ noX:
 	$(MAKE) apply-refact
 	$(MAKE) hindent
 	$(MAKE) stylish-haskell
+	$(MAKE) threadscope
 
 # Haskell
 
@@ -47,7 +48,8 @@ stylish-haskell:
 ## installable with GHC 8.8.2
 cabal-fmt \
 pandoc \
-pandoc-include-code:
+pandoc-include-code \
+threadscope:
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) $@
 
 ## tools with special flags, constraints etc.
