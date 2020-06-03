@@ -32,6 +32,7 @@ DOTFILES= \
 	vim/colors/neosimsim.vim \
 	vim/ftdetect/gnuplot.vim \
 	vim/ftdetect/markdown.vim \
+	vim/ftdetect/yaml.vim \
 	vim/ftplugin/agda.vim \
 	vim/ftplugin/git.vim \
 	vim/ftplugin/go.vim \
