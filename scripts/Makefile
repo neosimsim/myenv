@@ -37,6 +37,7 @@ POSIX_BIN = \
 	remtrail \
 	rotatekb \
 	splitcammel \
+	startpg \
 	tmux-run-selection-with \
 	tmux-select-word \
 	tmux-ws \

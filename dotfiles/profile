@@ -27,6 +27,7 @@ OWNPATH=$OWNPATH:$HOME/.cabal/bin
 OWNPATH=$OWNPATH:$HOME/.npm/bin
 OWNPATH=$OWNPATH:$HOME/.local/bin
 OWNPATH=$OWNPATH:$APPLICATIONS/go/bin
+OWNPATH=$OWNPATH:$APPLICATIONS/postgresql/bin
 OWNPATH=$OWNPATH:$APPLICATIONS/android-sdk-linux/tools
 OWNPATH=$OWNPATH:$APPLICATIONS/android-sdk-linux/platform-tools
 export PATH=$OWNPATH:$PATH:/usr/games:$PLAN9/bin
