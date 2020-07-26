@@ -196,6 +196,7 @@ mapping
   , ("'''", "‴")
   , ("''''", "⁗")
   , ("apos", "ʼ")
+  , ("degree", "°")
   ]
 
 data Fragment
