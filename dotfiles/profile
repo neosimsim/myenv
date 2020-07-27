@@ -24,6 +24,7 @@ export font=/mnt/font/DejaVuSansMono/18a/font
 OWNPATH=$HOME/bin/aliases
 OWNPATH=$OWNPATH:$HOME/bin
 OWNPATH=$OWNPATH:$HOME/.cabal/bin
+OWNPATH=$OWNPATH:$HOME/.npm/bin
 OWNPATH=$OWNPATH:$HOME/.local/bin
 OWNPATH=$OWNPATH:$APPLICATIONS/go/bin
 OWNPATH=$OWNPATH:$APPLICATIONS/android-sdk-linux/tools

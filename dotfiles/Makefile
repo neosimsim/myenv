@@ -23,6 +23,7 @@ DOTFILES= \
 	mutt/mailcap \
 	mutt/muttrc \
 	mutt/posteorc \
+	npmrc \
 	plumbing \
 	profile \
 	shinit \
