@@ -33,7 +33,7 @@ noX:
 	$(MAKE) cabal-fmt
 	$(MAKE) hlint
 	$(MAKE) apply-refact
-	$(MAKE) hindent
+	$(MAKE) brittany
 	$(MAKE) stylish-haskell
 	$(MAKE) threadscope
 
@@ -49,12 +49,11 @@ stylish-haskell:
 cabal-fmt \
 pandoc \
 pandoc-include-code \
+brittany \
 threadscope:
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) $@
 
 ## tools with special flags, constraints etc.
-hindent:
-	cabal v2-install -w ghc-8.6.5 $(CABAL_FLAGS) --constraint 'haskell-src-exts < 1.22' $@
 
 xmonad: xmobar
 	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) xmonad
