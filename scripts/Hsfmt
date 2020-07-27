@@ -5,7 +5,7 @@ fn awrite { 9p write acme/$winid/$1 }
 ftmp=`{mktemp /tmp/Ahfmt.XXXXXX}
 etmp=`{mktemp /tmp/Ahfmt.XXXXXX}
 
-if (aread body | stylish-haskell | brittany >$ftmp >[2]$etmp) {
+if (aread body | hsfmt >$ftmp >[2]$etmp) {
        # Don't dirty the window if you don't have to
        if (! aread body | diff - $ftmp >/dev/null >[2=1]) {
                echo -n mark | awrite ctl

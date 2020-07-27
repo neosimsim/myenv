@@ -19,6 +19,7 @@ POSIX_BIN = \
 	filter \
 	games \
 	getmod \
+	hsfmt \
 	git-to-dot \
 	hi \
 	Hsfmt \
