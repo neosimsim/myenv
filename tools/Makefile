@@ -22,6 +22,7 @@ X:
 	$(MAKE) acmego
 	$(MAKE) Watch
 	$(MAKE) xplor
+	$(MAKE) threadscope
 
 noX:
 	$(MAKE) all-ghc
@@ -35,7 +36,6 @@ noX:
 	$(MAKE) apply-refact
 	$(MAKE) brittany
 	$(MAKE) stylish-haskell
-	$(MAKE) threadscope
 
 # Haskell
 
