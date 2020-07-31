@@ -3,5 +3,5 @@
 orig_cmd=`_unalias agda`
 
 export GHC_ENVIRONMENT=agda
-export GHC_VERSION=8.8.2
+export GHC_VERSION=8.8.4
 exec $orig_cmd "$@"

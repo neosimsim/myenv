@@ -3,7 +3,7 @@
 PREFIX=$(HOME)
 
 MAKE_GHC_VERSION=
-MAKE_GHC_VERSIONS=8.2.2 8.4.2 8.6.5 8.8.2 8.8.3 8.10.1
+MAKE_GHC_VERSIONS=8.2.2 8.4.2 8.6.5 8.8.2 8.8.3 8.8.4 8.10.1
 MAKE_AGDA_VERSION=2.6.1
 MAKE_AGDA_STDLIB_VERSION=1.3
 GHC_CONFIG=--disable-ld-override
@@ -45,23 +45,23 @@ apply-refact \
 stylish-haskell:
 	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) $@
 
-## installable with GHC 8.8.2
+## installable with GHC 8.8.4
 cabal-fmt \
 pandoc \
 pandoc-include-code \
 brittany \
-threadscope:
-	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) $@
+threadscope :
+	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) $@
 
 ## tools with special flags, constraints etc.
 
 xmonad: xmobar
-	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) xmonad
-	rm -f $(HOME)/.ghc/`uname -m`-`uname -s | tr [A-Z] [a-z]`-8.8.2/environments/xmonad
-	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) --lib --package-env xmonad xmonad xmonad-contrib X11
+	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) xmonad
+	rm -f $(HOME)/.ghc/`uname -m`-`uname -s | tr [A-Z] [a-z]`-8.8.4/environments/xmonad
+	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) --lib --package-env xmonad xmonad xmonad-contrib X11
 
 xmobar:
-	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
+	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
 
 all-ghc:
 	# You might need to adapt MAKE_GHC_VERSIONS.
@@ -120,14 +120,14 @@ cabal:
 #	cabal user-config update -a 'install-method: copy'
 #	cabal user-config update -a 'overwrite-policy: always'
 #	cabal user-config update -a 'constraint: hashable -integer-gmp, cryptonite -integer-gmp, scientific +integer-simple, integer-logarithms -integer-gmp'
-	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) cabal-install
+	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) cabal-install
 
 # Agda
 
 agda:
-	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) Agda-$(MAKE_AGDA_VERSION)
-	rm -f $(HOME)/.ghc/`uname -m`-`uname -s | tr [A-Z] [a-z]`-8.8.2/environments/agda
-	cabal v2-install -w ghc-8.8.2 $(CABAL_FLAGS) --lib --package-env agda Agda-$(MAKE_AGDA_VERSION) ieee754
+	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) Agda-$(MAKE_AGDA_VERSION)
+	rm -f $(HOME)/.ghc/`uname -m`-`uname -s | tr [A-Z] [a-z]`-8.8.4/environments/agda
+	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) --lib --package-env agda Agda-$(MAKE_AGDA_VERSION) ieee754
 
 agda-stdlib: $(PREFIX)/lib/agda/agda-stdlib-$(MAKE_AGDA_STDLIB_VERSION)/standard-library.agda-lib
 	mkdir -p $(HOME)/.agda
