@@ -8,9 +8,7 @@
 (set 'auto-save-file-name-transforms
      '((".*" "~/var/emacs/autosave/" t)))
 
-(load-file (let ((coding-system-for-read 'utf-8))
-                (shell-command-to-string "agda-mode locate")))
-
+(setq-default indent-tabs-mode nil)
 (defun kill-line-back () "kill backward to beginning of line"
        (interactive)
        (kill-line 0))
