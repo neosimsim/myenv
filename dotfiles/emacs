@@ -15,6 +15,9 @@
 (global-set-key (kbd "M-DEL") 'kill-line-back)
 
 ;; Agda
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
+
 ;; Some keybinding do not work with Blink + tmux.
 ;; As a workaround we add some more keybinding to
 (defun custom-agda-keys ()
