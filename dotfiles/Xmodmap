@@ -1,5 +1,6 @@
+! Kinesis Right Padel
 keycode 108 = Mode_switch
-keycode 64 = Meta_L Mode_switch
+keycode 64 = Alt_L Mode_switch
 keysym 1 = 1 exclam U0308
 keysym a = a A adiaeresis Adiaeresis
 keysym b = b B leftsinglequotemark leftdoublequotemark
