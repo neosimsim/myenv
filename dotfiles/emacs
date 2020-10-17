@@ -54,7 +54,7 @@
 (global-font-lock-mode 0)
 
 ;; misc
-(defun pipe (&optional b e)
+(defun pipeUni (&optional b e)
   (interactive "r")
   (apply 'call-process-region b e "uni" t t 1 '()))
-(global-set-key "\C-c\C-u" 'pipe)
+(global-set-key "\C-c\C-u" 'pipeUni)
