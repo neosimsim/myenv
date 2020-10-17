@@ -122,6 +122,36 @@ cabal:
 #	cabal user-config update -a 'constraint: hashable -integer-gmp, cryptonite -integer-gmp, scientific +integer-simple, integer-logarithms -integer-gmp'
 	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) cabal-install
 
+# Haskell Language Server
+hls:
+	cd $(PREFIX)/bin && wget https://github.com/haskell/haskell-language-server/releases/download/0.5.1/haskell-language-server-Linux-8.10.2.gz
+	cd $(PREFIX)/bin && gunzip haskell-language-server-Linux-8.10.2.gz && mv haskell-language-server-Linux-8.10.2 haskell-language-server-8.10.2
+	cd $(PREFIX)/bin && chmod +x haskell-language-server-8.10.2
+
+	cd $(PREFIX)/bin && wget https://github.com/haskell/haskell-language-server/releases/download/0.5.1/haskell-language-server-Linux-8.10.1.gz
+	cd $(PREFIX)/bin && gunzip haskell-language-server-Linux-8.10.1.gz && mv haskell-language-server-Linux-8.10.1 haskell-language-server-8.10.1
+	cd $(PREFIX)/bin && chmod +x haskell-language-server-8.10.1
+
+	cd $(PREFIX)/bin && wget https://github.com/haskell/haskell-language-server/releases/download/0.5.1/haskell-language-server-Linux-8.8.4.gz
+	cd $(PREFIX)/bin && gunzip haskell-language-server-Linux-8.8.4.gz && mv haskell-language-server-Linux-8.8.4 haskell-language-server-8.8.4
+	cd $(PREFIX)/bin && chmod +x haskell-language-server-8.8.4
+
+	cd $(PREFIX)/bin && wget https://github.com/haskell/haskell-language-server/releases/download/0.5.1/haskell-language-server-Linux-8.8.3.gz
+	cd $(PREFIX)/bin && gunzip haskell-language-server-Linux-8.8.3.gz && mv haskell-language-server-Linux-8.8.3 haskell-language-server-8.8.3
+	cd $(PREFIX)/bin && chmod +x haskell-language-server-8.8.3
+
+	cd $(PREFIX)/bin && wget https://github.com/haskell/haskell-language-server/releases/download/0.5.1/haskell-language-server-Linux-8.8.2.gz
+	cd $(PREFIX)/bin && gunzip haskell-language-server-Linux-8.8.2.gz && mv haskell-language-server-Linux-8.8.2 haskell-language-server-8.8.2
+	cd $(PREFIX)/bin && chmod +x haskell-language-server-8.8.2
+
+	cd $(PREFIX)/bin && wget https://github.com/haskell/haskell-language-server/releases/download/0.5.1/haskell-language-server-Linux-8.6.5.gz
+	cd $(PREFIX)/bin && gunzip haskell-language-server-Linux-8.6.5.gz && mv haskell-language-server-Linux-8.6.5 haskell-language-server-8.6.5
+	cd $(PREFIX)/bin && chmod +x haskell-language-server-8.6.5
+
+	cd $(PREFIX)/bin && wget https://github.com/haskell/haskell-language-server/releases/download/0.5.1/haskell-language-server-wrapper-Linux.gz
+	cd $(PREFIX)/bin && gunzip haskell-language-server-wrapper-Linux.gz && mv haskell-language-server-wrapper-Linux haskell-language-server-wrapper
+	cd $(PREFIX)/bin && chmod +x haskell-language-server-wrapper
+
 # Agda
 
 agda:
