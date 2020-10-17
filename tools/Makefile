@@ -80,7 +80,7 @@ ghc: $(PREFIX)/bin/ghc-$(MAKE_GHC_VERSION)
 
 $(PREFIX)/bin/ghc-$(MAKE_GHC_VERSION): $(PREFIX)/src/ghc-$(MAKE_GHC_VERSION)/INSTALL.md
 	cd $(PREFIX)/src/ghc-$(MAKE_GHC_VERSION)/mk && cp build.mk.sample build.mk
-	cd $(PREFIX)/src/ghc-$(MAKE_GHC_VERSION)/mk && echo 'HADDOCK_DOCS = NO' >> build.mk
+#	cd $(PREFIX)/src/ghc-$(MAKE_GHC_VERSION)/mk && echo 'HADDOCK_DOCS = YES' >> build.mk
 	cd $(PREFIX)/src/ghc-$(MAKE_GHC_VERSION)/mk && echo 'EXTRA_HADDOCK_OPTS += --quickjump --hyperlinked-source' >> build.mk
 	cd $(PREFIX)/src/ghc-$(MAKE_GHC_VERSION)/mk && echo 'BUILD_SPHINX_HTML = YES' >> build.mk
 	cd $(PREFIX)/src/ghc-$(MAKE_GHC_VERSION)/mk && echo 'BUILD_SPHINX_PDF = NO' >> build.mk
