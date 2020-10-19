@@ -157,6 +157,9 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
+    nmap <buffer> <leader>a <plug>(lsp-code-action)
+    nmap <buffer> <leader>l <plug>(lsp-code-lens)
+    nmap <buffer> <leader>d <plug>(lsp-document-diagnostics)
 
     " refer to doc to add more commands
 endfunction
