@@ -2,5 +2,7 @@
 *.latexmain
 .cabal-sandbox
 .syntastic_*_config
+.sosrc
+.#*
 cabal.sandbox.config
 Acme
