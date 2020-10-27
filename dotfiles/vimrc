@@ -152,6 +152,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <leader>a <plug>(lsp-code-action)
     nmap <buffer> <leader>l <plug>(lsp-code-lens)
     nmap <buffer> <leader>d <plug>(lsp-document-diagnostics)
+    nmap <buffer> <leader>f <plug>(lsp-document-format)
 
     " refer to doc to add more commands
 endfunction
