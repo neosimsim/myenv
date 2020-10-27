@@ -15,6 +15,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'altercation/vim-colors-solarized'
 "Plug 'derekelkins/agda-vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'preservim/nerdtree'
 call plug#end()
 
 " ============================ Personal Configuration ==========================
@@ -59,6 +60,7 @@ inoremap <F5> <Esc>:w<CR>:silent make<CR>
 vnoremap <F5> :<C-U>:w<CR>:silent make<CR>
 
 nmap <F6> :NERDTreeToggle<CR>
+nmap <S-F6> :NERDTreeFocus<CR>
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :SyntasticToggle<CR>
 nmap <F10> :UndotreeToggle<CR>
