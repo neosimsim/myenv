@@ -135,16 +135,6 @@ let g:indent_guides_guide_size = 1
 
 " vim-lsp
 
-if executable('haskell-language-server-wrapper')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'hls',
-        \ 'cmd': {server_info->['haskell-language-server-wrapper', '--lsp']},
-        \ 'allowlist': ['haskell', 'lhaskell'],
-        \ })
-endif
-
-
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
