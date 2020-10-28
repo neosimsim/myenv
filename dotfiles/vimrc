@@ -16,6 +16,7 @@ Plug 'altercation/vim-colors-solarized'
 "Plug 'derekelkins/agda-vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdtree'
+Plug 'junegunn/fzf'
 call plug#end()
 
 " ============================ Personal Configuration ==========================
