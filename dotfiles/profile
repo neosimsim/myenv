@@ -23,16 +23,40 @@ export CDPATH=".:$HOME:$HOME/src"
 export font=/mnt/font/DejaVuSansMono/18a/font
 export FZF_DEFAULT_COMMAND="set -o pipefail; command find -L . -mindepth 1 -path '*/\.*' -prune -o -type f -print -o -type l -print | cut -b3-" fzf
 
-OWNPATH=$HOME/bin/aliases
-OWNPATH=$OWNPATH:$HOME/bin
-OWNPATH=$OWNPATH:$HOME/.cabal/bin
-OWNPATH=$OWNPATH:$HOME/.npm/bin
-OWNPATH=$OWNPATH:$HOME/.local/bin
-OWNPATH=$OWNPATH:$APPLICATIONS/go/bin
-OWNPATH=$OWNPATH:$APPLICATIONS/postgresql/bin
-OWNPATH=$OWNPATH:$APPLICATIONS/android-sdk-linux/tools
-OWNPATH=$OWNPATH:$APPLICATIONS/android-sdk-linux/platform-tools
-export PATH=$OWNPATH:$PATH:/usr/games:$PLAN9/bin
+pushToPath() {
+	case "$1" in
+	'')
+		;;
+	*)
+		PATH=`
+			echo "$PATH" |
+			sed '
+				s,^'$1':,,g
+				s,:'$1':,:,g
+				s,:'$1'$,,g
+			'
+		`
+		PATH="$1:$PATH"
+		export PATH
+		;;
+	esac
+}
+
+pushToPath $APPLICATIONS/android-sdk-linux/platform-tools
+pushToPath $APPLICATIONS/android-sdk-linux/tools
+pushToPath $APPLICATIONS/postgresql/bin
+pushToPath $APPLICATIONS/go/bin
+pushToPath $HOME/.local/bin
+pushToPath $HOME/.npm/bin
+pushToPath $HOME/.cabal/bin
+pushToPath $HOME/bin
+pushToPath $HOME/bin/aliases
+
+if ! (echo $PATH | grep -q "/usr/games"); then
+	PATH=$OWNPATH:$PATH:/usr/games
+fi
+export PATH
+. $PLAN9/bin/u
 
 export MANPATH=$HOME/man:
 
