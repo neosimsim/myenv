@@ -32,6 +32,7 @@ POSIX_BIN = \
 	open \
 	overwrite \
 	passgen \
+	pg \
 	pick \
 	quote \
 	remtrail \

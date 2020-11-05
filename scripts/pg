@@ -1,0 +1,26 @@
+#!/bin/sh
+
+pushToPath() {
+	case "$1" in
+	'')
+		;;
+	*)
+		PATH=`
+			echo "$PATH" |
+			sed '
+				s,^'$1':,,g
+				s,:'$1':,:,g
+				s,:'$1'$,,g
+			'
+		`
+		PATH="$1:$PATH"
+		export PATH
+		;;
+	esac
+}
+
+pushToPath $HOME/apps/postgresql-$PGVERSION/bin
+
+case $# in
+	[1-9]*) exec "$@" ;;
+esac
