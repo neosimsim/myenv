@@ -1,5 +1,5 @@
 #!/bin/sh
-# removed the $HOME/bin/aliases from PATH
+# remove $HOME/bin/aliases from PATH
 
 rmFromPath() {
 	case "$1" in
