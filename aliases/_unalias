@@ -1,7 +1,5 @@
 #!/bin/sh
-# This script assumes that the alias installation directory
-# in the first in PATH. It then return the second match
-# of a binary name in PATH or fails of no second match is present.
+# removed the $HOME/bin/aliases from PATH
 
 rmFromPath() {
 	case "$1" in
