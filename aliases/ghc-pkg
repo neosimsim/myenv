@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
 if [ -z "$GHC_VERSION" ]; then
-	orig_cmd=`_unalias ghc-pkg`
-	exec $orig_cmd "$@"
+	. _unalias
+	exec ghc-pkg "$@"
 else
 	exec ghc-pkg-$GHC_VERSION "$@"
 fi
