@@ -1,6 +1,7 @@
 .POSIX:
 
 DOTFILES= \
+	config/konsolerc \
 	config/nixpkgs/config.nix \
 	config/nixpkgs/overlays/emacs.nix \
 	config/nixpkgs/overlays/haskell.nix \
@@ -14,6 +15,9 @@ DOTFILES= \
 	gitignore_global \
 	i3.conf \
 	i3status.conf \
+	local/share/konsole/Mono.profile \
+	local/share/konsole/SolarizedLightContrast.colorscheme \
+	local/share/konsole/Var.profile \
 	mbsyncrc \
 	mlterm/aafont \
 	mlterm/color \
