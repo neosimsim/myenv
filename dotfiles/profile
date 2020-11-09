@@ -53,7 +53,7 @@ pushToPath $HOME/bin
 pushToPath $HOME/bin/aliases
 
 if ! (echo $PATH | grep -q "/usr/games"); then
-	PATH=$OWNPATH:$PATH:/usr/games
+	PATH=$PATH:/usr/games
 fi
 export PATH
 . $PLAN9/bin/u
