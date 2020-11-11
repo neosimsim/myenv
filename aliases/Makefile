@@ -3,11 +3,12 @@
 PREFIX=$(HOME)
 
 BIN = \
+	_unalias \
 	agda \
 	ghc \
 	ghc-pkg \
 	hwk \
-	_unalias \
+	Watch \
 
 install: phony
 	@echo install aliases
