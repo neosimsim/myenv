@@ -56,7 +56,7 @@ if ! (echo $PATH | grep -q "/usr/games"); then
 	PATH=$PATH:/usr/games
 fi
 export PATH
-. $PLAN9/bin/u
+[ -f "$PLAN9/bin/u" ] && . "$PLAN9/bin/u"
 
 export MANPATH=$HOME/man:
 
