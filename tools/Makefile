@@ -37,6 +37,7 @@ noX:
 	$(MAKE) brittany
 	$(MAKE) stylish-haskell
 	$(MAKE) fzf
+	$(MAKE) hwk
 
 # Haskell
 
@@ -63,6 +64,11 @@ xmonad: xmobar
 
 xmobar:
 	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
+
+hwk:
+	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) hwk
+	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) --lib --package-env hwk extra
+	mkdir -p $(HOME)/.config/hwk
 
 all-ghc:
 	# You might need to adapt MAKE_GHC_VERSIONS.

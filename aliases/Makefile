@@ -6,6 +6,7 @@ BIN = \
 	agda \
 	ghc \
 	ghc-pkg \
+	hwk \
 	_unalias \
 
 install: phony
