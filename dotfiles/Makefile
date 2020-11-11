@@ -2,7 +2,6 @@
 
 DOTFILES= \
 	config/konsolerc \
-	config/nixpkgs/config.nix \
 	config/nixpkgs/overlays/emacs.nix \
 	config/nixpkgs/overlays/haskell.nix \
 	config/nixpkgs/overlays/xmobar.nix \
