@@ -44,8 +44,11 @@ noX:
 ## installable with GHC 8.10.1
 hlint \
 apply-refact \
-stylish-haskell:
+stylish-haskell \
+xmonad:
 	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) $@
+
+xmonad: xmobar
 
 ## installable with GHC 8.8.4
 cabal-fmt \
@@ -56,11 +59,6 @@ threadscope :
 	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) $@
 
 ## tools with special flags, constraints etc.
-
-xmonad: xmobar
-	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) xmonad
-	rm -f $(HOME)/.ghc/`uname -m`-`uname -s | tr [A-Z] [a-z]`-8.10.1/environments/xmonad
-	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) --lib --package-env xmonad xmonad xmonad-contrib X11
 
 xmobar:
 	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar

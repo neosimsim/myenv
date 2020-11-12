@@ -19,7 +19,7 @@ main = do
       def
         { borderWidth = 2
         , modMask = myModMask
-        , terminal = "mlterm -L"
+        , terminal = "konsole"
         , manageHook =
             composeAll
               [ manageHook def

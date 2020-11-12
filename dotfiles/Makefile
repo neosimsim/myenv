@@ -58,6 +58,7 @@ DOTFILES= \
 	xmobarrc \
 	Xmodmap \
 	xmonad/build \
+	xmonad/myXmonad.cabal \
 	xmonad/xmonad.hs \
 	Xresources \
 
