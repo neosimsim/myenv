@@ -62,6 +62,7 @@ mapping
     -- Symbols from mathematics and logic, LaTeX style
   , ("forall", "∀")
   , ("exists", "∃")
+  , ("neg", "¬")
   , ("in", "∈")
   , ("ni", "∋")
   , ("land", "∧")
@@ -79,6 +80,7 @@ mapping
   , ("setminus", "∖")
   , ("cap", "∩")
   , ("cup", "∪")
+  , ("uplus", "⊎")
   , ("int", "∫")
   , ("therefore", "∴")
   , ("qed", "∎")
