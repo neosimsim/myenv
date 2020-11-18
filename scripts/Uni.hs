@@ -6,12 +6,14 @@ import Control.Monad as Monad
 import qualified Data.ByteString as B
 import Data.Either.Combinators
 import qualified Data.Map as M
-import Data.Maybe (fromMaybe)
+import Data.Maybe (fromMaybe, listToMaybe)
 import Data.Text (Text)
 import qualified Data.Text as Text
 import Data.Text.Encoding
-import qualified Data.Text.IO as Text (putStrLn)
+import qualified Data.Text.IO as Text (putStr, putStrLn)
 import Data.Void (Void)
+import System.Environment (getArgs)
+import System.Exit (die)
 import Text.Megaparsec as P
 import Text.Megaparsec.Char as P
 
@@ -244,6 +246,23 @@ parsePartition = mapLeft (Text.pack . errorBundlePretty) . P.parse pPartition ""
 
 main :: IO ()
 main = do
+  args <- listToMaybe <$> getArgs
+  case args of
+    Nothing -> decodeInput
+    Just "decode" -> decodeInput
+    Just "print" -> printMap mapping
+    Just cmd -> die $ "unknown command '" ++ cmd ++ "'"
+
+printMap :: [(Text, Text)] -> IO ()
+printMap [] = return ()
+printMap ((k,v):xs) = do
+  Text.putStr k
+  Text.putStr " "
+  Text.putStrLn v
+  printMap xs
+
+decodeInput :: IO ()
+decodeInput = do
   input <- getContents
   case parsePartition input of
     Left e -> Text.putStrLn e

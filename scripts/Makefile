@@ -83,6 +83,10 @@ test_uni: phony
 	cabal v2-run -v0 exe:uni < uni_test_in | diff - uni_test_out
 	@echo test broken pipes
 	cabal v2-run -v0 exe:uni < uni_test_in | sed 2q >/dev/null
+	@echo test print
+	cabal v2-run -v0 exe:uni print | diff - uni_print_test_out
+	@echo test print broken pipes
+	cabal v2-run -v0 exe:uni -- print | sed 2q >/dev/null
 
 verify:
 	cabal-fmt scripts.cabal | diff scripts.cabal -
