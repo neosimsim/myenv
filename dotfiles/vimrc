@@ -78,14 +78,14 @@ nmap ]g :tabnext<CR>
 nmap [G :tabfirst<CR>
 nmap ]G :tablast<CR>
 
-inoremap <Leader>Ae Ä
-inoremap <Leader>ae ä
-inoremap <Leader>Oe Ö
-inoremap <Leader>oe ö
-inoremap <Leader>Ue Ü
-inoremap <Leader>ue ü
-inoremap <Leader>ss ß
-inoremap <Leader>,  
+noremap! <Leader>Ae Ä
+noremap! <Leader>ae ä
+noremap! <Leader>Oe Ö
+noremap! <Leader>oe ö
+noremap! <Leader>Ue Ü
+noremap! <Leader>ue ü
+noremap! <Leader>ss ß
+noremap! <Leader>,  
 
 source ~/.vim/uni.vim
 nnoremap <Leader>u :.!uni<CR>

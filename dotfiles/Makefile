@@ -53,7 +53,6 @@ DOTFILES= \
 	vim/spell/de.utf-8.add \
 	vim/spell/en.utf-8.add \
 	vim/syntax/tex.vim \
-	vim/uni.vim \
 	vimrc \
 	xinitrc \
 	xmobarrc \
