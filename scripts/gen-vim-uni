@@ -1,0 +1,3 @@
+#!/bin/sh
+
+uni print | awk '{printf("map! <Leader>%s %s\n", $1, $2)}' >$HOME/.vim/uni.vim

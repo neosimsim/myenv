@@ -50,10 +50,11 @@ DOTFILES= \
 	vim/ftplugin/yaml.vim \
 	vim/plugin/pipe.vim \
 	vim/plugin/rename.vim \
-	vimrc \
 	vim/spell/de.utf-8.add \
 	vim/spell/en.utf-8.add \
 	vim/syntax/tex.vim \
+	vim/uni.vim \
+	vimrc \
 	xinitrc \
 	xmobarrc \
 	Xmodmap \

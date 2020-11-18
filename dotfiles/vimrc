@@ -87,6 +87,7 @@ inoremap <Leader>ue ü
 inoremap <Leader>ss ß
 inoremap <Leader>,  
 
+source ~/.vim/uni.vim
 nnoremap <Leader>u :.!uni<CR>
 vnoremap <Leader>u :!uni<CR>
 
