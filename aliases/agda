@@ -1,7 +1,9 @@
 #!/bin/sh -e
 
 . _unalias
+agda=$(which agda)
+export PATH=$HOME/bin/aliases:$PATH
 
 export GHC_ENVIRONMENT=agda
 export GHC_VERSION=8.8.4
-exec agda "$@"
+exec $agda "$@"
