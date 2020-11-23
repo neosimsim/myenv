@@ -71,7 +71,11 @@ fi
 export PATH
 [ -f "$PLAN9/bin/u" ] && . "$PLAN9/bin/u"
 
-export MANPATH=$HOME/man:
+if [ -z "$MANPATH" ]; then
+	export MANPATH=$HOME/man:
+else
+	export MANPATH=$HOME/man:$MANPATH:
+fi
 
 alias ll='ls -l'
 alias l='ls -1'
