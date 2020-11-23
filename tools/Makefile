@@ -202,4 +202,5 @@ $(PREFIX)/apps/plan9port/bin/9p: $(PREFIX)/apps/plan9port/INSTALL
 	cd $(PREFIX)/apps/plan9port && ./INSTALL
 
 $(PREFIX)/apps/plan9port/INSTALL:
-	cd  $(PREFIX)/apps/ && git clone --recursive https://github.com/9fans/plan9port
+	mkdir -p $(PREFIX)/apps
+	cd  $(PREFIX)/apps && git clone --recursive https://github.com/9fans/plan9port
