@@ -1,7 +1,6 @@
 .POSIX:
 
-DOTFILES= \
-	config/konsolerc \
+DOTFILES_CORE= \
 	config/nixpkgs/config.nix \
 	config/nixpkgs/overlays/emacs.nix \
 	config/nixpkgs/overlays/haskell.nix \
@@ -11,23 +10,12 @@ DOTFILES= \
 	ghci \
 	gitconfig \
 	gitignore_global \
-	i3.conf \
-	i3status.conf \
-	local/share/konsole/Mono.profile \
-	local/share/konsole/SolarizedLightContrast.colorscheme \
-	local/share/konsole/Var.profile \
 	mbsyncrc \
-	mlterm/aafont \
-	mlterm/color \
-	mlterm/key \
-	mlterm/main \
-	mlterm/vaafont \
 	mutt/abnrc \
 	mutt/mailcap \
 	mutt/muttrc \
 	mutt/posteorc \
 	npmrc \
-	plumbing \
 	profile \
 	shinit \
 	tmux.conf \
@@ -53,6 +41,20 @@ DOTFILES= \
 	vim/spell/en.utf-8.add \
 	vim/syntax/tex.vim \
 	vimrc \
+
+DOTFILES_GUI= \
+	config/konsolerc \
+	i3.conf \
+	i3status.conf \
+	local/share/konsole/Mono.profile \
+	local/share/konsole/SolarizedLightContrast.colorscheme \
+	local/share/konsole/Var.profile \
+	mlterm/aafont \
+	mlterm/color \
+	mlterm/key \
+	mlterm/main \
+	mlterm/vaafont \
+	plumbing \
 	xinitrc \
 	xmobarrc \
 	Xmodmap \
@@ -61,7 +63,12 @@ DOTFILES= \
 	xmonad/xmonad.hs \
 	Xresources \
 
-install: phony $(DOTFILES)
+DOTFILES=$(DOTFILES_CORE) $(DOTFILES_GUI)
+
+default: install-core
+install: install-core
+install-core: phony $(DOTFILES_CORE)
+install-gui: install-core $(DOTFILES_GUI)
 
 $(DOTFILES): phony
 	@mkdir -p `dirname $(HOME)/.$@`

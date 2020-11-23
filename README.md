@@ -19,8 +19,9 @@ If your distribution is supported, you can run the preparation script, e. g.
 
 # Targets
 
-- `install` installs everything
-- `install-noX` installs packages, which don't require X11 libraries, e. g. xmonad.
+- `install-gui` installs core tools and gui tools
+- `install-core` installs packages, which don't require X11 libraries, e. g. xmonad.
+- `install` falls back to `install-core`
 
 # GHC
 ## `GHC_VERSIONS`

@@ -11,11 +11,10 @@ BuildFlavour=perf
 
 CABAL_FLAGS=--ghc-options '-j6' --constraint 'hashable -integer-gmp' --constraint 'cryptonite -integer-gmp' --constraint 'scientific +integer-simple' --constraint 'integer-logarithms -integer-gmp'
 
-all:
-	$(MAKE) noX
-	$(MAKE) X
+default: install-core
+install: install-core
 
-X:
+install-gui: install-core
 	$(MAKE) plan9port
 	$(MAKE) editinacme
 	$(MAKE) acmego
@@ -23,7 +22,7 @@ X:
 	$(MAKE) xplor
 	$(MAKE) threadscope
 
-noX:
+install-core:
 	$(MAKE) all-ghc
 	$(MAKE) cabal
 	$(MAKE) agda
