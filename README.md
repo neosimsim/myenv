@@ -7,6 +7,7 @@ Scripts to install tools and configurations I use on a daily basis.
 
 To install everything, you need
 
+- nix
 - ghc <= 8.6.5
 - cabal >=2.4
 - go

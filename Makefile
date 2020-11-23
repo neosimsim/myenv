@@ -5,6 +5,7 @@ install: install-core
 
 install-gui: install-core
 	. $(HOME)/.profile && $(MAKE) -C dotfiles install-gui
+	. $(HOME)/.profile && nix-env -e my-packages && nix-env -f '<nixpkgs>' -iA myGuiPackages
 	. $(HOME)/.profile && $(MAKE) -C tools install-gui
 
 install-core:
@@ -16,6 +17,7 @@ install-core:
 	. $(HOME)/.profile && $(MAKE) -C scripts install-posix
 	. $(HOME)/.profile && $(MAKE) -C aliases install
 	. $(HOME)/.profile && $(MAKE) -C tools install-core
+	. $(HOME)/.profile && nix-env -e my-gui-packages && nix-env -f '<nixpkgs>' -iA myPackages
 	# We can now install every other script.
 	. $(HOME)/.profile && $(MAKE) -C scripts install
 
