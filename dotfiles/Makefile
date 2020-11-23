@@ -5,8 +5,6 @@ DOTFILES= \
 	config/nixpkgs/config.nix \
 	config/nixpkgs/overlays/emacs.nix \
 	config/nixpkgs/overlays/haskell.nix \
-	config/nixpkgs/overlays/xmobar.nix \
-	config/nixpkgs/overlays/xmonad.nix \
 	ctags \
 	cabal/config \
 	emacs \
@@ -59,7 +57,7 @@ DOTFILES= \
 	xmobarrc \
 	Xmodmap \
 	xmonad/build \
-	xmonad/myXmonad.cabal \
+	xmonad/shell.nix \
 	xmonad/xmonad.hs \
 	Xresources \
 

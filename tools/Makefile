@@ -16,7 +16,6 @@ all:
 	$(MAKE) X
 
 X:
-	$(MAKE) xmonad
 	$(MAKE) plan9port
 	$(MAKE) editinacme
 	$(MAKE) acmego
@@ -37,18 +36,14 @@ noX:
 	$(MAKE) brittany
 	$(MAKE) stylish-haskell
 	$(MAKE) fzf
-	$(MAKE) hwk
 
 # Haskell
 
 ## installable with GHC 8.10.1
 hlint \
 apply-refact \
-stylish-haskell \
-xmonad:
+stylish-haskell:
 	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) $@
-
-xmonad: xmobar
 
 ## installable with GHC 8.8.4
 cabal-fmt \
@@ -57,11 +52,6 @@ pandoc-include-code \
 brittany \
 threadscope :
 	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) $@
-
-## tools with special flags, constraints etc.
-
-xmobar:
-	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) -f with_alsa -f with_xft xmobar
 
 hwk:
 	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) hwk
