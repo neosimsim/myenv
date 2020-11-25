@@ -26,8 +26,6 @@ install-core:
 	$(MAKE) cabal
 	$(MAKE) agda
 	$(MAKE) agda-stdlib
-	$(MAKE) pandoc
-	$(MAKE) pandoc-include-code
 	$(MAKE) cabal-fmt
 	$(MAKE) hlint
 	$(MAKE) apply-refact
@@ -44,8 +42,6 @@ stylish-haskell:
 
 ## installable with GHC 8.8.4
 cabal-fmt \
-pandoc \
-pandoc-include-code \
 brittany \
 threadscope :
 	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) $@
