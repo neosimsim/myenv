@@ -15,7 +15,6 @@ default: install-core
 install: install-core
 
 install-gui: install-core
-	$(MAKE) plan9port
 	$(MAKE) editinacme
 	$(MAKE) acmego
 	$(MAKE) Watch
@@ -178,14 +177,3 @@ Watch:
 
 xplor:
 	go get -u github.com/mpl/xplor
-
-# Plan9
-
-plan9port: $(PREFIX)/apps/plan9port/bin/9p
-
-$(PREFIX)/apps/plan9port/bin/9p: $(PREFIX)/apps/plan9port/INSTALL
-	cd $(PREFIX)/apps/plan9port && ./INSTALL
-
-$(PREFIX)/apps/plan9port/INSTALL:
-	mkdir -p $(PREFIX)/apps
-	cd  $(PREFIX)/apps && git clone --recursive https://github.com/9fans/plan9port

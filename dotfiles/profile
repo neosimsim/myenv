@@ -12,7 +12,6 @@ export APPLICATIONS=$HOME/apps
 export GOOS=linux
 export GOARCH=amd64
 export GOBIN="$HOME/bin"
-export PLAN9="$HOME/apps/plan9port"
 export tabstop=4
 export BROWSER=chrome
 export NAMESPACE=$HOME/9p
@@ -69,7 +68,6 @@ if ! (echo $PATH | grep -q "/usr/games"); then
 	PATH=$PATH:/usr/games
 fi
 export PATH
-[ -f "$PLAN9/bin/u" ] && . "$PLAN9/bin/u"
 
 if [ -z "$MANPATH" ]; then
 	export MANPATH=$HOME/man:

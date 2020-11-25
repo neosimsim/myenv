@@ -13,6 +13,7 @@
         '')
         jq
         fzf
+        plan9port
         haskellPackages.pandoc
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
