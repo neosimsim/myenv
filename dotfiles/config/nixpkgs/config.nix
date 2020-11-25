@@ -26,6 +26,7 @@
         signal-desktop
         wire-desktop
         haskellPackages.xmonad
+        haskellPackages.threadscope
         xmobar
         dmenu
       ];

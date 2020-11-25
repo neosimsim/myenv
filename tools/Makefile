@@ -19,7 +19,6 @@ install-gui: install-core
 	$(MAKE) acmego
 	$(MAKE) Watch
 	$(MAKE) xplor
-	$(MAKE) threadscope
 
 install-core:
 	$(MAKE) all-ghc
@@ -42,8 +41,7 @@ stylish-haskell:
 
 ## installable with GHC 8.8.4
 cabal-fmt \
-brittany \
-threadscope :
+brittany :
 	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) $@
 
 hwk:
