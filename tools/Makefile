@@ -34,7 +34,6 @@ install-core:
 	$(MAKE) apply-refact
 	$(MAKE) brittany
 	$(MAKE) stylish-haskell
-	$(MAKE) fzf
 
 # Haskell
 
@@ -179,9 +178,6 @@ Watch:
 
 xplor:
 	go get -u github.com/mpl/xplor
-
-fzf:
-	go get -u github.com/junegunn/fzf
 
 # Plan9
 

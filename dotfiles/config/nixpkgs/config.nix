@@ -12,6 +12,7 @@
           cp ${myProfile} $out/etc/profile.d/my-profile.sh
         '')
         jq
+        fzf
         haskellPackages.pandoc
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
