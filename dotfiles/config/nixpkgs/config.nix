@@ -15,6 +15,7 @@
         fzf
         plan9port
         haskellPackages.pandoc
+        haskellPackages.steeloverseer
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
       extraOutputsToInstall = [ "man" "doc" ];
