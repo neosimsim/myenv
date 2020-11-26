@@ -47,6 +47,28 @@ ghc is compiled with `INTEGER_LIBRARY = integer-simple`. This might cause
 trouble if cabal already cached some packages built with integer-gmp. In this
 case it might help to remove *$HOME/.cabal/store* and *$HOME/.cabal/packages*.
 
+## nix: `warning: setlocale:
+If you get the following error, when envoking nix command, e.g. `nix-shell`
+
+	bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+add the following to `$HOME/.profile.locale`
+
+	export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
+
+You may have to adopt `/usr/lib/locale`.
+
+When on a non glibc Linux, e.g. alpine try to install
+
+	nix-env -i glibc-locales
+
+and add the following to `$HOME/.profile.locale`
+
+	export LOCALE_ARCHIVE="$(nix-env --installed --no-name --out-path --query glibc-locales)/lib/locale/locale-archive"
+
+Compare with [NixOS/nix#599](https://github.com/NixOS/nix/issues/599).
+
 # Dockerfiles
 The Dockerfiles are not actually meant to build production images. There shall
 only verify that my setup works in my supported environment.
+

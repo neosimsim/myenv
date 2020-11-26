@@ -49,11 +49,6 @@ pushToPath $HOME/.npm/bin
 pushToPath $HOME/.cabal/bin
 
 if [ -d $HOME/.nix-profile/etc/profile.d ]; then
-	# export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
-	# workaround for nix https://github.com/NixOS/nix/issues/599
-	#export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
-	# https://github.com/NixOS/nix/issues/599
-	#export LOCALE_ARCHIVE="$(nix-env --installed --no-name --out-path --query glibc-locales)/lib/locale/locale-archive"
 	for i in $HOME/.nix-profile/etc/profile.d/*.sh; do
 		if [ -r $i ]; then
 			. $i
