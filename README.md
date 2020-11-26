@@ -8,11 +8,18 @@ Scripts to install tools and configurations I use on a daily basis.
 To install everything, you need
 
 - nix
-- ghc <= 8.6.5
-- cabal >=2.4
 - go
 
 e. g. installed from you systems packages manager.
+
+If you want to setup the Haskell environment you need
+
+- ghc <= 8.6.5 (depending on the MAKE_GHC_VERSION in tools/Makefile)
+- cabal >=2.4
+
+You can then run
+
+	make install-haskell-env
 
 If your distribution is supported, you can run the preparation script, e. g.
 
@@ -20,9 +27,10 @@ If your distribution is supported, you can run the preparation script, e. g.
 
 # Targets
 
-- `install-gui` installs core tools and gui tools
-- `install-core` installs packages, which don't require X11 libraries, e. g. xmonad.
 - `install` falls back to `install-core`
+- `install-core` installs packages, which don't require X11 libraries.
+- `install-gui` installs core tools and gui tools
+- `install-haskell-env` installs GHC, cabal and useful development tools.
 
 # GHC
 ## `GHC_VERSIONS`
@@ -32,7 +40,7 @@ The list has to be in ascending order and has to contain 8.6.5
 and 8.8.2. Assuming your system has GHC 8.2.2 install you should
 call `make` with
 
-	make GHC_VERSIONS='8.2.2 8.4.2 8.6.5 8.8.2' install
+	make GHC_VERSIONS='8.2.2 8.4.2 8.6.5 8.8.2' install-haskell-env
 
 # Customizations
 You can specify workstation specific settings in $HOME/.profile.local, e. g.

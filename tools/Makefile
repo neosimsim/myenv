@@ -21,6 +21,8 @@ install-gui: install-core
 	$(MAKE) xplor
 
 install-core:
+
+install-haskell-env:
 	$(MAKE) all-ghc
 	$(MAKE) cabal
 	$(MAKE) agda

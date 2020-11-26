@@ -1,9 +1,7 @@
-AGDA=agda
-
 all: agda xmonad
 
 agda:
-	$(AGDA) -c hello-agda.agda
+	nix-shell --pure -p 'agda.withPackages (p: [ p.standard-library ])' --run 'agda --library standard-library -i . hello-agda.agda'
 	./hello-agda
 
 xmonad:

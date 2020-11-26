@@ -70,7 +70,7 @@ install-posix: phony
 
 install-haskell: phony
 	@echo install Haskell scripts
-	cabal v2-install --installdir $(PREFIX)/bin --install-method copy --overwrite-policy always
+	nix-shell --pure --command "cabal v2-install --installdir $(PREFIX)/bin --install-method copy --overwrite-policy always"
 
 uninstall: phony
 	cd $(PREFIX)/bin && rm -f $(BIN)
@@ -81,13 +81,13 @@ TESTS=\
 test: $(TESTS)
 
 test_uni: phony
-	cabal v2-run -v0 exe:uni < uni_test_in | diff - uni_test_out
+	nix-shell --command 'cabal v2-run -v0 exe:uni' < uni_test_in | diff - uni_test_out
 	@echo test broken pipes
-	cabal v2-run -v0 exe:uni < uni_test_in | sed 2q >/dev/null
+	nix-shell --command 'cabal v2-run -v0 exe:uni' < uni_test_in | sed 2q >/dev/null
 	@echo test print
-	cabal v2-run -v0 exe:uni print | diff - uni_print_test_out
+	nix-shell --command 'cabal v2-run -v0 exe:uni -- print' | diff - uni_print_test_out
 	@echo test print broken pipes
-	cabal v2-run -v0 exe:uni -- print | sed 2q >/dev/null
+	nix-shell --command 'cabal v2-run -v0 exe:uni -- print' | sed 2q >/dev/null
 
 verify:
 	cabal-fmt scripts.cabal | diff scripts.cabal -

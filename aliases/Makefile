@@ -4,9 +4,6 @@ PREFIX=$(HOME)
 
 BIN = \
 	_unalias \
-	agda \
-	ghc \
-	ghc-pkg \
 	hwk \
 	Watch \
 

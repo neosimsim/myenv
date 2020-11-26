@@ -1,5 +1,7 @@
 tests/hello-agda
 
+scripts/shell.nix
+
 dist-newstyle/
 MAlonzo/
 

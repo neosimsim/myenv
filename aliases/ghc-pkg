@@ -1,8 +1,0 @@
-#!/bin/sh -e
-
-if [ -z "$GHC_VERSION" ]; then
-	. _unalias
-	exec ghc-pkg "$@"
-else
-	exec ghc-pkg-$GHC_VERSION "$@"
-fi
