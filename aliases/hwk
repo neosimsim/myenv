@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-. _unalias
-
 export GHC_ENVIRONMENT=hwk
 export GHC_VERSION=8.10.1
-exec hwk "$@"
+exec $HOME/bin/hwk "$@"

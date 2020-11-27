@@ -3,7 +3,6 @@
 PREFIX=$(HOME)
 
 BIN = \
-	_unalias \
 	hwk \
 	Watch \
 

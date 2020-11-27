@@ -1,6 +1,3 @@
 #!/bin/sh -e
 
-. _unalias
-
-exec Watch -x '\.git|dist-newstyle|_build|MAlonzo|\.lock' "$@"
-
+exec $HOME/bin/Watch -x '\.git|dist-newstyle|_build|MAlonzo|\.lock' "$@"
