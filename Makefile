@@ -4,9 +4,9 @@ default: install-core
 install: install-core
 
 install-gui: install-core
-	. $(HOME)/.profile && $(MAKE) -C dotfiles install-gui
-	. $(HOME)/.profile && nix-env -e my-packages && nix-env -f '<nixpkgs>' -iA myGuiPackages
-	. $(HOME)/.profile && $(MAKE) -C tools install-gui
+	$(SHELL) -l -c '$(MAKE) -C dotfiles install-gui'
+	$(SHELL) -l -c 'nix-env -e my-packages && nix-env -f "<nixpkgs>" -iA myGuiPackages'
+	$(SHELL) -l -c '$(MAKE) -C tools install-gui'
 
 install-core:
 	$(MAKE) -C dotfiles install-core
@@ -14,12 +14,13 @@ install-core:
 	# Some scripts are required by tools BUT tools can only use
 	# posix compatible scripts which don't require additional programs like
 	# GHC.
-	. $(HOME)/.profile && $(MAKE) -C scripts install-posix
-	. $(HOME)/.profile && $(MAKE) -C aliases install
-	. $(HOME)/.profile && $(MAKE) -C tools install-core
-	. $(HOME)/.profile && nix-env -e my-gui-packages && nix-env -f '<nixpkgs>' -iA myPackages
+	$(SHELL) -l -c '$(MAKE) -C scripts install-posix'
+	$(SHELL) -l -c '$(MAKE) -C aliases install'
+	$(SHELL) -l -c '$(MAKE) -C tools install-core'
+	$(SHELL) -l -c 'nix-env -e my-gui-packages && nix-env -f "<nixpkgs>" -iA myPackages'
 	# We can now install every other script.
-	. $(HOME)/.profile && $(MAKE) -C scripts install
+	$(SHELL) -l -c '$(MAKE) -C scripts install'
+	$(SHELL) -l -c gen-vim-uni
 
 uninstall:
 	$(MAKE) -C dotfiles uninstall
@@ -28,6 +29,6 @@ uninstall:
 	$(MAKE) -C aliases uninstall
 
 test:
-	. $(HOME)/.profile && $(MAKE) -C scripts test
-	. $(HOME)/.profile && $(MAKE) -C texfiles pdf
-	. $(HOME)/.profile && $(MAKE) -C tests all
+	$(SHELL) -l -c '$(MAKE) -C scripts test'
+	$(SHELL) -l -c '$(MAKE) -C texfiles pdf'
+	$(SHELL) -l -c '$(MAKE) -C tests all'
