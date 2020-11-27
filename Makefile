@@ -28,7 +28,10 @@ uninstall:
 	$(MAKE) -C scripts uninstall
 	$(MAKE) -C aliases uninstall
 
-test:
+test-core:
 	$(SHELL) -l -c '$(MAKE) -C scripts test'
 	$(SHELL) -l -c '$(MAKE) -C texfiles pdf'
-	$(SHELL) -l -c '$(MAKE) -C tests all'
+	$(SHELL) -l -c '$(MAKE) -C tests test-core'
+
+test-gui:
+	$(SHELL) -l -c '$(MAKE) -C tests test-gui'
