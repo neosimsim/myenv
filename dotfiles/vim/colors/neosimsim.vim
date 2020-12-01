@@ -8,7 +8,7 @@ let colors_name = "neosimsim"
 
 hi Error      cterm=none ctermfg=0 ctermbg=1
 hi Special    cterm=none
-hi LineNr     cterm=none ctermfg=7
+hi LineNr     cterm=none ctermfg=0
 hi SpellBad   cterm=none ctermfg=0 ctermbg=1
 hi Visual     cterm=none ctermfg=7 ctermbg=0
 hi DiffAdd    cterm=none ctermfg=0 ctermbg=2
