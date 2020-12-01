@@ -5,7 +5,7 @@ install: install-core
 
 install-gui: install-core
 	$(SHELL) -l -c '$(MAKE) -C dotfiles install-gui'
-	$(SHELL) -l -c 'nix-env -e my-packages && nix-env -f "<nixpkgs>" -iA myGuiPackages'
+	$(SHELL) -l -c 'nix-env -f "<nixpkgs>" -iA myGuiPackages'
 	$(SHELL) -l -c '$(MAKE) -C tools install-gui'
 
 install-core:
@@ -17,7 +17,7 @@ install-core:
 	$(SHELL) -l -c '$(MAKE) -C scripts install-posix'
 	$(SHELL) -l -c '$(MAKE) -C aliases install'
 	$(SHELL) -l -c '$(MAKE) -C tools install-core'
-	$(SHELL) -l -c 'nix-env -e my-gui-packages && nix-env -f "<nixpkgs>" -iA myPackages'
+	$(SHELL) -l -c 'nix-env -f "<nixpkgs>" -iA myPackages'
 	# We can now install every other script.
 	$(SHELL) -l -c '$(MAKE) -C scripts install'
 	$(SHELL) -l -c gen-vim-uni

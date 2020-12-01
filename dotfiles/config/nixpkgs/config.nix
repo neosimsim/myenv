@@ -17,7 +17,6 @@
     myGuiPackages = pkgs.buildEnv {
       name = "my-gui-packages";
       paths = [
-        myPackages
         signal-desktop
         wire-desktop
         haskellPackages.xmonad
