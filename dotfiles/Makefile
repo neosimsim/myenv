@@ -15,7 +15,6 @@ DOTFILES_CORE= \
 	mutt/posteorc \
 	npmrc \
 	profile \
-	shinit \
 	tmux.conf \
 	vim/autoload/plug.vim \
 	vim/autoload/statusline.vim \

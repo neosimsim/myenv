@@ -1,8 +1,9 @@
+stty -ixon
 export TERM=xterm-256color
 export ENV=~/.shinit
 export HISTFILE=$HOME/.sh_history
 export HISTSIZE=4096
-export EDITOR=vim
+export EDITOR="emacs -nw"
 export FCEDIT=$EDITOR
 export MAILPATH=$MAIL:$HOME/.mail/posteo?"Neue Mails."
 export TEXMFHOME=$HOME/texmf

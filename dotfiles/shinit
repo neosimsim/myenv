@@ -1,2 +1,0 @@
-set -o vi
-export GPG_TTY=`tty`
