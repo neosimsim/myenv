@@ -1,5 +1,4 @@
 export TERM=xterm-256color
-export LC_ALL=en_US.UTF-8
 export ENV=~/.shinit
 export HISTFILE=$HOME/.sh_history
 export HISTSIZE=4096
