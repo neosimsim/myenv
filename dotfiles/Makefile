@@ -2,6 +2,7 @@
 
 DOTFILES_CORE= \
 	config/nixpkgs/config.nix \
+        config/vis/visrc.lua \
 	ctags \
 	cabal/config \
 	emacs \

@@ -1,8 +1,10 @@
 require('vis')
+local uni = require('uni')
 
 vis.events.subscribe(vis.events.INIT, function()
 	-- Your global configuration options
 	vis:command('set theme light-16')
+        uni:mapKeys()
 end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)

@@ -19,6 +19,7 @@ POSIX_BIN = \
 	filter \
 	games \
 	gen-vim-uni \
+	gen-vis-uni \
 	getmod \
 	hsfmt \
 	git-to-dot \

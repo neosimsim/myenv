@@ -1,0 +1,12 @@
+#!/bin/sh
+
+uni print | awk '
+BEGIN {
+    print "return {"
+    print "mapKeys = function()"
+  }
+  {
+    printf("\tvis:command([[map! insert ,%s %s]])\n", $1, $2)
+  }
+END { print "end,}"}
+' >$HOME/.config/vis/uni.lua

@@ -21,6 +21,7 @@ install-core:
 	# We can now install every other script.
 	$(SHELL) -l -c '$(MAKE) -C scripts install'
 	$(SHELL) -l -c gen-vim-uni
+	$(SHELL) -l -c gen-vis-uni
 
 uninstall:
 	$(MAKE) -C dotfiles uninstall
