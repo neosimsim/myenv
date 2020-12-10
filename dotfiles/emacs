@@ -1,8 +1,9 @@
+(setq create-lockfiles nil)
+(setq auto-save-default nil)
+(setq make-backup-files nil)
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-;; and `package-pinned-packages`. Most users will not need or want to do this.
-;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 ;; run package-install-selected-packages to install following packages
 (setq package-selected-packages
@@ -10,24 +11,18 @@
         lsp-ui
         company
         lsp-haskell
-        flycheck
         ))
 
-(set 'backup-by-copying t)      ; don't clobber symlinks
-(set 'backup-directory-alist
-      '(("." . "~/var/emacs/backup")))    ; don't litter my fs tree
-(set 'delete-old-versions t)
-(set 'kept-new-versions 6)
-(set 'kept-old-versions 2)
-(set 'version-control t)       ; use versioned backups
-(set 'auto-save-file-name-transforms
-     '((".*" "~/var/emacs/autosave/" t)))
+(setq-default show-trailing-whitespace t)
+(setq-default indicate-empty-lines t)
+(setq kill-whole-line t)
+(column-number-mode 1)
 
 (setq-default indent-tabs-mode nil)
 (defun kill-line-back () "kill backward to beginning of line"
        (interactive)
        (kill-line 0))
-(global-set-key (kbd "M-DEL") 'kill-line-back)
+(global-font-lock-mode 0)
 
 ;; Enable mouse support
 (unless window-system
@@ -44,6 +39,9 @@
   )
 
 ;; Agda
+;;
+
+
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
 
@@ -66,7 +64,6 @@
        ("\\.lagda.md\\'" . agda2-mode))
      auto-mode-alist))
 
-(global-font-lock-mode 0)
 (setq lsp-keymap-prefix "C-l")
 
 (require 'lsp-mode)
@@ -76,5 +73,5 @@
 ;; Hooks so haskell and literate haskell major modes trigger LSP setup
 (add-hook 'haskell-mode-hook #'lsp)
 (add-hook 'haskell-literate-mode-hook #'lsp)
-(add-hook 'after-init-hook 'global-company-mode)
-
+(add-hook 'haskell-mode-hook 'global-company-mode)
+(add-hook 'haskell-literate-mode-hook 'global-company-mode)

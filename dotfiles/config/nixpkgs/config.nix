@@ -11,7 +11,7 @@
         haskellPackages.steeloverseer
         hs
         agda
-        emacs
+        emacs-nox
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
       extraOutputsToInstall = [ "man" "doc" ];
