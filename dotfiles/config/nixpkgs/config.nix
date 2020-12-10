@@ -11,6 +11,7 @@
         haskellPackages.steeloverseer
         hs
         agda
+        vis
         emacs-nox
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
