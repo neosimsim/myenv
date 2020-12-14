@@ -13,6 +13,8 @@
         agda
         vis
         emacs-nox
+        mutt
+        isync
         gnupg
         pinentry-curses
       ];
