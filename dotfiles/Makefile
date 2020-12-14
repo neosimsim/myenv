@@ -61,6 +61,7 @@ DOTFILES_GUI= \
 	xmonad/shell.nix \
 	xmonad/xmonad.hs \
 	Xresources \
+	xsession \
 
 DOTFILES=$(DOTFILES_CORE) $(DOTFILES_GUI)
 
