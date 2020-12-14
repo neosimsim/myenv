@@ -25,11 +25,14 @@
       name = "my-gui-packages";
       paths = [
         dmenu
+        feh
         haskellPackages.threadscope
         haskellPackages.xmonad
+        konsole
         signal-desktop
         wire-desktop
         xmobar
+        xorg.xmodmap
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
       extraOutputsToInstall = [ "man" "doc" ];
