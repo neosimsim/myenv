@@ -13,6 +13,8 @@
         agda
         vis
         emacs-nox
+        gnupg
+        pinentry-curses
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
       extraOutputsToInstall = [ "man" "doc" ];
