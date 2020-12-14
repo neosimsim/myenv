@@ -3,20 +3,20 @@
     myPackages = pkgs.buildEnv {
       name = "my-packages";
       paths = [
-        jq
+        agda
+        emacs-nox
         fzf
-        plan9port
+        gnupg
         haskellPackages.cabal2nix
         haskellPackages.pandoc
         haskellPackages.steeloverseer
         hs
-        agda
-        vis
-        emacs-nox
-        mutt
         isync
-        gnupg
+        jq
+        mutt
         pinentry-curses
+        plan9port
+        vis
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
       extraOutputsToInstall = [ "man" "doc" ];
@@ -24,12 +24,12 @@
     myGuiPackages = pkgs.buildEnv {
       name = "my-gui-packages";
       paths = [
+        dmenu
+        haskellPackages.threadscope
+        haskellPackages.xmonad
         signal-desktop
         wire-desktop
-        haskellPackages.xmonad
-        haskellPackages.threadscope
         xmobar
-        dmenu
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
       extraOutputsToInstall = [ "man" "doc" ];
