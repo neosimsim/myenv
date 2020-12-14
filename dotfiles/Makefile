@@ -9,6 +9,7 @@ DOTFILES_CORE= \
 	ghci \
 	gitconfig \
 	gitignore_global \
+	gnupg/gpg-agent.conf \
 	mbsyncrc \
 	mutt/abnrc \
 	mutt/mailcap \
