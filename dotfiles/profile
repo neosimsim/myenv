@@ -1,6 +1,5 @@
 stty -ixon
 export TERM=xterm-256color
-export ENV=~/.shinit
 export HISTFILE=$HOME/.sh_history
 export HISTSIZE=4096
 export EDITOR="emacs -nw"
@@ -20,6 +19,7 @@ export CDPATH=".:$HOME:$HOME/src"
 # font for plan9 sam, 9term etc. (not acme)
 export font=/mnt/font/DejaVuSansMono/18a/font
 export FZF_DEFAULT_COMMAND="set -o pipefail; command find -L . -mindepth 1 -path '*/\.*' -prune -o -type f -print -o -type l -print | cut -b3-" fzf
+export GPG_TTY=`tty`
 export MANPATH=$HOME/man:
 
 PATH=$APPLICATIONS/postgresql/bin:$PATH
