@@ -1,10 +1,10 @@
 .POSIX:
 
 DOTFILES_CORE= \
+	cabal/config \
 	config/nixpkgs/config.nix \
         config/vis/visrc.lua \
 	ctags \
-	cabal/config \
 	emacs \
 	ghci \
 	gitconfig \
@@ -17,6 +17,7 @@ DOTFILES_CORE= \
 	mutt/posteorc \
 	npmrc \
 	profile \
+	shinit \
 	tmux.conf \
 	vim/autoload/plug.vim \
 	vim/autoload/statusline.vim \
@@ -36,10 +37,10 @@ DOTFILES_CORE= \
 	vim/ftplugin/yaml.vim \
 	vim/plugin/pipe.vim \
 	vim/plugin/rename.vim \
+	vimrc \
 	vim/spell/de.utf-8.add \
 	vim/spell/en.utf-8.add \
 	vim/syntax/tex.vim \
-	vimrc \
 
 DOTFILES_GUI= \
 	config/konsolerc \

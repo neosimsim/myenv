@@ -1,7 +1,8 @@
 stty -ixon
+export ENV=~/.shinit
 export HISTFILE=$HOME/.sh_history
 export HISTSIZE=4096
-export EDITOR="emacs -nw"
+export EDITOR="vis"
 export FCEDIT=$EDITOR
 export MAILPATH=$MAIL:$HOME/.mail/posteo?"Neue Mails."
 export TEXMFHOME=$HOME/texmf
