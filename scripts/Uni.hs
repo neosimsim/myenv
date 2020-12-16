@@ -187,11 +187,18 @@ mapping =
     (";)", "😉"),
     -- misc
     ("ell", "ℓ"),
+    ("ae", "ä"),
+    ("Ae", "Ä"),
+    ("oe", "ö"),
+    ("Oe", "Ö"),
+    ("ue", "ü"),
+    ("Ue", "Ü"),
     (",", " "), -- Narrow No-Break Space
     ("~", " "), -- No-Break Space
     ("'", "́"), -- Combining Acute Accent, e. g. é
     ("^", "̂"), -- Combining Circumflex Accent, e. g. ê
     ("`", "̀"), -- Combining Grave Accent, e. g. è
+    ("\"", "̈"), -- Combining Diaeresis
     ("--", "–"),
     ("---", "—"),
     ("prime", "′"),
