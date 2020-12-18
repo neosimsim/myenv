@@ -5,7 +5,7 @@
 [commit]
 	gpgSign = true
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/ignore
 	editor = $EDITOR
 	whitespace = -blank-at-eof
 [alias]

@@ -2,11 +2,11 @@
 
 DOTFILES_CORE= \
 	cabal/config \
+	config/git/config \
+	config/git/ignore \
 	config/nixpkgs/config.nix \
         config/vis/visrc.lua \
 	ghci \
-	gitconfig \
-	gitignore_global \
 	gnupg/gpg-agent.conf \
 	mbsyncrc \
 	mutt/abnrc \
