@@ -15,7 +15,6 @@ DOTFILES_CORE= \
 	mutt/mailcap \
 	mutt/muttrc \
 	mutt/posteorc \
-	npmrc \
 	profile \
 	shinit \
 	tmux.conf \
