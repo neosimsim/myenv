@@ -43,8 +43,6 @@ DOTFILES_CORE= \
 	vim/syntax/tex.vim \
 
 DOTFILES_GUI= \
-	i3.conf \
-	i3status.conf \
 	plumbing \
 	xinitrc \
 	xmobarrc \
