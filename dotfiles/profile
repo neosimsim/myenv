@@ -1,34 +1,26 @@
 stty -ixon
-export ENV=~/.shinit
-export HISTFILE=$HOME/.sh_history
+PS1="$USER@`hostname`\$ "
+export ENV=$HOME/.shinit
+export HISTFILE=$HOME/.shhistory
 export HISTSIZE=4096
 export EDITOR="vis"
 export FCEDIT=$EDITOR
-export MAILPATH=$MAIL:$HOME/.mail/posteo?"Neue Mails."
-export TEXMFHOME=$HOME/texmf
-export WORKSPACE=$HOME/src
-export APPLICATIONS=$HOME/apps
+export CDPATH=".:$HOME:$HOME/src"
 export GOOS=linux
 export GOARCH=amd64
 export GOBIN="$HOME/bin"
-export tabstop=4
 export BROWSER=chrome
 export NAMESPACE=$HOME/9p
-PS1="$USER@`hostname`\$ "
-export CDPATH=".:$HOME:$HOME/src"
+export tabstop=4
 # font for plan9 sam, 9term etc. (not acme)
 export font=/mnt/font/DejaVuSansMono/18a/font
 export FZF_DEFAULT_COMMAND="set -o pipefail; command find -L . -mindepth 1 -path '*/\.*' -prune -o -type f -print -o -type l -print | cut -b3-" fzf
 export GPG_TTY=`tty`
-export MANPATH=$HOME/man:
 
-PATH=$APPLICATIONS/postgresql/bin:$PATH
-PATH=$APPLICATIONS/go/bin:$PATH
 [ -r $HOME/.nix-profile/etc/profile.d/nix.sh ] && . $HOME/.nix-profile/etc/profile.d/nix.sh
 PATH=$HOME/bin:$PATH
 PATH=$HOME/bin/aliases:$PATH
 export PATH
-
 
 alias ll='ls -l'
 alias l='ls -1'
