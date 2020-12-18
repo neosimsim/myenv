@@ -4,7 +4,6 @@ DOTFILES_CORE= \
 	cabal/config \
 	config/nixpkgs/config.nix \
         config/vis/visrc.lua \
-	emacs \
 	ghci \
 	gitconfig \
 	gitignore_global \

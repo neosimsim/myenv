@@ -4,7 +4,6 @@
       name = "my-packages";
       paths = [
         agda
-        emacs-nox
         fzf
         gnupg
         haskellPackages.cabal2nix
@@ -106,21 +105,6 @@
             export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
             exec ${myXmobar}/bin/xmobar
          '';
-    myEmacs = emacsWithPackages (epkgs: (with epkgs.melpaPackages; [
-      lsp-mode
-      lsp-ui
-      lsp-haskell
-      (writeTextDir "share/emacs/site-lisp/default.el" ''
-        (setq lsp-keymap-prefix "c-l")
-
-        (require 'lsp-mode)
-        (require 'lsp)
-        (require 'lsp-haskell)
-        ;; Hooks so haskell and literate haskell major modes trigger LSP setup
-        (add-hook 'haskell-mode-hook #'lsp)
-        (add-hook 'haskell-literate-mode-hook #'lsp)
-      '')
-    ]));
   };
 }
 
