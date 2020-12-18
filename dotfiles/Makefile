@@ -16,28 +16,6 @@ DOTFILES_CORE= \
 	profile \
 	shinit \
 	tmux.conf \
-	vim/autoload/plug.vim \
-	vim/autoload/statusline.vim \
-	vim/colors/neosimsim.vim \
-	vim/ftdetect/gnuplot.vim \
-	vim/ftdetect/markdown.vim \
-	vim/ftdetect/yaml.vim \
-	vim/ftplugin/agda.vim \
-	vim/ftplugin/git.vim \
-	vim/ftplugin/go.vim \
-	vim/ftplugin/haskell.vim \
-	vim/ftplugin/help.vim \
-	vim/ftplugin/mail.vim \
-	vim/ftplugin/markdown.vim \
-	vim/ftplugin/nerdtree.vim \
-	vim/ftplugin/tex.vim \
-	vim/ftplugin/yaml.vim \
-	vim/plugin/pipe.vim \
-	vim/plugin/rename.vim \
-	vimrc \
-	vim/spell/de.utf-8.add \
-	vim/spell/en.utf-8.add \
-	vim/syntax/tex.vim \
 
 DOTFILES_GUI= \
 	plumbing \
