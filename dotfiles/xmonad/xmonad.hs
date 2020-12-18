@@ -19,7 +19,7 @@ main = do
       def
         { borderWidth = 2
         , modMask = myModMask
-        , terminal = "konsole"
+        , terminal = "alacritty"
         , manageHook =
             composeAll
               [ manageHook def

@@ -43,12 +43,8 @@ DOTFILES_CORE= \
 	vim/syntax/tex.vim \
 
 DOTFILES_GUI= \
-	config/konsolerc \
 	i3.conf \
 	i3status.conf \
-	local/share/konsole/Mono.profile \
-	local/share/konsole/SolarizedLightContrast.colorscheme \
-	local/share/konsole/Var.profile \
 	mlterm/aafont \
 	mlterm/color \
 	mlterm/key \

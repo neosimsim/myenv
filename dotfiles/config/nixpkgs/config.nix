@@ -24,11 +24,11 @@
     myGuiPackages = pkgs.buildEnv {
       name = "my-gui-packages";
       paths = [
+        alacritty
         dmenu
         feh
         haskellPackages.threadscope
         haskellPackages.xmonad
-        konsole
         signal-desktop
         wire-desktop
         xmobar
