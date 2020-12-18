@@ -45,11 +45,6 @@ DOTFILES_CORE= \
 DOTFILES_GUI= \
 	i3.conf \
 	i3status.conf \
-	mlterm/aafont \
-	mlterm/color \
-	mlterm/key \
-	mlterm/main \
-	mlterm/vaafont \
 	plumbing \
 	xinitrc \
 	xmobarrc \
