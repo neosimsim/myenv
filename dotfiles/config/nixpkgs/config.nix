@@ -16,6 +16,9 @@
         pinentry-curses
         plan9port
         vis
+        (writeShellScriptBin "nix-shell" ''
+          ${nix}/bin/nix-shell --run mksh "$@"
+        '')
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
       extraOutputsToInstall = [ "man" "doc" ];
