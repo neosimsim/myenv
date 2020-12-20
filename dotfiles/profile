@@ -1,5 +1,4 @@
 stty -ixon
-PS1="$USER@`hostname`\$ "
 export ENV=$HOME/.shinit
 export HISTFILE=$HOME/.shhistory
 export HISTSIZE=4096
