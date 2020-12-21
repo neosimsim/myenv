@@ -18,6 +18,7 @@ DOTFILES_CORE= \
 	tmux.conf \
 
 DOTFILES_GUI= \
+	config/alacritty/alacritty.yml \
 	plumbing \
 	xinitrc \
 	xmobarrc \
