@@ -17,7 +17,7 @@
         plan9port
         vis
         (writeShellScriptBin "nix-shell" ''
-          ${nix}/bin/nix-shell --run mksh "$@"
+          exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
         '')
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
