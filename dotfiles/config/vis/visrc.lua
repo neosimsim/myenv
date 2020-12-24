@@ -19,7 +19,7 @@ local function rmTrailingBlanks(file, path)
   end
   file:delete(0, file.size)
   file:insert(0, out)
-  win.selection.pos = math.min(pos, file.size)
+  win.selection.pos = math.min(pos, file.size - 1)
   return true
 end
 
