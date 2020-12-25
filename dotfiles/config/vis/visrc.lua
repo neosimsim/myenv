@@ -9,7 +9,7 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
   vis:command('set autoindent')
 end)
 
-local function rmTrailingBlanks(file, path)
+local function fmt(file, path)
   local win = vis.win
 
   local fmtCmd = 'sed \'s/[[:blank:]]*$//\''
@@ -34,4 +34,4 @@ local function rmTrailingBlanks(file, path)
   return true
 end
 
-vis.events.subscribe(vis.events.FILE_SAVE_PRE, rmTrailingBlanks)
+vis.events.subscribe(vis.events.FILE_SAVE_PRE, fmt)
