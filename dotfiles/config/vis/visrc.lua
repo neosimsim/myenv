@@ -15,6 +15,8 @@ local function fmt(file, path)
   local fmtCmd = 'sed \'s/[[:blank:]]*$//\''
   if win.syntax == "haskell" then
     fmtCmd = "ormolu"
+  elseif win.syntax == "elixir" then
+    fmtCmd = "mix format -"
   end
 
   local pos = win.selection.pos
