@@ -14,7 +14,6 @@ export tabstop=4
 # font for plan9 sam, 9term etc. (not acme)
 export font=/mnt/font/DejaVuSansMono/18a/font
 export FZF_DEFAULT_COMMAND="set -o pipefail; command find -L . -mindepth 1 -path '*/\.*' -prune -o -type f -print -o -type l -print | cut -b3-" fzf
-export GPG_TTY=`tty`
 
 [ -r $HOME/.nix-profile/etc/profile.d/nix.sh ] && . $HOME/.nix-profile/etc/profile.d/nix.sh
 PATH=$HOME/bin:$PATH
