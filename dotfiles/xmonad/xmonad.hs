@@ -7,6 +7,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
+import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.Run (spawnPipe)
 
@@ -48,7 +49,13 @@ myModMask = mod4Mask
 
 myKeys :: [((KeyMask, KeySym), X ())]
 myKeys =
-  [ ((myModMask .|. shiftMask, xK_p), spawn "dpass"),
+  [ ((myModMask, xK_Down), windows W.focusDown), -- %! Move focus to the next window
+    ((myModMask, xK_Up), windows W.focusUp), -- %! Move focus to the previous window
+    ((myModMask .|. shiftMask, xK_Down), windows W.swapDown), -- %! Swap the focused window with the next window
+    ((myModMask .|. shiftMask, xK_Up), windows W.swapUp), -- %! Swap the focused window with the previous window
+    ((myModMask, xK_Left), sendMessage Shrink), -- %! Shrink the master area
+    ((myModMask, xK_Right), sendMessage Expand), -- %! Expand the master area
+    ((myModMask .|. shiftMask, xK_p), spawn "dpass"),
     ((myModMask .|. shiftMask, xK_l), spawn "slock"),
     ((0, xF86XK_AudioLowerVolume), spawn "amixer set Master 5%-"),
     ((0, xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+"),
