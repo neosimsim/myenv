@@ -11,7 +11,7 @@ let
 in
 pkgs.stdenv.mkDerivation {
   name = "my-haskell-env-0";
-  buildInputs = [ ghc hls ];
+  buildInputs = [ ghc hls hsPkgs.ormolu hsPkgs.hlint ];
   shellHook = "eval $(egrep ^export ${ghc}/bin/ghc)";
 }
 
