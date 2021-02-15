@@ -31,6 +31,7 @@
         feh
         haskellPackages.threadscope
         haskellPackages.xmonad
+        klavaro
         signal-desktop
         wire-desktop
         xmobar
