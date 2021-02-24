@@ -3,7 +3,6 @@
 PREFIX=$(HOME)
 
 BIN = \
-	hwk \
 	Watch \
 
 install: phony

@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-export GHC_ENVIRONMENT=hwk
-export GHC_VERSION=8.10.1
-exec $HOME/bin/hwk "$@"
