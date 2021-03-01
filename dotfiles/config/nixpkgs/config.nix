@@ -73,6 +73,11 @@
       myPackages = pkgs.buildEnv {
         name = "my-packages";
         paths = [
+          # make sure nix-shell runs mksh
+          (writeShellScriptBin "nix-shell" ''
+            exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
+          '')
+
           agda
           fzf
           gnupg
@@ -86,9 +91,6 @@
           pinentry-curses
           plan9port
           vis
-          (writeShellScriptBin "nix-shell" ''
-            exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
-          '')
         ];
         pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
         extraOutputsToInstall = [ "man" "doc" ];
