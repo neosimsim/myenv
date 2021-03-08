@@ -1,45 +1,6 @@
 {
   packageOverrides = pkgs: with pkgs;
     let
-      # I dont want to expose GHC etc. globally do avoid strange behaviours
-      # with projects using nix-shell.
-      #
-      # On the other hand I want to install GHC etc. so I can enter a shell
-      # quickly without having nix to fetch everything after running
-      # `nix-collect-garbage`.
-      #
-      # As a solutions I hide GHC etc. behind a wrapper script `hs`
-      # which will add the GHC etc. to PATH.
-      #
-      # Usage:
-      #   hs ghc --version
-      #
-      # or to expose GHC to the current shell session
-      #
-      #   . hs
-      hs =
-        let myHaskellEnv = pkgs.buildEnv {
-              name = "my-haskell-env";
-              paths = with haskellPackages; [
-                ghc
-                cabal-install
-                cabal-fmt
-                haskell-language-server
-                hlint
-                apply-refact
-                ormolu
-              ];
-              pathsToLink = [ "/bin" "/share/man" ];
-            };
-        in writeShellScriptBin "hs" ''
-             export PATH=${myHaskellEnv}/bin:$PATH
-             export MANPATH=${myHaskellEnv}/share/man:$MANPATH
-
-             case $# in
-               [1-9]*) exec "$@" ;;
-             esac
-           '';
-
       # Using the ALSA plugin of xmobar e.g. by adding
       #
       #   'Run Alsa "default" "Master" []'
@@ -81,17 +42,29 @@
           agda
           fzf
           gnupg
-          haskellPackages.cabal2nix
-          haskellPackages.pandoc
-          haskellPackages.steeloverseer
-          hs
           isync
           jq
           mutt
           pinentry-curses
           plan9port
           vis
-        ];
+        ] ++ (with haskellPackages; [
+          (ghc.withPackages (p: with p; [
+            containers
+            extra
+            filepath
+            hspec
+            QuickCheck
+          ]))
+          apply-refact
+          cabal2nix
+          cabal-fmt
+          cabal-install
+          hlint
+          ormolu
+          pandoc
+          steeloverseer
+        ]);
         pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
         extraOutputsToInstall = [ "man" "doc" ];
       };
