@@ -41,6 +41,7 @@
 
           agda
           beamPackages.elixir
+          cargo
           fzf
           gnupg
           isync
@@ -48,6 +49,7 @@
           mutt
           pinentry-curses
           plan9port
+          rustc
           vis
         ] ++ (with haskellPackages; [
           (ghc.withPackages (p: with p; [
