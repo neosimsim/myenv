@@ -4,9 +4,16 @@ uni print | awk '
 BEGIN {
     print "return {"
     print "mapKeys = function()"
+    # A sequence of two backslashed (typed in vis) shall be evaluated
+    # as single backslash. Two typed backslashed have to be 4 lua backslashed,
+    # which have to 8 in awk.
+    printf("\tvis:command([[map! insert \\\\\\\\ \\\\_<Backspace>]])\n", $1, $2)
   }
   {
-    printf("\tvis:command([[map! insert ,%s %s]])\n", $1, $2)
+    # Use two backslashes to avoid evaluation of escape characters.
+    # For both, escape and non-escape characters, two backslashes
+    # are treated as a single backslashes.
+    printf("\tvis:command([[map! insert \\\\%s %s]])\n", $1, $2)
   }
 END { print "end,}"}
 ' >$HOME/.config/vis/uni.lua
