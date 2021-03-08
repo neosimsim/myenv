@@ -50,6 +50,7 @@
           pinentry-curses
           plan9port
           rustc
+          texlive.combined.scheme-full
           vis
         ] ++ (with haskellPackages; [
           (ghc.withPackages (p: with p; [
