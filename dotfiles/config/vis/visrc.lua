@@ -7,6 +7,7 @@ end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
   vis:command('set autoindent')
+  vis:command('set syntax off')
 end)
 
 local function fmt(file, path)
