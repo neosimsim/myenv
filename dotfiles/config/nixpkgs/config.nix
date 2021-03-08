@@ -40,6 +40,7 @@
           '')
 
           agda
+          beamPackages.elixir
           fzf
           gnupg
           isync
