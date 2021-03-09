@@ -1,4 +1,5 @@
 {
+  allowUnfree = true;
   packageOverrides = pkgs: with pkgs;
     let
       # Using the ALSA plugin of xmobar e.g. by adding
