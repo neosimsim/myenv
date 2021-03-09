@@ -43,6 +43,8 @@
           beamPackages.elixir
           cargo
           fzf
+          git
+          gnumake
           gnupg
           isync
           jq
@@ -51,6 +53,8 @@
           plan9port
           rustc
           texlive.combined.scheme-full
+          tmux
+          typespeed
           vis
         ] ++ (with haskellPackages; [
           (ghc.withPackages (p: with p; [
@@ -76,8 +80,10 @@
         name = "my-gui-packages";
         paths = [
           alacritty
+          discord
           dmenu
           feh
+          firefox
           haskellPackages.threadscope
           haskellPackages.xmonad
           klavaro
