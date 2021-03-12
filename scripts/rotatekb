@@ -6,9 +6,11 @@ then
 	exit 1
 fi
 
-layout=`setxkbmap -query | grep layout | awk '{ print $2 }'`
+layout=`setxkbmap -query | awk '/^layout/ { print $2 }'`
+variant=`setxkbmap -query | awk '/^variant/ { print $2 }'`
 
-case $layout in
-	us) setxkbmap -layout ara -variant mac ;;
+case ${variant:-$layout} in
+	colemak) setxkbmap -layout ara -variant mac ;;
+	us) setxkbmap -layout us -variant colemak ;;
 	*) setxkbmap -layout us; xmodmap ~/.Xmodmap ;;
 esac
