@@ -6,7 +6,6 @@ in
     name = "shell";
     buildInputs = project.env.nativeBuildInputs ++ (with nixpkgs.pkgs.haskellPackages; [
       cabal-install
-      haskell-language-server
     ]);
   }
 
