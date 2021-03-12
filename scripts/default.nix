@@ -2,4 +2,4 @@
 let
   hsPkgs = with nixpkgs.pkgs; if compiler == "default" then haskellPackages else haskell.packages.${compiler};
 in
-  hsPkgs.callPackage ./scripts.nix { }
+  hsPkgs.callCabal2nix "scripts" ./. { }
