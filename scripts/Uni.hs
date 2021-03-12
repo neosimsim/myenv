@@ -262,7 +262,7 @@ main = do
 
 printMap :: [(Text, Text)] -> IO ()
 printMap [] = return ()
-printMap ((k,v):xs) = do
+printMap ((k, v) : xs) = do
   Text.putStr k
   Text.putStr " "
   Text.putStrLn v
