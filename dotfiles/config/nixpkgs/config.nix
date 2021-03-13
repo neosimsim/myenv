@@ -64,6 +64,10 @@
             filepath
             hspec
             QuickCheck
+            raw-strings-qq
+            regex-tdfa
+            safe
+            string-interpolate
           ]))
           apply-refact
           cabal2nix
