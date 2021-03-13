@@ -10,15 +10,16 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 end)
 
 local function fmt(file, path)
-  local win = vis.win
-
   local fmtCmd = 'sed \'s/[[:blank:]]*$//\''
-  if win.syntax == "haskell" then
+  if path:match("%.hs$") then
     fmtCmd = "ormolu"
-  elseif win.syntax == "elixir" then
+  elseif path:match("%.exs?$") then
     fmtCmd = "mix format -"
+  elseif path:match("%.cabal$") then
+    fmtCmd = "cabal-fmt"
   end
 
+  local win = vis.win
   local pos = win.selection.pos
   local status, out, err = vis:pipe(file, { start = 0, finish = file.size }, fmtCmd)
   if status ~= 0 or not out then
