@@ -47,6 +47,7 @@
           git
           gnumake
           gnupg
+          go
           isync
           jq
           mutt
@@ -68,6 +69,8 @@
             regex-tdfa
             safe
             string-interpolate
+            xmonad
+            xmonad-contrib
           ]))
           apply-refact
           cabal2nix
@@ -90,7 +93,6 @@
           feh
           firefox
           haskellPackages.threadscope
-          haskellPackages.xmonad
           klavaro
           signal-desktop
           wire-desktop
