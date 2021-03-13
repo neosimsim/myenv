@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+tmp=$(mktemp /tmp/pipe-tmux.XXXX)
+
+cat >$tmp ; tmux sp "tmux set -p remain-on-exit; cat $tmp; rm $tmp"
+

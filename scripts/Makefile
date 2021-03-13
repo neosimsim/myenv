@@ -41,8 +41,10 @@ POSIX_BIN = \
 	rotatekb \
 	splitcammel \
 	startpg \
+	t \
 	tmux-run-selection-with \
 	tmux-select-word \
+	tmux-split-pipe \
 	tmux-ws \
 	ucmnt \
 	unfreeze-ghc-libs \
