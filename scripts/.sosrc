@@ -1,0 +1,10 @@
+- pattern: .*\.cabal$
+  commands:
+  - cabal-fmt -c \0
+- pattern: .*\.hs$
+  excludes:
+  - ^dist-newstyle
+  command:
+  - ghc -outputdir dist-newstyle/build/sos -v0 -no-link -freverse-errors -ihs -Wall -Werror \0
+  - hlint \0
+  - runghc --ghc-arg=-ihs hs/Spec.hs
