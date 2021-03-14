@@ -39,11 +39,11 @@ parseFilePathAddress x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) 
 
 openFilePathAddressCommand :: FilePathAddress -> Text
 openFilePathAddressCommand (FilePathNoAddress path) =
-  T.pack $ [i|vis #{path}|]
+  T.pack [i|vis #{path}|]
 openFilePathAddressCommand (FilePathLineAddress path line) =
-  T.pack $ [i|vis +#{line}-#0 #{path}|]
+  T.pack [i|vis +#{line}-\#0 #{path}|]
 openFilePathAddressCommand (FilePathLineColumnAddress path line column) =
-  T.pack $ [i|vis +#{line}-#0+##{column}-#1 #{path}|]
+  T.pack [i|vis +#{line}-\#0+\##{column}-\#1 #{path}|]
 
 openCommand :: Text -> Maybe Text
 openCommand x = openFilePathAddressCommand <$> parseFilePathAddress x
