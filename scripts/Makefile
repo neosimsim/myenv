@@ -56,6 +56,8 @@ POSIX_BIN = \
 # Edit .+2;/^$/-|sort
 HASKELL_BIN = \
 	git-files \
+	map \
+	o \
 	uni \
 
 BIN = \
@@ -71,7 +73,7 @@ install-posix: phony
 	mkdir -p $(PREFIX)/bin
 	cp -f $(POSIX_BIN) $(PREFIX)/bin
 
-install-haskell: phony
+install-haskell: phony test-haskell
 	@echo install Haskell scripts
 	nix-shell --pure --command "cabal v2-install --installdir $(PREFIX)/bin --install-method copy --overwrite-policy always"
 
@@ -79,11 +81,11 @@ uninstall: phony
 	cd $(PREFIX)/bin && rm -f $(BIN)
 
 TESTS=\
-	  test_uni
 
-test: $(TESTS)
+test: $(TESTS) test-haskell
 
-test_uni: phony
+test-haskell:
+	nix-shell --command 'cabal v2-test'
 	nix-shell --command 'cabal v2-run -v0 exe:uni' < uni_test_in | diff - uni_test_out
 	@echo test broken pipes
 	nix-shell --command 'cabal v2-run -v0 exe:uni' < uni_test_in | sed 2q >/dev/null

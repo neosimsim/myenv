@@ -8,9 +8,11 @@ module Scripts.Open
   )
 where
 
+import Data.Maybe (fromMaybe)
 import Data.String.Interpolate
 import Data.Text (Text)
 import qualified Data.Text as T
+import qualified Data.Text.IO as T
 import Numeric.Natural (Natural)
 import Safe
 import System.Environment (getArgs)
@@ -22,20 +24,21 @@ data FilePathAddress
   | FilePathLineColumnAddress Text Natural Natural
   deriving (Show, Eq)
 
-parseFilePathAddress :: Text -> Maybe FilePathAddress
+parseFilePathAddress :: Text -> FilePathAddress
 parseFilePathAddress x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) of
-  (_, _, _, [filePath, _, "", _, ""]) ->
-    Just $ FilePathNoAddress filePath
   (_, _, _, [filePath, _, line, _, ""]) ->
-    FilePathLineAddress filePath <$> readMay (T.unpack line)
+    fallback $
+      FilePathLineAddress filePath <$> readMay (T.unpack line)
   (_, _, _, [filePath, _, line, _, culomn]) ->
-    FilePathLineColumnAddress filePath
-      <$> readMay (T.unpack line)
-      <*> readMay (T.unpack culomn)
-  _ -> Nothing
+    fallback $
+      FilePathLineColumnAddress filePath
+        <$> readMay (T.unpack line)
+        <*> readMay (T.unpack culomn)
+  _ -> FilePathNoAddress x
   where
     filePathExpr :: Text
-    filePathExpr = "^([^:]+)(:([0-9]+)(:([0-9]*))?)?$"
+    filePathExpr = "([^:]+)(:([0-9]*)(:([0-9]*))?)?:?"
+    fallback = fromMaybe $ FilePathNoAddress x
 
 openFilePathAddressCommand :: FilePathAddress -> Text
 openFilePathAddressCommand (FilePathNoAddress path) =
@@ -45,14 +48,12 @@ openFilePathAddressCommand (FilePathLineAddress path line) =
 openFilePathAddressCommand (FilePathLineColumnAddress path line column) =
   T.pack [i|vis +#{line}-\#0+\##{column}-\#1 #{path}|]
 
-openCommand :: Text -> Maybe Text
-openCommand x = openFilePathAddressCommand <$> parseFilePathAddress x
+openCommand :: Text -> Text
+openCommand = openFilePathAddressCommand . parseFilePathAddress
 
 main :: IO ()
 main = do
   args <- getArgs
   case args of
-    [arg] -> case openCommand (T.pack arg) of
-      Nothing -> return ()
-      Just cmd -> putStrLn $ T.unpack cmd
+    [arg] -> T.putStrLn . openCommand $ T.pack arg
     _ -> return ()
