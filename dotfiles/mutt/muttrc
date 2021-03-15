@@ -11,6 +11,7 @@ set sort_aux      = last-date-received
 set editor        = $EDITOR
 set mailcap_path  = ~/.mutt/mailcap
 set move          = no
+set markers       = no
 
 subscribe @openbsd.org @lists.gentoo.org
 auto_view text/html
