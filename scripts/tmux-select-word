@@ -1,4 +1,0 @@
-#!/bin/sh
-
-tmux send-keys -X cursor-right \; send-keys -X previous-space \; send-keys -X begin-selection \; send-keys -X next-space-end
-
