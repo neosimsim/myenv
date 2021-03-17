@@ -193,6 +193,8 @@ mapping =
     ("Oe", "Ö"),
     ("ue", "ü"),
     ("Ue", "Ü"),
+    ("ss", "ß"),
+    ("Ss", "ẞ"),
     (",", " "), -- Narrow No-Break Space
     ("~", " "), -- No-Break Space
     ("'", "́"), -- Combining Acute Accent, e. g. é
