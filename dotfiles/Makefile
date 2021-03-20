@@ -41,9 +41,6 @@ install-gui: install-core $(DOTFILES_GUI)
 $(DOTFILES): phony
 	@mkdir -p `dirname $(HOME)/.$@`
 	cp $@ $(HOME)/.$@
-	@mkdir -p $(HOME)/.vim/swap
-	@mkdir -p $(HOME)/.vim/undo
-	@mkdir -p $(HOME)/.vim/backup
 
 uninstall: phony
 	for dotfile in $(DOTFILES); do \
