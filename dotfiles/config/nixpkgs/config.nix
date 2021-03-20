@@ -98,8 +98,9 @@
           wire-desktop
           xmobar
           xorg.xmodmap
+          rxvt-unicode
         ];
-        pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
+        pathsToLink = [ "/share/man" "/share/doc" "/share/terminfo" "/bin" "/etc"];
         extraOutputsToInstall = [ "man" "doc" ];
       };
     };

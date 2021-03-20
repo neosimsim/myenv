@@ -20,6 +20,8 @@ DOTFILES_CORE= \
 DOTFILES_GUI= \
 	config/alacritty/alacritty.yml \
 	plumbing \
+	themes/urxvt/atom-one-light \
+	themes/urxvt/tango \
 	xinitrc \
 	xmobarrc \
 	Xmodmap \

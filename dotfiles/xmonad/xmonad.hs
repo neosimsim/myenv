@@ -20,7 +20,7 @@ main = do
       def
         { borderWidth = 2,
           modMask = myModMask,
-          terminal = "alacritty",
+          terminal = "urxvt",
           manageHook =
             composeAll
               [ manageHook def,
