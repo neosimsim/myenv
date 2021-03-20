@@ -5,7 +5,8 @@ DOTFILES_CORE= \
 	config/git/config \
 	config/git/ignore \
 	config/nixpkgs/config.nix \
-        config/vis/visrc.lua \
+	config/vis/visrc.lua \
+	config/vis/themes/peaksea.lua \
 	ghci \
 	gnupg/gpg-agent.conf \
 	mbsyncrc \
