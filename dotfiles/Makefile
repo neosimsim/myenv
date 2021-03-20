@@ -35,8 +35,14 @@ DOTFILES=$(DOTFILES_CORE) $(DOTFILES_GUI)
 
 default: install-core
 install: install-core
+
 install-core: phony $(DOTFILES_CORE)
+	tmux source $(HOME)/.tmux.conf
+
 install-gui: install-core $(DOTFILES_GUI)
+	xrdb $(HOME)/.Xresources
+	xmonad --recompile
+	xmonad --restart
 
 $(DOTFILES): phony
 	@mkdir -p `dirname $(HOME)/.$@`
