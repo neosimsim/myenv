@@ -31,6 +31,19 @@
               export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
               exec ${myXmobar}/bin/xmobar
            '';
+      emacs_ =
+        ((emacsPackagesGen emacs).emacsWithPackages [
+          (writeTextDir "/share/emacs/site-lisp/default.el" ''
+            (setq create-lockfiles nil)
+            (setq auto-save-default nil)
+            (setq make-backup-files nil)
+            (setq kill-whole-line t)
+            (setq-default show-trailing-whitespace t)
+            (setq-default indicate-empty-lines t)
+            (setq-default indent-tabs-mode nil)
+            (load-theme 'adwaita)
+          '')
+        ]);
     in {
       myPackages = pkgs.buildEnv {
         name = "my-packages";
@@ -51,6 +64,7 @@
           isync
           jq
           mutt
+          emacs_
           pinentry-curses
           plan9port
           rustc
