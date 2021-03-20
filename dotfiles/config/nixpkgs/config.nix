@@ -54,6 +54,7 @@
           pinentry-curses
           plan9port
           rustc
+          rustfmt
           texlive.combined.scheme-full
           tmux
           typespeed

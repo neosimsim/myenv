@@ -19,6 +19,8 @@ local function fmt(file, path)
     fmtCmd = "mix format -"
   elseif path:match("%.cabal$") then
     fmtCmd = "cabal-fmt"
+  elseif path:match("%.rs$") then
+    fmtCmd = "rustfmt"
   end
 
   local win = vis.win
