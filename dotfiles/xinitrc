@@ -9,4 +9,8 @@ amixer -c 0 set Headphone 70
 which 9 && 9 plumber -p $HOME/.plumbing
 which 9 && 9 fontsrv &
 
+signal-desktop &
+wire-desktop &
+Discord &
+
 exec xmonad
