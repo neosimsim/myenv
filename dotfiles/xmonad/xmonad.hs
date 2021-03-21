@@ -40,7 +40,8 @@ main = do
               xmobarPP
                 { ppOutput = hPutStrLn xmproc,
                   ppTitle = shorten 50,
-                  ppCurrent = \x -> "[" ++ x ++ "]"
+                  ppCurrent = \x -> "[" ++ x ++ "]",
+                  ppUrgent = \x -> "." ++ x ++ "."
                 },
           normalBorderColor = "#cccccc",
           focusedBorderColor = "#cd8b00",
