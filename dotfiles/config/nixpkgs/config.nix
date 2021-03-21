@@ -32,7 +32,7 @@
               exec ${myXmobar}/bin/xmobar
            '';
       emacs_ =
-        ((emacsPackagesGen emacs).emacsWithPackages [
+        ((emacsPackagesGen emacs-nox).emacsWithPackages [
           (writeTextDir "/share/emacs/site-lisp/default.el" ''
             (setq create-lockfiles nil)
             (setq auto-save-default nil)
