@@ -31,6 +31,7 @@
               export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
               exec ${myXmobar}/bin/xmobar
            '';
+      aspell_ = aspellWithDicts(p: with p; [ en de ]);
       emacs_ =
         ((emacsPackagesGen emacs-nox).emacsWithPackages [
           (writeTextDir "/share/emacs/site-lisp/default.el" ''
@@ -54,6 +55,7 @@
           '')
 
           agda
+          aspell_
           beamPackages.elixir
           cargo
           clang
