@@ -56,6 +56,8 @@
           agda
           beamPackages.elixir
           cargo
+          clang
+          clippy
           fzf
           git
           gnumake
