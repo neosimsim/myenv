@@ -11,15 +11,10 @@ install-gui: install-core
 install-core:
 	$(MAKE) -C dotfiles install-core
 	$(MAKE) -C texfiles install
-	# Some scripts are required by tools BUT tools can only use
-	# posix compatible scripts which don't require additional programs like
-	# GHC.
-	$(SHELL) -l -c '$(MAKE) -C scripts install-posix'
+	$(SHELL) -l -c 'nix-env -f scripts -i'
 	$(SHELL) -l -c '$(MAKE) -C aliases install'
 	$(SHELL) -l -c '$(MAKE) -C tools install-core'
 	$(SHELL) -l -c 'nix-env -f "<nixpkgs>" -iA myPackages'
-	# We can now install every other script.
-	$(SHELL) -l -c '$(MAKE) -C scripts install'
 	$(SHELL) -l -c gen-vim-uni
 	$(SHELL) -l -c gen-vis-uni
 
