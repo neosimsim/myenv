@@ -43,7 +43,11 @@
            '';
       aspell_ = aspellWithDicts(p: with p; [ en de ]);
       emacs_ =
-        ((emacsPackagesGen emacs-nox).emacsWithPackages [
+        ((emacsPackagesGen emacs-nox).emacsWithPackages (epkgs: with epkgs.melpaPackages; [
+          lsp-mode
+          lsp-ui
+          lsp-haskell
+
           (writeTextDir "/share/emacs/site-lisp/default.el" ''
             (setq create-lockfiles nil)
             (setq auto-save-default nil)
@@ -96,8 +100,12 @@
             (defun rust-setup ()
               (setq formatter "rustfmt"))
             (add-hook 'rust-mode-hook 'rust-setup)
+
+            (setq lsp-keymap-prefix "C-l")
+            (require 'lsp-mode)
+            (add-hook 'haskell-mode-hook #'lsp)
           '')
-        ]);
+        ]));
     in {
       myPackages = pkgs.buildEnv {
         name = "my-packages";
@@ -137,6 +145,7 @@
             containers
             extra
             filepath
+            haskell-language-server
             hspec
             QuickCheck
             raw-strings-qq
