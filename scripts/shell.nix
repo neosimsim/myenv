@@ -1,6 +1,6 @@
-{ nixpkgs ? import <nixpkgs> {}, compiler ? "default" }:
+{ nixpkgs ? import <nixpkgs> {}, ghc ? "default" }:
 let
-  project = import ./default.nix { inherit nixpkgs compiler; };
+  project = import ./default.nix { inherit nixpkgs ghc; };
 in
   nixpkgs.pkgs.stdenv.mkDerivation {
     name = "shell";
