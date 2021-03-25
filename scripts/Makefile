@@ -43,6 +43,7 @@ POSIX_BIN = \
 	startpg \
 	t \
 	tmux-run-selection-with \
+	tmux-sos \
 	tmux-split-pipe \
 	tmux-ws \
 	ucmnt \

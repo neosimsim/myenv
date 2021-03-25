@@ -1,0 +1,7 @@
+#!bin/sh
+
+if [ -f shell.nix ] && [ -z "$IN_NIX_SHELL" ]
+then
+	exec tmux sp -d -- nix-shell --run sos
+fi
+exec tmux sp -d -- sos
