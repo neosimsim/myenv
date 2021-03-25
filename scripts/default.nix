@@ -1,17 +1,11 @@
 { nixpkgs ? import <nixpkgs> {}, ghc ? "default" }:
 let
-  hsPkgs = with nixpkgs.pkgs; if ghc == "default" then haskellPackages else haskell.packages.${ghc};
-  posixScripts = nixpkgs.stdenv.mkDerivation {
-    name = "scripts";
-    src = ./.;
-    buildPhase = "true";
-    installPhase = "make PREFIX=$out install-posix";
-  };
-in nixpkgs.buildEnv {
+  packages = import ./packages.nix { inherit nixpkgs ghc; };
+in with packages; nixpkgs.buildEnv {
   name = "scripts";
   paths = [
-    (nixpkgs.haskell.lib.justStaticExecutables (hsPkgs.callCabal2nix "scripts" ./. { }))
     posixScripts
+    (nixpkgs.haskell.lib.justStaticExecutables haskellPackages.scripts)
   ];
 }
 
