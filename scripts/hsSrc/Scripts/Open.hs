@@ -5,6 +5,9 @@ module Scripts.Open
   ( main,
     FilePathAddress (..),
     parseFilePathAddress,
+    openFilePathAddressCommand,
+    inspect,
+    openCommand,
   )
 where
 
@@ -45,8 +48,15 @@ openFilePathAddressCommand (FilePathNoAddress path) =
   T.pack [i|vis #{path}|]
 openFilePathAddressCommand (FilePathLineAddress path line) =
   T.pack [i|vis +#{line}-\#0 #{path}|]
+openFilePathAddressCommand (FilePathLineColumnAddress path line 0) =
+  T.pack [i|vis +#{line}-\#0 #{path}|]
 openFilePathAddressCommand (FilePathLineColumnAddress path line column) =
-  T.pack [i|vis +#{line}-\#0+\##{column}-\#1 #{path}|]
+  T.pack [i|vis +#{line}-\#0+\##{column - 1} #{path}|]
+
+inspect :: FilePathAddress -> Text
+inspect (FilePathNoAddress path) = path
+inspect (FilePathLineAddress path line) = T.pack [i|#{path}:#{line}|]
+inspect (FilePathLineColumnAddress path line column) = T.pack [i|#{path}:#{line}:#{column}|]
 
 openCommand :: Text -> Text
 openCommand = openFilePathAddressCommand . parseFilePathAddress
