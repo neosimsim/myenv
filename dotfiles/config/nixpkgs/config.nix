@@ -141,7 +141,7 @@
           typespeed
           vis
         ] ++ (with haskellPackages; [
-          (ghc.withPackages (p: with p; [
+          (ghc.withHoogle (p: with p; [
             containers
             extra
             filepath

@@ -5,6 +5,7 @@ in
   with packages.haskellPackages;
   shellFor {
     packages = p: [p.scripts];
+    withHoogle = true;
     buildInputs = map nixpkgs.haskell.lib.justStaticExecutables [
       cabal-install
       steeloverseer

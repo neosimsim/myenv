@@ -2,8 +2,12 @@
 :set prompt-cont "| "
 :set +t
 
-import           Control.Monad
-import           Data.Function
+import Control.Monad
+import Data.Function
+import Text.Regex.TDFA
 
 :seti -XOverloadedStrings
 :seti -XTypeApplications
+
+:def hoogle \s -> return $ ":! hoogle search -l --count=15 ̈" ++ s ++ "̈"
+:def! doc \s -> return $ ":! hoogle search -l --info ̈" ++ s ++ "̈"
