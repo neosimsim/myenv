@@ -9,16 +9,4 @@ then
 	exec $SHELL
 fi
 
-
-if (echo "$1" | grep -qE '(https?|file)://.+')
-then
-	exec "$BROWSER" "$1"
-fi
-
-# git commits
-if (echo "$1" | grep -qE '[a-f0-9]{7}')
-then
-	exec git show "$1"
-fi
-
 exec $(o $1)

@@ -25,6 +25,7 @@ library
       base
     , hsshellscript
     , interpolate
+    , raw-strings-qq
     , regex-tdfa
     , safe
     , text

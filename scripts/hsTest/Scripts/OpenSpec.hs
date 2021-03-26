@@ -11,48 +11,70 @@ import Test.QuickCheck
 
 spec :: Spec
 spec = do
-  describe "filePathAddress" $ do
+  describe "parseResourceIdentifier" $ do
     it "matches simple filenames" $
-      parseFilePathAddress "README.md" `shouldBe` FilePathNoAddress "README.md"
+      parseResourceIdentifier "README.md" `shouldBe` FilePathNoAddress "README.md"
     it "matches filenames with line" $
-      parseFilePathAddress "README.md:4" `shouldBe` FilePathLineAddress "README.md" 4
+      parseResourceIdentifier "README.md:4" `shouldBe` FilePathLineAddress "README.md" 4
     it "matches filenames with line and missing column" $
-      parseFilePathAddress "README.md:3:" `shouldBe` FilePathLineAddress "README.md" 3
+      parseResourceIdentifier "README.md:3:" `shouldBe` FilePathLineAddress "README.md" 3
     it "matches filenames with line and GNU grep match" $
-      parseFilePathAddress "README.md:3:match" `shouldBe` FilePathLineAddress "README.md" 3
+      parseResourceIdentifier "README.md:3:match" `shouldBe` FilePathLineAddress "README.md" 3
     it "matches filenames with line and column" $
-      parseFilePathAddress "README.md:3:4" `shouldBe` FilePathLineColumnAddress "README.md" 3 4
+      parseResourceIdentifier "README.md:3:4" `shouldBe` FilePathLineColumnAddress "README.md" 3 4
     it "matches filenames with line and column with trailing colon (GHC)" $
-      parseFilePathAddress "README.md:3:4:" `shouldBe` FilePathLineColumnAddress "README.md" 3 4
+      parseResourceIdentifier "README.md:3:4:" `shouldBe` FilePathLineColumnAddress "README.md" 3 4
     it "matches hlint output" $ pendingWith "not implemented"
-  -- parseFilePathAddress "hs/Scripts/Open.hs:(30,5)-(31,62):" `shouldBe` _
-  -- parseFilePathAddress "hsTest/Scripts/OpenSpec.hs:42:117-119:" `shouldBe` _
+    -- parseResourceIdentifier "hs/Scripts/Open.hs:(30,5)-(31,62):" `shouldBe` _
+    -- parseResourceIdentifier "hsTest/Scripts/OpenSpec.hs:42:117-119:" `shouldBe` _
 
-  describe "openFilePathAddressCommand" $ do
+    it "matches man pages" $
+      parseResourceIdentifier "ls(1)" `shouldBe` ManPage "ls" 1
+
+    it "matches git commits pages" $
+      parseResourceIdentifier "7437dd88ba8ffb7648ab1bb32fe1465851f2804f" `shouldBe` GitCommit "7437dd88ba8ffb7648ab1bb32fe1465851f2804f"
+
+    it "matches http URL" $
+      parseResourceIdentifier "http://www.haskell.org/" `shouldBe` URL "http://www.haskell.org/"
+    it "matches https URL" $
+      parseResourceIdentifier "https://www.haskell.org/" `shouldBe` URL "https://www.haskell.org/"
+    it "matches file URL" $
+      parseResourceIdentifier "file:///foo.bar" `shouldBe` URL "file:///foo.bar"
+
+  describe "openResourceIdentifierCommand" $ do
     it "handles FilePathNoAddress" $
-      openFilePathAddressCommand (FilePathNoAddress "README.md") `shouldBe` "vis README.md"
+      openResourceIdentifierCommand (FilePathNoAddress "README.md") `shouldBe` "vis README.md"
     it "handles FilePathLineAddress" $
-      openFilePathAddressCommand (FilePathLineAddress "README.md" 5) `shouldBe` "vis +5-#0 README.md"
+      openResourceIdentifierCommand (FilePathLineAddress "README.md" 5) `shouldBe` "vis +5-#0 README.md"
     it "handles FilePathLineColumnAddress" $
-      openFilePathAddressCommand (FilePathLineColumnAddress "README.md" 5 7) `shouldBe` "vis +5-#0+#6 README.md"
+      openResourceIdentifierCommand (FilePathLineColumnAddress "README.md" 5 7) `shouldBe` "vis +5-#0+#6 README.md"
+    it "handles ManPage" $
+      openResourceIdentifierCommand (ManPage "foo" 7) `shouldBe` "man 7 foo"
+    it "handles GitCommit" $
+      openResourceIdentifierCommand (GitCommit "7437dd88ba8ffb7648ab1bb32fe1465851f2804f") `shouldBe` "git show 7437dd88ba8ffb7648ab1bb32fe1465851f2804f"
+    it "handles URL" $
+      openResourceIdentifierCommand (URL "https://www.haskell.org/") `shouldBe` "firefox https://www.haskell.org/"
 
   describe "parse . inspect" $ do
-    it "identity" $
-      property $ \r -> parseFilePathAddress (inspect r) `shouldBe` r
+    it "is the identity" $
+      property $ \r -> parseResourceIdentifier (inspect r) `shouldBe` r
 
   describe "openCommand" $ do
-    it "behaves like openFilePathAddressCommand on parseFilePathAddress" $
-      property $ \r -> openCommand (inspect r) `shouldBe` openFilePathAddressCommand (parseFilePathAddress (inspect r))
+    it "behaves like openResourceIdentifierCommand on parseResourceIdentifier" $
+      property $ \r -> openCommand (inspect r) `shouldBe` openResourceIdentifierCommand (parseResourceIdentifier (inspect r))
+
+arbNonEmptyText :: Gen T.Text
+arbNonEmptyText =
+  T.pack
+    <$> ( (:)
+            <$> arbitraryPrintableChar
+            <*> (getPrintableString <$> arbitrary)
+        )
 
 -- | Non-empty printable string, not containing ̈':'
 arbFilePath :: Gen T.Text
 arbFilePath = do
-  path <-
-    T.pack . filter (/= ':')
-      <$> ( (:)
-              <$> arbitraryPrintableChar
-              <*> (getPrintableString <$> arbitrary)
-          )
+  path <- T.filter (/= ':') <$> arbNonEmptyText
   if T.null path
     then arbFilePath
     else return path
@@ -60,10 +82,11 @@ arbFilePath = do
 arbNatural :: Gen Natural
 arbNatural = fromInteger <$> chooseInteger (0, 100)
 
-instance Arbitrary FilePathAddress where
+instance Arbitrary ResourceIdentifier where
   arbitrary =
     oneof
       [ FilePathNoAddress <$> arbFilePath,
         FilePathLineAddress <$> arbFilePath <*> arbNatural,
-        FilePathLineColumnAddress <$> arbFilePath <*> arbNatural <*> arbNatural
+        FilePathLineColumnAddress <$> arbFilePath <*> arbNatural <*> arbNatural,
+        ManPage <$> arbNonEmptyText <*> arbNatural
       ]
