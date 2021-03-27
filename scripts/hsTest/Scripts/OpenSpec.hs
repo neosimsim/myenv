@@ -80,7 +80,7 @@ arbFilePath = do
     else return path
 
 arbNatural :: Gen Natural
-arbNatural = fromInteger <$> chooseInteger (0, 100)
+arbNatural = fromInteger . abs <$> arbitrary
 
 instance Arbitrary ResourceIdentifier where
   arbitrary =
