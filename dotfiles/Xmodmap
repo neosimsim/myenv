@@ -1,6 +1,5 @@
 ! Kinesis Right Padel
 keycode 108 = Mode_switch
-keycode 64 = Alt_L Mode_switch
 keysym 1 = 1 exclam U0308
 keysym a = a A adiaeresis Adiaeresis
 keysym b = b B leftsinglequotemark leftdoublequotemark
@@ -27,6 +26,3 @@ keysym equal = equal plus U0301 U0300
 keysym grave = grave asciitilde U0300 U0302
 keysym Right = Right Right rightarrow
 keysym Left = Left Left leftarrow
-
-remove Lock = Caps_Lock
-keysym Caps_Lock = Escape

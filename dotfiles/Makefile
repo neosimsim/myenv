@@ -26,6 +26,8 @@ DOTFILES_GUI= \
 	xinitrc \
 	xmobarrc \
 	Xmodmap \
+	Xmodmap.colemak \
+	Xmodmap.qwerty \
 	xmonad/build \
 	xmonad/shell.nix \
 	xmonad/xmonad.hs \

@@ -11,6 +11,13 @@ variant=`setxkbmap -query | awk '/^variant/ { print $2 }'`
 
 case ${variant:-$layout} in
 	colemak) setxkbmap -layout ara -variant mac ;;
-	us) setxkbmap -layout us -variant colemak ;;
-	*) setxkbmap -layout us; xmodmap ~/.Xmodmap ;;
+	us)	setxkbmap -layout us -variant colemak
+		xmodmap ~/.Xmodmap.colemak
+		xmodmap ~/.Xmodmap
+		;;
+	*)	setxkbmap -layout us
+		xmodmap ~/.Xmodmap.qwerty
+		xmodmap ~/.Xmodmap
+		;;
 esac
+
