@@ -42,3 +42,26 @@ local function fmt(file, path)
 end
 
 vis.events.subscribe(vis.events.FILE_SAVE_PRE, fmt)
+
+vis:map(vis.modes.INSERT, "<C-f>", function()
+	local win = vis.win
+	local file = win.file
+	local pos = win.selection.pos
+	if not pos then return end
+	local range = file:text_object_word(pos > 0 and pos-1 or pos);
+	if not range then return end
+	if range.finish > pos then range.finish = pos end
+	if range.start == range.finish then return end
+	local prefix = file:content(range)
+	if not prefix then return end
+	local cmd = string.format("sed 's/[[:blank:][:punct:]̈]/\\n/g' | grep -v '^%s$' | sort -u | fzf-tmux --print0 -1 -q '%s'", prefix:gsub("'", "'\''"), prefix:gsub("'", "'\''"))
+	local status, out, err = vis:pipe(file, { start = 0, finish = file.size }, cmd)
+	if status ~= 0 or not out then
+		if err then vis:info(err) end
+		return
+	end
+	-- fzf returns the whole word, so we have to delete the prefix
+	file:delete({ start = pos - #prefix, finish = pos })
+	file:insert(pos - #prefix, out)
+	win.selection.pos = pos - #prefix + #out
+end, "Complete word in file with fzf")
