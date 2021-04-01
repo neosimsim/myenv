@@ -4,6 +4,7 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.UrgencyHook (NoUrgencyHook (..), focusUrgent, withUrgencyHook)
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
@@ -14,7 +15,11 @@ import XMonad.Util.Run (spawnPipe)
 main :: IO ()
 main = do
   xmproc <- spawnPipe "xmobar -o $HOME/.xmobarrc"
-  xmonad . docks . fullscreenSupport $ myConfig xmproc `additionalKeys` myKeys
+  xmonad
+    . docks
+    . withUrgencyHook NoUrgencyHook
+    . fullscreenSupport
+    $ myConfig xmproc `additionalKeys` myKeys
   where
     myConfig xmproc =
       def
@@ -60,6 +65,7 @@ myKeys =
     ((myModMask .|. shiftMask, xK_Up), windows W.swapUp), -- %! Swap the focused window with the previous window
     ((myModMask, xK_Left), sendMessage Shrink), -- %! Shrink the master area
     ((myModMask, xK_Right), sendMessage Expand), -- %! Expand the master area
+    ((myModMask, xK_BackSpace), focusUrgent),
     ((myModMask .|. shiftMask, xK_p), spawn "dpass"),
     ((myModMask .|. shiftMask, xK_l), spawn "slock"),
     ((0, xF86XK_AudioLowerVolume), spawn "amixer set Master 5%-"),
