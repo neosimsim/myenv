@@ -29,7 +29,6 @@ DOTFILES_GUI= \
 	Xmodmap.colemak \
 	Xmodmap.qwerty \
 	xmonad/build \
-	xmonad/shell.nix \
 	xmonad/xmonad.hs \
 	Xresources \
 	xsession \
