@@ -181,6 +181,7 @@
           wire-desktop
           xmobar
           xorg.xmodmap
+          xsel
           rxvt-unicode
         ];
         pathsToLink = [ "/share/man" "/share/doc" "/share/terminfo" "/bin" "/etc"];
