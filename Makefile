@@ -15,7 +15,6 @@ install-core:
 	$(SHELL) -l -c '$(MAKE) -C aliases install'
 	$(SHELL) -l -c '$(MAKE) -C tools install-core'
 	$(SHELL) -l -c 'nix-env -f "<nixpkgs>" -iA myPackages'
-	$(SHELL) -l -c gen-vim-uni
 	$(SHELL) -l -c gen-vis-uni
 
 uninstall:
