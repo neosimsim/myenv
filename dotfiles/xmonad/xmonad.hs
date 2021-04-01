@@ -33,9 +33,9 @@ main = do
                 className =? "Gimp" --> doFloat,
                 className =? "Chromium" --> doShift "3",
                 className =? "Firefox" --> doShift "3",
-                className =? "signal" --> doShift "9",
-                className =? "wire" --> doShift "9",
-                className =? "discord" --> doShift "9"
+                className =? "Signal" --> doShift "9",
+                className =? "Wire" --> doShift "9",
+                className =? "discord" --> doShift "9",
               ],
           layoutHook =
             smartBorders . avoidStruts $ Grid ||| Full ||| Tall 1 (1 / 300) (1 / 2),
