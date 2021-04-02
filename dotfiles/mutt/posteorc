@@ -1,5 +1,5 @@
-set my_pass = "`keystore show web/posteo | sed -n 1p`"
-set my_user = "`keystore show web/posteo | sed -n 2p`"
+set my_pass = "`pass show web/posteo | sed -n 1p`"
+set my_user = "`pass show web/posteo | sed -n 2p`"
 
 save-hook . =posteo/Archiv
 set trash         = =posteo/Trash

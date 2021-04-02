@@ -26,7 +26,6 @@ POSIX_BIN = \
 	hi \
 	Hsfmt \
 	hsinit \
-	keystore \
 	lessk \
 	license \
 	lower \

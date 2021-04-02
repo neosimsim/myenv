@@ -132,6 +132,7 @@
           jq
           mutt
           emacs_
+          pass
           pinentry-curses
           plan9port
           rustc

@@ -2,7 +2,7 @@ IMAPAccount posteo
 Host posteo.de
 Port 993
 User MAILUSER
-PassCmd "keystore show web/posteo | sed -n 1p"
+PassCmd "pass show web/posteo | sed -n 1p"
 SSLType IMAPS
 
 IMAPStore posteo-remote
@@ -27,7 +27,7 @@ IMAPAccount mailbox
 Host imap.mailbox.org
 Port 993
 User MAILUSER
-PassCmd "keystore show web/mailbox | sed -n 1p"
+PassCmd "pass show web/mailbox | sed -n 1p"
 SSLType IMAPS
 
 IMAPStore mailbox-remote

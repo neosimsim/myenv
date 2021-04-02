@@ -1,5 +1,5 @@
-set my_pass = "`keystore show web/mailbox | sed -n 1p`"
-set my_user = "`keystore show web/mailbox | sed -n 2p`"
+set my_pass = "`pass show web/mailbox | sed -n 1p`"
+set my_user = "`pass show web/mailbox | sed -n 2p`"
 
 save-hook . =abn/Archiv
 set trash         = =abn/Trash
