@@ -39,12 +39,12 @@ default: install-core
 install: install-core
 
 install-core: phony $(DOTFILES_CORE)
-	tmux source $(HOME)/.tmux.conf
+	[ -z "$$TMUX" ] || tmux source $(HOME)/.tmux.conf
 
 install-gui: install-core $(DOTFILES_GUI)
-	xrdb $(HOME)/.Xresources
-	xmonad --recompile
-	xmonad --restart
+	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
+	[ -z "$$DISPLAY" ] || xmonad --recompile
+	[ -z "$$DISPLAY" ] || xmonad --restart
 
 $(DOTFILES): phony
 	@mkdir -p `dirname $(HOME)/.$@`
