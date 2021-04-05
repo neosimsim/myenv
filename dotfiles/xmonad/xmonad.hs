@@ -1,5 +1,4 @@
 import Graphics.X11.ExtraTypes
-import System.IO (hPutStrLn)
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -10,52 +9,55 @@ import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeys)
-import XMonad.Util.Run (spawnPipe)
 
 main :: IO ()
 main = do
-  xmproc <- spawnPipe "xmobar -o $HOME/.xmobarrc"
   xmonad
-    . docks
-    . withUrgencyHook NoUrgencyHook
-    . fullscreenSupport
-    $ myConfig xmproc `additionalKeys` myKeys
-  where
-    myConfig xmproc =
-      def
-        { borderWidth = 2,
-          modMask = myModMask,
-          terminal = "urxvt",
-          manageHook =
-            composeAll
-              [ manageHook def,
-                manageDocks,
-                className =? "Gimp" --> doFloat,
-                className =? "Chromium" --> doShift "3",
-                className =? "Firefox" --> doShift "3",
-                className =? "Signal" --> doShift "9",
-                className =? "Wire" --> doShift "9",
-                className =? "discord" --> doShift "9",
-              ],
-          layoutHook =
-            smartBorders . avoidStruts $ Grid ||| Full ||| Tall 1 (1 / 300) (1 / 2),
-          handleEventHook = handleEventHook def <+> docksEventHook,
-          logHook =
-            dynamicLogWithPP
-              xmobarPP
-                { ppOutput = hPutStrLn xmproc,
-                  ppTitle = shorten 50,
-                  ppCurrent = \x -> "[" ++ x ++ "]",
-                  ppUrgent = \x -> "." ++ x ++ "."
-                },
-          normalBorderColor = "#cccccc",
-          focusedBorderColor = "#cd8b00",
-          startupHook = setWMName "LG3D",
-          focusFollowsMouse = False
-        }
+    =<< ( myStatusBar
+            . withUrgencyHook NoUrgencyHook
+            . fullscreenSupport
+            $ myConfig `additionalKeys` myKeys
+        )
 
 myModMask :: KeyMask
 myModMask = mod4Mask
+
+myConfig =
+  def
+    { borderWidth = 2,
+      modMask = myModMask,
+      terminal = "urxvt",
+      manageHook =
+        composeAll
+          [ manageHook def,
+            manageDocks,
+            className =? "Gimp" --> doFloat,
+            className =? "Chromium" --> doShift "3",
+            className =? "Firefox" --> doShift "3",
+            className =? "Signal" --> doShift "9",
+            className =? "Wire" --> doShift "9",
+            className =? "discord" --> doShift "9",
+            className =? "Slack" --> doShift "9"
+          ],
+      layoutHook =
+        smartBorders . avoidStruts $ Grid ||| Full ||| Tall 1 (1 / 300) (1 / 2),
+      handleEventHook = handleEventHook def <+> docksEventHook,
+      normalBorderColor = "#cccccc",
+      focusedBorderColor = "#cd8b00",
+      startupHook = setWMName "LG3D",
+      focusFollowsMouse = False
+    }
+
+myStatusBar =
+  statusBar
+    "xmobar"
+    ( xmobarPP
+        { ppTitle = shorten 50,
+          ppCurrent = wrap "[" "]",
+          ppUrgent = wrap "." "."
+        }
+    )
+    (\XConfig {modMask = modm} -> (modm, xK_b))
 
 myKeys :: [((KeyMask, KeySym), X ())]
 myKeys =
