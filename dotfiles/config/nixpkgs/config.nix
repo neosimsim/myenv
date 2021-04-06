@@ -179,11 +179,13 @@
           haskellPackages.threadscope
           klavaro
           signal-desktop
+          scrot
           wire-desktop
           xmobar
           xorg.xmodmap
           xsel
           rxvt-unicode
+          zathura
         ];
         pathsToLink = [ "/share/man" "/share/doc" "/share/terminfo" "/bin" "/etc"];
         extraOutputsToInstall = [ "man" "doc" ];
