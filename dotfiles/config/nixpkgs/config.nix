@@ -115,12 +115,15 @@
             exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
           '')
 
+          ag
           agda
           aspell_
           beamPackages.elixir
           cargo
           clang
           clippy
+          emacs_
+          entr
           fzf
           git
           gnumake
@@ -131,7 +134,6 @@
           isync
           jq
           mutt
-          emacs_
           pass
           pinentry-curses
           plan9port
@@ -160,10 +162,10 @@
           cabal2nix
           cabal-fmt
           cabal-install
+          hasktags
           hlint
           ormolu
           pandoc
-          hasktags
           steeloverseer
         ]);
         pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
@@ -179,13 +181,14 @@
           firefox
           haskellPackages.threadscope
           klavaro
-          signal-desktop
+          rxvt-unicode
           scrot
+          signal-desktop
+          sxiv
           wire-desktop
           xmobar
           xorg.xmodmap
           xsel
-          rxvt-unicode
           zathura
         ];
         pathsToLink = [ "/share/man" "/share/doc" "/share/terminfo" "/bin" "/etc"];
