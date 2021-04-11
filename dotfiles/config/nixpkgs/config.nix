@@ -163,6 +163,7 @@
           hlint
           ormolu
           pandoc
+          hasktags
           steeloverseer
         ]);
         pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
