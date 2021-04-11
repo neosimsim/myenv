@@ -21,6 +21,7 @@ install-gui: install-core
 	$(MAKE) xplor
 
 install-core:
+	$(MAKE) vis-ctags
 
 install-haskell-env:
 	$(MAKE) all-ghc
@@ -32,6 +33,10 @@ install-haskell-env:
 	$(MAKE) apply-refact
 	$(MAKE) brittany
 	$(MAKE) stylish-haskell
+
+vis-ctags:
+	if ! [ -d $(PREFIX)/.config/vis/vis-ctags ]; then mkdir -p $(PREFIX)/.config/vis && cd $(PREFIX)/.config/vis && git clone https://github.com/kupospelov/vis-ctags; fi
+	cd $(PREFIX)/.config/vis/vis-ctags && git pull -r
 
 # Haskell
 
