@@ -39,7 +39,7 @@ default: install-core
 install: install-core
 
 install-core: phony $(DOTFILES_CORE)
-	[ -z "$$TMUX" ] || tmux source $(HOME)/.tmux.conf
+	! tmux list-s >/dev/null 2>&1 || tmux source $(HOME)/.tmux.conf
 
 install-gui: install-core $(DOTFILES_GUI)
 	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
