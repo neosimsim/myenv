@@ -17,13 +17,14 @@ POSIX_BIN = \
 	dpass \
 	fext \
 	filter \
+	fzf-tags \
 	games \
 	gen-vim-uni \
 	gen-vis-uni \
 	getmod \
-	hsfmt \
 	git-to-dot \
 	hi \
+	hsfmt \
 	Hsfmt \
 	hsinit \
 	lessk \

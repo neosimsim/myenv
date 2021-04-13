@@ -1,0 +1,14 @@
+#!/bin/sh
+
+die() {
+	echo $* >&2
+	exit 1
+}
+
+[ -f tags ] || die "tags file missing"
+
+case $# in
+	0) die "argument required" ;;
+esac
+
+awk '$1 == "'$1'" { printf("%s:%s\n", $2, $3) }' <tags | fzf -1
