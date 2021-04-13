@@ -43,6 +43,7 @@ install-core: phony $(DOTFILES_CORE)
 
 install-gui: install-core $(DOTFILES_GUI)
 	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
+	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/.Xresources.local ] || xrdb -merge $(HOME)/.Xresources.local
 	[ -z "$$DISPLAY" ] || xmonad --recompile
 	[ -z "$$DISPLAY" ] || xmonad --restart
 
