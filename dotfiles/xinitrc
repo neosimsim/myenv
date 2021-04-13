@@ -13,6 +13,5 @@ which 9 && 9 fontsrv &
 
 signal-desktop &
 wire-desktop &
-Discord &
 
 exec xmonad
