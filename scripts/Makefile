@@ -17,6 +17,7 @@ POSIX_BIN = \
 	dpass \
 	fext \
 	filter \
+	find-match \
 	fzf-tags \
 	games \
 	gen-vim-uni \

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+expr="$1"
+shift 1
+
+find "$@" -type f -print0 | xargs -0 grep -nE "$expr"
+
