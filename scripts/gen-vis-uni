@@ -1,5 +1,7 @@
 #!/bin/sh
 
+mkdir -p $HOME/.config/vis/plugins
+
 uni print | awk '
 BEGIN {
     print "return {"
@@ -16,4 +18,4 @@ BEGIN {
     printf("\tvis:command([[map! insert \\\\%s %s]])\n", $1, $2)
   }
 END { print "end,}"}
-' >$HOME/.config/vis/uni.lua
+' >$HOME/.config/vis/plugins/uni.lua
