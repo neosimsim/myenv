@@ -1,5 +1,4 @@
 require('vis')
-require('vis-ctags')
 local uni = require('uni')
 
 vis.events.subscribe(vis.events.INIT, function()
