@@ -48,7 +48,13 @@ local function fmt(file, path)
   return true
 end
 
-vis.events.subscribe(vis.events.FILE_SAVE_PRE, fmt)
+vis:command_register("fmt", function(argv, force, win, selection, range)
+  -- TODO read cmt from argv
+  -- for i,arg in ipairs(argv) do
+  --   print(i..": "..arg)
+  --end
+  fmt(win.file, win.file.path)
+end, "run formatter on file")
 
 vis:map(vis.modes.INSERT, "<C-f>", function()
 	local win = vis.win
