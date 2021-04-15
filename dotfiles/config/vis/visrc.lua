@@ -26,6 +26,8 @@ local function fmt(file, path)
     fmtCmd = "cabal-fmt"
   elseif path:match("%.rs$") then
     fmtCmd = "rustfmt"
+  elseif path:match("%.go$") then
+    fmtCmd = "gofmt"
   end
 
   local win = vis.win
