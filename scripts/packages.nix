@@ -18,8 +18,15 @@ in
   posixScripts = nixpkgs.stdenv.mkDerivation {
     name = "scripts";
     src = ./.;
+    buildInputs = [ nixpkgs.plan9port ];
     buildPhase = "true";
-    installPhase = "make PREFIX=$out install-posix";
+    installPhase = ''
+      # ensure PLAN9 is in PATH but at the end so patchShebangs finds
+      # rc(1) but uses GNU sed instead of plan9 sed.
+      . 9; . u
+      patchShebangs Hsfmt agofmt
+      make PREFIX=$out install-posix
+    '';
   };
 }
 

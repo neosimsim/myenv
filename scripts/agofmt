@@ -1,4 +1,4 @@
-#!/home/neosimsim/apps/plan9port/bin/rc
+#!/urs/bin/env rc
 
 # Copied this code from http://acme.cat-v.org/scripts/agofmt
 
