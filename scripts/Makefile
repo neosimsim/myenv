@@ -25,7 +25,6 @@ POSIX_BIN = \
 	getmod \
 	git-to-dot \
 	hi \
-	hsfmt \
 	Hsfmt \
 	hsinit \
 	lessk \
