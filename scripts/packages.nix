@@ -6,7 +6,14 @@ let
 in
 {
   haskellPackages = hsPkgs.extend (nixpkgs.haskell.lib.packageSourceOverrides {
-    scripts = ./.;
+    scripts = (nixpkgs.lib.sourceByRegex ./. [
+    "^.*\.md$"
+    "^.*\.hs$"
+    "^scripts\.cabal$"
+    "^hsSrc.*$"
+    "^hsTest.*$"
+    "^hsMain.*$"
+    ]);
   });
   posixScripts = nixpkgs.stdenv.mkDerivation {
     name = "scripts";
