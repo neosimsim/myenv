@@ -32,6 +32,7 @@ POSIX_BIN = \
 	license \
 	lower \
 	mkgit \
+	nocolor \
 	open \
 	overwrite \
 	passgen \
