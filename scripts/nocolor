@@ -1,5 +1,6 @@
 #!/bin/sh
 
 # Remove ansi color escape codes from commands stdin and stderr.
-# Merges stdout and stderr to sdtout
+# Merges stdout and stderr to stdout
+# usage: nocolor cmd [args...]
 exec "$@" 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
