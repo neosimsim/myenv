@@ -7,6 +7,9 @@
 	whitespace = -blank-at-eof
 [alias]
 	log-graph = log --pretty=oneline --graph --decorate
+	clone = clone -q
+	p = push -q
+	f = fetch -q
 	co = checkout
 	ci = commit
 	st = status
