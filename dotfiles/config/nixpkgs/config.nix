@@ -119,12 +119,13 @@
           agda
           aspell_
           beamPackages.elixir
+          beamPackages.erlang
           cargo
-          clang
           clippy
           emacs_
           entr
           fzf
+          gcc
           git
           gnumake
           gnupg
