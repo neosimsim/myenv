@@ -1,11 +1,6 @@
 require('vis')
 local uni = require('plugins/uni')
 
-local plug = require('plugins/vis-plug')
-plug.init({
-  { url = 'git.sr.ht/~mcepl/vis-fzf-open' },
-})
-
 vis.events.subscribe(vis.events.INIT, function()
   uni:mapKeys()
   vis:command('set theme peaksea')

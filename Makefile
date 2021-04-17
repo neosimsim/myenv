@@ -16,7 +16,6 @@ install-core:
 	$(SHELL) -l -c '$(MAKE) -C tools install-core'
 	$(SHELL) -l -c 'nix-env -f "<nixpkgs>" -iA myPackages'
 	$(SHELL) -l -c gen-vis-uni
-	printf ':plug-install\n:plug-update\n:q\n' | vis
 
 uninstall:
 	$(MAKE) -C dotfiles uninstall

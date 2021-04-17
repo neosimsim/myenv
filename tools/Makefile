@@ -21,7 +21,6 @@ install-gui: install-core
 	$(MAKE) xplor
 
 install-core:
-	$(MAKE) vis-plug
 
 install-haskell-env:
 	$(MAKE) all-ghc
@@ -33,10 +32,6 @@ install-haskell-env:
 	$(MAKE) apply-refact
 	$(MAKE) brittany
 	$(MAKE) stylish-haskell
-
-vis-plug:
-	if ! [ -d $(PREFIX)/.config/vis/plugins/vis-plug ]; then mkdir -p $(PREFIX)/.config/vis/plugins && cd $(PREFIX)/.config/vis/plugins && git clone https://github.com/erf/vis-plug.git; fi
-	cd $(PREFIX)/.config/vis/plugins/vis-plug && git pull -r
 
 # Haskell
 
