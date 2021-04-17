@@ -107,7 +107,7 @@
           '')
         ]));
     in {
-      myPackages = pkgs.buildEnv {
+      myPackages = lib.lowPrio (pkgs.buildEnv {
         name = "my-packages";
         paths = [
           # make sure nix-shell runs mksh
@@ -171,8 +171,8 @@
         ]);
         pathsToLink = [ "/share/man" "/share/doc" "/bin" "/etc"];
         extraOutputsToInstall = [ "man" "doc" ];
-      };
-      myGuiPackages = pkgs.buildEnv {
+      });
+      myGuiPackages = lib.lowPrio (pkgs.buildEnv {
         name = "my-gui-packages";
         paths = [
           alacritty
@@ -194,7 +194,7 @@
         ];
         pathsToLink = [ "/share/man" "/share/doc" "/share/terminfo" "/bin" "/etc"];
         extraOutputsToInstall = [ "man" "doc" ];
-      };
+      });
     };
 }
 
