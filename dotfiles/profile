@@ -8,7 +8,7 @@ export CDPATH=".:$HOME:$HOME/src"
 export GOOS=linux
 export GOARCH=amd64
 export GOBIN="$HOME/bin"
-export BROWSER=firefox
+export BROWSER=chromium
 export NAMESPACE=$HOME/9p
 export tabstop=4
 # font for plan9 sam, 9term etc. (not acme)

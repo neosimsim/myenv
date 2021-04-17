@@ -53,7 +53,7 @@ spec = do
     it "handles GitCommit" $
       openResourceIdentifierCommand (GitCommit "7437dd88ba8ffb7648ab1bb32fe1465851f2804f") `shouldBe` "git show 7437dd88ba8ffb7648ab1bb32fe1465851f2804f"
     it "handles URL" $
-      openResourceIdentifierCommand (URL "https://www.haskell.org/") `shouldBe` "firefox https://www.haskell.org/"
+      openResourceIdentifierCommand (URL "https://www.haskell.org/") `shouldBe` "chromium https://www.haskell.org/"
 
   describe "parse . inspect" $ do
     it "is the identity" $

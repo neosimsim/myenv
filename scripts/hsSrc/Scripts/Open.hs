@@ -95,7 +95,7 @@ openResourceIdentifierCommand (ManPage cmd section) =
 openResourceIdentifierCommand (GitCommit commit) =
   T.pack [i|git show #{commit}|]
 openResourceIdentifierCommand (URL url) =
-  T.pack [i|firefox #{url}|]
+  T.pack [i|chromium #{url}|]
 
 inspect :: ResourceIdentifier -> Text
 inspect (FilePathNoAddress path) = path

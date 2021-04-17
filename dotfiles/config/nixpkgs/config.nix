@@ -175,10 +175,10 @@
         name = "my-gui-packages";
         paths = [
           alacritty
+          chromium
           discord
           dmenu
           feh
-          firefox
           haskellPackages.threadscope
           klavaro
           rxvt-unicode
