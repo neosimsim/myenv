@@ -1,8 +1,6 @@
 [user]
 	email = me@abn.sh
 	name = Alexander Ben Nasrallah
-[commit]
-	gpgSign = true
 [core]
 	excludesfile = ~/.config/git/ignore
 	editor = $EDITOR
