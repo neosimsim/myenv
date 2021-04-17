@@ -5,17 +5,18 @@ set -e
 ACME_VARFONT=${ACME_VARFONT:-/mnt/font/DejaVuSansMono/17a/font}
 ACME_FIXFONT=${ACME_FIXFONT:-/mnt/font/DejaVuSans/17a/font}
 
-# Dynamically set PLAN9 to also work on NixOS, which only installs 9(1).
-export PLAN9=$(9 env | awk -F= '$1 == "PLAN9" { print $2 }')
+# Dynamically set PLAN9 to also work on NixOS, which only installs 9(1)
+. 9
+. u
 
 export tabstop=4
 export TERM=dumb
 export NO_COLOR=1
-export SHELL="$(9 which rc)"
+export SHELL=$PLAN9/bin/rc
 export acmeshell="$SHELL"
 export EDITOR=editinacme
-export PAGER="$(9 which cat)"
+export PAGER=$PLAN9/bin/cat
 export GIT_PAGER=$PAGER
 
 # Use u(1) to make sure PLAN9 is located at the end of PATH.
-exec $(9 which u) acme -a -f $ACME_VARFONT -F $ACME_FIXFONT "$@"
+exec $PLAN9/bin/acme -a -f $ACME_VARFONT -F $ACME_FIXFONT "$@"
