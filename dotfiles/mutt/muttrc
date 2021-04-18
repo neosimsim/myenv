@@ -1,10 +1,8 @@
 set folder        = ~/.mail/
 set spoolfile     = =abn/Inbox
-set record        = $folder/sent
 set realname      = "Alexander Ben Nasrallah"
 set use_from      = yes
 set postpone      = yes
-set postponed     = $folder/draft
 set ssl_force_tls = yes
 set sort          = threads
 set sort_aux      = last-date-received
@@ -12,6 +10,15 @@ set editor        = $EDITOR
 set mailcap_path  = ~/.mutt/mailcap
 set move          = no
 set markers       = no
+
+# Store archived and deleted mails etc. not in the mailbox, to keep the mailbox
+# as clean as possible in case the mail server gets hacked. Since mails should
+# therefore never be stored on the mail server for long, mailbox encryption e.g.
+# using GPG becomes quite redundant
+save-hook     . ~/bkp/mail
+set trash     = $folder/trash
+set postponed = $folder/draft
+set record    = $folder/sent
 
 subscribe @openbsd.org @lists.gentoo.org
 auto_view text/html

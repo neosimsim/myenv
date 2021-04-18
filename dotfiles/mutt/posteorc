@@ -1,8 +1,6 @@
 set my_pass = "`pass show web/posteo | sed -n 1p`"
 set my_user = "`pass show web/posteo | sed -n 2p`"
 
-save-hook . =posteo/Archiv
-set trash         = =posteo/Trash
 set from          = "abn@posteo.de"
 set smtp_url      = "smtps://$my_user@posteo.de:465/"
 set smtp_pass     = "$my_pass"
