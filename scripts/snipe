@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# I like the idea of plan9 kill(1) to print the systems kill command.
+# Unfortunately it has two drawbacks.
+# 1. It is named kill and conflict with the systems kill command.
+#    As a solution it prints the absolute path to the systems kill
+#    command. This however does not work on non LFHS systems e.g.
+#    NixOS.
+# 2. It uses plan9 psu(1) which filter processes username.
+#    Unfortunately "long" usernames get trimmed my some
+#    ps implementations which breaks plan9 psu(1) and therefore
+#    kill(1).
+#
+# As a solution I wrote snipe(1) which
+# 1. has a different and so avoids the absolute path workaround
+# 2. does not filer on the username
+# 3. as plan9 kill(1) search for process id
+# 4. other than plan9 kill(1) filter the command by pattern matching
+#    instead of string comparison
+
+sig=""
+case "$1" in
+-*)
+	sig=" $1"
+	shift
+	;;
+esac
+
+for i
+do
+	ps aux | awk '$2 == "'$i'" || $11 ~ /'$i'/ { printf("kill%s %d # %s\n", "'"$sig"'", $2, $0) }'
+done

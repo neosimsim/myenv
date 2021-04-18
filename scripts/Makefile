@@ -41,6 +41,7 @@ POSIX_BIN = \
 	quote \
 	remtrail \
 	rotatekb \
+	snipe \
 	splitcammel \
 	startpg \
 	t \
