@@ -44,16 +44,12 @@ set pgp_list_pubring_command="gpg --no-verbose --batch --quiet --with-colons --w
 set pgp_list_secring_command="gpg --no-verbose --batch --quiet --with-colons --with-fingerprint --with-fingerprint --list-secret-keys %r"
 set pgp_good_sign="^\\[GNUPG:\\] GOODSIG"
 set pgp_check_gpg_decrypt_status_fd
-set pgp_sign_as=DF6D22A22FA2D5A8
 
 # Global crypto options -- these affect PGP operations as well.
-set crypt_autosign = yes
-set crypt_autoencrypt = yes
 set crypt_replyencrypt = yes
 set crypt_replysign = yes
 set crypt_replysignencrypted = yes
 set crypt_verify_sig = yes
-send-hook "~f abn@posteo.de" set smime_default_key="57c64b96.0"
 
 set mailcap_path     = ~/.mutt/mailcap
 auto_view text/html
