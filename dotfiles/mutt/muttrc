@@ -51,7 +51,6 @@ set crypt_replysign = yes
 set crypt_replysignencrypted = yes
 set crypt_verify_sig = yes
 
-set mailcap_path     = ~/.mutt/mailcap
 auto_view text/html
 alternative_order text/plain text/html
 
