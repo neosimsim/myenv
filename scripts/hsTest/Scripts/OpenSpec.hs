@@ -13,17 +13,17 @@ spec :: Spec
 spec = do
   describe "parseResourceIdentifier" $ do
     it "matches simple filenames" $
-      parseResourceIdentifier "README.md" `shouldBe` FilePathNoAddress "README.md"
+      parseResourceIdentifier "README.md" `shouldBe` File (FilePathNoAddress "README.md")
     it "matches filenames with line" $
-      parseResourceIdentifier "README.md:4" `shouldBe` FilePathLineAddress "README.md" 4
+      parseResourceIdentifier "README.md:4" `shouldBe` File (FilePathLineAddress "README.md" 4)
     it "matches filenames with line and missing column" $
-      parseResourceIdentifier "README.md:3:" `shouldBe` FilePathLineAddress "README.md" 3
+      parseResourceIdentifier "README.md:3:" `shouldBe` File (FilePathLineAddress "README.md" 3)
     it "matches filenames with line and GNU grep match" $
-      parseResourceIdentifier "README.md:3:match" `shouldBe` FilePathLineAddress "README.md" 3
+      parseResourceIdentifier "README.md:3:match" `shouldBe` File (FilePathLineAddress "README.md" 3)
     it "matches filenames with line and column" $
-      parseResourceIdentifier "README.md:3:4" `shouldBe` FilePathLineColumnAddress "README.md" 3 4
+      parseResourceIdentifier "README.md:3:4" `shouldBe` File (FilePathLineColumnAddress "README.md" 3 4)
     it "matches filenames with line and column with trailing colon (GHC)" $
-      parseResourceIdentifier "README.md:3:4:" `shouldBe` FilePathLineColumnAddress "README.md" 3 4
+      parseResourceIdentifier "README.md:3:4:" `shouldBe` File (FilePathLineColumnAddress "README.md" 3 4)
     it "matches hlint output" $ pendingWith "not implemented"
     -- parseResourceIdentifier "hs/Scripts/Open.hs:(30,5)-(31,62):" `shouldBe` _
     -- parseResourceIdentifier "hsTest/Scripts/OpenSpec.hs:42:117-119:" `shouldBe` _
@@ -42,18 +42,58 @@ spec = do
       parseResourceIdentifier "file:///foo.bar" `shouldBe` URL "file:///foo.bar"
 
   describe "openResourceIdentifierCommand" $ do
-    it "handles FilePathNoAddress" $
-      openResourceIdentifierCommand (FilePathNoAddress "README.md") `shouldBe` "vis README.md"
-    it "handles FilePathLineAddress" $
-      openResourceIdentifierCommand (FilePathLineAddress "README.md" 5) `shouldBe` "vis +5-#0 README.md"
-    it "handles FilePathLineColumnAddress" $
-      openResourceIdentifierCommand (FilePathLineColumnAddress "README.md" 5 7) `shouldBe` "vis +5-#0+#6 README.md"
+    it "handles FilePathNoAddress with unkown editor" $
+      property $ \config NonEmptyText {fromNonEmptyText = editor} ->
+        openResourceIdentifierCommand (config {configEditor = Unknown editor}) (File $ FilePathNoAddress "README.md")
+          `shouldBe` editor <> " README.md"
+    it "handles FilePathLineAddress with unkown editor" $
+      property $ \config NonEmptyText {fromNonEmptyText = editor} ->
+        openResourceIdentifierCommand (config {configEditor = Unknown editor}) (File $ FilePathLineAddress "README.md" 5)
+          `shouldBe` editor <> " README.md"
+    it "handles FilePathLineColumnAddress with unkown editor" $
+      property $ \config NonEmptyText {fromNonEmptyText = editor} ->
+        openResourceIdentifierCommand (config {configEditor = Unknown editor}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          `shouldBe` editor <> " README.md"
+
+  describe "openResourceIdentifierCommand" $ do
+    it "handles FilePathNoAddress with vis" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathNoAddress "README.md")
+          `shouldBe` "vis README.md"
+    it "handles FilePathLineAddress with vis" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathLineAddress "README.md" 5)
+          `shouldBe` "vis +5-#0 README.md"
+    it "handles FilePathLineColumnAddress with vis" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          `shouldBe` "vis +5-#0+#6 README.md"
+
+    it "handles FilePathNoAddress with acme" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Acme}) (File $ FilePathNoAddress "README.md")
+          `shouldBe` "B README.md"
+    it "handles FilePathLineAddress with acme" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Acme}) (File $ FilePathLineAddress "README.md" 5)
+          `shouldBe` "B README.md:5"
+    it "handles FilePathLineColumnAddress with acme" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Acme}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          `shouldBe` "B README.md:5:7"
+
     it "handles ManPage" $
-      openResourceIdentifierCommand (ManPage "foo" 7) `shouldBe` "man 7 foo"
+      property $ \config ->
+        openResourceIdentifierCommand config (ManPage "foo" 7)
+          `shouldBe` "man 7 foo"
     it "handles GitCommit" $
-      openResourceIdentifierCommand (GitCommit "7437dd88ba8ffb7648ab1bb32fe1465851f2804f") `shouldBe` "git show 7437dd88ba8ffb7648ab1bb32fe1465851f2804f"
+      property $ \config ->
+        openResourceIdentifierCommand config (GitCommit "7437dd88ba8ffb7648ab1bb32fe1465851f2804f")
+          `shouldBe` "git show 7437dd88ba8ffb7648ab1bb32fe1465851f2804f"
     it "handles URL" $
-      openResourceIdentifierCommand (URL "https://www.haskell.org/") `shouldBe` "chromium https://www.haskell.org/"
+      property $ \config ->
+        openResourceIdentifierCommand config (URL "https://www.haskell.org/")
+          `shouldBe` "chromium https://www.haskell.org/"
 
   describe "parse . inspect" $ do
     it "is the identity" $
@@ -61,7 +101,7 @@ spec = do
 
   describe "openCommand" $ do
     it "behaves like openResourceIdentifierCommand on parseResourceIdentifier" $
-      property $ \r -> openCommand (inspect r) `shouldBe` openResourceIdentifierCommand (parseResourceIdentifier (inspect r))
+      property $ \config r -> openCommand config (inspect r) `shouldBe` openResourceIdentifierCommand config (parseResourceIdentifier (inspect r))
 
 arbNonEmptyText :: Gen T.Text
 arbNonEmptyText =
@@ -85,8 +125,56 @@ arbNatural = fromInteger . abs <$> arbitrary
 instance Arbitrary ResourceIdentifier where
   arbitrary =
     oneof
-      [ FilePathNoAddress <$> arbFilePath,
-        FilePathLineAddress <$> arbFilePath <*> arbNatural,
-        FilePathLineColumnAddress <$> arbFilePath <*> arbNatural <*> arbNatural,
+      [ File <$> arbitrary,
         ManPage <$> arbNonEmptyText <*> arbNatural
       ]
+
+instance Arbitrary FilePathAddress where
+  arbitrary =
+    oneof
+      [ FilePathNoAddress <$> arbFilePath,
+        FilePathLineAddress <$> arbFilePath <*> arbNatural,
+        FilePathLineColumnAddress <$> arbFilePath <*> arbNatural <*> arbNatural
+      ]
+
+instance Arbitrary Config where
+  arbitrary = Config <$> arbitrary
+
+instance Arbitrary Editor where
+  arbitrary =
+    oneof
+      [ return Vis,
+        return Acme,
+        Unknown <$> arbNonEmptyText
+      ]
+
+newtype AcmeConfig = AcmeConfig {fromAcmeConfig :: Config}
+  deriving (Show, Eq)
+
+instance Arbitrary AcmeConfig where
+  arbitrary = do
+    x <- Config <$> arbitrary
+    return . AcmeConfig $ x {configEditor = Acme}
+
+newtype VisConfig = VisConfig {fromVisConfig :: Config}
+  deriving (Show, Eq)
+
+instance Arbitrary VisConfig where
+  arbitrary = do
+    x <- Config <$> arbitrary
+    return . VisConfig $ x {configEditor = Vis}
+
+newtype UnknownEditorConfig = UnknownEditorConfig {fromUnknownEditorConfig :: Config}
+  deriving (Show, Eq)
+
+instance Arbitrary UnknownEditorConfig where
+  arbitrary = do
+    x <- Config <$> arbitrary
+    editor <- Unknown <$> arbNonEmptyText
+    return . UnknownEditorConfig $ x {configEditor = editor}
+
+newtype NonEmptyText = NonEmptyText {fromNonEmptyText :: T.Text}
+  deriving (Show, Eq)
+
+instance Arbitrary NonEmptyText where
+  arbitrary = NonEmptyText <$> arbNonEmptyText

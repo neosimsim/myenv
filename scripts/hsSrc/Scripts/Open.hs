@@ -8,6 +8,9 @@ module Scripts.Open
     openResourceIdentifierCommand,
     inspect,
     openCommand,
+    Editor (..),
+    FilePathAddress (..),
+    Config (..),
   )
 where
 
@@ -19,27 +22,40 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as T
 import Numeric.Natural (Natural)
 import Safe
-import System.Environment (getArgs)
+import System.Environment (getArgs, lookupEnv)
 import Text.RawString.QQ
 import Text.Regex.TDFA
 
+newtype Config = Config {configEditor :: Editor}
+  deriving (Show, Eq)
+
+data Editor
+  = Acme
+  | Vis
+  | Unknown Text
+  deriving (Show, Eq)
+
 data ResourceIdentifier
-  = FilePathNoAddress Text
-  | FilePathLineAddress Text Natural
-  | FilePathLineColumnAddress Text Natural Natural
+  = File FilePathAddress
   | ManPage Text Natural
   | GitCommit Text
   | URL Text
   deriving (Show, Eq)
 
+data FilePathAddress
+  = FilePathNoAddress Text
+  | FilePathLineAddress Text Natural
+  | FilePathLineColumnAddress Text Natural Natural
+  deriving (Show, Eq)
+
 parseResourceIdentifier :: Text -> ResourceIdentifier
 parseResourceIdentifier x =
-  fromMaybe (parseFilePathAddress x) $
+  fromMaybe (File $ parseFilePathAddress x) $
     parseManPage x
       <|> parseURL x
       <|> parseGitCommit x
 
-parseFilePathAddress :: Text -> ResourceIdentifier
+parseFilePathAddress :: Text -> FilePathAddress
 parseFilePathAddress x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) of
   (_, _, _, [filePath, _, line, _, ""]) ->
     fallback $
@@ -81,36 +97,73 @@ parseGitCommit x =
     gitCommitExpr :: Text
     gitCommitExpr = [r|[a-f0-9]{7}|]
 
-openResourceIdentifierCommand :: ResourceIdentifier -> Text
-openResourceIdentifierCommand (FilePathNoAddress path) =
-  T.pack [i|vis #{path}|]
-openResourceIdentifierCommand (FilePathLineAddress path line) =
-  T.pack [i|vis +#{line}-\#0 #{path}|]
-openResourceIdentifierCommand (FilePathLineColumnAddress path line 0) =
-  T.pack [i|vis +#{line}-\#0 #{path}|]
-openResourceIdentifierCommand (FilePathLineColumnAddress path line column) =
-  T.pack [i|vis +#{line}-\#0+\##{column - 1} #{path}|]
-openResourceIdentifierCommand (ManPage cmd section) =
+openResourceIdentifierCommand :: Config -> ResourceIdentifier -> Text
+openResourceIdentifierCommand _ (ManPage cmd section) =
   T.pack [i|man #{section} #{cmd}|]
-openResourceIdentifierCommand (GitCommit commit) =
+openResourceIdentifierCommand _ (GitCommit commit) =
   T.pack [i|git show #{commit}|]
-openResourceIdentifierCommand (URL url) =
+openResourceIdentifierCommand _ (URL url) =
   T.pack [i|chromium #{url}|]
+openResourceIdentifierCommand Config {configEditor = Vis} (File pathAddress) = openResourceIdentifierCommandWithVis pathAddress
+openResourceIdentifierCommand Config {configEditor = Acme} (File pathAddress) = openResourceIdentifierCommandWithAcme pathAddress
+openResourceIdentifierCommand Config {configEditor = Unknown editorName} (File pathAddress) = openResourceIdentifierCommandWithEditor editorName pathAddress
+
+openResourceIdentifierCommandWithEditor :: Text -> FilePathAddress -> Text
+openResourceIdentifierCommandWithEditor cmd (FilePathNoAddress path) =
+  T.pack [i|#{cmd} #{path}|]
+openResourceIdentifierCommandWithEditor cmd (FilePathLineAddress path _) =
+  T.pack [i|#{cmd} #{path}|]
+openResourceIdentifierCommandWithEditor cmd (FilePathLineColumnAddress path _ _) =
+  T.pack [i|#{cmd} #{path}|]
+
+openResourceIdentifierCommandWithVis :: FilePathAddress -> Text
+openResourceIdentifierCommandWithVis (FilePathNoAddress path) =
+  T.pack [i|vis #{path}|]
+openResourceIdentifierCommandWithVis (FilePathLineAddress path line) =
+  T.pack [i|vis +#{line}-\#0 #{path}|]
+openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line 0) =
+  T.pack [i|vis +#{line}-\#0 #{path}|]
+openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line column) =
+  T.pack [i|vis +#{line}-\#0+\##{column - 1} #{path}|]
+
+openResourceIdentifierCommandWithAcme :: FilePathAddress -> Text
+openResourceIdentifierCommandWithAcme (FilePathNoAddress path) =
+  T.pack [i|B #{path}|]
+openResourceIdentifierCommandWithAcme (FilePathLineAddress path line) =
+  T.pack [i|B #{path}:#{line}|]
+openResourceIdentifierCommandWithAcme (FilePathLineColumnAddress path line 0) =
+  T.pack [i|B #{path}:#{line}:0|]
+openResourceIdentifierCommandWithAcme (FilePathLineColumnAddress path line column) =
+  T.pack [i|B #{path}:#{line}:#{column}|]
 
 inspect :: ResourceIdentifier -> Text
-inspect (FilePathNoAddress path) = path
-inspect (FilePathLineAddress path line) = T.pack [i|#{path}:#{line}|]
-inspect (FilePathLineColumnAddress path line column) = T.pack [i|#{path}:#{line}:#{column}|]
+inspect (File (FilePathNoAddress path)) = path
+inspect (File (FilePathLineAddress path line)) = T.pack [i|#{path}:#{line}|]
+inspect (File (FilePathLineColumnAddress path line column)) = T.pack [i|#{path}:#{line}:#{column}|]
 inspect (ManPage cmd section) = T.pack [i|#{cmd}(#{section})|]
 inspect (GitCommit commit) = commit
 inspect (URL url) = url
 
-openCommand :: Text -> Text
-openCommand = openResourceIdentifierCommand . parseResourceIdentifier
+openCommand :: Config -> Text -> Text
+openCommand c = openResourceIdentifierCommand c . parseResourceIdentifier
+
+getConfig :: IO Config
+getConfig = Config <$> getEditor
+
+getEditor :: IO Editor
+getEditor = do
+  editor <- fromMaybe "vis" <$> lookupEnv "EDITOR"
+  case editor of
+    "vis" -> return Vis
+    "editinacme" -> return Acme
+    "B" -> return Acme
+    "E" -> return Acme
+    x -> return $ Unknown $ T.pack x
 
 main :: IO ()
 main = do
   args <- getArgs
+  config <- getConfig
   case args of
-    [arg] -> T.putStrLn . openCommand $ T.pack arg
+    [arg] -> T.putStrLn . openCommand config $ T.pack arg
     _ -> return ()
