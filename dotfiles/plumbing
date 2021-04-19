@@ -11,6 +11,14 @@ attr add       addr=$2-#0+#$3-#1,$2-#0+#$4
 plumb to edit
 plumb client $editor
 
+# existing files tagged by (line number1,col1)-(line number2,col2) (e.g. hlint)
+data matches '([.a-zA-Z¡-￿0-9_/\-]*[a-zA-Z¡-￿0-9_/\-]):\(([0-9]+),([0-9]+)\)-\(([0-9]+),([0-9]+)\)'
+arg isfile     $1
+data set       $file
+attr add       addr=$2-#0+#$3-#1,$4-#0+#$5
+plumb to edit
+plumb client $editor
+
 # existing files tagged by line number,col1-col2
 data matches '([.a-zA-Z¡-￿0-9_/\-]*[a-zA-Z¡-￿0-9_/\-]):([0-9]+),([0-9]+)-([0-9]+)'
 arg isfile     $1
@@ -32,6 +40,7 @@ type is text
 data matches '(commit|parents?) *[a-f0-9]+'
 plumb start rc -c 'cd '$wdir'; git show '$0' >[2=1] | nobs | plumb -i -w '$wdir' -d edit -a ''action=showdata filename='$wdir'/-git:'$0-$attr''''
 
+# show git log on SHA1
 type is text
 data matches '[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]*'
 plumb start rc -c 'cd '$wdir'; git show '$0' >[2=1] | nobs | plumb -i -w '$wdir' -d edit -a ''action=showdata filename='$wdir'/-git:'$0-$attr''''
