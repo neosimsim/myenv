@@ -41,7 +41,7 @@ install: install-core
 install-core: phony $(DOTFILES_CORE)
 	! tmux list-s >/dev/null 2>&1 || tmux source $(HOME)/.tmux.conf
 
-install-gui: install-core $(DOTFILES_GUI)
+install-gui: install-core $(DOTFILES_GUI) plumbing
 	[ -z "$$DISPLAY" ] || 9p write plumb/rules <$(HOME)/.plumbing
 	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
 	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/.Xresources.local ] || xrdb -merge $(HOME)/.Xresources.local
