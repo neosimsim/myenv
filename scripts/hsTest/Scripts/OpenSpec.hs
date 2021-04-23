@@ -148,31 +148,6 @@ instance Arbitrary Editor where
         Unknown <$> arbNonEmptyText
       ]
 
-newtype AcmeConfig = AcmeConfig {fromAcmeConfig :: Config}
-  deriving (Show, Eq)
-
-instance Arbitrary AcmeConfig where
-  arbitrary = do
-    x <- Config <$> arbitrary
-    return . AcmeConfig $ x {configEditor = Acme}
-
-newtype VisConfig = VisConfig {fromVisConfig :: Config}
-  deriving (Show, Eq)
-
-instance Arbitrary VisConfig where
-  arbitrary = do
-    x <- Config <$> arbitrary
-    return . VisConfig $ x {configEditor = Vis}
-
-newtype UnknownEditorConfig = UnknownEditorConfig {fromUnknownEditorConfig :: Config}
-  deriving (Show, Eq)
-
-instance Arbitrary UnknownEditorConfig where
-  arbitrary = do
-    x <- Config <$> arbitrary
-    editor <- Unknown <$> arbNonEmptyText
-    return . UnknownEditorConfig $ x {configEditor = editor}
-
 newtype NonEmptyText = NonEmptyText {fromNonEmptyText :: T.Text}
   deriving (Show, Eq)
 
