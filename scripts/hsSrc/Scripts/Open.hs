@@ -124,7 +124,7 @@ openResourceIdentifierCommandWithVis (FilePathLineAddress path line) =
 openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line 0) =
   T.pack [i|vis +#{line}-\#0 #{path}|]
 openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line column) =
-  T.pack [i|vis +#{line}-\#0+\##{column - 1} #{path}|]
+  T.pack [i|vis +#{line}-\#0+\##{column}-#1 #{path}|]
 
 openResourceIdentifierCommandWithAcme :: FilePathAddress -> Text
 openResourceIdentifierCommandWithAcme (FilePathNoAddress path) =

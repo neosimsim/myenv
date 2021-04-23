@@ -67,7 +67,7 @@ spec = do
     it "handles FilePathLineColumnAddress with vis" $
       property $ \config ->
         openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathLineColumnAddress "README.md" 5 7)
-          `shouldBe` "vis +5-#0+#6 README.md"
+          `shouldBe` "vis +5-#0+#7-#1 README.md"
 
     it "handles FilePathNoAddress with acme" $
       property $ \config ->
