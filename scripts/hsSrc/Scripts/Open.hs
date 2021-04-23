@@ -46,6 +46,7 @@ data FilePathAddress
   = FilePathNoAddress Text
   | FilePathLineAddress Text Natural
   | FilePathLineColumnAddress Text Natural Natural
+  | FilePathRangeAddress Text Natural Natural Natural Natural
   deriving (Show, Eq)
 
 parseResourceIdentifier :: Text -> ResourceIdentifier
@@ -54,21 +55,48 @@ parseResourceIdentifier x =
     parseManPage x
       <|> parseURL x
       <|> parseGitCommit x
+      <|> File <$> parseFilePathMultiLineRangeAddress x
+      <|> File <$> parseFilePathSingleLineRangeAddress x
       <|> File <$> parseFilePathAddress x
 
 parseFilePathAddress :: Text -> Maybe FilePathAddress
-parseFilePathAddress
-  x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) of
-    (_, _, _, [filePath, _, line, _, ""]) ->
-      FilePathLineAddress filePath <$> readMay (T.unpack line)
-    (_, _, _, [filePath, _, line, _, culomn]) ->
-      FilePathLineColumnAddress filePath
-        <$> readMay (T.unpack line)
-        <*> readMay (T.unpack culomn)
-    _ -> Nothing
-    where
-      filePathExpr :: Text
-      filePathExpr = [r|([^:]+)(:([0-9]*)(:([0-9]*))?)?:?|]
+parseFilePathAddress x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) of
+  (_, _, _, [filePath, _, line, _, ""]) ->
+    FilePathLineAddress filePath <$> readMay (T.unpack line)
+  (_, _, _, [filePath, _, line, _, culomn]) ->
+    FilePathLineColumnAddress filePath
+      <$> readMay (T.unpack line)
+      <*> readMay (T.unpack culomn)
+  _ -> Nothing
+  where
+    filePathExpr :: Text
+    filePathExpr = [r|([^:]+)(:([0-9]*)(:([0-9]*))?)?:?|]
+
+parseFilePathSingleLineRangeAddress :: Text -> Maybe FilePathAddress
+parseFilePathSingleLineRangeAddress x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) of
+  (_, _, _, [filePath, line, culomn1, culomn2]) ->
+    FilePathRangeAddress filePath
+      <$> readMay (T.unpack line)
+      <*> readMay (T.unpack culomn1)
+      <*> readMay (T.unpack line)
+      <*> readMay (T.unpack culomn2)
+  _ -> Nothing
+  where
+    filePathExpr :: Text
+    filePathExpr = [r|([^:]+):([0-9]+):([0-9]+)-([0-9]+):?|]
+
+parseFilePathMultiLineRangeAddress :: Text -> Maybe FilePathAddress
+parseFilePathMultiLineRangeAddress x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) of
+  (_, _, _, [filePath, line1, culomn1, line2, culomn2]) ->
+    FilePathRangeAddress filePath
+      <$> readMay (T.unpack line1)
+      <*> readMay (T.unpack culomn1)
+      <*> readMay (T.unpack line2)
+      <*> readMay (T.unpack culomn2)
+  _ -> Nothing
+  where
+    filePathExpr :: Text
+    filePathExpr = [r|([^:]+):\(([0-9]+),([0-9]+)\)-\(([0-9]+),([0-9]+)\):?|]
 
 parseManPage :: Text -> Maybe ResourceIdentifier
 parseManPage x = case (x =~ manExpr :: (Text, Text, Text, [Text])) of
@@ -114,6 +142,8 @@ openResourceIdentifierCommandWithEditor cmd (FilePathLineAddress path _) =
   T.pack [i|#{cmd} #{path}|]
 openResourceIdentifierCommandWithEditor cmd (FilePathLineColumnAddress path _ _) =
   T.pack [i|#{cmd} #{path}|]
+openResourceIdentifierCommandWithEditor cmd (FilePathRangeAddress path _ _ _ _) =
+  T.pack [i|#{cmd} #{path}|]
 
 openResourceIdentifierCommandWithVis :: FilePathAddress -> Text
 openResourceIdentifierCommandWithVis (FilePathNoAddress path) =
@@ -123,7 +153,9 @@ openResourceIdentifierCommandWithVis (FilePathLineAddress path line) =
 openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line 0) =
   T.pack [i|vis +#{line}-\#0 #{path}|]
 openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line column) =
-  T.pack [i|vis +#{line}-\#0+\##{column}-#1 #{path}|]
+  T.pack [i|vis +#{line}-\#0+\##{column}-\#1 #{path}|]
+openResourceIdentifierCommandWithVis (FilePathRangeAddress path line1 column1 line2 column2) =
+  T.pack [i|vis +#{line1}-\#0+\##{column1}-\#1,#{line2}-\#0+\##{column2} #{path}|]
 
 openResourceIdentifierCommandWithPlumb :: FilePathAddress -> Text
 openResourceIdentifierCommandWithPlumb (FilePathNoAddress path) =
@@ -134,11 +166,14 @@ openResourceIdentifierCommandWithPlumb (FilePathLineColumnAddress path line 0) =
   T.pack [i|plumb -d edit -a 'addr=#{line}:0' `{pwd}^/#{path}|]
 openResourceIdentifierCommandWithPlumb (FilePathLineColumnAddress path line column) =
   T.pack [i|plumb -d edit -a 'addr=#{line}-\#0+\##{column}-\#1' `{pwd}^/#{path}|]
+openResourceIdentifierCommandWithPlumb (FilePathRangeAddress path line1 column1 line2 column2) =
+  T.pack [i|plumb -d edit -a 'addr=#{line1}-\#0+\##{column1}-\#1,#{line2}-\#0+\##{column2}' `{pwd}^/#{path}|]
 
 inspect :: ResourceIdentifier -> Text
 inspect (File (FilePathNoAddress path)) = path
 inspect (File (FilePathLineAddress path line)) = T.pack [i|#{path}:#{line}|]
 inspect (File (FilePathLineColumnAddress path line column)) = T.pack [i|#{path}:#{line}:#{column}|]
+inspect (File (FilePathRangeAddress path line1 column1 line2 column2)) = T.pack [i|#{path}:(#{line1},#{column1})-(#{line2},#{column2})|]
 inspect (ManPage cmd section) = T.pack [i|#{cmd}(#{section})|]
 inspect (GitCommit commit) = commit
 inspect (URL url) = url

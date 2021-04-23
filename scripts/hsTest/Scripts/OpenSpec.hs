@@ -24,9 +24,10 @@ spec = do
       parseResourceIdentifier "README.md:3:4" `shouldBe` File (FilePathLineColumnAddress "README.md" 3 4)
     it "matches filenames with line and column with trailing colon (GHC)" $
       parseResourceIdentifier "README.md:3:4:" `shouldBe` File (FilePathLineColumnAddress "README.md" 3 4)
-    it "matches hlint output" $ pendingWith "not implemented"
-    -- parseResourceIdentifier "hs/Scripts/Open.hs:(30,5)-(31,62):" `shouldBe` _
-    -- parseResourceIdentifier "hsTest/Scripts/OpenSpec.hs:42:117-119:" `shouldBe` _
+    it "matches hlint multi line output" $
+      parseResourceIdentifier "README.md:(30,5)-(31,62):" `shouldBe` File (FilePathRangeAddress "README.md" 30 5 31 62)
+    it "matches hlint single line output" $
+      parseResourceIdentifier "README.md:42:117-119:" `shouldBe` File (FilePathRangeAddress "README.md" 42 117 42 119)
 
     it "matches man pages" $
       parseResourceIdentifier "ls(1)" `shouldBe` ManPage "ls" 1
@@ -68,19 +69,27 @@ spec = do
       property $ \config ->
         openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathLineColumnAddress "README.md" 5 7)
           `shouldBe` "vis +5-#0+#7-#1 README.md"
+    it "handles FilePathRangeAddress with vis" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+          `shouldBe` "vis +5-#0+#7-#1,6-#0+#10 README.md"
 
     it "handles FilePathNoAddress with plumb" $
       property $ \config ->
         openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathNoAddress "README.md")
           `shouldBe` "plumb -d edit `{pwd}^/README.md"
     it "handles FilePathLineAddress with plumb" $
-       property $ \config ->
+      property $ \config ->
         openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathLineAddress "README.md" 5)
           `shouldBe` "plumb -d edit -a 'addr=5' `{pwd}^/README.md"
     it "handles FilePathLineColumnAddress with plumb" $
-       property $ \config ->
+      property $ \config ->
         openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathLineColumnAddress "README.md" 5 7)
           `shouldBe` "plumb -d edit -a 'addr=5-#0+#7-#1' `{pwd}^/README.md"
+    it "handles FilePathRangeAddress with Plumb" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+          `shouldBe` "plumb -d edit -a 'addr=5-#0+#7-#1,6-#0+#10' `{pwd}^/README.md"
 
     it "handles ManPage" $
       property $ \config ->
@@ -134,7 +143,8 @@ instance Arbitrary FilePathAddress where
     oneof
       [ FilePathNoAddress <$> arbFilePath,
         FilePathLineAddress <$> arbFilePath <*> arbNatural,
-        FilePathLineColumnAddress <$> arbFilePath <*> arbNatural <*> arbNatural
+        FilePathLineColumnAddress <$> arbFilePath <*> arbNatural <*> arbNatural,
+        FilePathRangeAddress <$> arbFilePath <*> arbNatural <*> arbNatural <*> arbNatural <*> arbNatural
       ]
 
 instance Arbitrary Config where
