@@ -119,13 +119,11 @@
           agda
           aspell_
           beamPackages.elixir
-          beamPackages.erlang
           cargo
           clippy
           emacs_
           entr
           fzf
-          gcc
           git
           gnumake
           gnupg
@@ -144,6 +142,12 @@
           tmux
           typespeed
           vis
+
+          # packages needed to work at sonnen
+          beamPackages.erlang
+          gcc
+          lsof
+          moreutils
         ] ++ (with haskellPackages; [
           (ghc.withHoogle (p: with p; [
             containers
