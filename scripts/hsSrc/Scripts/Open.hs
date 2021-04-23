@@ -190,6 +190,7 @@ getEditor = do
   case editor of
     "vis" -> return Vis
     "editinacme" -> return Plumb
+    "sam" -> return Plumb
     "B" -> return Plumb
     "E" -> return Plumb
     x -> return $ Unknown $ T.pack x
