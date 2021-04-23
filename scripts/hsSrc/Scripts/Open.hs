@@ -30,7 +30,7 @@ newtype Config = Config {configEditor :: Editor}
   deriving (Show, Eq)
 
 data Editor
-  = Acme
+  = Plumb
   | Vis
   | Unknown Text
   deriving (Show, Eq)
@@ -105,7 +105,7 @@ openResourceIdentifierCommand _ (GitCommit commit) =
 openResourceIdentifierCommand _ (URL url) =
   T.pack [i|chromium #{url}|]
 openResourceIdentifierCommand Config {configEditor = Vis} (File pathAddress) = openResourceIdentifierCommandWithVis pathAddress
-openResourceIdentifierCommand Config {configEditor = Acme} (File pathAddress) = openResourceIdentifierCommandWithAcme pathAddress
+openResourceIdentifierCommand Config {configEditor = Plumb} (File pathAddress) = openResourceIdentifierCommandWithPlumb pathAddress
 openResourceIdentifierCommand Config {configEditor = Unknown editorName} (File pathAddress) = openResourceIdentifierCommandWithEditor editorName pathAddress
 
 openResourceIdentifierCommandWithEditor :: Text -> FilePathAddress -> Text
@@ -126,15 +126,15 @@ openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line 0) =
 openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line column) =
   T.pack [i|vis +#{line}-\#0+\##{column}-#1 #{path}|]
 
-openResourceIdentifierCommandWithAcme :: FilePathAddress -> Text
-openResourceIdentifierCommandWithAcme (FilePathNoAddress path) =
-  T.pack [i|B #{path}|]
-openResourceIdentifierCommandWithAcme (FilePathLineAddress path line) =
-  T.pack [i|B #{path}:#{line}|]
-openResourceIdentifierCommandWithAcme (FilePathLineColumnAddress path line 0) =
-  T.pack [i|B #{path}:#{line}:0|]
-openResourceIdentifierCommandWithAcme (FilePathLineColumnAddress path line column) =
-  T.pack [i|B #{path}:#{line}:#{column}|]
+openResourceIdentifierCommandWithPlumb :: FilePathAddress -> Text
+openResourceIdentifierCommandWithPlumb (FilePathNoAddress path) =
+  T.pack [i|plumb -d edit `{pwd}^/#{path}|]
+openResourceIdentifierCommandWithPlumb (FilePathLineAddress path line) =
+  T.pack [i|plumb -d edit -a 'addr=#{line}' `{pwd}^/#{path}|]
+openResourceIdentifierCommandWithPlumb (FilePathLineColumnAddress path line 0) =
+  T.pack [i|plumb -d edit -a 'addr=#{line}:0' `{pwd}^/#{path}|]
+openResourceIdentifierCommandWithPlumb (FilePathLineColumnAddress path line column) =
+  T.pack [i|plumb -d edit -a 'addr=#{line}-\#0+\##{column}-\#1' `{pwd}^/#{path}|]
 
 inspect :: ResourceIdentifier -> Text
 inspect (File (FilePathNoAddress path)) = path
@@ -155,9 +155,9 @@ getEditor = do
   editor <- fromMaybe "vis" <$> lookupEnv "EDITOR"
   case editor of
     "vis" -> return Vis
-    "editinacme" -> return Acme
-    "B" -> return Acme
-    "E" -> return Acme
+    "editinacme" -> return Plumb
+    "B" -> return Plumb
+    "E" -> return Plumb
     x -> return $ Unknown $ T.pack x
 
 main :: IO ()

@@ -69,18 +69,18 @@ spec = do
         openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathLineColumnAddress "README.md" 5 7)
           `shouldBe` "vis +5-#0+#7-#1 README.md"
 
-    it "handles FilePathNoAddress with acme" $
+    it "handles FilePathNoAddress with plumb" $
       property $ \config ->
-        openResourceIdentifierCommand (config {configEditor = Acme}) (File $ FilePathNoAddress "README.md")
-          `shouldBe` "B README.md"
-    it "handles FilePathLineAddress with acme" $
-      property $ \config ->
-        openResourceIdentifierCommand (config {configEditor = Acme}) (File $ FilePathLineAddress "README.md" 5)
-          `shouldBe` "B README.md:5"
-    it "handles FilePathLineColumnAddress with acme" $
-      property $ \config ->
-        openResourceIdentifierCommand (config {configEditor = Acme}) (File $ FilePathLineColumnAddress "README.md" 5 7)
-          `shouldBe` "B README.md:5:7"
+        openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathNoAddress "README.md")
+          `shouldBe` "plumb -d edit `{pwd}^/README.md"
+    it "handles FilePathLineAddress with plumb" $
+       property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathLineAddress "README.md" 5)
+          `shouldBe` "plumb -d edit -a 'addr=5' `{pwd}^/README.md"
+    it "handles FilePathLineColumnAddress with plumb" $
+       property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          `shouldBe` "plumb -d edit -a 'addr=5-#0+#7-#1' `{pwd}^/README.md"
 
     it "handles ManPage" $
       property $ \config ->
@@ -144,7 +144,7 @@ instance Arbitrary Editor where
   arbitrary =
     oneof
       [ return Vis,
-        return Acme,
+        return Plumb,
         Unknown <$> arbNonEmptyText
       ]
 
