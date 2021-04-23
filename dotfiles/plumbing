@@ -45,13 +45,20 @@ type is text
 data matches '[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]*'
 plumb start rc -c 'cd '$wdir'; git show '$0' >[2=1] | nobs | plumb -i -w '$wdir' -d edit -a ''action=showdata filename='$wdir'/-git:'$0-$attr''''
 
-# postscript/pdf/dvi go to page but not over the a plumb port
-# the port is here for reference but is unused
+# postscript/pdf/dvi go to zathura
 type is text
 data matches '[a-zA-Z¡-￿0-9_\-./@]+'
 data matches '([a-zA-Z¡-￿0-9_\-./@]+)\.(ps|PS|eps|EPS|pdf|PDF|dvi|DVI)'
 arg isfile	$0
 plumb to postscript
 plumb start zathura $file
+
+# image files go to sxiv
+type is text
+data matches '[a-zA-Z¡-￿0-9_\-./@]+'
+data matches '([a-zA-Z¡-￿0-9_\-./@]+)\.(jpe?g|JPE?G|gif|GIF|tiff?|TIFF?|ppm|bit|png|PNG)'
+arg isfile	$0
+plumb to image
+plumb start sxiv $file
 
 include basic
