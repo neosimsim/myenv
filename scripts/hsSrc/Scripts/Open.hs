@@ -50,26 +50,25 @@ data FilePathAddress
 
 parseResourceIdentifier :: Text -> ResourceIdentifier
 parseResourceIdentifier x =
-  fromMaybe (File $ parseFilePathAddress x) $
+  fromMaybe (File $ FilePathNoAddress x) $
     parseManPage x
       <|> parseURL x
       <|> parseGitCommit x
+      <|> File <$> parseFilePathAddress x
 
-parseFilePathAddress :: Text -> FilePathAddress
-parseFilePathAddress x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) of
-  (_, _, _, [filePath, _, line, _, ""]) ->
-    fallback $
+parseFilePathAddress :: Text -> Maybe FilePathAddress
+parseFilePathAddress
+  x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) of
+    (_, _, _, [filePath, _, line, _, ""]) ->
       FilePathLineAddress filePath <$> readMay (T.unpack line)
-  (_, _, _, [filePath, _, line, _, culomn]) ->
-    fallback $
+    (_, _, _, [filePath, _, line, _, culomn]) ->
       FilePathLineColumnAddress filePath
         <$> readMay (T.unpack line)
         <*> readMay (T.unpack culomn)
-  _ -> FilePathNoAddress x
-  where
-    filePathExpr :: Text
-    filePathExpr = [r|([^:]+)(:([0-9]*)(:([0-9]*))?)?:?|]
-    fallback = fromMaybe $ FilePathNoAddress x
+    _ -> Nothing
+    where
+      filePathExpr :: Text
+      filePathExpr = [r|([^:]+)(:([0-9]*)(:([0-9]*))?)?:?|]
 
 parseManPage :: Text -> Maybe ResourceIdentifier
 parseManPage x = case (x =~ manExpr :: (Text, Text, Text, [Text])) of
