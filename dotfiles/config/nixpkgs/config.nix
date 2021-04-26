@@ -168,7 +168,6 @@
           cabal-fmt
           cabal-install
           hasktags
-          hlint
           ormolu
           pandoc
           steeloverseer
