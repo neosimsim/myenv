@@ -33,6 +33,8 @@
 	untracked =  ! git status --short | awk '/^\\?\\?/ {print $2}'
 	touched =  ! git status -uno --short | awk '{print $2}'
 	dropped-stash = ! git fsck --no-reflog | awk '/dangling commit/ {print $3}' # | while read i; do git log -1 --date iso --pretty=format:"%cd %H%n" $i; done | sort | awk '{print $2}'
+[commit]
+	cleanup = scissors
 [diff]
 	tool = vimdiff
 [merge]
