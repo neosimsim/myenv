@@ -7,6 +7,8 @@ install-gui: install-core
 	$(SHELL) -l -c '$(MAKE) -C dotfiles install-gui'
 	$(SHELL) -l -c 'nix-env -f "<nixpkgs>" -iA myGuiPackages'
 	$(SHELL) -l -c '$(MAKE) -C tools install-gui'
+	$(SHELL) -l -c 'xmonad --recompile'
+	$(SHELL) -l -c 'xmonad --restart'
 
 install-core:
 	$(MAKE) -C dotfiles install-core
