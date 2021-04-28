@@ -13,4 +13,6 @@ which 9 && 9 plumber -p $HOME/.plumbing
 signal-desktop &
 wire-desktop &
 
+[ -f ~/local/xinitrc ] && . ~/local/xinitrc
+
 exec xmonad
