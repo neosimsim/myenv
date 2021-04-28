@@ -2,11 +2,6 @@
 
 DOTFILES_CORE= \
 	cabal/config \
-	config/git/config \
-	config/git/ignore \
-	config/nixpkgs/config.nix \
-	config/vis/visrc.lua \
-	config/vis/themes/peaksea.lua \
 	ghci \
 	gnupg/gpg-agent.conf \
 	mbsyncrc \
@@ -19,7 +14,6 @@ DOTFILES_CORE= \
 	tmux.conf \
 
 DOTFILES_GUI= \
-	config/alacritty/alacritty.yml \
 	plumbing \
 	themes/urxvt/atom-one-light \
 	themes/urxvt/tango \
@@ -33,15 +27,26 @@ DOTFILES_GUI= \
 	Xresources \
 	xsession \
 
+XDGFILES_CORE= \
+	git/config \
+	git/ignore \
+	nixpkgs/config.nix \
+	vis/visrc.lua \
+	vis/themes/peaksea.lua \
+
+XDGFILES_GUI= \
+	alacritty/alacritty.yml \
+
 DOTFILES=$(DOTFILES_CORE) $(DOTFILES_GUI)
+XDGFILES=$(XDGFILES_CORE) $(XDGFILES_GUI)
 
 default: install-core
 install: install-core
 
-install-core: phony $(DOTFILES_CORE)
+install-core: phony $(DOTFILES_CORE) $(XDGFILES_CORE)
 	! tmux list-s >/dev/null 2>&1 || tmux source $(HOME)/.tmux.conf
 
-install-gui: install-core $(DOTFILES_GUI) plumbing
+install-gui: install-core $(DOTFILES_GUI) $(XDGFILES_GUI)
 	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/.plumbing
 	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
 	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/local/Xresources ] || xrdb -merge $(HOME)/local/Xresources
@@ -52,10 +57,18 @@ $(DOTFILES): phony
 	@mkdir -p `dirname $(HOME)/.$@`
 	cp $@ $(HOME)/.$@
 
+$(XDGFILES): phony
+	@mkdir -p `dirname $(HOME)/.config/$@`
+	cp $@ $(HOME)/.config/$@
+
 uninstall: phony
 	for dotfile in $(DOTFILES); do \
 		rm -f $(HOME)/.$$dotfile; \
 		(rmdir -p $(HOME)/`dirname .$$dotfile` 2>/dev/null || true); \
+	done
+	for xdgfile in $(XDGFILES); do \
+		rm -f $(HOME)/.config/$$xdgfile; \
+		(rmdir -p $(HOME)/.config/`dirname $$xdgfile` 2>/dev/null || true); \
 	done
 
 phony: missing-file
