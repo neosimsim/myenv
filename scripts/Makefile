@@ -15,6 +15,7 @@ POSIX_BIN = \
 	cmnt \
 	codespell \
 	dpass \
+	ex-find-module \
 	fext \
 	filter \
 	find-match \
