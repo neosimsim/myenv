@@ -2,6 +2,7 @@ import Graphics.X11.ExtraTypes
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (..), focusUrgent, withUrgencyHook)
 import XMonad.Layout.Fullscreen
@@ -37,7 +38,9 @@ myConfig =
             className =? "Signal" --> doShift "9",
             className =? "Wire" --> doShift "9",
             className =? "discord" --> doShift "9",
-            className =? "Slack" --> doShift "9"
+            className =? "Slack" --> doShift "9",
+            className =? "pavucontrol" <||> className =? "Pavucontrol"
+              --> doCenterFloat
           ],
       layoutHook =
         smartBorders . avoidStruts $ Grid ||| Full ||| Tall 1 (1 / 300) (1 / 2),
