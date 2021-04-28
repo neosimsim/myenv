@@ -2,6 +2,7 @@
 
 DOTFILES_CORE= \
 	cabal/config \
+	config/nixpkgs/config.nix \
 	ghci \
 	gnupg/gpg-agent.conf \
 	mbsyncrc \
@@ -29,7 +30,6 @@ DOTFILES_GUI= \
 XDGFILES_CORE= \
 	git/config \
 	git/ignore \
-	nixpkgs/config.nix \
 	vis/visrc.lua \
 	vis/themes/peaksea.lua \
 
@@ -57,8 +57,8 @@ $(DOTFILES): phony
 	cp $@ $(HOME)/.$@
 
 $(XDGFILES): phony
-	@mkdir -p `dirname $(HOME)/.config/$@`
-	cp $@ $(HOME)/.config/$@
+	@mkdir -p `dirname $(HOME)/lib/$@`
+	cp $@ $(HOME)/lib/$@
 
 plumbing: phony
 	mkdir -p $(HOME)/lib
@@ -70,8 +70,8 @@ uninstall: phony
 		(rmdir -p $(HOME)/`dirname .$$dotfile` 2>/dev/null || true); \
 	done
 	for xdgfile in $(XDGFILES); do \
-		rm -f $(HOME)/.config/$$xdgfile; \
-		(rmdir -p $(HOME)/.config/`dirname $$xdgfile` 2>/dev/null || true); \
+		rm -f $(HOME)/lib/$$xdgfile; \
+		(rmdir -p $(HOME)/lib/`dirname $$xdgfile` 2>/dev/null || true); \
 	done
 
 phony: missing-file

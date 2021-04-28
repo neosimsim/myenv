@@ -49,7 +49,7 @@ brittany :
 hwk:
 	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) hwk
 	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) --lib --package-env hwk extra
-	mkdir -p $(HOME)/.config/hwk
+	mkdir -p $(HOME)/lib/hwk
 
 all-ghc:
 	# You might need to adapt MAKE_GHC_VERSIONS.
