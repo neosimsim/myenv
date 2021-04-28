@@ -43,7 +43,7 @@ myConfig =
               --> doCenterFloat
           ],
       layoutHook =
-        smartBorders . avoidStruts $ Grid ||| Full ||| Tall 1 (1 / 300) (1 / 2),
+        smartBorders . avoidStruts $ Tall 1 (1 / 300) (3 / 4) ||| Full ||| Grid,
       handleEventHook = handleEventHook def <+> docksEventHook,
       normalBorderColor = "#cccccc",
       focusedBorderColor = "#cd8b00",
