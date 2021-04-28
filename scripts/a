@@ -5,6 +5,10 @@ set -e
 ACME_VARFONT=${ACME_VARFONT:-/mnt/font/DejaVuSansMono/17a/font}
 ACME_FIXFONT=${ACME_FIXFONT:-/mnt/font/DejaVuSans/17a/font}
 
+# Make sure we can open multiple acme(1) instances.
+export NAMESPACE=$(mktemp -d /tmp/ns-XXXXXX)
+9 plumber -p $HOME/.plumbing
+
 export tabstop=${tabstob:-4}
 export TERM=dumb
 export NO_COLOR=1
