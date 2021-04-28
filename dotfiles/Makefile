@@ -44,7 +44,7 @@ install-core: phony $(DOTFILES_CORE)
 install-gui: install-core $(DOTFILES_GUI) plumbing
 	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/.plumbing
 	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
-	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/.Xresources.local ] || xrdb -merge $(HOME)/.Xresources.local
+	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/local/Xresources ] || xrdb -merge $(HOME)/local/Xresources
 	[ -z "$$DISPLAY" ] || xmonad --recompile
 	[ -z "$$DISPLAY" ] || xmonad --restart
 

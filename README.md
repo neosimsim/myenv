@@ -43,7 +43,7 @@ call `make` with
 	make GHC_VERSIONS='8.2.2 8.4.2 8.6.5 8.8.2' install-haskell-env
 
 # Customizations
-You can specify workstation specific settings in $HOME/.profile.local, e. g.
+You can specify workstation specific settings in $HOME/local/profile, e. g.
 
 	export BROWSER=firefox
 	export ACME_VARFONT=/mnt/font/FreeSans/12a/font
@@ -60,7 +60,7 @@ If you get the following error, when envoking nix command, e.g. `nix-shell`
 
 	bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
 
-add the following to `$HOME/.profile.locale`
+add the following to `$HOME/local/profile`
 
 	export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 
@@ -70,7 +70,7 @@ When on a non glibc Linux, e.g. alpine try to install
 
 	nix-env -i glibc-locales
 
-and add the following to `$HOME/.profile.locale`
+and add the following to `$HOME/local/profile`
 
 	export LOCALE_ARCHIVE="$(nix-env --installed --no-name --out-path --query glibc-locales)/lib/locale/locale-archive"
 

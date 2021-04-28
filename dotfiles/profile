@@ -38,7 +38,7 @@ then
 	. ~/.ssh-agent-thing
 fi
 
-if [ -e "$HOME/.profile.local" ]
+if [ -e "$HOME/local/profile" ]
 then
-	. "$HOME/.profile.local"
+	. "$HOME/local/profile"
 fi
