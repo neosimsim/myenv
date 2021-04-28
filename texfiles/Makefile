@@ -2,7 +2,7 @@
 .SUFFIXES: .pdf .tex
 .PHONY: clean install
 
-include config.mk
+PREFIX=$(HOME)
 
 FILES=banner.sty \
 	lists.sty \
@@ -32,8 +32,8 @@ clean:
 	rm -f *.aux *.log *.pdf *.out *.toc
 
 install:
-	mkdir -p $(PREFIX)
-	cp $(FILES) $(PREFIX)
+	mkdir -p $(PREFIX)/texmf/tex/latex/custom
+	cp $(FILES) $(PREFIX)/texmf/tex/latex/custom
 
 uninstall:
-	cd $(PREFIX) && rm -f $(FILES)
+	cd $(PREFIX)/texmf/tex/latex/custom && rm -f $(PREFIX)/texmf/tex/latex/custom
