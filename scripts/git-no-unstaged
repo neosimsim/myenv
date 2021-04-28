@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if git st --short -uno | grep -q '^.[^[:blank:]]'
+then
+cat <<EOF
+You have unstaged files. This might curropt the git-hook outcome. Either stage
+them or run
+git stash push -ku
+git commit
+git stash pop
+EOF
+exit 1
+fi
