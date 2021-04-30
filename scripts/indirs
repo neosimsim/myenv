@@ -23,3 +23,5 @@ for dir in $dirs; do
 	eval "$@"
 )
 done
+
+true
