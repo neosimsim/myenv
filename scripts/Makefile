@@ -29,6 +29,7 @@ POSIX_BIN = \
 	hi \
 	Hsfmt \
 	hsinit \
+	indirs \
 	lessk \
 	license \
 	lower \
