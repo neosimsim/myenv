@@ -21,10 +21,14 @@ extra-source-files: README.md
 
 library
   exposed-modules:  Scripts.Open
+  exposed-modules:  Scripts.FindRustModule
   build-depends:
       base
+    , filepath
+    , Glob
     , hsshellscript
     , interpolate
+    , mono-traversable
     , raw-strings-qq
     , regex-tdfa
     , safe
@@ -77,9 +81,21 @@ executable o
   hs-source-dirs:   hsMain
   default-language: Haskell2010
 
+executable rs-find-module
+  main-is:          FindRustModule.hs
+  build-depends:
+      base
+    , scripts
+
+  hs-source-dirs:   hsMain
+  default-language: Haskell2010
+
 test-suite test
   main-is:          Spec.hs
-  other-modules:    Scripts.OpenSpec
+  other-modules:
+    Scripts.FindRustModuleSpec
+    Scripts.OpenSpec
+
   type:             exitcode-stdio-1.0
   build-depends:
       base
