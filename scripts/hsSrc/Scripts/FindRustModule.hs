@@ -4,6 +4,7 @@ import Data.Sequences (splitSeq)
 import System.Environment (getArgs)
 import System.FilePath as FilePath
 import System.FilePath.Glob (glob)
+import System.Exit (exitFailure)
 
 moduleFiles :: String -> [FilePath]
 moduleFiles = moduleFiles_ . splitSeq "::"
@@ -38,7 +39,7 @@ main = do
     moduleName : _ -> printGlobs $ moduleFiles moduleName
 
 printGlobs :: [FilePath] -> IO ()
-printGlobs [] = return ()
+printGlobs [] = exitFailure
 printGlobs (x : xs) = do
   globs <- glob x
   case globs of
