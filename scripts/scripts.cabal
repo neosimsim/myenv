@@ -81,7 +81,7 @@ executable o
   hs-source-dirs:   hsMain
   default-language: Haskell2010
 
-executable rs-find-module
+executable find-rs-module
   main-is:          FindRustModule.hs
   build-depends:
       base
