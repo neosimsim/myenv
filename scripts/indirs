@@ -20,7 +20,7 @@ shift 1
 for dir in $dirs; do
 (
 	cd $dir
-	eval "$@"
+	"$@"
 )
 done
 
