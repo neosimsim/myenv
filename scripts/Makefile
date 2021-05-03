@@ -6,6 +6,8 @@ POSIX_BIN = \
 	1 \
 	2 \
 	3 \
+	Hsfmt \
+	NewW \
 	a \
 	a+ \
 	a- \
@@ -15,9 +17,9 @@ POSIX_BIN = \
 	cmnt \
 	codespell \
 	dpass \
-	find-ex-module \
 	fext \
 	filter \
+	find-ex-module \
 	find-match \
 	fzf-tags \
 	games \
@@ -27,14 +29,12 @@ POSIX_BIN = \
 	git-no-unstaged \
 	git-to-dot \
 	hi \
-	Hsfmt \
 	hsinit \
 	indirs \
 	lessk \
 	license \
 	lower \
 	mkgit \
-	NewW \
 	nocolor \
 	now \
 	open \

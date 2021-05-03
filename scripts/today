@@ -1,3 +1,4 @@
 #!/bin/sh
 
-date +'%Y-%m-%d'
+# use echo to avoind newline
+echo -n $(date +'%Y-%m-%d')
