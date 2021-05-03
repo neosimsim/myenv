@@ -36,6 +36,7 @@ POSIX_BIN = \
 	mkgit \
 	NewW \
 	nocolor \
+	now \
 	open \
 	overwrite \
 	passgen \
@@ -52,6 +53,7 @@ POSIX_BIN = \
 	tmux-sos \
 	tmux-split-pipe \
 	tmux-ws \
+	today \
 	ucmnt \
 	unfreeze-ghc-libs \
 	upper \
