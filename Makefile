@@ -4,8 +4,8 @@ default: install-core
 install: install-core
 
 install-gui: install-core
+	$(SHELL) -l -c 'nix-env --arg enableGui true -if .'
 	$(SHELL) -l -c '$(MAKE) -C dotfiles install-gui'
-	$(SHELL) -l -c 'nix-env -f "<nixpkgs>" -iA myGuiPackages'
 	$(SHELL) -l -c '$(MAKE) -C tools install-gui'
 	$(SHELL) -l -c 'xmonad --recompile'
 	$(SHELL) -l -c 'xmonad --restart'
@@ -14,9 +14,9 @@ install-core:
 	$(MAKE) -C dotfiles install-core
 	$(MAKE) -C texfiles install
 	$(SHELL) -l -c 'nix-env -f scripts -i'
-	$(SHELL) -l -c '$(MAKE) -C aliases install'
 	$(SHELL) -l -c '$(MAKE) -C tools install-core'
-	$(SHELL) -l -c 'nix-env -f "<nixpkgs>" -iA myPackages'
+	$(SHELL) -l -c '$(MAKE) -C aliases install'
+	$(SHELL) -l -c 'nix-env -if .'
 	$(SHELL) -l -c gen-vis-uni
 
 uninstall:

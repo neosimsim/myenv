@@ -2,7 +2,6 @@
 
 DOTFILES_CORE= \
 	cabal/config \
-	config/nixpkgs/config.nix \
 	ghci \
 	gnupg/gpg-agent.conf \
 	mbsyncrc \
