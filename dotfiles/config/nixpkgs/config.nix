@@ -136,9 +136,14 @@
         name = "my-packages";
         paths = [
           # make sure nix-shell runs mksh
-          (writeShellScriptBin "nix-shell" ''
+          (lib.hiPrio (writeShellScriptBin "nix-shell" ''
             exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
+          ''))
+          (pkgs.writeShellScriptBin "nixFlakes" ''
+            exec ${nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
           '')
+          # make sure we use stable nix even if unstable is installed globally
+          nix
 
           ag
           agda
