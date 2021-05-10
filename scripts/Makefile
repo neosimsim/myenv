@@ -19,6 +19,7 @@ POSIX_BIN = \
 	dpass \
 	fext \
 	filter \
+	fzf-open \
 	find-ex-module \
 	find-match \
 	fzf-tags \
