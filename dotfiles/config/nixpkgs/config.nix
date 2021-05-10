@@ -166,18 +166,24 @@
           pass
           pinentry-curses
           plan9port
+          nix-prefetch-scripts
           rustc
           rustfmt
           texlive.combined.scheme-full
           tmux
           typespeed
           vis
+          unzip
 
           # packages needed to work at sonnen
           beamPackages.erlang
           gcc
           lsof
           moreutils
+          slack
+          niv
+          # cockroachdb
+          rabbitmq-server
         ] ++ (with haskellPackages; [
           (ghc.withHoogle (p: with p; [
             containers
@@ -215,13 +221,16 @@
           feh
           haskellPackages.threadscope
           klavaro
+          mplayer
           rxvt-unicode
           scrot
           signal-desktop
           sxiv
+          xfce.thunar
           wire-desktop
           xmobar
           xorg.xmodmap
+          xorg.xkill
           xsel
           zathura
         ];
