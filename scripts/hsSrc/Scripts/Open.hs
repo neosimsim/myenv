@@ -159,15 +159,15 @@ openResourceIdentifierCommandWithVis (FilePathRangeAddress path line1 column1 li
 
 openResourceIdentifierCommandWithPlumb :: FilePathAddress -> Text
 openResourceIdentifierCommandWithPlumb (FilePathNoAddress path) =
-  T.pack [i|plumb -d edit `{pwd}^/#{path}|]
+  T.pack [i|plumb -d edit $(pwd)/#{path}|]
 openResourceIdentifierCommandWithPlumb (FilePathLineAddress path line) =
-  T.pack [i|plumb -d edit -a 'addr=#{line}' `{pwd}^/#{path}|]
+  T.pack [i|plumb -d edit -a 'addr=#{line}' $(pwd)/#{path}|]
 openResourceIdentifierCommandWithPlumb (FilePathLineColumnAddress path line 0) =
-  T.pack [i|plumb -d edit -a 'addr=#{line}:0' `{pwd}^/#{path}|]
+  T.pack [i|plumb -d edit -a 'addr=#{line}:0' $(pwd)/#{path}|]
 openResourceIdentifierCommandWithPlumb (FilePathLineColumnAddress path line column) =
-  T.pack [i|plumb -d edit -a 'addr=#{line}-\#0+\##{column}-\#1' `{pwd}^/#{path}|]
+  T.pack [i|plumb -d edit -a 'addr=#{line}-\#0+\##{column}-\#1' $(pwd)/#{path}|]
 openResourceIdentifierCommandWithPlumb (FilePathRangeAddress path line1 column1 line2 column2) =
-  T.pack [i|plumb -d edit -a 'addr=#{line1}-\#0+\##{column1}-\#1,#{line2}-\#0+\##{column2}' `{pwd}^/#{path}|]
+  T.pack [i|plumb -d edit -a 'addr=#{line1}-\#0+\##{column1}-\#1,#{line2}-\#0+\##{column2}' $(pwd)/#{path}|]
 
 inspect :: ResourceIdentifier -> Text
 inspect (File (FilePathNoAddress path)) = path
