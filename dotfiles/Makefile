@@ -1,5 +1,7 @@
 .POSIX:
 
+XDG_CONFIG_HOME=$(HOME)/lib
+
 DOTFILES_CORE= \
 	cabal/config \
 	ghci \
@@ -58,8 +60,8 @@ $(DOTFILES): phony
 	cp $@ $(HOME)/.$@
 
 $(XDGFILES): phony
-	@mkdir -p `dirname $(HOME)/lib/$@`
-	cp $@ $(HOME)/lib/$@
+	@mkdir -p `dirname $(XDG_CONFIG_HOME)/$@`
+	cp $@ $(XDG_CONFIG_HOME)/$@
 
 plumbing: phony
 	mkdir -p $(HOME)/lib
@@ -71,9 +73,10 @@ uninstall: phony
 		(rmdir -p $(HOME)/`dirname .$$dotfile` 2>/dev/null || true); \
 	done
 	for xdgfile in $(XDGFILES); do \
-		rm -f $(HOME)/lib/$$xdgfile; \
-		(rmdir -p $(HOME)/lib/`dirname $$xdgfile` 2>/dev/null || true); \
+		rm -f $(XDG_CONFIG_HOME)/$$xdgfile; \
+		(rmdir -p $(XDG_CONFIG_HOME)/`dirname $$xdgfile` 2>/dev/null || true); \
 	done
+	rm -f $(HOME)/lib/plumbing
 
 phony: missing-file
 
