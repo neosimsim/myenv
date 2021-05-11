@@ -1,6 +1,18 @@
 #!/bin/sh
 
-ghc -o xmonad-x86_64-linux \
+set -evx
+
+if [ -n "$XMONAD_DATA_HOME" ]; then
+  out="$XMONAD_DATA_HOME/xmonad-x86_64-linux"
+elif [ -n "$XDG_DATA_HOME" ]; then
+  out="$XDG_DATA_HOME/xmonad/xmonad-x86_64-linux"
+else
+  out="$HOME/.xmonad/xmonad-x86_64-linux"
+fi
+
+mkdir -p $(dirname $out)
+
+ghc -o $out \
   -Wall \
     -Wno-missing-signatures \
   -Werror -threaded \

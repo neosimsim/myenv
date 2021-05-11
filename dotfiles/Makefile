@@ -22,8 +22,6 @@ DOTFILES_GUI= \
 	Xmodmap \
 	Xmodmap.colemak \
 	Xmodmap.qwerty \
-	xmonad/build \
-	xmonad/xmonad.hs \
 	Xresources \
 	xsession \
 
@@ -32,6 +30,8 @@ XDGFILES_CORE= \
 	git/ignore \
 	vis/visrc.lua \
 	vis/themes/peaksea.lua \
+	xmonad/build \
+	xmonad/xmonad.hs \
 
 XDGFILES_GUI= \
 	alacritty/alacritty.yml \
@@ -49,6 +49,8 @@ install-gui: install-core $(DOTFILES_GUI) $(XDGFILES_GUI) plumbing
 	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/lib/plumbing
 	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
 	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/local/Xresources ] || xrdb -merge $(HOME)/local/Xresources
+	# alternatively one could set XMONAD_CACHE_DIR etc.
+	mkdir -p $(XDG_CACHE_HOME)/xmonad
 	[ -z "$$DISPLAY" ] || xmonad --recompile
 	[ -z "$$DISPLAY" ] || xmonad --restart
 
