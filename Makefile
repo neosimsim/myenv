@@ -12,7 +12,6 @@ install-gui: install-core
 
 install-core:
 	$(MAKE) -C dotfiles install-core
-	$(SHELL) -l -c 'nix-env -f scripts -i'
 	$(SHELL) -l -c '$(MAKE) -C tools install-core'
 	$(SHELL) -l -c '$(MAKE) -C aliases install'
 	$(SHELL) -l -c 'nix-env -if .'

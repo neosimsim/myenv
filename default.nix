@@ -40,6 +40,7 @@ lib.lowPrio (buildEnv {
      nix-prefetch-scripts
      rustc
      rustfmt
+     scripts
      texlive-full
      tmux
      typespeed

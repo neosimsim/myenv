@@ -5,6 +5,8 @@ self: super:
 let
   texfiles.pkgs = [ (import ./texfiles { pkgs = super; }) ];
 in {
+  scripts = import ./scripts { nixpkgs = super; };
+
   hconv = self.haskellPackages.callCabal2nix "hconv" (super.fetchgit {
     url = "https://gitlab.com/neosimsim/hconv.git";
     rev = "05b254dc4e2c9258f7d9a4721847376a001b99de";
