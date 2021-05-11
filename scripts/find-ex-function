@@ -1,0 +1,6 @@
+#!/bin/sh
+
+module=$(echo $1 | awk -F. '{print $1}')
+function=$(echo $1 | awk -F. '{print $2}')
+
+find-ex-module $module | xargs find-match "defp? $function"

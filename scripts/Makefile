@@ -20,6 +20,7 @@ POSIX_BIN = \
 	fext \
 	filter \
 	fzf-open \
+	find-ex-function \
 	find-ex-module \
 	find-match \
 	fzf-tags \
