@@ -3,6 +3,8 @@
 default: install-core
 install: install-core
 
+# use a new login shell to ensure installed dotfiles are sourced
+
 install-gui: install-core
 	$(SHELL) -l -c 'nix-env --arg enableGui true -if .'
 	$(SHELL) -l -c '$(MAKE) -C dotfiles install-gui'
