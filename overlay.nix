@@ -1,7 +1,10 @@
 {
   enableGui ? false,
 }:
-self: super: {
+self: super:
+let
+  texfiles.pkgs = [ (import ./texfiles { pkgs = super; }) ];
+in {
   hconv = self.haskellPackages.callCabal2nix "hconv" (super.fetchgit {
     url = "https://gitlab.com/neosimsim/hconv.git";
     rev = "05b254dc4e2c9258f7d9a4721847376a001b99de";
@@ -11,6 +14,11 @@ self: super: {
     url = "https://gitlab.com/neosimsim/hookmark.git";
     rev = "2e9e69dc4b12aaf8af50a2b5c053030501c0562c";
     sha256 = "1nhs0lhy802j5z1lh4m40rrmdcnk5d3shvdmn2ngfjzlg1pr67mg";}) {};
+
+  texlive-full = super.texlive.combine {
+    inherit (super.texlive) scheme-full;
+    inherit texfiles;
+  };
 
   ma = self.stdenv.mkDerivation rec {
     pname = "ma";

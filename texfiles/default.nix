@@ -1,7 +1,9 @@
-{ nixpkgs ? import <nixpkgs> {} }:
-with nixpkgs.pkgs;
+{ pkgs ? import <nixpkgs> {} }:
+with pkgs;
 stdenv.mkDerivation {
-  name = "texfiles";
+  pname = "texfiles";
+  version = "1.0";
+  tlType = "run";
   src = lib.sourceByRegex ./. [
     "Makefile"
     "^.*\.tex"
