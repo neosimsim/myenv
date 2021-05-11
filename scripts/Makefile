@@ -1,13 +1,11 @@
 PREFIX=$(HOME)
 MANPREFIX=$(PREFIX)/man
 
-# Edit .+2;/^$/-|sort
+# Edit 0/^POSIX_BIN/+1;/^$/-|sort
 POSIX_BIN = \
 	1 \
 	2 \
 	3 \
-	Hsfmt \
-	NewW \
 	a \
 	a+ \
 	a- \
@@ -19,10 +17,10 @@ POSIX_BIN = \
 	dpass \
 	fext \
 	filter \
-	fzf-open \
 	find-ex-function \
 	find-ex-module \
 	find-match \
+	fzf-open \
 	fzf-tags \
 	games \
 	gen-vim-uni \
@@ -31,12 +29,14 @@ POSIX_BIN = \
 	git-no-unstaged \
 	git-to-dot \
 	hi \
+	Hsfmt \
 	hsinit \
 	indirs \
 	lessk \
 	license \
 	lower \
 	mkgit \
+	NewW \
 	nocolor \
 	now \
 	open \
