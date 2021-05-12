@@ -3,6 +3,7 @@ xrdb ~/.Xresources
 [ -f ~/local/Xresources ] && xrdb -merge ~/local/Xresources
 xmodmap ~/.Xmodmap
 xmodmap ~/.Xmodmap.querty
+numlockx
 [ -f ~/.fehbg ] && sh ~/.fehbg
 amixer set Master mute
 amixer -c 0 set Headphone unmute

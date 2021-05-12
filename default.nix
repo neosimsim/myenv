@@ -65,6 +65,7 @@ lib.lowPrio (buildEnv {
      haskellPackages.threadscope
      klavaro
      mplayer
+     numlockx
      rxvt-unicode
      scrot
      signal-desktop
