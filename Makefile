@@ -9,8 +9,6 @@ install-gui: install-core
 	$(SHELL) -l -c 'nix-env --arg enableGui true -if .'
 	$(SHELL) -l -c '$(MAKE) -C dotfiles install-gui'
 	$(SHELL) -l -c '$(MAKE) -C tools install-gui'
-	$(SHELL) -l -c 'xmonad --recompile'
-	$(SHELL) -l -c 'xmonad --restart'
 
 install-core:
 	$(MAKE) -C dotfiles install-core
@@ -24,6 +22,12 @@ uninstall:
 	$(MAKE) -C texfiles uninstall
 	$(MAKE) -C scripts uninstall
 	$(MAKE) -C aliases uninstall
+
+reload-core:
+	$(SHELL) -l -c '$(MAKE) -C dotfiles reload'
+
+reload-gui:
+	$(SHELL) -l -c '$(MAKE) -C dotfiles reload'
 
 test-core:
 	$(SHELL) -l -c '$(MAKE) -C scripts test'

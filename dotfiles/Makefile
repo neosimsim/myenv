@@ -44,16 +44,8 @@ default: install-core
 install: install-core
 
 install-core: phony $(DOTFILES_CORE) $(XDGFILES_CORE)
-	! tmux list-s >/dev/null 2>&1 || tmux source $(HOME)/.tmux.conf
 
 install-gui: install-core $(DOTFILES_GUI) $(XDGFILES_GUI) plumbing
-	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/lib/plumbing || true
-	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
-	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/local/Xresources ] || xrdb -merge $(HOME)/local/Xresources
-	# alternatively one could set XMONAD_CACHE_DIR etc.
-	mkdir -p $(XDG_CACHE_HOME)/xmonad
-	[ -z "$$DISPLAY" ] || xmonad --recompile
-	[ -z "$$DISPLAY" ] || xmonad --restart
 
 $(DOTFILES): phony
 	@mkdir -p `dirname $(HOME)/.$@`
@@ -79,6 +71,18 @@ uninstall: phony
 		(rmdir -p $(XDG_CONFIG_HOME)/`dirname $$xdgfile` 2>/dev/null || true); \
 	done
 	rm -f $(HOME)/lib/plumbing
+
+reload-core:
+	! tmux list-s >/dev/null 2>&1 || tmux source $(HOME)/.tmux.conf
+
+reload-gui: reload-core
+	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
+	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/local/Xresources ] || xrdb -merge $(HOME)/local/Xresources
+	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/lib/plumbing || true
+	# alternatively one could set XMONAD_CACHE_DIR etc.
+	mkdir -p $(XDG_CACHE_HOME)/xmonad
+	[ -z "$$DISPLAY" ] || xmonad --recompile
+	[ -z "$$DISPLAY" ] || xmonad --restart
 
 phony: missing-file
 
