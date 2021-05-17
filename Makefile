@@ -4,9 +4,9 @@ install: install-core
 
 # use a new login shell to ensure installed dotfiles are sourced
 
+# gui setup (for non nix environments)
 install-gui: install-core install-gui-min
 
-# gui setup (for non nix environments)
 install-gui-min: install-min
 	$(SHELL) -l -c '$(MAKE) -C dotfiles install-gui'
 	$(SHELL) -l -c '$(MAKE) -C tools install-gui'
