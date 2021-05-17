@@ -47,7 +47,7 @@ install-core: phony $(DOTFILES_CORE) $(XDGFILES_CORE)
 	! tmux list-s >/dev/null 2>&1 || tmux source $(HOME)/.tmux.conf
 
 install-gui: install-core $(DOTFILES_GUI) $(XDGFILES_GUI) plumbing
-	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/lib/plumbing
+	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/lib/plumbing || true
 	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
 	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/local/Xresources ] || xrdb -merge $(HOME)/local/Xresources
 	# alternatively one could set XMONAD_CACHE_DIR etc.
