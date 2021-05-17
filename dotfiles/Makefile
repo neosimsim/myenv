@@ -40,7 +40,6 @@ XDGFILES_GUI= \
 DOTFILES=$(DOTFILES_CORE) $(DOTFILES_GUI)
 XDGFILES=$(XDGFILES_CORE) $(XDGFILES_GUI)
 
-default: install-core
 install: install-core
 
 install-core: phony $(DOTFILES_CORE) $(XDGFILES_CORE)

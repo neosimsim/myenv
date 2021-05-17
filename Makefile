@@ -1,6 +1,5 @@
 .POSIX:
 
-default: install-core
 install: install-core
 
 # use a new login shell to ensure installed dotfiles are sourced
