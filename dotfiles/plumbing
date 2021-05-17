@@ -60,5 +60,3 @@ data matches '([a-zA-Z¡-￿0-9_\-./@]+)\.(jpe?g|JPE?G|gif|GIF|tiff?|TIFF?|ppm|b
 arg isfile	$0
 plumb to image
 plumb start sxiv $file
-
-include basic

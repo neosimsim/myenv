@@ -66,6 +66,8 @@ $(XDGFILES): phony
 plumbing: phony
 	mkdir -p $(HOME)/lib
 	cp $@ $(HOME)/lib/$@
+	echo >>$(HOME)/lib/$@
+	9 sh -c 'echo include $$PLAN9/plumb/basic' >>$(HOME)/lib/$@
 
 uninstall: phony
 	for dotfile in $(DOTFILES); do \
