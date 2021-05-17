@@ -21,7 +21,6 @@ install-min:
 	$(MAKE) -C dotfiles install
 	$(SHELL) -l -c '$(MAKE) -C tools install'
 	$(SHELL) -l -c '$(MAKE) -C aliases install'
-	$(SHELL) -l -c gen-vis-uni
 
 uninstall:
 	$(SHELL) -l -c '$(MAKE) -C dotfiles uninstall'
@@ -30,6 +29,7 @@ uninstall:
 	$(SHELL) -l -c '$(MAKE) -C aliases uninstall'
 
 reload-core:
+	$(SHELL) -l -c gen-vis-uni
 	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-core'
 
 reload-gui:
