@@ -2,6 +2,8 @@
 
 set -e
 
+export NIXPKGS_ALLOW_UNFREE=1
+
 if [ -n "$DISPLAY" ]; then
 	nix-env --arg enableGui true -if .
 	make install-gui-min
