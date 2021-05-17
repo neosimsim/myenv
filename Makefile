@@ -29,10 +29,10 @@ uninstall:
 	$(SHELL) -l -c '$(MAKE) -C aliases uninstall'
 
 reload-core:
-	$(SHELL) -l -c '$(MAKE) -C dotfiles reload'
+	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-core'
 
 reload-gui:
-	$(SHELL) -l -c '$(MAKE) -C dotfiles reload'
+	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-gui'
 
 test-core:
 	$(SHELL) -l -c '$(MAKE) -C scripts test'

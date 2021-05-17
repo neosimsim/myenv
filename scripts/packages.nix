@@ -1,12 +1,12 @@
-{ nixpkgs ? import <nixpkgs> {}, ghc ? "default" }:
+{ pkgs, ghc ? "default" }:
 let
-  hsPkgs = with nixpkgs.pkgs; if ghc == "default"
+  hsPkgs = with pkgs; if ghc == "default"
     then haskellPackages
     else haskell.packages.${ghc};
 in
 {
-  haskellPackages = hsPkgs.extend (nixpkgs.haskell.lib.packageSourceOverrides {
-    scripts = (nixpkgs.lib.sourceByRegex ./. [
+  haskellPackages = hsPkgs.extend (pkgs.haskell.lib.packageSourceOverrides {
+    scripts = (pkgs.lib.sourceByRegex ./. [
     "^.*\.md$"
     "^.*\.hs$"
     "^scripts\.cabal$"
@@ -15,10 +15,10 @@ in
     "^hsMain.*$"
     ]);
   });
-  posixScripts = nixpkgs.stdenv.mkDerivation {
+  posixScripts = pkgs.stdenv.mkDerivation {
     name = "scripts";
     src = ./.;
-    buildInputs = [ nixpkgs.plan9port ];
+    buildInputs = [ pkgs.plan9port ];
     buildPhase = "true";
     installPhase = ''
       # ensure PLAN9 is in PATH but at the end so patchShebangs finds

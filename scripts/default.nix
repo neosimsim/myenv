@@ -1,11 +1,11 @@
-{ nixpkgs ? import <nixpkgs> {}, ghc ? "default" }:
+{ pkgs, ghc ? "default" }:
 let
-  packages = import ./packages.nix { inherit nixpkgs ghc; };
-in with packages; nixpkgs.buildEnv {
+  packages = import ./packages.nix { inherit pkgs ghc; };
+in with packages; pkgs.buildEnv {
   name = "scripts";
   paths = [
     posixScripts
-    (nixpkgs.haskell.lib.justStaticExecutables haskellPackages.scripts)
+    (pkgs.haskell.lib.justStaticExecutables haskellPackages.scripts)
   ];
 }
 
