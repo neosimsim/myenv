@@ -16,6 +16,7 @@ install-core: install-min
 	$(SHELL) -l -c '$(MAKE) -C scripts install'
 	$(SHELL) -l -c '$(MAKE) -C texfiles install'
 
+# stuff not installed with nix
 install-min:
 	$(MAKE) -C dotfiles install
 	$(SHELL) -l -c '$(MAKE) -C tools install'
