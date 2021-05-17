@@ -17,10 +17,10 @@ install-core:
 	$(SHELL) -l -c gen-vis-uni
 
 uninstall:
-	$(MAKE) -C dotfiles uninstall
-	$(MAKE) -C texfiles uninstall
-	$(MAKE) -C scripts uninstall
-	$(MAKE) -C aliases uninstall
+	$(SHELL) -l -c '$(MAKE) -C dotfiles uninstall'
+	$(SHELL) -l -c '$(MAKE) -C texfiles uninstall'
+	$(SHELL) -l -c '$(MAKE) -C scripts uninstall'
+	$(SHELL) -l -c '$(MAKE) -C aliases uninstall'
 
 reload-core:
 	$(SHELL) -l -c '$(MAKE) -C dotfiles reload'
