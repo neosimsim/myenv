@@ -27,6 +27,7 @@ DOTFILES_GUI= \
 	xsession \
 
 XDGFILES_CORE= \
+	emacs/init.el \
 	git/config \
 	git/ignore \
 	vis/visrc.lua \
