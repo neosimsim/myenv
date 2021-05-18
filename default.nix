@@ -22,6 +22,8 @@ let
     inherit texfiles;
   };
 
+  agda = pkgs.agda.withPackages (p: [p. standard-library]);
+
   ma = stdenv.mkDerivation rec {
     pname = "ma";
     version = "11_2019-03-16";
@@ -158,7 +160,7 @@ lib.lowPrio (buildEnv {
      nix
 
      ag
-     #agda
+     agda
      aspell
      beamPackages.elixir
      cargo
