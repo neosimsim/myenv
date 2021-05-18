@@ -1,15 +1,12 @@
-test-core: agda uni-vim-exists
-test-gui: xmonad
+test-core: agda
+test-gui: test-core xmonad
 
 agda:
-	nix-shell --pure -p 'agda.withPackages (p: [ p.standard-library ])' --run 'agda --library standard-library -i . hello-agda.agda'
+	agda --library standard-library -i . -c hello-agda.agda
 	./hello-agda
 
 xmonad:
 	xmonad --recompile
-
-uni-vim-exists:
-	test -f $(HOME)/.vim/uni.vim
 
 uniq-paths:
 	$(SHELL) -c '! echo $$PATH | sed "s/:/\n/g" | sort | uniq -d | grep .'
