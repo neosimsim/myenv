@@ -1,20 +1,25 @@
-{
-  enableGui ? false,
-  pkgs ? import <nixpkgs> {},
+{ enableGui ? false
+, pkgs ? import <nixpkgs> { }
 }:
 with pkgs;
 let
   scripts = import ./scripts { inherit pkgs; };
 
-  hconv = haskellPackages.callCabal2nix "hconv" (fetchgit {
-    url = "https://gitlab.com/neosimsim/hconv.git";
-    rev = "05b254dc4e2c9258f7d9a4721847376a001b99de";
-    sha256 = "11wz8a3iq1x81kx7gw06iacdza8nvcdph3zb53lxmlsczc8dwqaq";}) {};
+  hconv = haskellPackages.callCabal2nix "hconv"
+    (fetchgit {
+      url = "https://gitlab.com/neosimsim/hconv.git";
+      rev = "05b254dc4e2c9258f7d9a4721847376a001b99de";
+      sha256 = "11wz8a3iq1x81kx7gw06iacdza8nvcdph3zb53lxmlsczc8dwqaq";
+    })
+    { };
 
-  hookmark = haskellPackages.callCabal2nix "hookmark" (fetchgit {
-    url = "https://gitlab.com/neosimsim/hookmark.git";
-    rev = "2e9e69dc4b12aaf8af50a2b5c053030501c0562c";
-    sha256 = "1nhs0lhy802j5z1lh4m40rrmdcnk5d3shvdmn2ngfjzlg1pr67mg";}) {};
+  hookmark = haskellPackages.callCabal2nix "hookmark"
+    (fetchgit {
+      url = "https://gitlab.com/neosimsim/hookmark.git";
+      rev = "2e9e69dc4b12aaf8af50a2b5c053030501c0562c";
+      sha256 = "1nhs0lhy802j5z1lh4m40rrmdcnk5d3shvdmn2ngfjzlg1pr67mg";
+    })
+    { };
 
   texfiles.pkgs = [ (import ./texfiles { inherit pkgs; }) ];
   texlive-full = texlive.combine {
@@ -22,7 +27,7 @@ let
     inherit texfiles;
   };
 
-  agda = pkgs.agda.withPackages (p: [p. standard-library]);
+  agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
 
   ma = stdenv.mkDerivation rec {
     pname = "ma";
@@ -66,21 +71,23 @@ let
   # adding alsa-plugin to LD_LIBRARY_PATH before running xmobar.
   xmobar =
     let myXmobar = haskellPackages.xmobar.overrideAttrs (oldAttrs: rec {
-                     configureflags = [
-                       "-f with_utf8"
-                       "-f with_xft"
-                       "-f with_alsa"
-                       "-f with_inotify"
-                       "-f -with_weather"
-                     ];
-                   });
-    in writeShellScriptBin "xmobar" ''
-          export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
-          exec ${myXmobar}/bin/xmobar
-       '';
-  aspell = aspellWithDicts(p: with p; [ en de ]);
-  emacs = let
-    emacs_ = with super; if enableGui then pkgs.emacs else emacs-nox;
+      configureflags = [
+        "-f with_utf8"
+        "-f with_xft"
+        "-f with_alsa"
+        "-f with_inotify"
+        "-f -with_weather"
+      ];
+    });
+    in
+    writeShellScriptBin "xmobar" ''
+      export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
+      exec ${myXmobar}/bin/xmobar
+    '';
+  aspell = aspellWithDicts (p: with p; [ en de ]);
+  emacs =
+    let
+      emacs_ = with super; if enableGui then pkgs.emacs else emacs-nox;
     in
     ((emacsPackagesGen emacs_).emacsWithPackages (epkgs: with epkgs.melpaPackages; [
       lsp-mode
@@ -89,105 +96,105 @@ let
     ]));
 in
 lib.lowPrio (buildEnv {
-   name = "my-packages";
-   paths = [
-     # make sure nix-shell runs mksh
-     (lib.hiPrio (writeShellScriptBin "nix-shell" ''
-       exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
-     ''))
-     (writeShellScriptBin "nixFlakes" ''
-       exec ${nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
-     '')
-     # make sure we use stable nix even if unstable is installed globally
-     nix
+  name = "my-packages";
+  paths = [
+    # make sure nix-shell runs mksh
+    (lib.hiPrio (writeShellScriptBin "nix-shell" ''
+      exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
+    ''))
+    (writeShellScriptBin "nixFlakes" ''
+      exec ${nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
+    '')
+    # make sure we use stable nix even if unstable is installed globally
+    nix
 
-     ag
-     agda
-     aspell
-     beamPackages.elixir
-     cargo
-     clippy
-     emacs
-     entr
-     fzf
-     git
-     gnumake
-     gnupg
-     go
-     hconv
-     hookmark
-     isync
-     jq
-     mutt
-     pass
-     pinentry-curses
-     plan9port
-     nix-prefetch-scripts
-     rustc
-     rustfmt
-     scripts
-     texlive-full
-     tmux
-     typespeed
-     vis
-     unzip
+    ag
+    agda
+    aspell
+    beamPackages.elixir
+    cargo
+    clippy
+    emacs
+    entr
+    fzf
+    git
+    gnumake
+    gnupg
+    go
+    hconv
+    hookmark
+    isync
+    jq
+    mutt
+    nixpkgs-fmt
+    nix-prefetch-scripts
+    pass
+    pinentry-curses
+    plan9port
+    rustc
+    rustfmt
+    scripts
+    texlive-full
+    tmux
+    typespeed
+    unzip
+    vis
 
-     # packages needed to work at sonnen
-     beamPackages.erlang
-     gcc
-     lsof
-     moreutils
-     slack
-     niv
-     # cockroachdb
-     rabbitmq-server
-   ] ++ (if enableGui then [
-     alacritty
-     chromium
-     discord
-     dmenu
-     feh
-     haskellPackages.threadscope
-     klavaro
-     mplayer
-     numlockx
-     rxvt-unicode
-     scrot
-     signal-desktop
-     sxiv
-     xfce.thunar
-     wire-desktop
-     xmobar
-     xorg.xmodmap
-     xorg.xkill
-     xsel
-     zathura
-   ] else []) ++ (with haskellPackages; [
-     (ghc.withHoogle (p: with p; [
-       containers
-       extra
-       filepath
-       haskell-language-server
-       hspec
-       QuickCheck
-       raw-strings-qq
-       regex-tdfa
-       safe
-       string-interpolate
-       hlint
-     ] ++ (if enableGui then [
-       xmonad
-       xmonad-contrib
-     ] else [])))
-     apply-refact
-     cabal2nix
-     cabal-fmt
-     cabal-install
-     hasktags
-     ormolu
-     pandoc
-     steeloverseer
-   ]);
-   pathsToLink = [ "/share/man" "/share/doc" "/share/terminfo" "/bin" "/etc"];
-   extraOutputsToInstall = [ "man" "doc" ];
+    # packages needed to work at sonnen
+    beamPackages.erlang
+    # cockroachdb
+    gcc
+    lsof
+    moreutils
+    niv
+    rabbitmq-server
+    slack
+  ] ++ (if enableGui then [
+    alacritty
+    chromium
+    discord
+    dmenu
+    feh
+    haskellPackages.threadscope
+    klavaro
+    mplayer
+    numlockx
+    rxvt-unicode
+    scrot
+    signal-desktop
+    sxiv
+    wire-desktop
+    xfce.thunar
+    xmobar
+    xorg.xkill
+    xorg.xmodmap
+    xsel
+    zathura
+  ] else [ ]) ++ (with haskellPackages; [
+    (ghc.withHoogle (p: with p; [
+      containers
+      extra
+      filepath
+      hlint
+      hspec
+      QuickCheck
+      raw-strings-qq
+      regex-tdfa
+      safe
+      string-interpolate
+    ] ++ (if enableGui then [
+      xmonad
+      xmonad-contrib
+    ] else [ ])))
+    apply-refact
+    cabal2nix
+    cabal-fmt
+    cabal-install
+    hasktags
+    ormolu
+    pandoc
+    steeloverseer
+  ]);
+  pathsToLink = [ "/share/man" "/share/doc" "/share/terminfo" "/bin" "/etc" ];
+  extraOutputsToInstall = [ "man" "doc" ];
 })
