@@ -15,5 +15,5 @@ esac
 
 while read line
 do
-	$* $line && echo $line
+	eval "$@" $line && echo $line
 done
