@@ -4,7 +4,6 @@
 [core]
 	excludesfile = ~/lib/git/ignore
 	editor = $EDITOR
-	whitespace = -blank-at-eof
 [alias]
 	log-graph = log --pretty=oneline --graph --decorate
 	clone = clone -q
