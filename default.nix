@@ -174,6 +174,7 @@ lib.lowPrio (buildEnv {
        regex-tdfa
        safe
        string-interpolate
+       hlint
      ] ++ (if enableGui then [
        xmonad
        xmonad-contrib
