@@ -9,8 +9,6 @@ POSIX_BIN = \
 	a \
 	a+ \
 	a- \
-	agofmt \
-	bat \
 	bundle \
 	cmnt \
 	codespell \
@@ -28,28 +26,22 @@ POSIX_BIN = \
 	getmod \
 	git-no-unstaged \
 	git-to-dot \
-	hi \
 	Hsfmt \
 	hsinit \
 	indirs \
-	lessk \
 	license \
 	lower \
-	mkgit \
 	NewW \
 	nocolor \
 	now \
 	open \
 	overwrite \
 	passgen \
-	pg \
-	pick \
 	quote \
 	remtrail \
 	rotatekb \
 	snipe \
 	splitcammel \
-	startpg \
 	t \
 	tmux-run-selection-with \
 	tmux-sos \
@@ -59,20 +51,10 @@ POSIX_BIN = \
 	ucmnt \
 	unfreeze-ghc-libs \
 	upper \
-	xname \
 	year \
-	zap \
-
-# Edit .+2;/^$/-|sort
-HASKELL_BIN = \
-	git-files \
-	map \
-	o \
-	uni \
 
 BIN = \
 	$(POSIX_BIN) \
-	$(HASKELL_BIN) \
 
 # MAN = $(BIN:=.1)
 

@@ -1,7 +1,0 @@
-#!/bin/sh
-
-delay=1
-
-while xsetroot -name "$(LC_ALL=de_DE date +'%A %d.%m.%Y %H:%M')"; do
-	sleep $delay
-done

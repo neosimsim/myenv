@@ -1,6 +1,0 @@
-#!/bin/sh -exv
-
-PGVERSION=${PGVERSION:-12.3}
-
-mkdir -p $HOME/var/log
-$HOME/apps/postgresql-$PGVERSION/bin/pg_ctl -D $HOME/var/postgresql-$PGVERSION/data -l $HOME/var/log/postgresql-$PGVERSION start
