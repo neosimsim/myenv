@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wall -Werror #-}
 
 -- to test run:  echo "\lambda(x.x) \Rightarrow \lambda{}-calc" | ./tex2text # = λ(x.x) ⇒ λ-calc
 import Control.Monad as Monad
