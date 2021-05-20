@@ -24,7 +24,7 @@ in
       # ensure PLAN9 is in PATH but at the end so patchShebangs finds
       # rc(1) but uses GNU sed instead of plan9 sed.
       . 9; . u
-      patchShebangs Hsfmt agofmt
+      patchShebangs Hsfmt
       make PREFIX=$out install-posix
     '';
   };
