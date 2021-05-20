@@ -1,10 +1,10 @@
 { enableGui ? false
 , pkgs ? import (builtins.fetchTarball {
     name = "nixpkgs-unstable";
-    url = "https://github.com/NixOS/nixpkgs/archive/bd017d34f4c914fc1842b9fd5b4fc6ca85ab61de.tar.gz";
+    url = "https://github.com/NixOS/nixpkgs/archive/7013a0f2791da4c38c7e6f56d48139aeb344991b.tar.gz";
     # git ls-remote https://github.com/nixos/nixpkgs nixpkgs-unstable
-    # nix-prefetch-url https://github.com/NixOS/nixpkgs/archive/bd017d34f4c914fc1842b9fd5b4fc6ca85ab61de.tar.gz
-    sha256 = "1q2m1gdi3sziv1jy0dwc40gx2q8yzv3hcavlj208h4l77cgkmwa2";
+    # nix-prefetch-url --unpack https://github.com/NixOS/nixpkgs/archive/7013a0f2791da4c38c7e6f56d48139aeb344991b.tar.gz
+    sha256 = "1az617wpx535nfn0rz63cyvv8b5rlsp80cdq07da2dws8zzylnbm";
   }) { }
 }:
 with pkgs;
