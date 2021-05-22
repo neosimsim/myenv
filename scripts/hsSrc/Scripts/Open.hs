@@ -206,6 +206,7 @@ getEditor = do
     "sam" -> return Plumb
     "B" -> return Plumb
     "E" -> return Plumb
+    "emacsclient" -> return EmacsClient
     x -> return $ Unknown $ T.pack x
 
 main :: IO ()
