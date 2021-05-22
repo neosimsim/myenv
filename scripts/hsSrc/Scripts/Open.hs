@@ -1,3 +1,4 @@
+{-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 
@@ -18,8 +19,8 @@ import Control.Applicative ((<|>))
 import Data.Maybe (fromMaybe)
 import Data.String.Interpolate
 import Data.Text (Text)
-import qualified Data.Text as T
-import qualified Data.Text.IO as T
+import Data.Text qualified as T
+import Data.Text.IO qualified as T
 import Numeric.Natural (Natural)
 import Safe
 import System.Environment (getArgs, lookupEnv)
@@ -32,6 +33,7 @@ newtype Config = Config {configEditor :: Editor}
 data Editor
   = Plumb
   | Vis
+  | EmacsClient
   | Unknown Text
   deriving (Show, Eq)
 
@@ -133,6 +135,7 @@ openResourceIdentifierCommand _ (URL url) =
   T.pack [i|chromium #{url}|]
 openResourceIdentifierCommand Config {configEditor = Vis} (File pathAddress) = openResourceIdentifierCommandWithVis pathAddress
 openResourceIdentifierCommand Config {configEditor = Plumb} (File pathAddress) = openResourceIdentifierCommandWithPlumb pathAddress
+openResourceIdentifierCommand Config {configEditor = EmacsClient} (File pathAddress) = openResourceIdentifierCommandWithEmacsclient pathAddress
 openResourceIdentifierCommand Config {configEditor = Unknown editorName} (File pathAddress) = openResourceIdentifierCommandWithEditor editorName pathAddress
 
 openResourceIdentifierCommandWithEditor :: Text -> FilePathAddress -> Text
@@ -168,6 +171,16 @@ openResourceIdentifierCommandWithPlumb (FilePathLineColumnAddress path line colu
   T.pack [i|plumb -d edit -a 'addr=#{line}-\#0+\##{column}-\#1' $(pwd)/#{path}|]
 openResourceIdentifierCommandWithPlumb (FilePathRangeAddress path line1 column1 line2 column2) =
   T.pack [i|plumb -d edit -a 'addr=#{line1}-\#0+\##{column1}-\#1,#{line2}-\#0+\##{column2}' $(pwd)/#{path}|]
+
+openResourceIdentifierCommandWithEmacsclient :: FilePathAddress -> Text
+openResourceIdentifierCommandWithEmacsclient (FilePathNoAddress path) =
+  T.pack [i|emacsclient -n -a '' #{path}|]
+openResourceIdentifierCommandWithEmacsclient (FilePathLineAddress path line) =
+  T.pack [i|emacsclient -n -a '' +#{line} #{path}|]
+openResourceIdentifierCommandWithEmacsclient (FilePathLineColumnAddress path line column) =
+  T.pack [i|emacsclient -n -a '' +#{line}:#{column} #{path}|]
+openResourceIdentifierCommandWithEmacsclient (FilePathRangeAddress path line1 column1 _line2 _column2) =
+  T.pack [i|emacsclient -n -a '' +#{line1}:#{column1} #{path}|]
 
 inspect :: ResourceIdentifier -> Text
 inspect (File (FilePathNoAddress path)) = path

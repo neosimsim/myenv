@@ -91,6 +91,23 @@ spec = do
         openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
           `shouldBe` "plumb -d edit -a 'addr=5-#0+#7-#1,6-#0+#10' $(pwd)/README.md"
 
+    it "handles FilePathNoAddress with emacsclient" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = EmacsClient}) (File $ FilePathNoAddress "README.md")
+          `shouldBe` "emacsclient -n -a '' README.md"
+    it "handles FilePathLineAddress with emacsclient" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = EmacsClient}) (File $ FilePathLineAddress "README.md" 5)
+          `shouldBe` "emacsclient -n -a '' +5 README.md"
+    it "handles FilePathLineColumnAddress with emacsclient" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = EmacsClient}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          `shouldBe` "emacsclient -n -a '' +5:7 README.md"
+    it "handles FilePathRangeAddress with emacsclient" $
+      property $ \config ->
+        openResourceIdentifierCommand (config {configEditor = EmacsClient}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+          `shouldBe` "emacsclient -n -a '' +5:7 README.md"
+
     it "handles ManPage" $
       property $ \config ->
         openResourceIdentifierCommand config (ManPage "foo" 7)

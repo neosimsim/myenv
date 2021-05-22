@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- to test run:  echo "\lambda(x.x) \Rightarrow \lambda{}-calc" | ./tex2text # = λ(x.x) ⇒ λ-calc
+-- to test run:  echo "\lambda(x.x) \Rightarrow \lambda{}-calc" | uni # = λ(x.x) ⇒ λ-calc
 import Control.Monad as Monad
 import qualified Data.ByteString as B
 import Data.Either.Combinators
