@@ -4,7 +4,7 @@ ACME_VARFONT=${ACME_VARFONT:-/mnt/font/DejaVuSansMono/17a/font}
 ACME_FIXFONT=${ACME_FIXFONT:-/mnt/font/DejaVuSans/17a/font}
 
 # Make sure we can open multiple acme(1) instances.
-export NAMESPACE=$(mktemp -d $HOME/var/ns-XXXXXX)
+export NAMESPACE=$(mktemp -d $HOME/tmp/ns-XXXXXX)
 9 plumber -f &
 plumberPid=$!
 trap "kill $plumberPid; rm -rf $NAMESPACE" 2 3 6 9

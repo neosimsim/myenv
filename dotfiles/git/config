@@ -2,7 +2,7 @@
 	email = me@abn.sh
 	name = Alexander Ben Nasrallah
 [core]
-	excludesfile = ~/lib/git/ignore
+	excludesfile = ~/.config/git/ignore
 	editor = $EDITOR
 [alias]
 	log-graph = log --pretty=oneline --graph --decorate

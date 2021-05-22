@@ -1,7 +1,5 @@
 .POSIX:
 
-XDG_CONFIG_HOME=$(HOME)/lib
-
 DOTFILES_CORE= \
 	cabal/config \
 	ghci \
@@ -23,37 +21,41 @@ DOTFILES_GUI= \
 	Xmodmap \
 	Xmodmap.colemak \
 	Xmodmap.qwerty \
+	xmonad/xmonad.hs \
 	Xresources \
 	xsession \
 
-XDGFILES_CORE= \
+# Don't call this or use XDG_CONFIG_HOME on purpose.
+# Setting/Using XDG_CONFIG_HOME causes more pain than use.
+CONFIG_DIR=$(HOME)/.config
+
+CONFIGFILES_CORE= \
 	emacs/init.el \
 	git/config \
 	git/ignore \
 	vis/visrc.lua \
 	vis/themes/peaksea.lua \
 	xmonad/build \
-	xmonad/xmonad.hs \
 
-XDGFILES_GUI= \
+CONFIGFILES_GUI= \
 	alacritty/alacritty.yml \
 
 DOTFILES=$(DOTFILES_CORE) $(DOTFILES_GUI)
-XDGFILES=$(XDGFILES_CORE) $(XDGFILES_GUI)
+CONFIGFILES=$(CONFIGFILES_CORE) $(CONFIGFILES_GUI)
 
 install: install-core
 
-install-core: phony $(DOTFILES_CORE) $(XDGFILES_CORE)
+install-core: phony $(DOTFILES_CORE) $(CONFIGFILES_CORE)
 
-install-gui: install-core $(DOTFILES_GUI) $(XDGFILES_GUI) plumbing
+install-gui: install-core $(DOTFILES_GUI) $(CONFIGFILES_GUI) plumbing
 
 $(DOTFILES): phony
 	@mkdir -p `dirname $(HOME)/.$@`
 	cp $@ $(HOME)/.$@
 
-$(XDGFILES): phony
-	@mkdir -p `dirname $(XDG_CONFIG_HOME)/$@`
-	cp $@ $(XDG_CONFIG_HOME)/$@
+$(CONFIGFILES): phony
+	@mkdir -p `dirname $(CONFIG_DIR)/$@`
+	cp $@ $(CONFIG_DIR)/$@
 
 plumbing: phony
 	mkdir -p $(HOME)/lib
@@ -66,9 +68,9 @@ uninstall: phony
 		rm -f $(HOME)/.$$dotfile; \
 		(rmdir -p $(HOME)/`dirname .$$dotfile` 2>/dev/null || true); \
 	done
-	for xdgfile in $(XDGFILES); do \
-		rm -f $(XDG_CONFIG_HOME)/$$xdgfile; \
-		(rmdir -p $(XDG_CONFIG_HOME)/`dirname $$xdgfile` 2>/dev/null || true); \
+	for configfile in $(CONFIGFILES); do \
+		rm -f $(CONFIG_DIR)/$$configfile; \
+		(rmdir -p $(CONFIG_DIR)/`dirname $$configfile` 2>/dev/null || true); \
 	done
 	rm -f $(HOME)/lib/plumbing
 
@@ -79,8 +81,6 @@ reload-gui: reload-core
 	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
 	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/local/Xresources ] || xrdb -merge $(HOME)/local/Xresources
 	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/lib/plumbing || true
-	# alternatively one could set XMONAD_CACHE_DIR etc.
-	mkdir -p $(XDG_CACHE_HOME)/xmonad
 	[ -z "$$DISPLAY" ] || xmonad --recompile
 	[ -z "$$DISPLAY" ] || xmonad --restart
 
