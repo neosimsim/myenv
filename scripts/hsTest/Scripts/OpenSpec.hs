@@ -112,6 +112,24 @@ spec = do
           openResourceIdentifierCommand (config {configEditor = EmacsClient}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
             `shouldBe` "emacsclient -n -a '' +5:7 README.md"
 
+    describe "vscodium" $ do
+      it "handles FilePathNoAddress" $
+        property $ \config ->
+          openResourceIdentifierCommand (config {configEditor = VSCodium}) (File $ FilePathNoAddress "README.md")
+            `shouldBe` "codium -g README.md"
+      it "handles FilePathLineAddress" $
+        property $ \config ->
+          openResourceIdentifierCommand (config {configEditor = VSCodium}) (File $ FilePathLineAddress "README.md" 5)
+            `shouldBe` "codium -g README.md:5"
+      it "handles FilePathLineColumnAddress" $
+        property $ \config ->
+          openResourceIdentifierCommand (config {configEditor = VSCodium}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+            `shouldBe` "codium -g README.md:5:7"
+      it "handles FilePathRangeAddress" $
+        property $ \config ->
+          openResourceIdentifierCommand (config {configEditor = VSCodium}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+            `shouldBe` "codium -g README.md:5:7"
+
     it "handles ManPage" $
       property $ \config ->
         openResourceIdentifierCommand config (ManPage "foo" 7)

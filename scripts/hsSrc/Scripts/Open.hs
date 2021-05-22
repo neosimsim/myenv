@@ -34,6 +34,7 @@ data Editor
   = Plumb
   | Vis
   | EmacsClient
+  | VSCodium
   | Unknown Text
   deriving (Show, Eq)
 
@@ -136,6 +137,7 @@ openResourceIdentifierCommand _ (URL url) =
 openResourceIdentifierCommand Config {configEditor = Vis} (File pathAddress) = openResourceIdentifierCommandWithVis pathAddress
 openResourceIdentifierCommand Config {configEditor = Plumb} (File pathAddress) = openResourceIdentifierCommandWithPlumb pathAddress
 openResourceIdentifierCommand Config {configEditor = EmacsClient} (File pathAddress) = openResourceIdentifierCommandWithEmacsclient pathAddress
+openResourceIdentifierCommand Config {configEditor = VSCodium} (File pathAddress) = openResourceIdentifierCommandWithVSCodium pathAddress
 openResourceIdentifierCommand Config {configEditor = Unknown editorName} (File pathAddress) = openResourceIdentifierCommandWithEditor editorName pathAddress
 
 openResourceIdentifierCommandWithEditor :: Text -> FilePathAddress -> Text
@@ -182,6 +184,16 @@ openResourceIdentifierCommandWithEmacsclient (FilePathLineColumnAddress path lin
 openResourceIdentifierCommandWithEmacsclient (FilePathRangeAddress path line1 column1 _line2 _column2) =
   T.pack [i|emacsclient -n -a '' +#{line1}:#{column1} #{path}|]
 
+openResourceIdentifierCommandWithVSCodium :: FilePathAddress -> Text
+openResourceIdentifierCommandWithVSCodium (FilePathNoAddress path) =
+  T.pack [i|codium -g #{path}|]
+openResourceIdentifierCommandWithVSCodium (FilePathLineAddress path line) =
+  T.pack [i|codium -g #{path}:#{line}|]
+openResourceIdentifierCommandWithVSCodium (FilePathLineColumnAddress path line column) =
+  T.pack [i|codium -g #{path}:#{line}:#{column}|]
+openResourceIdentifierCommandWithVSCodium (FilePathRangeAddress path line1 column1 _line2 _column2) =
+  T.pack [i|codium -g #{path}:#{line1}:#{column1}|]
+
 inspect :: ResourceIdentifier -> Text
 inspect (File (FilePathNoAddress path)) = path
 inspect (File (FilePathLineAddress path line)) = T.pack [i|#{path}:#{line}|]
@@ -207,6 +219,7 @@ getEditor = do
     "B" -> return Plumb
     "E" -> return Plumb
     "emacsclient" -> return EmacsClient
+    "codium" -> return VSCodium
     x -> return $ Unknown $ T.pack x
 
 main :: IO ()
