@@ -157,7 +157,7 @@ lib.lowPrio (buildEnv {
     slack
   ] ++ (if enableGui then [
     alacritty
-    chromium
+    ungoogled-chromium
     discord
     dmenu
     feh
