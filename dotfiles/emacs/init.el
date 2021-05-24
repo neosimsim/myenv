@@ -53,6 +53,7 @@ stdout and stderr) in displayed in a new buffer."
   (setq formatter "rustfmt"))
 (add-hook 'rust-mode-hook 'rust-setup)
 
+(setq lsp-haskell-formatting-provider "ormolu")
 (setq lsp-keymap-prefix "C-l")
 (require 'lsp-mode)
 (add-hook 'haskell-mode-hook #'lsp)
