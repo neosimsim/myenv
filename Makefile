@@ -32,7 +32,7 @@ reload-core:
 	$(SHELL) -l -c gen-vis-uni
 	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-core'
 
-reload-gui:
+reload-gui: reload-core
 	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-gui'
 
 test-core:
