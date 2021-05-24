@@ -57,4 +57,3 @@ stdout and stderr) in displayed in a new buffer."
 (setq lsp-haskell-formatting-provider "ormolu")
 (setq lsp-keymap-prefix "C-l")
 (require 'lsp-mode)
-(add-hook 'haskell-mode-hook #'lsp)
