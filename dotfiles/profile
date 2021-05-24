@@ -2,7 +2,7 @@ stty -ixon
 export ENV=$HOME/.shinit
 export HISTFILE=$HOME/.shhistory
 export HISTSIZE=4096
-export EDITOR="vis"
+export EDITOR="emacsclient -a ''"
 export FCEDIT=$EDITOR
 export CDPATH=".:$HOME:$HOME/src"
 export GOOS=linux
