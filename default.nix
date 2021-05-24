@@ -179,6 +179,10 @@ lib.lowPrio (buildEnv {
     zathura
   ] else [ ]) ++ (with haskellPackages; [
     (ghc.withHoogle (p: with p; [
+      # Preinstall zlib to help cabal. Otherwise builds will
+      # complain about missing zlib.h.
+      zlib
+
       containers
       extra
       filepath
