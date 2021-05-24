@@ -129,6 +129,7 @@ lib.lowPrio (buildEnv {
     go
     hconv
     hookmark
+    haskell-language-server
     isync
     jq
     mutt
