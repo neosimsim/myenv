@@ -9,4 +9,4 @@ then
 	exec $SHELL
 fi
 
-$(o $1)
+eval $(o $1)
