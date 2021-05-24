@@ -16,7 +16,7 @@ module Scripts.Open
 where
 
 import Control.Applicative ((<|>))
-import Data.Maybe (fromMaybe)
+import Data.Maybe (fromMaybe, listToMaybe)
 import Data.String.Interpolate
 import Data.Text (Text)
 import Data.Text qualified as T
@@ -24,6 +24,7 @@ import Data.Text.IO qualified as T
 import Numeric.Natural (Natural)
 import Safe
 import System.Environment (getArgs, lookupEnv)
+import System.Exit (exitFailure)
 import Text.RawString.QQ
 import Text.Regex.TDFA
 
@@ -211,16 +212,22 @@ getConfig = Config <$> getEditor
 
 getEditor :: IO Editor
 getEditor = do
-  editor <- fromMaybe "vis" <$> lookupEnv "EDITOR"
-  case editor of
-    "vis" -> return Vis
-    "editinacme" -> return Plumb
-    "sam" -> return Plumb
-    "B" -> return Plumb
-    "E" -> return Plumb
-    "emacsclient" -> return EmacsClient
-    "codium" -> return VSCodium
-    x -> return $ Unknown $ T.pack x
+  editorCmd <- fromMaybe "vis" <$> lookupEnv "EDITOR"
+  -- Only consider the first word of EDITOR to ignore editor arguments.
+  case listToMaybe (words editorCmd) of
+    Nothing -> do
+      putStrLn "EDITOR is empty"
+      exitFailure
+    Just editor ->
+      case editor of
+        "vis" -> return Vis
+        "editinacme" -> return Plumb
+        "sam" -> return Plumb
+        "B" -> return Plumb
+        "E" -> return Plumb
+        "emacsclient" -> return EmacsClient
+        "codium" -> return VSCodium
+        x -> return $ Unknown $ T.pack x
 
 main :: IO ()
 main = do
