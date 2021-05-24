@@ -47,7 +47,7 @@ install: install-core
 
 install-core: phony $(DOTFILES_CORE) $(CONFIGFILES_CORE)
 
-install-gui: install-core $(DOTFILES_GUI) $(CONFIGFILES_GUI) plumbing
+install-gui: $(DOTFILES_GUI) $(CONFIGFILES_GUI) plumbing
 
 $(DOTFILES): phony
 	@mkdir -p `dirname $(HOME)/.$@`

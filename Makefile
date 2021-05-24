@@ -4,20 +4,17 @@ install: install-core
 
 # use a new login shell to ensure installed dotfiles are sourced
 
-# gui setup (for non nix environments)
-install-gui: install-core install-gui-min
-
-install-gui-min: install-min
+install-gui:
 	$(SHELL) -l -c '$(MAKE) -C dotfiles install-gui'
 	$(SHELL) -l -c '$(MAKE) -C tools install-gui'
 
-# core setup (for non nix environments)
-install-core: install-min
+# stuff installed as part of default.nix
+install-core: install-nixos
 	$(SHELL) -l -c '$(MAKE) -C scripts install'
 	$(SHELL) -l -c '$(MAKE) -C texfiles install'
 
-# stuff not installed with nix
-install-min:
+# stuff not installed as part of default.nix
+install-nixos:
 	$(MAKE) -C dotfiles install
 	$(SHELL) -l -c '$(MAKE) -C tools install'
 	$(SHELL) -l -c '$(MAKE) -C aliases install'
@@ -32,12 +29,14 @@ reload-core:
 	$(SHELL) -l -c gen-vis-uni
 	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-core'
 
-reload-gui: reload-core
+reload-gui:
 	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-gui'
 
-test-core:
+test-core: test-nixos
 	$(SHELL) -l -c '$(MAKE) -C scripts test'
 	$(SHELL) -l -c '$(MAKE) -C texfiles pdf'
+
+test-nixos:
 	$(SHELL) -l -c '$(MAKE) -C tests test-core'
 
 test-gui:

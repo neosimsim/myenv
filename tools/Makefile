@@ -14,7 +14,7 @@ CABAL_FLAGS=--ghc-options '-j6' --constraint 'hashable -integer-gmp' --constrain
 default: install-core
 install: install-core
 
-install-gui: install-core
+install-gui:
 	$(MAKE) editinacme
 	$(MAKE) acmego
 	$(MAKE) Watch
