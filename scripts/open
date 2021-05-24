@@ -9,4 +9,4 @@ then
 	exec $SHELL
 fi
 
-exec $(o $1)
+$(o $1)
