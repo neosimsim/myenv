@@ -13,6 +13,7 @@ POSIX_BIN = \
 	cmnt \
 	codespell \
 	dpass \
+	ec \
 	fext \
 	filter \
 	find-ex-function \
