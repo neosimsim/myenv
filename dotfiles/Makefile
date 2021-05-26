@@ -5,12 +5,12 @@ DOTFILES_CORE= \
 	ghci \
 	gnupg/gpg-agent.conf \
 	mbsyncrc \
+	mkshrc \
 	mutt/abnrc \
 	mutt/mailcap \
 	mutt/muttrc \
 	mutt/posteorc \
 	profile \
-	shinit \
 	tmux.conf \
 
 DOTFILES_GUI= \

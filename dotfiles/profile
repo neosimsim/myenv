@@ -1,5 +1,4 @@
 stty -ixon
-export ENV=$HOME/.shinit
 export HISTFILE=$HOME/.shhistory
 export HISTSIZE=4096
 export EDITOR="emacsclient -a ''"
