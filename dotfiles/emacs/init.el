@@ -9,6 +9,9 @@
 (setq-default indent-tabs-mode nil)
 (global-font-lock-mode 0)
 (show-paren-mode 1)
+;; auto-indend without realign current line
+(electric-indent-mode 0)
+(global-set-key (kbd "RET") #'newline-and-indent)
 
 (when window-system
   (load-theme 'adwaita))
