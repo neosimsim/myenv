@@ -3,6 +3,7 @@
 (setq make-backup-files nil)
 (setq kill-whole-line t)
 (setq-default show-trailing-whitespace t)
+(setq-default cursor-type 'bar)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
