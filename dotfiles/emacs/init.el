@@ -12,9 +12,7 @@
 ;; auto-indend without realign current line
 (electric-indent-mode 0)
 (global-set-key (kbd "RET") #'newline-and-indent)
-
-(when window-system
-  (load-theme 'acme 1))
+(load-theme 'acme 1)
 
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
