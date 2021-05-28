@@ -7,9 +7,11 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
-(load-theme 'adwaita)
 (global-font-lock-mode 0)
 (show-paren-mode 1)
+
+(when window-system
+  (load-theme 'adwaita))
 
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
