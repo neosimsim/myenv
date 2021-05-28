@@ -96,6 +96,8 @@ let
       emacs_ = with super; if enableGui then pkgs.emacs else emacs-nox;
     in
     ((emacsPackagesGen emacs_).emacsWithPackages (epkgs: with epkgs.melpaPackages; [
+      acme-theme
+
       lsp-mode
       lsp-ui
       lsp-haskell

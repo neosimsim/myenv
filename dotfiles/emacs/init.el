@@ -14,7 +14,7 @@
 (global-set-key (kbd "RET") #'newline-and-indent)
 
 (when window-system
-  (load-theme 'adwaita))
+  (load-theme 'acme 1))
 
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
