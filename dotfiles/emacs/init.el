@@ -58,6 +58,12 @@ stdout and stderr) in displayed in a new buffer."
   (setq formatter "rustfmt"))
 (add-hook 'rust-mode-hook 'rust-setup)
 
-(setq lsp-haskell-formatting-provider "ormolu")
+(require 'buffer-move)
+(global-set-key (kbd "<C-S-up>")     'buf-move-up)
+(global-set-key (kbd "<C-S-down>")   'buf-move-down)
+(global-set-key (kbd "<C-S-left>")   'buf-move-left)
+(global-set-key (kbd "<C-S-right>")  'buf-move-right)
+
 (setq lsp-keymap-prefix "C-l")
+(setq lsp-haskell-formatting-provider "ormolu")
 (require 'lsp-mode)

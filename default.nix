@@ -97,6 +97,7 @@ let
     in
     ((emacsPackagesGen emacs_).emacsWithPackages (epkgs: with epkgs.melpaPackages; [
       acme-theme
+      buffer-move
 
       lsp-mode
       lsp-ui
