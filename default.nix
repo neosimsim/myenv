@@ -101,6 +101,7 @@ let
       multiple-cursors
 
       nix-mode
+      elixir-mode
 
       lsp-mode
       flycheck
@@ -125,6 +126,7 @@ lib.lowPrio (buildEnv {
     agda
     aspell
     beamPackages.elixir
+    elixir_ls
     cargo
     clippy
     emacs
