@@ -58,6 +58,12 @@ stdout and stderr) in displayed in a new buffer."
   (setq formatter "rustfmt"))
 (add-hook 'rust-mode-hook #'rust-setup)
 
+(require 'nix-mode)
+(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
+(defun nix-setup ()
+  (setq formatter "nixpkgs-fmt"))
+(add-hook 'nix-mode-hook #'nix-setup)
+
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") #'mc/edit-lines)
 (global-set-key (kbd "C->") #'mc/mark-next-like-this-word)

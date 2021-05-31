@@ -100,6 +100,8 @@ let
       buffer-move
       multiple-cursors
 
+      nix-mode
+
       lsp-mode
       lsp-ui
       lsp-haskell
