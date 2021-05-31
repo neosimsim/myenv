@@ -77,6 +77,32 @@ stdout and stderr) in displayed in a new buffer."
 (global-set-key (kbd "<C-S-left>")   'buf-move-left)
 (global-set-key (kbd "<C-S-right>")  'buf-move-right)
 
+;; flycheck will be enabled by lsp-mode
+(require 'flycheck)
+;; display the error list at the bottom side of the frame
+(add-to-list 'display-buffer-alist
+  `(,(rx bos "*Flycheck errors*" eos)
+   (display-buffer-reuse-window
+    display-buffer-in-side-window)
+   (side            . bottom)
+   (reusable-frames . visible)
+   (window-height   . 0.33)))
+;; company will be enabled by lsp-mode
+(require 'company)
+
+;; lsp-mode tweaks https://emacs-lsp.github.io/lsp-mode/page/performance/
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq lsp-idle-delay 0.500)
+;; lsp-mode settings https://emacs-lsp.github.io/lsp-mode/page/settings/mode/
 (setq lsp-keymap-prefix "C-l")
+(setq lsp-lens-enable t)
+(setq lsp-diagnostic-clean-after-change t)
 (setq lsp-haskell-formatting-provider "ormolu")
+;; https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]deps\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.rebar3?\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'"))
 (require 'lsp-mode)

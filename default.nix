@@ -103,7 +103,8 @@ let
       nix-mode
 
       lsp-mode
-      lsp-ui
+      flycheck
+      company
       lsp-haskell
     ]));
 in
