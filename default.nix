@@ -98,6 +98,7 @@ let
     ((emacsPackagesGen emacs_).emacsWithPackages (epkgs: with epkgs.melpaPackages; [
       acme-theme
       buffer-move
+      multiple-cursors
 
       lsp-mode
       lsp-ui

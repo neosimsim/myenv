@@ -58,6 +58,12 @@ stdout and stderr) in displayed in a new buffer."
   (setq formatter "rustfmt"))
 (add-hook 'rust-mode-hook 'rust-setup)
 
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") #'mc/edit-lines)
+(global-set-key (kbd "C->") #'mc/mark-next-like-this-word)
+(global-set-key (kbd "C-<") #'mc/mark-previous-like-this-word)
+(global-set-key (kbd "C-c C-<") #'mc/mark-all-word-like-this)
+
 (require 'buffer-move)
 (global-set-key (kbd "<C-S-up>")     'buf-move-up)
 (global-set-key (kbd "<C-S-down>")   'buf-move-down)
