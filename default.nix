@@ -102,6 +102,7 @@ let
 
       nix-mode
       elixir-mode
+      rust-mode
 
       lsp-mode
       flycheck
@@ -149,6 +150,7 @@ lib.lowPrio (buildEnv {
     plan9port
     rustc
     rustfmt
+    rls # rust language server
     scripts
     texlive-full
     tmux
