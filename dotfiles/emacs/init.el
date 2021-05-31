@@ -44,19 +44,19 @@ stdout and stderr) in displayed in a new buffer."
 
 (defun haskell-setup ()
   (setq formatter "ormolu"))
-(add-hook 'haskell-mode-hook 'haskell-setup)
+(add-hook 'haskell-mode-hook #'haskell-setup)
 
 (defun cabal-setup ()
   (setq formatter "cabal-fmt"))
-(add-hook 'cabal-mode-hook 'cabal-setup)
+(add-hook 'cabal-mode-hook #'cabal-setup)
 
 (defun elixir-setup ()
   (setq formatter "mix format"))
-(add-hook 'elixir-mode-hook 'elixir-setup)
+(add-hook 'elixir-mode-hook #'elixir-setup)
 
 (defun rust-setup ()
   (setq formatter "rustfmt"))
-(add-hook 'rust-mode-hook 'rust-setup)
+(add-hook 'rust-mode-hook #'rust-setup)
 
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") #'mc/edit-lines)
