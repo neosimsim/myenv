@@ -103,6 +103,7 @@ let
       nix-mode
       elixir-mode
       rust-mode
+      elisp-format
 
       lsp-mode
       flycheck

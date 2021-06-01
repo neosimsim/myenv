@@ -15,7 +15,7 @@
 (load-theme 'acme 1)
 
 (load-file (let ((coding-system-for-read 'utf-8))
-                (shell-command-to-string "agda-mode locate")))
+             (shell-command-to-string "agda-mode locate")))
 (add-to-list 'auto-mode-alist '("\\.lagda.md\\'" . agda2-mode))
 
 (defun pipe-shell-region (cmd start end)
@@ -31,17 +31,23 @@ stdout and stderr) in displayed in a new buffer."
              (kill-buffer out-buffer))
     (display-buffer out-buffer)))
 
-(global-set-key (kbd "C-c C-u") (lambda (&optional start end)
-                                  (interactive "r")
-                                  (pipe-shell-region "uni" start end)))
+(global-set-key (kbd "C-c C-u")
+                (lambda
+                  (&optional
+                   start
+                   end)
+                  (interactive "r")
+                  (pipe-shell-region "uni" start end)))
 
 (defvar formatter "sed 's/[[:blank:]]*$//'")
 
-(global-set-key (kbd "C-x M-f") (lambda ()
-                                  (interactive)
-                                  (defconst p (point))
-                                  (pipe-shell-region formatter (point-min) (point-max))
-                                  (goto-char p)))
+(global-set-key (kbd "C-x M-f")
+                (lambda ()
+                  (interactive)
+                  (defconst p (point))
+                  (pipe-shell-region formatter (point-min)
+                                     (point-max))
+                  (goto-char p)))
 
 (defun haskell-setup ()
   (setq formatter "ormolu"))
@@ -77,16 +83,16 @@ stdout and stderr) in displayed in a new buffer."
 (global-set-key (kbd "<C-S-left>")   'buf-move-left)
 (global-set-key (kbd "<C-S-right>")  'buf-move-right)
 
+(require 'elisp-format)
+
 ;; flycheck will be enabled by lsp-mode
 (require 'flycheck)
 ;; display the error list at the bottom side of the frame
-(add-to-list 'display-buffer-alist
-  `(,(rx bos "*Flycheck errors*" eos)
-   (display-buffer-reuse-window
-    display-buffer-in-side-window)
-   (side            . bottom)
-   (reusable-frames . visible)
-   (window-height   . 0.33)))
+(add-to-list 'display-buffer-alist `(,(rx bos "*Flycheck errors*" eos)
+                                     (display-buffer-reuse-window display-buffer-in-side-window)
+                                     (side            . bottom)
+                                     (reusable-frames . visible)
+                                     (window-height   . 0.33)))
 ;; company will be enabled by lsp-mode
 (require 'company)
 
@@ -100,9 +106,8 @@ stdout and stderr) in displayed in a new buffer."
 (setq lsp-diagnostic-clean-after-change t)
 (setq lsp-haskell-formatting-provider "ormolu")
 ;; https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
-(with-eval-after-load 'lsp-mode
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]deps\\'")
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.rebar3?\\'")
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'"))
+(with-eval-after-load 'lsp-mode (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
+                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]deps\\'")
+                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.rebar3?\\'")
+                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'"))
 (require 'lsp-mode)
