@@ -156,7 +156,6 @@ lib.lowPrio (buildEnv {
   ] ++ (if enableGui then [
     alacritty
     ungoogled-chromium
-    discord
     dmenu
     feh
     haskellPackages.threadscope
