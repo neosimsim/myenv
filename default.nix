@@ -124,7 +124,6 @@ buildEnv {
     ag
     agda
     aspell
-    elixir_ls
     emacs
     entr
     fzf
@@ -143,7 +142,6 @@ buildEnv {
     pass
     pinentry-curses
     plan9port
-    rls # rust language server
     scripts
     texlive-full
     tmux
