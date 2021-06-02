@@ -111,7 +111,7 @@ let
       lsp-haskell
     ]));
 in
-lib.lowPrio (buildEnv {
+buildEnv {
   name = "my-packages";
   paths = [
     # make sure nix-shell runs mksh
@@ -201,4 +201,4 @@ lib.lowPrio (buildEnv {
   ]);
   pathsToLink = [ "/share/man" "/share/doc" "/share/terminfo" "/bin" "/etc" ];
   extraOutputsToInstall = [ "man" "doc" ];
-})
+}
