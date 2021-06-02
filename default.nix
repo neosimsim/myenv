@@ -127,10 +127,7 @@ lib.lowPrio (buildEnv {
     ag
     agda
     aspell
-    beamPackages.elixir
     elixir_ls
-    cargo
-    clippy
     emacs
     entr
     fzf
@@ -149,8 +146,6 @@ lib.lowPrio (buildEnv {
     pass
     pinentry-curses
     plan9port
-    rustc
-    rustfmt
     rls # rust language server
     scripts
     texlive-full
@@ -158,16 +153,6 @@ lib.lowPrio (buildEnv {
     typespeed
     unzip
     vis
-
-    # packages needed to work at sonnen
-    beamPackages.erlang
-    # cockroachdb
-    gcc
-    lsof
-    moreutils
-    niv
-    rabbitmq-server
-    slack
   ] ++ (if enableGui then [
     alacritty
     ungoogled-chromium
