@@ -108,6 +108,7 @@ let
       lsp-mode
       flycheck
       company
+      avy
       lsp-haskell
     ]));
 in
