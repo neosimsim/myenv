@@ -2,12 +2,14 @@
 
 set -e
 
-export NIXPKGS_ALLOW_UNFREE=1
+packages=my-packages
+[ -n "$DISPLAY" ] && packages=my-gui-packages
 
-if [ -n "$DISPLAY" ]; then
-	nix-env --arg enableGui true -if .
+if nix profile list | grep -q $packages
+then
+        nix profile upgrade packages.x86_64-linux.$packages
 else
-	nix-env -if .
+	nix profile install .#$packages
 fi
 
 make install-nixos

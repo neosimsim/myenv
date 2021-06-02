@@ -118,11 +118,8 @@ lib.lowPrio (buildEnv {
     (lib.hiPrio (writeShellScriptBin "nix-shell" ''
       exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
     ''))
-    (writeShellScriptBin "nixFlakes" ''
-      exec ${nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
-    '')
-    # make sure we use stable nix even if unstable is installed globally
-    nix
+    # make sure we use unstable (until flakes become stable)
+    nixUnstable
 
     ag
     agda
