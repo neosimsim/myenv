@@ -14,6 +14,9 @@
 (global-set-key (kbd "RET") #'newline-and-indent)
 (load-theme 'acme 1)
 
+(add-hook 'window-setup-hook (lambda ()
+                               (tool-bar-mode 0)))
+
 (load-file (let ((coding-system-for-read 'utf-8))
              (shell-command-to-string "agda-mode locate")))
 (add-to-list 'auto-mode-alist '("\\.lagda.md\\'" . agda2-mode))
