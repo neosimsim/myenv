@@ -14,6 +14,7 @@
 	st = status
 	br = branch
 	wip = commit -a -m 'wip' --no-verify
+	fix = commit --amend --no-edit
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	type = cat-file -t
 	dump = cat-file -p
