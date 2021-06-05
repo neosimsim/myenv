@@ -8,6 +8,7 @@
 (setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
 (global-font-lock-mode 0)
+(column-number-mode t)
 (show-paren-mode 1)
 ;; auto-indend without realign current line
 (electric-indent-mode 0)
