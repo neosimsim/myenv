@@ -106,6 +106,7 @@ let
       elisp-format
 
       lsp-mode
+      lsp-ui
       flycheck
       company
       avy
