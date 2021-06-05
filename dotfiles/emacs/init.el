@@ -96,8 +96,6 @@ stdout and stderr) in displayed in a new buffer."
                                      (side            . bottom)
                                      (reusable-frames . visible)
                                      (window-height   . 0.33)))
-;; company will be enabled by lsp-mode
-(require 'company)
 
 ;; lsp-mode tweaks https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 100000000)
