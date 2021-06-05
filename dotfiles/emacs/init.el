@@ -97,6 +97,8 @@ stdout and stderr) in displayed in a new buffer."
                                      (reusable-frames . visible)
                                      (window-height   . 0.33)))
 
+(global-set-key (kbd "C-c C-.") 'company-complete)
+
 ;; lsp-mode tweaks https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
