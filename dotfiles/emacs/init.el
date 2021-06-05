@@ -113,5 +113,6 @@ stdout and stderr) in displayed in a new buffer."
 (with-eval-after-load 'lsp-mode (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]deps\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.rebar3?\\'")
-                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'"))
+                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'")
+                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\MAlonzo\\'"))
 (require 'lsp-mode)
