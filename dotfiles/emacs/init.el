@@ -108,6 +108,7 @@ stdout and stderr) in displayed in a new buffer."
 (setq lsp-keymap-prefix "C-l")
 (setq lsp-lens-enable t)
 (setq lsp-diagnostic-clean-after-change t)
+(setq lsp-ui-doc-show-with-mouse nil)
 (setq lsp-haskell-formatting-provider "ormolu")
 ;; https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
 (with-eval-after-load 'lsp-mode (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
