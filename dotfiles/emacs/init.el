@@ -42,23 +42,25 @@ stdout and stderr) in displayed in a new buffer."
              (kill-buffer out-buffer))
     (display-buffer out-buffer)))
 
-(global-set-key (kbd "C-c C-u")
-                (lambda
-                  (&optional
-                   start
-                   end)
-                  (interactive "r")
-                  (pipe-shell-region "uni" start end)))
+(defun apply-uni-region
+    (&optional
+     start
+     end)
+  "Apply shell command uni on region."
+  (interactive "r")
+  (pipe-shell-region "uni" start end))
+(global-set-key (kbd "C-c C-u") #'apply-uni-region)
 
-(defvar formatter "sed 's/[[:blank:]]*$//'")
-
-(global-set-key (kbd "C-x M-f")
-                (lambda ()
-                  (interactive)
-                  (defconst p (point))
-                  (pipe-shell-region formatter (point-min)
-                                     (point-max))
-                  (goto-char p)))
+(defvar formatter "sed 's/[[:blank:]]*$//'"
+  "Commands used by format-buffer")
+(defun format-buffer ()
+  "Format the current buffer using the shell command stored in formatter."
+  (interactive)
+  (defconst p (point))
+  (pipe-shell-region formatter (point-min)
+                     (point-max))
+  (goto-char p))
+(global-set-key (kbd "C-x M-f") #'format-buffer)
 
 (defun haskell-setup ()
   (setq formatter "ormolu"))
