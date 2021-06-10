@@ -53,6 +53,7 @@ stdout and stderr) in displayed in a new buffer."
 
 (defvar formatter "sed 's/[[:blank:]]*$//'"
   "Commands used by format-buffer")
+(make-variable-buffer-local 'formatter)
 (defun format-buffer ()
   "Format the current buffer using the shell command stored in formatter."
   (interactive)
