@@ -7,6 +7,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
+(setq vc-handled-backends ())
 (global-font-lock-mode 0)
 (column-number-mode t)
 (show-paren-mode 1)
