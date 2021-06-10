@@ -59,7 +59,7 @@ stdout and stderr) in displayed in a new buffer."
 
 (defun cabal-setup ()
   (setq formatter "cabal-fmt"))
-(add-hook 'cabal-mode-hook #'cabal-setup)
+(add-hook 'haskell-cabal-mode-hook #'cabal-setup)
 
 (defun elixir-setup ()
   (setq formatter "mix format"))
