@@ -42,6 +42,18 @@ stdout and stderr) in displayed in a new buffer."
              (kill-buffer out-buffer))
     (display-buffer out-buffer)))
 
+(defun send-to-tmux-region
+    (&optional
+     start
+     end)
+  "Sends the range to the current tmux pane followed by Enter"
+  (interactive "r")
+  (call-process "tmux" nil nil nil "send-keys"
+                (buffer-substring-no-properties
+                 start
+                 end)
+                "Enter"))
+
 (defun apply-uni-region
     (&optional
      start
