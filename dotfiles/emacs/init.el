@@ -53,6 +53,7 @@ stdout and stderr) in displayed in a new buffer."
                  start
                  end)
                 "Enter"))
+(defalias 'tm 'send-to-tmux-region)
 
 (defun apply-uni-region
     (&optional
