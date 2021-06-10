@@ -16,6 +16,12 @@
 (global-set-key (kbd "RET") #'newline-and-indent)
 (load-theme 'acme 1)
 
+(global-set-key [M-right] 'forward-whitespace)
+(global-set-key [M-left]
+                (lambda () "Move point to the beginneg of the previous sequence of whitespace char"
+                  (interactive)
+                  (forward-whitespace -1)))
+
 (add-hook 'window-setup-hook (lambda ()
                                (tool-bar-mode 0)))
 
