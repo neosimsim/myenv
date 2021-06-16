@@ -126,6 +126,7 @@ buildEnv {
     ag
     agda
     aspell
+    binutils
     emacs
     entr
     fzf
