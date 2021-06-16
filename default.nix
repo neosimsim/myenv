@@ -182,6 +182,7 @@ buildEnv {
       filepath
       hlint
       hspec
+      markdown-unlit
       QuickCheck
       raw-strings-qq
       regex-tdfa
