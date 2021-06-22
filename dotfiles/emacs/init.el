@@ -129,7 +129,8 @@ stdout and stderr) in displayed in a new buffer."
 ;; lsp-mode settings https://emacs-lsp.github.io/lsp-mode/page/settings/mode/
 (setq lsp-keymap-prefix "C-l")
 (setq lsp-lens-enable t)
-(setq lsp-diagnostic-clean-after-change t)
+(setq lsp-ui-doc-enable nil)
+(setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-doc-show-with-mouse nil)
 (setq lsp-haskell-formatting-provider "ormolu")
 ;; https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
