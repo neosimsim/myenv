@@ -163,12 +163,14 @@ buildEnv {
     rxvt-unicode
     scrot
     signal-desktop
+    slock
     sxiv
     wire-desktop
     xfce.thunar
     xmobar
     xorg.xkill
     xorg.xmodmap
+    xautolock
     xsel
     zathura
   ] else [ ]) ++ (with haskellPackages; [
