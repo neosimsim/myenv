@@ -1,5 +1,6 @@
 *.agda.vim
 *.latexmain
+*.local
 .cabal-sandbox
 .syntastic_*_config
 .sosrc
