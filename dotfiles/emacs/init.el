@@ -4,7 +4,8 @@
 (setq kill-whole-line t)
 (setq-default show-trailing-whitespace t)
 (setq-default cursor-type 'bar)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(tool-bar-mode 0)
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
 (setq vc-handled-backends ())
@@ -17,13 +18,11 @@
 (load-theme 'acme 1)
 
 (global-set-key [M-right] 'forward-whitespace)
-(global-set-key [M-left]
-                (lambda () "Move point to the beginneg of the previous sequence of whitespace char"
-                  (interactive)
-                  (forward-whitespace -1)))
-
-(add-hook 'window-setup-hook (lambda ()
-                               (tool-bar-mode 0)))
+(defun backward-whitespace ()
+  "Move point to the beginneg of the previous sequence of whitespace char"
+  (interactive)
+  (forward-whitespace -1))
+(global-set-key [M-left] 'backward-whitespace)
 
 (load-file (let ((coding-system-for-read 'utf-8))
              (shell-command-to-string "agda-mode locate")))
