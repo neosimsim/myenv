@@ -71,7 +71,7 @@ myKeys =
     ((myModMask, xK_Right), sendMessage Expand), -- %! Expand the master area
     ((myModMask, xK_BackSpace), focusUrgent),
     ((myModMask .|. shiftMask, xK_p), spawn "dpass"),
-    ((myModMask .|. shiftMask, xK_l), spawn "slock"),
+    ((myModMask .|. shiftMask, xK_l), spawn "xlock"),
     ((0, xF86XK_AudioLowerVolume), spawn "amixer set Master 2%-"),
     ((0, xF86XK_AudioRaiseVolume), spawn "amixer set Master 2%+"),
     ((0, xF86XK_AudioMute), spawn "amixer set Master toggle"),
