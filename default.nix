@@ -136,6 +136,7 @@ buildEnv {
     go
     hconv
     hookmark
+    htop
     haskell-language-server
     isync
     jq
