@@ -32,6 +32,7 @@ POSIX_BIN = \
 	indirs \
 	license \
 	lower \
+	memusage \
 	NewW \
 	nocolor \
 	now \
