@@ -32,8 +32,12 @@ spec = do
     it "matches man pages" $
       parseResourceIdentifier "ls(1)" `shouldBe` ManPage "ls" 1
 
-    it "matches git commits pages" $
+    it "matches git short commit hashes" $
+      parseResourceIdentifier "7437dd8" `shouldBe` GitCommit "7437dd8"
+    it "matches git long commit hashes" $
       parseResourceIdentifier "7437dd88ba8ffb7648ab1bb32fe1465851f2804f" `shouldBe` GitCommit "7437dd88ba8ffb7648ab1bb32fe1465851f2804f"
+    it "not matches filenames with timestamps as git hashes" $
+      parseResourceIdentifier "20210113T005730.txt" `shouldBe` File (FilePathNoAddress "20210113T005730.txt")
 
     it "matches http URL" $
       parseResourceIdentifier "http://www.haskell.org/" `shouldBe` URL "http://www.haskell.org/"

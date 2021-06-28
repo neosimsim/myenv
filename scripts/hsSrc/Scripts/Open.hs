@@ -126,7 +126,7 @@ parseGitCommit x =
     else Nothing
   where
     gitCommitExpr :: Text
-    gitCommitExpr = [r|[a-f0-9]{7}|]
+    gitCommitExpr = [r|^[a-f0-9]{7}$|^[a-f0-9]{40}$|]
 
 openResourceIdentifierCommand :: Config -> ResourceIdentifier -> Text
 openResourceIdentifierCommand _ (ManPage cmd section) =
