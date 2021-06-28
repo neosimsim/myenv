@@ -27,6 +27,9 @@
 (load-file (let ((coding-system-for-read 'utf-8))
              (shell-command-to-string "agda-mode locate")))
 (add-to-list 'auto-mode-alist '("\\.lagda.md\\'" . agda2-mode))
+(defun my-agda-settings ()
+  (setq agda2-highlight-level 'none))
+(add-hook 'agda2-mode-hook 'my-agda-settings)
 
 (defun pipe-shell-region (cmd start end)
   "Pipe region to shell command and replace region with the output
