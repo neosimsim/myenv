@@ -4,6 +4,7 @@
 (setq kill-whole-line t)
 (setq-default show-trailing-whitespace t)
 (setq-default cursor-type 'bar)
+(setq set-mark-command-repeat-pop t)
 (tool-bar-mode 0)
 (global-linum-mode t)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
