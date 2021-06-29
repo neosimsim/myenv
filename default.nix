@@ -178,16 +178,19 @@ buildEnv {
       # complain about missing zlib.h.
       zlib
 
+      bifunctors
       containers
       extra
       filepath
       hlint
       hspec
       markdown-unlit
+      profunctors
       QuickCheck
       raw-strings-qq
       regex-tdfa
       safe
+      semigroupoids
       string-interpolate
     ] ++ (if enableGui then [
       xmonad
