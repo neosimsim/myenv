@@ -2,8 +2,8 @@
 
 set -e
 
-packages=my-packages
-[ -n "$DISPLAY" ] && packages=my-gui-packages
+packages=packagesWithoutGui
+[ -n "$DISPLAY" ] && packages=packagesWithGui
 
 if nix profile list | grep -q $packages
 then
