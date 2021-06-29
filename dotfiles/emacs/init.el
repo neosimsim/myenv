@@ -130,16 +130,16 @@ stdout and stderr) in displayed in a new buffer."
 
 (global-set-key (kbd "C-c C-.") 'company-complete)
 
+;; set prefix before lsp-mode has been loaded
+;; https://github.com/emacs-lsp/lsp-mode/issues/1672
+(setq lsp-keymap-prefix "C-l")
+(require 'lsp-mode)
 ;; lsp-mode tweaks https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 (setq lsp-idle-delay 0.500)
 ;; lsp-mode settings https://emacs-lsp.github.io/lsp-mode/page/settings/mode/
-(setq lsp-keymap-prefix "C-l")
 (setq lsp-lens-enable t)
-(setq lsp-ui-doc-enable nil)
-(setq lsp-ui-doc-show-with-cursor nil)
-(setq lsp-ui-doc-show-with-mouse nil)
 (setq lsp-haskell-formatting-provider "ormolu")
 ;; https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
 (with-eval-after-load 'lsp-mode (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
@@ -147,7 +147,10 @@ stdout and stderr) in displayed in a new buffer."
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.rebar3?\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\MAlonzo\\'"))
-(defun lsp-ui-setup ()
-  (set-face-foreground 'lsp-ui-sideline-code-action "dim gray"))
-(add-hook 'lsp-ui-mode-hook #'lsp-ui-setup)
-(require 'lsp-mode)
+
+;; explicitly require lsp-ui to address the face
+(require 'lsp-ui)
+(set-face-foreground 'lsp-ui-sideline-code-action "dim gray")
+(setq lsp-ui-doc-enable nil)
+(setq lsp-ui-doc-show-with-cursor nil)
+(setq lsp-ui-doc-show-with-mouse nil)
