@@ -5,6 +5,7 @@
 (setq-default show-trailing-whitespace t)
 (setq-default cursor-type 'bar)
 (tool-bar-mode 0)
+(global-linum-mode t)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
