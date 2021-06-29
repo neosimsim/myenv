@@ -17,6 +17,10 @@
 (electric-indent-mode 0)
 (global-set-key (kbd "RET") #'newline-and-indent)
 (load-theme 'acme 1)
+(set-face-foreground 'linum "dim gray")
+(set-face-attribute 'isearch-fail nil
+                    :foreground "white smoke"
+                    :weight 'bold)
 
 (global-set-key [M-right] 'forward-whitespace)
 (defun backward-whitespace ()
@@ -143,4 +147,5 @@ stdout and stderr) in displayed in a new buffer."
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.rebar3?\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\MAlonzo\\'"))
+(set-face-foreground 'lsp-ui-sideline-code-action "dim gray")
 (require 'lsp-mode)
