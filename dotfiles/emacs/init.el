@@ -147,5 +147,7 @@ stdout and stderr) in displayed in a new buffer."
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.rebar3?\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\MAlonzo\\'"))
-(set-face-foreground 'lsp-ui-sideline-code-action "dim gray")
+(defun lsp-ui-setup ()
+  (set-face-foreground 'lsp-ui-sideline-code-action "dim gray"))
+(add-hook 'lsp-ui-mode-hook #'lsp-ui-setup)
 (require 'lsp-mode)
