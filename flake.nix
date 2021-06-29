@@ -11,5 +11,8 @@
           packagesWithGui = import self { enableGui = true; pkgs = nixpkgs.legacyPackages.x86_64-linux; };
         };
       defaultPackage.x86_64-linux = self.packages.x86_64-linux.packages;
+      nixosModule = { config, pkgs, ... }: {
+        users.users.neosimsim.packages = [ (import self { inherit pkgs; enableGui = config.services.xserver.enable; }) ];
+      };
     };
 }
