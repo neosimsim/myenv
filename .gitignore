@@ -1,5 +1,5 @@
 tests/hello-agda
-
+flake.lock
 scripts/shell.nix
 
 dist-newstyle/
