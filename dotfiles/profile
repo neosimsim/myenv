@@ -1,7 +1,7 @@
 stty -ixon
 export HISTFILE=$HOME/.shhistory
 export HISTSIZE=4096
-export EDITOR="emacsclient -a ''"
+export EDITOR="emacsclient -tca  ''"
 export VISUAL="$EDITOR"
 export FCEDIT="$EDITOR"
 export CDPATH=".:$HOME:$HOME/src"
