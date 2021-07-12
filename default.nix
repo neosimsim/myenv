@@ -106,7 +106,7 @@ let
         };
       };
     in
-    (((emacsPackagesGen emacs_).overrideScope' emacsOverrides).emacsWithPackages (epkgs: with epkgs.melpaPackages; [
+    ((emacsPackagesGen emacs_).overrideScope' emacsOverrides).withPackages (epkgs: with epkgs; [
       acme-theme
       buffer-move
       multiple-cursors
@@ -122,7 +122,7 @@ let
       company
       avy
       lsp-haskell
-    ]));
+    ]);
 in
 buildEnv {
   name = "my-packages";
