@@ -88,19 +88,8 @@ let
   emacs =
     let
       emacs_ = with super; if enableGui then pkgs.emacs else emacs-nox;
-      emacsOverrides = self: super: {
-        spinner = super.spinner.override {
-          elpaBuild = args: super.elpaBuild (args // rec {
-            version = "1.7.4";
-            src = fetchurl {
-              url = "https://elpa.gnu.org/packages/spinner-${version}.tar";
-              sha256 = "140kss25ijbwf8hzflbjz67ry76w2cyrh02axk95n6qcxv7jr7pv";
-            };
-          });
-        };
-      };
     in
-    ((emacsPackagesGen emacs_).overrideScope' emacsOverrides).withPackages (epkgs: with epkgs; [
+    (emacsPackagesGen emacs_).withPackages (epkgs: with epkgs; [
       acme-theme
       buffer-move
       multiple-cursors
