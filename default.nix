@@ -199,6 +199,6 @@ buildEnv {
     pandoc
     steeloverseer
   ]);
-  pathsToLink = [ "/share/man" "/share/doc" "/share/terminfo" "/bin" "/etc" ];
+  pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/terminfo" "/bin" "/etc" ];
   extraOutputsToInstall = [ "man" "doc" ];
 }
