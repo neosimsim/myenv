@@ -106,6 +106,10 @@ let
       avy
       lsp-haskell
     ]);
+
+  git = pkgs.git.override {
+    guiSupport = enableGui;
+  };
 in
 buildEnv {
   name = "my-packages";
