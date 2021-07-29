@@ -16,8 +16,8 @@ MapInbox Inbox
 Flatten .
 
 Channel posteo
-Master :posteo-remote:
-Slave :posteo-local:
+Far :posteo-remote:
+Near :posteo-local:
 Patterns * !Inbox
 Create Both
 Expunge Both
@@ -41,8 +41,8 @@ MapInbox Inbox
 Flatten .
 
 Channel mailbox
-Master :mailbox-remote:
-Slave :mailbox-local:
+Far :mailbox-remote:
+Near :mailbox-local:
 Patterns * !Inbox
 Create Both
 Expunge Both
