@@ -125,6 +125,8 @@ buildEnv {
     agda
     aspell
     binutils
+    dhall
+    dhall-json
     emacs
     entr
     fzf
