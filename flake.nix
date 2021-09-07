@@ -1,9 +1,12 @@
 {
   description = "NeoSimSim: my-packages";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+  };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, home-manager }:
     {
       packages.x86_64-linux =
         let pkgs = import nixpkgs {
@@ -16,9 +19,8 @@
           packagesWithGui = import self { inherit pkgs; enableGui = true; };
         };
       defaultPackage.x86_64-linux = self.packages.x86_64-linux.packagesWithoutGui;
-      nixosModules.neosimsim = { config, pkgs, ... }: {
-        users.users.neosimsim.packages = [ (import self { inherit pkgs; enableGui = config.services.xserver.enable; }) ];
-      };
+
+      nixosModules.home-manager = import ./home.nix;
 
       overlay = self: super: {
         emacsPackagesFor = emacs: ((super.emacsPackagesFor emacs).overrideScope' (self: super: {
@@ -45,7 +47,12 @@
               boot.isContainer = true;
               users.users.neosimsim.isNormalUser = true;
             })
-            self.nixosModules.neosimsim
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.neosimsim = self.nixosModules.home-manager;
+            }
           ];
         };
 
@@ -58,7 +65,15 @@
               services.xserver.enable = true;
               users.users.neosimsim.isNormalUser = true;
             })
-            self.nixosModules.neosimsim
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.neosimsim = { ... }: {
+                imports = [ self.nixosModules.home-manager ];
+                myenv.enableGui = true;
+              };
+            }
           ];
         };
       };
