@@ -1,0 +1,25 @@
+default:
+  image: nixos/nix:latest
+  before_script:
+    - |
+      nix-env -iA \
+        nixpkgs.nixUnstable \
+        nixpkgs.bash \
+        nixpkgs.git \
+        nixpkgs.cachix
+    - cachix use myenv
+    - nix --experimental-features 'nix-command flakes ca-references' path-info --all > /tmp/store-path-pre-build
+  after_script:
+    - bash -c "comm -13 <(sort /tmp/store-path-pre-build | grep -v '\.drv$') <(nix path-info --all | grep -v '\.drv$' | sort) | cachix push myenv"
+
+nixos:
+  script:
+    - nix --experimental-features 'nix-command flakes ca-references' build .#nixosConfigurations.test.config.system.build.toplevel
+
+nix:packagesWithGui:
+  script:
+    - nix --experimental-features 'nix-command flakes ca-references' build .#packages.x86_64-linux.packagesWithGui
+
+nix:packagesWithoutGui:
+  script:
+    - nix --experimental-features 'nix-command flakes ca-references' build .#packages.x86_64-linux.packagesWithoutGui
