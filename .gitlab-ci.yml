@@ -7,10 +7,6 @@ default:
         nixpkgs.bash \
         nixpkgs.git \
         nixpkgs.cachix
-    - cachix use myenv
-    - nix --experimental-features 'nix-command flakes ca-references' path-info --all > /tmp/store-path-pre-build
-  after_script:
-    - bash -c "comm -13 <(sort /tmp/store-path-pre-build | grep -v '\.drv$') <(nix path-info --all | grep -v '\.drv$' | sort) | cachix push myenv"
 
 nixos:
   script:
