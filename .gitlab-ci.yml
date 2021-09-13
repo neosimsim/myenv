@@ -8,9 +8,13 @@ default:
         nixpkgs.git \
         nixpkgs.cachix
 
-nixos:
+nixos:withoutGui:
   script:
-    - nix --experimental-features 'nix-command flakes ca-references' build .#nixosConfigurations.test.config.system.build.toplevel
+    - nix --experimental-features 'nix-command flakes ca-references' build .#nixosConfigurations.withoutGui.config.system.build.toplevel
+
+nixos:withGui:
+  script:
+    - nix --experimental-features 'nix-command flakes ca-references' build .#nixosConfigurations.withGui.config.system.build.toplevel
 
 nix:packagesWithGui:
   script:
