@@ -10,12 +10,12 @@ install-gui:
 
 # stuff installed as part of default.nix
 install-core: install-nixos
+	$(MAKE) -C dotfiles install
 	$(SHELL) -l -c '$(MAKE) -C scripts install'
 	$(SHELL) -l -c '$(MAKE) -C texfiles install'
 
 # stuff not installed as part of default.nix
 install-nixos:
-	$(MAKE) -C dotfiles install
 	$(SHELL) -l -c '$(MAKE) -C tools install'
 	$(SHELL) -l -c '$(MAKE) -C aliases install'
 
@@ -32,11 +32,9 @@ reload-core:
 reload-gui:
 	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-gui'
 
-test-core: test-nixos
+test-core:
 	$(SHELL) -l -c '$(MAKE) -C scripts test'
 	$(SHELL) -l -c '$(MAKE) -C texfiles pdf'
-
-test-nixos:
 	$(SHELL) -l -c '$(MAKE) -C tests test-core'
 
 test-gui:
