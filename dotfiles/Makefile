@@ -21,6 +21,7 @@ DOTFILES_GUI= \
 	Xmodmap \
 	Xmodmap.colemak \
 	Xmodmap.qwerty \
+	xmonad/build \
 	xmonad/xmonad.hs \
 	Xresources \
 	xsession \
@@ -35,7 +36,6 @@ CONFIGFILES_CORE= \
 	git/ignore \
 	vis/visrc.lua \
 	vis/themes/peaksea.lua \
-	xmonad/build \
 
 CONFIGFILES_GUI= \
 	alacritty/alacritty.yml \
