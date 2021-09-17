@@ -140,6 +140,7 @@ buildEnv {
     haskell-language-server
     isync
     jq
+    libarchive
     mutt
     nixpkgs-fmt
     nix-prefetch-scripts
