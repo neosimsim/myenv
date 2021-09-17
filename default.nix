@@ -131,6 +131,7 @@ buildEnv {
     entr
     fzf
     git
+    git-lfs
     gnumake
     gnupg
     go
