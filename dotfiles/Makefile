@@ -4,12 +4,7 @@ DOTFILES_CORE= \
 	cabal/config \
 	ghci \
 	gnupg/gpg-agent.conf \
-	mbsyncrc \
 	mkshrc \
-	mutt/abnrc \
-	mutt/mailcap \
-	mutt/muttrc \
-	mutt/posteorc \
 	profile \
 	tmux.conf \
 
