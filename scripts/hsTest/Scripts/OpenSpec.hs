@@ -14,6 +14,8 @@ spec = do
   describe "parseResourceIdentifier" $ do
     it "matches simple filenames" $
       parseResourceIdentifier "README.md" `shouldBe` File (FilePathNoAddress "README.md")
+    it "matches filenames with trailing colon" $
+      parseResourceIdentifier "README.md:" `shouldBe` File (FilePathNoAddress "README.md")
     it "matches filenames with line" $
       parseResourceIdentifier "README.md:4" `shouldBe` File (FilePathLineAddress "README.md" 4)
     it "matches filenames with line and trailing collon" $

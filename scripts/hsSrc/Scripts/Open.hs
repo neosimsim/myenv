@@ -65,6 +65,9 @@ parseResourceIdentifier x =
 
 parseFilePathAddress :: Text -> Maybe FilePathAddress
 parseFilePathAddress x = case (x =~ filePathExpr :: (Text, Text, Text, [Text])) of
+  -- trailing colon
+  ("", _, "", [filePath, ":", "", "", ""]) ->
+    Just $ FilePathNoAddress filePath
   (_, _, _, [filePath, _, line, _, ""]) ->
     FilePathLineAddress filePath <$> readMay (T.unpack line)
   (_, _, _, [filePath, _, line, _, culomn]) ->
