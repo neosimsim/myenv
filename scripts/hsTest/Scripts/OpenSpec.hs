@@ -14,15 +14,15 @@ spec = do
   describe "parseResourceIdentifier" $ do
     it "matches simple filenames" $
       parseResourceIdentifier "README.md" `shouldBe` File (FilePathNoAddress "README.md")
-    it "matches filenames" $
+    it "matches filenames with line" $
       parseResourceIdentifier "README.md:4" `shouldBe` File (FilePathLineAddress "README.md" 4)
-    it "matches filenames" $
+    it "matches filenames with line and trailing collon" $
       parseResourceIdentifier "README.md:3:" `shouldBe` File (FilePathLineAddress "README.md" 3)
-    it "matches filenames" $
+    it "matches filenames with line and trailing word" $
       parseResourceIdentifier "README.md:3:match" `shouldBe` File (FilePathLineAddress "README.md" 3)
-    it "matches filenames" $
+    it "matches filenames with line and column" $
       parseResourceIdentifier "README.md:3:4" `shouldBe` File (FilePathLineColumnAddress "README.md" 3 4)
-    it "matches filenames" $
+    it "matches filenames fith line, column and trailing colon" $
       parseResourceIdentifier "README.md:3:4:" `shouldBe` File (FilePathLineColumnAddress "README.md" 3 4)
     it "matches hlint multi line output" $
       parseResourceIdentifier "README.md:(30,5)-(31,62):" `shouldBe` File (FilePathRangeAddress "README.md" 30 5 31 62)
