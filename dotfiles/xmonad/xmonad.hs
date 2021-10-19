@@ -27,7 +27,7 @@ myConfig =
   def
     { borderWidth = 2,
       modMask = myModMask,
-      terminal = "urxvt",
+      terminal = "alacritty",
       manageHook =
         composeAll
           [ manageHook def,
