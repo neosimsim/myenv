@@ -17,6 +17,6 @@ ghc -o $out \
   -fforce-recomp \
   -Wall \
     -Wno-missing-signatures \
-  -Werror -threaded \
-  -rtsopts -with-rtsopts=-N -static \
+  -Werror \
+  -threaded -rtsopts -with-rtsopts=-N -static \
   xmonad.hs
