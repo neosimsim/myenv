@@ -186,6 +186,7 @@ buildEnv {
       filepath
       hlint
       hspec
+      lens
       markdown-unlit
       profunctors
       QuickCheck
