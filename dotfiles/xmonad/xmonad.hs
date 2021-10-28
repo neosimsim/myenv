@@ -3,6 +3,7 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
+import XMonad.Hooks.Rescreen (rescreenHook)
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (..), focusUrgent, withUrgencyHook)
 import XMonad.Layout.Fullscreen
@@ -17,7 +18,10 @@ main = do
     =<< ( myStatusBar
             . withUrgencyHook NoUrgencyHook
             . fullscreenSupport
-            $ myConfig `additionalKeys` myKeys
+            . docks
+            . rescreenHook myRescreenCfg
+            . (flip additionalKeys) myKeys
+            $ myConfig
         )
 
 myModMask :: KeyMask
@@ -31,7 +35,6 @@ myConfig =
       manageHook =
         composeAll
           [ manageHook def,
-            manageDocks,
             stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "3",
             className =? "Gimp" --> doFloat,
             className =? "Signal" --> doShift "9",
@@ -43,12 +46,13 @@ myConfig =
           ],
       layoutHook =
         smartBorders . avoidStruts $ Tall 1 (1 / 300) (3 / 4) ||| Full ||| Grid,
-      handleEventHook = handleEventHook def <+> docksEventHook,
       normalBorderColor = "#cccccc",
       focusedBorderColor = "#cd8b00",
       startupHook = setWMName "LG3D",
       focusFollowsMouse = False
     }
+
+myRescreenCfg = def
 
 myStatusBar =
   statusBar
