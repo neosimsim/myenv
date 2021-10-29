@@ -3,7 +3,7 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
-import XMonad.Hooks.Rescreen (rescreenHook)
+import XMonad.Hooks.Rescreen (addRandrChangeHook)
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (..), focusUrgent, withUrgencyHook)
 import XMonad.Layout.Fullscreen
@@ -20,7 +20,7 @@ main = do
             . withUrgencyHook NoUrgencyHook
             . fullscreenSupport
             . docks
-            . rescreenHook myRescreenCfg
+            . addRandrChangeHook (safeSpawnProg "setscreens")
             . (`additionalKeys` myKeys)
             $ myConfig
         )
@@ -52,8 +52,6 @@ myConfig =
       startupHook = setWMName "LG3D",
       focusFollowsMouse = False
     }
-
-myRescreenCfg = def
 
 myStatusBar =
   statusBar
