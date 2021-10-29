@@ -11,6 +11,7 @@ import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeys)
+import XMonad.Util.Run (safeSpawn, safeSpawnProg)
 
 main :: IO ()
 main = do
@@ -74,16 +75,16 @@ myKeys =
     ((myModMask, xK_Left), sendMessage Shrink), -- %! Shrink the master area
     ((myModMask, xK_Right), sendMessage Expand), -- %! Expand the master area
     ((myModMask, xK_BackSpace), focusUrgent),
-    ((myModMask .|. shiftMask, xK_p), spawn "dpass"),
-    ((myModMask .|. shiftMask, xK_l), spawn "xlock"),
-    ((0, xF86XK_AudioLowerVolume), spawn "amixer set Master 2%-"),
-    ((0, xF86XK_AudioRaiseVolume), spawn "amixer set Master 2%+"),
-    ((0, xF86XK_AudioMute), spawn "amixer set Master toggle"),
-    ((0, xF86XK_MonBrightnessUp), spawn "brightnessctl set +10%"),
-    ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 10%-"),
-    ((myModMask, xK_Print), spawn "scrot -s"),
-    ((0, xK_Print), spawn "scrot"),
-    ((myModMask, xK_a), spawn "rotatekb"),
-    ((myModMask, xK_g), spawn "games"),
-    ((myModMask, xK_Arabic_sheen), spawn "rotatekb")
+    ((myModMask .|. shiftMask, xK_p), safeSpawnProg "dpass"),
+    ((myModMask .|. shiftMask, xK_l), safeSpawnProg "xlock"),
+    ((0, xF86XK_AudioLowerVolume), safeSpawn "amixer" ["set", "Master", "2%-"]),
+    ((0, xF86XK_AudioRaiseVolume), safeSpawn "amixer" ["set", "Master", "2%+"]),
+    ((0, xF86XK_AudioMute), safeSpawn "amixer" ["set", "Master", "toggle"]),
+    ((0, xF86XK_MonBrightnessUp), safeSpawn "brightnessctl" ["set", "+10%"]),
+    ((0, xF86XK_MonBrightnessDown), safeSpawn "brightnessctl" ["set", "10%-"]),
+    ((myModMask, xK_Print), safeSpawn "scrot" ["-s"]),
+    ((0, xK_Print), safeSpawnProg "scrot"),
+    ((myModMask, xK_a), safeSpawnProg "rotatekb"),
+    ((myModMask, xK_g), safeSpawnProg "games"),
+    ((myModMask, xK_Arabic_sheen), safeSpawnProg "rotatekb")
   ]
