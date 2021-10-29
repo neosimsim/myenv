@@ -156,6 +156,7 @@ buildEnv {
     vis
   ] ++ (if enableGui then [
     alacritty
+    brightnessctl
     ungoogled-chromium
     dmenu
     feh
