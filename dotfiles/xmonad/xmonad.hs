@@ -21,7 +21,7 @@ main = do
             . fullscreenSupport
             . docks
             . rescreenHook myRescreenCfg
-            . (flip additionalKeys) myKeys
+            . (`additionalKeys` myKeys)
             $ myConfig
         )
 
