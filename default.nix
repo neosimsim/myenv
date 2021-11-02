@@ -183,26 +183,29 @@ buildEnv {
       # complain about missing zlib.h.
       zlib
 
-      bifunctors
+      # Quality of life libraries for ghci
       containers
       extra
       filepath
-      hlint
-      hspec
       lens
-      markdown-unlit
-      profunctors
       QuickCheck
       raw-strings-qq
       regex-tdfa
+      string-interpolate
+
+      # Preinstall common used lib to speed up nix builds.
+      bifunctors
+      hspec
+      markdown-unlit
+      profunctors
       safe
       semigroupoids
-      string-interpolate
     ] ++ lib.optionals enableGui [
       xmonad
       xmonad-contrib
     ]))
   ] ++ map haskell.lib.justStaticExecutables (with haskellPackages; [
+    hlint
     apply-refact
     cabal2nix
     cabal-fmt
