@@ -184,6 +184,8 @@ buildEnv {
       zlib
 
       # Quality of life libraries for ghci
+      aeson
+      aeson-lens
       containers
       extra
       filepath
@@ -192,6 +194,7 @@ buildEnv {
       raw-strings-qq
       regex-tdfa
       string-interpolate
+      wreq
 
       # Preinstall common used lib to speed up nix builds.
       bifunctors
