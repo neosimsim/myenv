@@ -1,5 +1,5 @@
 { enableGui ? false
-, pkgs ? import <nixpkgs> {}
+, pkgs ? import <nixpkgs> { }
 }:
 with pkgs;
 let
@@ -84,7 +84,9 @@ let
       export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
       exec ${myXmobar}/bin/xmobar
     '';
+
   aspell = aspellWithDicts (p: with p; [ en de ]);
+
   emacs =
     let
       emacs_ = with super; if enableGui then pkgs.emacs else emacs-nox;
@@ -154,7 +156,7 @@ buildEnv {
     typespeed
     unzip
     vis
-  ] ++ (if enableGui then [
+  ] ++ lib.optionals enableGui [
     alacritty
     brightnessctl
     ungoogled-chromium
@@ -175,8 +177,8 @@ buildEnv {
     xorg.xmodmap
     xsel
     zathura
-  ] else [ ]) ++ (with haskellPackages; [
-    (ghc.withHoogle (p: with p; [
+  ] ++ [
+    (haskellPackages.ghc.withHoogle (p: with p; [
       # Preinstall zlib to help cabal. Otherwise builds will
       # complain about missing zlib.h.
       zlib
@@ -196,10 +198,11 @@ buildEnv {
       safe
       semigroupoids
       string-interpolate
-    ] ++ (if enableGui then [
+    ] ++ lib.optionals enableGui [
       xmonad
       xmonad-contrib
-    ] else [ ])))
+    ]))
+  ] ++ (with haskellPackages; [
     apply-refact
     cabal2nix
     cabal-fmt
@@ -209,6 +212,7 @@ buildEnv {
     pandoc
     steeloverseer
   ]);
+
   pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/terminfo" "/bin" "/etc" ];
   extraOutputsToInstall = [ "man" "doc" ];
 }
