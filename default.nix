@@ -202,7 +202,7 @@ buildEnv {
       xmonad
       xmonad-contrib
     ]))
-  ] ++ map haskell.justStaticExecutables (with haskellPackages; [
+  ] ++ map haskell.lib.justStaticExecutables (with haskellPackages; [
     apply-refact
     cabal2nix
     cabal-fmt
