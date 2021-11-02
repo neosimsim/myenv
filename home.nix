@@ -1,11 +1,19 @@
 { pkgs, config, lib, ... }: with lib; {
   options.myenv = {
+
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
     enableGui = mkOption {
       type = types.bool;
       default = false;
     };
   };
-  config = {
+
+
+  config = mkIf config.myenv.enable {
     home.packages =
       let
         myenv = with config.myenv; import ./. { inherit pkgs enableGui; };
