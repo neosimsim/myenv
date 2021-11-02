@@ -208,15 +208,16 @@ buildEnv {
       xmonad-contrib
     ]))
   ] ++ map haskell.lib.justStaticExecutables (with haskellPackages; [
-    hlint
     apply-refact
     cabal2nix
     cabal-fmt
     cabal-install
-    hasktags
+    hindent
+    hlint
     ormolu
     pandoc
     steeloverseer
+    stylish-haskell
   ]);
 
   pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/terminfo" "/bin" "/etc" ];
