@@ -188,8 +188,11 @@ buildEnv {
       aeson-lens
       containers
       extra
+      filelock
       filepath
       lens
+      pidfile
+      typed-process
       QuickCheck
       raw-strings-qq
       regex-tdfa
