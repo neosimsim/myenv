@@ -5,22 +5,6 @@ with pkgs;
 let
   scripts = import ./scripts { inherit pkgs; };
 
-  hconv = haskellPackages.callCabal2nix "hconv"
-    (fetchgit {
-      url = "https://gitlab.com/neosimsim/hconv.git";
-      rev = "05b254dc4e2c9258f7d9a4721847376a001b99de";
-      sha256 = "11wz8a3iq1x81kx7gw06iacdza8nvcdph3zb53lxmlsczc8dwqaq";
-    })
-    { };
-
-  hookmark = haskellPackages.callCabal2nix "hookmark"
-    (fetchgit {
-      url = "https://gitlab.com/neosimsim/hookmark.git";
-      rev = "2e9e69dc4b12aaf8af50a2b5c053030501c0562c";
-      sha256 = "1nhs0lhy802j5z1lh4m40rrmdcnk5d3shvdmn2ngfjzlg1pr67mg";
-    })
-    { };
-
   texfiles.pkgs = [ (import ./texfiles { inherit pkgs; }) ];
   texlive-full = texlive.combine {
     inherit (texlive) scheme-full;
@@ -137,8 +121,6 @@ buildEnv {
     gnumake
     gnupg
     go
-    hconv
-    hookmark
     htop
     haskell-language-server
     isync
@@ -218,8 +200,10 @@ buildEnv {
     cabal2nix
     cabal-fmt
     cabal-install
+    hconv
     hindent
     hlint
+    hookmark
     ormolu
     pandoc
     steeloverseer
