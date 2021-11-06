@@ -183,6 +183,8 @@ buildEnv {
       # complain about missing zlib.h.
       zlib
 
+      neosimsim-shell
+
       # Quality of life libraries for ghci
       aeson
       aeson-lens
@@ -190,6 +192,7 @@ buildEnv {
       extra
       filelock
       filepath
+      flow
       lens
       pidfile
       typed-process

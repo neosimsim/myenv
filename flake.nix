@@ -7,22 +7,32 @@
   };
 
   outputs = { self, nixpkgs, home-manager }:
+    let pkgs = import nixpkgs {
+      system = "x86_64-linux";
+      overlays = [ self.overlay ];
+    };
+    in
     {
       packages.x86_64-linux =
-        let pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          overlays = [ self.overlay ];
-        };
-        in
         {
           packagesWithoutGui = import self { inherit pkgs; enableGui = false; };
           packagesWithGui = import self { inherit pkgs; enableGui = true; };
+
+          inherit (pkgs)
+            haskellPackages
+            ;
         };
+
       defaultPackage.x86_64-linux = self.packages.x86_64-linux.packagesWithoutGui;
+
+      devShells.x86_64-linux.haskellPackages.neosimsim-shell = pkgs.haskellPackages.shellFor {
+        packages = p: with p; [ neosimsim-shell ];
+      };
 
       nixosModules.home-manager = import ./home.nix;
 
       overlay = self: super: {
+
         emacsPackagesFor = emacs: ((super.emacsPackagesFor emacs).overrideScope' (self: super: {
           # spinner for emacs-nox isn't cached and nix want to rebuild (fetch) it but
           # version 1.7.3 as pinned by nixpkgs has been removed in favor of 1.7.4.
@@ -36,6 +46,12 @@
             });
           };
         }));
+
+
+        haskellPackages = with super; haskellPackages.extend (haskell.lib.packageSourceOverrides {
+          neosimsim-shell = ./pkgs/shell;
+        });
+
       };
 
       nixosConfigurations = {
