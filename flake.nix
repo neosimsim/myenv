@@ -15,15 +15,18 @@
     {
       packages.x86_64-linux =
         {
-          packagesWithoutGui = import self { inherit pkgs; enableGui = false; };
-          packagesWithGui = import self { inherit pkgs; enableGui = true; };
+          packagesWithoutGui = import ./pkgs.nix { inherit pkgs; enableGui = false; };
+          packagesWithGui = import ./pkgs.nix { inherit pkgs; enableGui = true; };
+
+          environmentWithoutGui = import self { pkgs = pkgs; enableGui = false; };
+          environmentWithGui = import self { pkgs = pkgs; enableGui = true; };
 
           inherit (pkgs)
             haskellPackages
             ;
         };
 
-      defaultPackage.x86_64-linux = self.packages.x86_64-linux.packagesWithoutGui;
+      defaultPackage.x86_64-linux = self.packages.x86_64-linux.environmentWithoutGui;
 
       devShells.x86_64-linux.haskellPackages.neosimsim-shell = self.packages.x86_64-linux.haskellPackages.shellFor {
         packages = p: with p; [ neosimsim-shell ];
