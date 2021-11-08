@@ -81,7 +81,10 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.neosimsim = self.nixosModules.home-manager;
+              home-manager.users.neosimsim = { ... }: {
+                imports = [ self.nixosModules.home-manager ];
+                myenv.enable = true;
+              };
             }
           ];
         };
@@ -101,6 +104,7 @@
               home-manager.useUserPackages = true;
               home-manager.users.neosimsim = { ... }: {
                 imports = [ self.nixosModules.home-manager ];
+                myenv.enable = true;
                 myenv.enableGui = true;
               };
             }
