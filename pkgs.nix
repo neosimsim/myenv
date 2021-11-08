@@ -109,13 +109,13 @@ with pkgs;
 
     # Quality of life libraries for ghci
     aeson
-    aeson-lens
     containers
     extra
     filelock
     filepath
     flow
     lens
+    lens-aeson
     pidfile
     typed-process
     QuickCheck
