@@ -2,32 +2,32 @@
 :set prompt-cont "| "
 :set +t
 
-:seti -XTemplateHaskell
-:seti -XQuasiQuotes
+:seti -XImportQualifiedPost
 :seti -XOverloadedStrings
-:seti -XTypeApplications
+:seti -XQuasiQuotes
 :seti -XRankNTypes
-
-:def hoogle \s -> return $ ":! hoogle search -l --count=15 ̈" ++ s ++ "̈"
-:def! doc \s -> return $ ":! hoogle search -l --info ̈" ++ s ++ "̈"
+:seti -XTemplateHaskell
+:seti -XTypeApplications
 
 :seti -XNoImplicitPrelude
 :module -Prelude
-import Data.Int
 import Control.Monad
+import Data.Monoid
+import Data.Foldable
 import Data.Function
 import Data.Functor
-import Data.Foldable
-import qualified Text.Read
+import Data.Functor.Sum
+import Data.Int
+import Text.Read qualified
 
 import Text.Regex.TDFA
 
 import Data.Text.Lazy as Text.Lazy
 import Data.Text.Lazy.IO as Text.Lazy
 import Data.Text.Lazy.Encoding as Text.Lazy
-import qualified Data.Text as Strict
-import qualified Data.Text.IO as Strict
-import qualified Data.Text.Encoding as Strict
+import Data.Text qualified as Strict
+import Data.Text.IO qualified as Strict
+import Data.Text.Encoding qualified as Strict
 
 import System.Process.Typed
 
@@ -36,3 +36,6 @@ import Text.RawString.QQ
 import Flow
 
 import Shell
+
+:def hoogle \s -> return $ ":! hoogle search -l --count=15 ̈" <> s <> "̈"
+:def! doc \s -> return $ ":! hoogle search -l --info ̈" <> s <> "̈"
