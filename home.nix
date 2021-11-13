@@ -18,7 +18,7 @@
       let
         myenv = with config.myenv; import ./. { inherit pkgs enableGui; };
       in
-      [ myenv ];
+      [ (lowPrio myenv) ];
 
     home.file =
       let
