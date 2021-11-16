@@ -134,7 +134,7 @@ stdout and stderr) in displayed in a new buffer."
 
 ;; set prefix before lsp-mode has been loaded
 ;; https://github.com/emacs-lsp/lsp-mode/issues/1672
-(setq lsp-keymap-prefix "C-l")
+(setq lsp-keymap-prefix "C-.")
 (require 'lsp-mode)
 ;; lsp-mode tweaks https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 100000000)
