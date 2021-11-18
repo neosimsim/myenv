@@ -21,8 +21,8 @@ with pkgs;
     gnumake
     gnupg
     go
-    htop
     haskell-language-server
+    htop
     isync
     jq
     libarchive
@@ -32,6 +32,7 @@ with pkgs;
     pass
     pinentry-curses
     plan9port
+    ripgrep
     tmux
     typespeed
     unzip
