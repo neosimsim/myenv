@@ -55,6 +55,10 @@ with pkgs;
     exec ${pkgs.ag}/bin/ag --no-heading --no-color "$@"
   '';
 
+  fd = pkgs.writeShellScriptBin "fd" ''
+    exec ${pkgs.fd}/bin/fd --color never "$@"
+  '';
+
   #ma = stdenv.mkDerivation rec {
   #  pname = "ma";
   #  version = "11_2019-03-16";
