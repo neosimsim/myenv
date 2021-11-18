@@ -1,8 +1,43 @@
 { enableGui ? false
-, pkgs ? import <nixpkgs> { }
+, pkgs
 }:
 with pkgs;
 {
+  # make sure nix-shell runs mksh
+  nix-shell = (lib.hiPrio (writeShellScriptBin "nix-shell" ''
+    exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
+  ''));
+
+  inherit (pkgs)
+    # make sure we use unstable (until flakes become stable)
+    nixUnstable
+
+    binutils
+    dhall
+    dhall-json
+    entr
+    fzf
+    git-lfs
+    gnumake
+    gnupg
+    go
+    htop
+    haskell-language-server
+    isync
+    jq
+    libarchive
+    mutt
+    nixpkgs-fmt
+    nix-prefetch-scripts
+    pass
+    pinentry-curses
+    plan9port
+    tmux
+    typespeed
+    unzip
+    vis
+    ;
+
   scripts = import ./scripts { inherit pkgs; };
 
   texlive-full =
@@ -20,61 +55,30 @@ with pkgs;
     exec ${pkgs.ag}/bin/ag --no-heading --no-color "$@"
   '';
 
-  ma = stdenv.mkDerivation rec {
-    pname = "ma";
-    version = "11_2019-03-16";
-    src = fetchTarball {
-      url = "http://www.call-with-current-continuation.org/ma/ma.tar.gz";
-      sha256 = "0g0lqijkwg5p0586spli2jd1yh0im0ma4fnhkf8mizhyrsj7ga2s";
-    };
-    cmds = [
-      "awd"
-      "B"
-      "ma"
-      "ma-eval"
-      "plumb"
-      "pty"
-      "win"
-    ];
-
-    buildInputs = [ tk ];
-    buildPhase = "./build";
-    installPhase = ''
-      mkdir -p $out/bin
-      cp ${lib.concatStringsSep " " cmds} $out/bin
-    '';
-  };
-
-  # Using the ALSA plugin of xmobar e.g. by adding
+  #ma = stdenv.mkDerivation rec {
+  #  pname = "ma";
+  #  version = "11_2019-03-16";
+  #  src = fetchTarball {
+  #    url = "http://www.call-with-current-continuation.org/ma/ma.tar.gz";
+  #    sha256 = "0g0lqijkwg5p0586spli2jd1yh0im0ma4fnhkf8mizhyrsj7ga2s";
+  #  };
+  #  cmds = [
+  #    "awd"
+  #    "B"
+  #    "ma"
+  #    "ma-eval"
+  #    "plumb"
+  #    "pty"
+  #    "win"
+  #  ];
   #
-  #   'Run Alsa "default" "Master" []'
-  #
-  # to $HOME/.xmobarrc does not work reporting the
-  #
-  #   ALSA lib dlmisc.c:338:(snd_dlobj_cache_get0) Cannot open shared library
-  #     libasound_module_ctl_pulse.so (libasound_module_ctl_pulse.so:
-  #     libasound_module_ctl_pulse.so: cannot open shared object file: No such
-  #     file or directory)
-  #
-  # see https://github.com/NixOS/nixpkgs/issues/6860.
-  #
-  # As a workaround for this linking issues create a wrapper script
-  # adding alsa-plugin to LD_LIBRARY_PATH before running xmobar.
-  xmobar =
-    let myXmobar = haskellPackages.xmobar.overrideAttrs (oldAttrs: rec {
-      configureflags = [
-        "-f with_utf8"
-        "-f with_xft"
-        "-f with_alsa"
-        "-f with_inotify"
-        "-f -with_weather"
-      ];
-    });
-    in
-    writeShellScriptBin "xmobar" ''
-      export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
-      exec ${myXmobar}/bin/xmobar
-    '';
+  #  buildInputs = [ tk ];
+  #  buildPhase = "./build";
+  #  installPhase = ''
+  #    mkdir -p $out/bin
+  #    cp ${lib.concatStringsSep " " cmds} $out/bin
+  #  '';
+  #};
 
   aspell = aspellWithDicts (p: with p; [ en de ]);
 
@@ -154,4 +158,67 @@ with pkgs;
     steeloverseer
     stylish-haskell
     ;
+} // lib.optionalAttrs enableGui {
+
+  inherit (pkgs)
+    alacritty
+    brightnessctl
+    ungoogled-chromium
+    dmenu
+    feh
+    klavaro
+    mplayer
+    numlockx
+    rxvt-unicode
+    scrot
+    signal-desktop
+    sxiv
+    wire-desktop
+    xsel
+    zathura
+    ;
+
+  inherit (pkgs.xorg)
+    xkill
+    xmodmap
+    ;
+
+  inherit (pkgs.xfce)
+    thunar
+    ;
+
+  inherit (pkgs.haskellPackages)
+    threadscope
+    ;
+
+  # Using the ALSA plugin of xmobar e.g. by adding
+  #
+  #   'Run Alsa "default" "Master" []'
+  #
+  # to $HOME/.xmobarrc does not work reporting the
+  #
+  #   ALSA lib dlmisc.c:338:(snd_dlobj_cache_get0) Cannot open shared library
+  #     libasound_module_ctl_pulse.so (libasound_module_ctl_pulse.so:
+  #     libasound_module_ctl_pulse.so: cannot open shared object file: No such
+  #     file or directory)
+  #
+  # see https://github.com/NixOS/nixpkgs/issues/6860.
+  #
+  # As a workaround for this linking issues create a wrapper script
+  # adding alsa-plugin to LD_LIBRARY_PATH before running xmobar.
+  xmobar =
+    let myXmobar = haskellPackages.xmobar.overrideAttrs (oldAttrs: rec {
+      configureflags = [
+        "-f with_utf8"
+        "-f with_xft"
+        "-f with_alsa"
+        "-f with_inotify"
+        "-f -with_weather"
+      ];
+    });
+    in
+    writeShellScriptBin "xmobar" ''
+      export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
+      exec ${myXmobar}/bin/xmobar
+    '';
 }
