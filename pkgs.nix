@@ -16,6 +16,10 @@ with pkgs;
 
   agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
 
+  ag = pkgs.writeShellScriptBin "ag" ''
+    exec ${pkgs.ag}/bin/ag --no-heading --no-color "$@"
+  '';
+
   ma = stdenv.mkDerivation rec {
     pname = "ma";
     version = "11_2019-03-16";
