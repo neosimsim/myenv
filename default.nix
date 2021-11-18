@@ -1,5 +1,5 @@
 { enableGui ? false
-, pkgs ? import <nixpkgs> { }
+, pkgs
 }:
 pkgs.buildEnv {
   name = "my-packages";
