@@ -32,7 +32,6 @@ with pkgs;
     pass
     pinentry-curses
     plan9port
-    ripgrep
     tmux
     typespeed
     unzip
@@ -58,6 +57,10 @@ with pkgs;
 
   fd = pkgs.writeShellScriptBin "fd" ''
     exec ${pkgs.fd}/bin/fd --color never "$@"
+  '';
+
+  ripgrep = pkgs.writeShellScriptBin "rg" ''
+    exec ${pkgs.ripgrep}/bin/rg --no-heading --color never "$@"
   '';
 
   #ma = stdenv.mkDerivation rec {
