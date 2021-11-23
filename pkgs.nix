@@ -26,10 +26,11 @@ in
     exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
   ''));
 
-  inherit (pkgs)
-    # make sure we use unstable (until flakes become stable)
-    nixUnstable
 
+    # make sure we use unstable (until flakes become stable)
+  nixFlakes = mkCommandAlias nixFlakes "nix" ''--experimental-features "nix-command flakes"'';
+
+  inherit (pkgs)
     binutils
     dhall
     dhall-json
