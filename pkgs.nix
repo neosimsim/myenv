@@ -4,7 +4,7 @@
 with pkgs;
 {
   # make sure nix-shell runs mksh
-  nix-shell = (lib.hiPrio (writeShellScriptBin "nix-shell" ''
+  nix-shell-wrapped = (lib.hiPrio (writeShellScriptBin "nix-shell" ''
     exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
   ''));
 
@@ -51,17 +51,50 @@ with pkgs;
 
   agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
 
-  ag = pkgs.writeShellScriptBin "ag" ''
-    exec ${pkgs.ag}/bin/ag --no-heading --no-color "$@"
-  '';
+  ag =
+    let
+      alias = writeShellScriptBin "ag" ''
+        exec ${pkgs.ag}/bin/ag --no-heading --no-color "$@"
+      '';
+    in
+    # use buildEnv to ensure we have all binaries and docs installed, not just the alias.
+    buildEnv {
+      name = "ag-with-alias";
+      paths = [
+        ag
+        (lib.hiPrio alias)
+      ];
+    };
 
-  fd = pkgs.writeShellScriptBin "fd" ''
-    exec ${pkgs.fd}/bin/fd --color never "$@"
-  '';
+  fd =
+    let
+      alias = writeShellScriptBin "fd" ''
+        exec ${pkgs.fd}/bin/fd --color never "$@"
+      '';
+    in
+    # use buildEnv to ensure we have all binaries and docs installed, not just the alias.
+    buildEnv {
+      name = "fd-with-alias";
+      paths = [
+        fd
+        (lib.hiPrio alias)
+      ];
+    };
 
-  ripgrep = pkgs.writeShellScriptBin "rg" ''
-    exec ${pkgs.ripgrep}/bin/rg --no-heading --color never "$@"
-  '';
+  ripgrep =
+    let
+      alias = writeShellScriptBin "rg" ''
+        exec ${pkgs.ripgrep}/bin/rg --no-heading --color never "$@"
+      '';
+    in
+    # use buildEnv to ensure we have all binaries and docs installed, not just the alias.
+    buildEnv {
+      name = "ripgrep-with-alias";
+      paths = [
+        ripgrep
+        (lib.hiPrio alias)
+      ];
+    };
 
   #ma = stdenv.mkDerivation rec {
   #  pname = "ma";
