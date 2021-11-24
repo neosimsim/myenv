@@ -4,9 +4,14 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
+
+    plan9fansGo = {
+      url = "github:9fans/go";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager }:
+  outputs = { self, nixpkgs, home-manager, plan9fansGo }:
     let pkgs = import nixpkgs {
       system = "x86_64-linux";
       overlays = [ self.overlay ];
@@ -69,6 +74,60 @@
               sha256 = "1nhs0lhy802j5z1lh4m40rrmdcnk5d3shvdmn2ngfjzlg1pr67mg";
             };
           });
+
+        editinacme = self.buildGoModule {
+          name = "plan9fansGo";
+
+          src = plan9fansGo;
+
+          vendorSha256 = "sha256-qwoYzbfyek/472x24srND/9qX2UsiKzJleLV7cFDVsY=";
+
+          buildPhase = ''
+            go install 9fans.net/go/acme/editinacme
+          '';
+
+          meta = with nixpkgs.lib; {
+            homepage = "https://github.com/9fans/go";
+            license = licenses.mit;
+            platforms = platforms.linux ++ platforms.darwin;
+          };
+        };
+
+        acmego = self.buildGoModule {
+          name = "plan9fansGo";
+
+          src = plan9fansGo;
+
+          vendorSha256 = "sha256-qwoYzbfyek/472x24srND/9qX2UsiKzJleLV7cFDVsY=";
+
+          buildPhase = ''
+            go install 9fans.net/go/acme/acmego
+          '';
+
+          meta = with nixpkgs.lib; {
+            homepage = "https://github.com/9fans/go";
+            license = licenses.mit;
+            platforms = platforms.linux ++ platforms.darwin;
+          };
+        };
+
+        Watch = self.buildGoModule {
+          name = "plan9fansGo";
+
+          src = plan9fansGo;
+
+          vendorSha256 = "sha256-qwoYzbfyek/472x24srND/9qX2UsiKzJleLV7cFDVsY=";
+
+          buildPhase = ''
+            go install 9fans.net/go/acme/Watch
+          '';
+
+          meta = with nixpkgs.lib; {
+            homepage = "https://github.com/9fans/go";
+            license = licenses.mit;
+            platforms = platforms.linux ++ platforms.darwin;
+          };
+        };
 
       };
 

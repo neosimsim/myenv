@@ -182,10 +182,11 @@ in
 } // lib.optionalAttrs enableGui {
 
   inherit (pkgs)
+    acmego
     alacritty
     brightnessctl
-    ungoogled-chromium
     dmenu
+    editinacme
     feh
     klavaro
     mplayer
@@ -194,6 +195,8 @@ in
     scrot
     signal-desktop
     sxiv
+    ungoogled-chromium
+    Watch
     wire-desktop
     xsel
     zathura

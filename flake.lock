@@ -47,10 +47,27 @@
         "type": "github"
       }
     },
+    "plan9fansGo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1637230013,
+        "narHash": "sha256-RYQMTRz2R8llXOuZkAxG8/xYuUnoiepx7Hn3eLBqvnc=",
+        "owner": "9fans",
+        "repo": "go",
+        "rev": "4b1f37b1050a14af0a6c5b7c2b35627a263b0af7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "9fans",
+        "repo": "go",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "plan9fansGo": "plan9fansGo"
       }
     }
   },
