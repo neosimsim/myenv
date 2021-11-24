@@ -26,8 +26,7 @@ in
     exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
   ''));
 
-
-    # make sure we use unstable (until flakes become stable)
+  # make sure we use unstable (until flakes become stable)
   nixFlakes = mkCommandAlias nixFlakes "nix" ''--experimental-features "nix-command flakes"'';
 
   inherit (pkgs)
