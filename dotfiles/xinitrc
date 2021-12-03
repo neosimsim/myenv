@@ -1,6 +1,9 @@
 export GDK_SCALE=2
 export GDK_DPI_SCALE=0.5
 
+# font for plan9 sam, 9term etc. (not acme)
+export font=/mnt/font/DejaVuSansMono/18a/font
+
 xautolock -cornerdelay 1 -cornerredelay 5 -time 1 -locker 'slock' -corners 0-00 &
 xrdb ~/.Xresources
 [ -f ~/local/Xresources ] && xrdb -merge ~/local/Xresources
