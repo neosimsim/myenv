@@ -17,14 +17,6 @@ PATH=$HOME/bin:$PATH
 PATH=$HOME/bin/aliases:$PATH
 export PATH
 
-alias ll='ls -l'
-alias l='ls -1'
-alias my_rsync='rsync -rlHtu --include-from=$HOME/.rsync_include --exclude-from=$HOME/.rsync_exclude'
-alias cmatrix='cmatrix -b -u 6'
-alias rm='rm -i'
-alias mv='mv -i'
-alias tmux-sp='tmux split-window -c $PWD'
-alias Watch='Watch -x \\.git'
 # workaround for haskell, due to w^x on OpenBSD
 #alias cabal='env TMPDIR=/usr/local/cabal/build/ cabal'
 
