@@ -1,6 +1,7 @@
 export GDK_SCALE=2
 export GDK_DPI_SCALE=0.5
-
+export BROWSER=chromium
+export tabstop=4
 # font for plan9 sam, 9term etc. (not acme)
 export font=/mnt/font/DejaVuSansMono/18a/font
 
