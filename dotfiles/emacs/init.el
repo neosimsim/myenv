@@ -6,7 +6,7 @@
 (setq-default cursor-type 'bar)
 (setq set-mark-command-repeat-pop t)
 (tool-bar-mode 0)
-(global-linum-mode t)
+(global-display-line-numbers-mode t)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
@@ -18,7 +18,6 @@
 (electric-indent-mode 0)
 (global-set-key (kbd "RET") #'newline-and-indent)
 (load-theme 'acme 1)
-(set-face-foreground 'linum "dim gray")
 (set-face-attribute 'isearch-fail nil
                     :foreground "white smoke"
                     :weight 'bold)
