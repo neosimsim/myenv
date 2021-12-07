@@ -117,6 +117,7 @@ in
     lens
     lens-aeson
     pidfile
+    optparse-applicative
     typed-process
     QuickCheck
     raw-strings-qq
