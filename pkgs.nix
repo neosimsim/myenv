@@ -50,6 +50,7 @@ in
     pass
     pinentry-curses
     plan9port
+    ripgrep
     tmux
     typespeed
     unzip
@@ -69,11 +70,7 @@ in
 
   agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
 
-  ag = mkCommandAlias ag "ag" "--no-heading --no-color";
-
   fd = mkCommandAlias fd "fd" "--color never";
-
-  ripgrep = mkCommandAlias ripgrep "rg" "--no-heading --color never";
 
   aspell = aspellWithDicts (p: with p; [ en de ]);
 

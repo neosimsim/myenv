@@ -1,4 +1,3 @@
 #!/bin/sh
 
-find $(pwd) -type f -print0 | xargs -0 grep -nE "$1"
-
+rg -nH --no-heading --color never --hidden "$@"
