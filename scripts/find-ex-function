@@ -3,4 +3,8 @@
 module=$(echo $1 | awk -F. '{print $1}')
 function=$(echo $1 | awk -F. '{print $2}')
 
-find-ex-module $module | xargs find-match "defp? $function"
+if [ -z "$function" ]; then
+   rg -nH --no-heading --color never -e 'defp? '$module $(pwd)
+else
+    find-ex-module $module | xargs rg -nH --no-heading --color never -e 'defp? '$function
+fi

@@ -19,11 +19,15 @@ in
     name = "scripts";
     src = ./.;
     buildPhase = "true";
+    buildInputs = [ pkgs.makeWrapper ];
     installPhase = ''
-      sed -i '1c#!${pkgs.plan9port}/plan9/bin/rc' \
-        Hsfmt
-
       make PREFIX=$out install-posix
+
+      sed -i '1c#!${pkgs.plan9port}/plan9/bin/rc' \
+        $out/bin/Hsfmt
+
+      wrapProgram $out/bin/find-ex-module --set PATH ${with pkgs; lib.makeBinPath [ ripgrep ]}
+      wrapProgram $out/bin/find-ex-function --prefix PATH : ${with pkgs; lib.makeBinPath [ findutils ripgrep ]}
     '';
   };
 }
