@@ -82,6 +82,7 @@ in
       acme-theme
       buffer-move
       multiple-cursors
+      fzf
 
       nix-mode
       elixir-mode
