@@ -128,6 +128,8 @@ in
 
     # Preinstall common used lib to speed up nix builds.
     bifunctors
+    concurrency
+    dejafu
     hspec
     markdown-unlit
     profunctors
