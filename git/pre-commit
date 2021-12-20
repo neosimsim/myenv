@@ -18,10 +18,10 @@ set -v
 
 nix build
 
-nix build .#environmentWithGui
+nix build .#packagesWithGui
 test -x result/bin/xmonad
 
-nix build .#environmentWithoutGui
+nix build .#packagesWithoutGui
 ! test -f result/bin/xmonad
 
 nix build .#nixosConfigurations.withGui.config.system.build.toplevel

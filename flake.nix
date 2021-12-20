@@ -20,38 +20,31 @@
     {
       packages.x86_64-linux =
         {
-          packagesWithoutGui = import ./pkgs.nix { inherit pkgs; enableGui = false; };
-          packagesWithGui = import ./pkgs.nix { inherit pkgs; enableGui = true; };
-
-          environmentWithoutGui = import self { pkgs = pkgs; enableGui = false; };
-          environmentWithGui = import self { pkgs = pkgs; enableGui = true; };
-
-          inherit (pkgs)
-            haskellPackages
-            ;
+          packagesWithoutGui = import self { inherit pkgs; enableGui = false; };
+          packagesWithGui = import self { inherit pkgs; enableGui = true; };
         };
 
-      defaultPackage.x86_64-linux = self.packages.x86_64-linux.environmentWithoutGui;
+      defaultPackage.x86_64-linux = self.packages.x86_64-linux.packagesWithoutGui;
 
-      devShells.x86_64-linux.haskellPackages.neosimsim-shell = self.packages.x86_64-linux.haskellPackages.shellFor {
+      devShells.x86_64-linux.neosimsim-shell = pkgs.haskellPackages.shellFor {
         packages = p: with p; [ neosimsim-shell ];
       };
 
       nixosModules.home-manager = import ./home.nix;
 
-      overlay = self: super: {
+      overlay = final: prev: {
 
-        haskellPackages = with super;
+        haskellPackages = with prev;
           (haskellPackages.override {
-            overrides = selfHspkgs: superHspkgs: {
-              xmonad = selfHspkgs.callHackageDirect
+            overrides = finalHspkgs: prevHspkgs: {
+              xmonad = finalHspkgs.callHackageDirect
                 {
                   pkg = "xmonad";
                   ver = "0.17.0";
                   sha256 = "sha256-zXw2qcqeU/f7edpiC1ZZCiUeKaRUINbqZ6Nhc70y4QQ=";
                 }
                 { };
-              xmonad-contrib = selfHspkgs.callHackageDirect
+              xmonad-contrib = finalHspkgs.callHackageDirect
                 {
                   pkg = "xmonad-contrib";
                   ver = "0.17.0";
@@ -75,7 +68,7 @@
             };
           });
 
-        editinacme = self.buildGoModule {
+        editinacme = final.buildGoModule {
           name = "plan9fansGo";
 
           src = plan9fansGo;
@@ -93,7 +86,7 @@
           };
         };
 
-        acmego = self.buildGoModule {
+        acmego = final.buildGoModule {
           name = "plan9fansGo";
 
           src = plan9fansGo;
@@ -111,7 +104,7 @@
           };
         };
 
-        Watch = self.buildGoModule {
+        Watch = final.buildGoModule {
           name = "plan9fansGo";
 
           src = plan9fansGo;
