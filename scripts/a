@@ -3,12 +3,6 @@
 ACME_VARFONT=${ACME_VARFONT:-/mnt/font/DejaVuSansMono/17a/font}
 ACME_FIXFONT=${ACME_FIXFONT:-/mnt/font/DejaVuSans/17a/font}
 
-# Make sure we can open multiple acme(1) instances.
-export NAMESPACE=$(mktemp -d $HOME/tmp/ns-XXXXXX)
-9 plumber -f &
-plumberPid=$!
-trap "kill $plumberPid; rm -rf $NAMESPACE" 2 3 6 9
-
 export tabstop=${tabstob:-4}
 export TERM=dumb
 export NO_COLOR=1
@@ -20,6 +14,3 @@ export GIT_PAGER=$PAGER
 
 # Use u(1) to make sure PLAN9 is located at the end of PATH.
 9 u acme -a -f $ACME_VARFONT -F $ACME_FIXFONT "$@"
-
-kill $plumberPid
-rm -rf $NAMESPACE
