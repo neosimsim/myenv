@@ -248,7 +248,7 @@ let
 in
 pkgs.buildEnv {
   name = "my-packages";
-  paths = pkgs.lib.attrValues packageSet;
+  paths = pkgs.lib.attrValues (builtins.removeAttrs packageSet [ "ma" ]);
   pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/terminfo" "/bin" "/etc" ];
   extraOutputsToInstall = [ "man" "doc" ];
   passthru = packageSet;

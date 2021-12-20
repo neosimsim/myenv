@@ -18,11 +18,10 @@
     };
     in
     {
-      packages.x86_64-linux =
-        {
-          packagesWithoutGui = import self { inherit pkgs; enableGui = false; };
-          packagesWithGui = import self { inherit pkgs; enableGui = true; };
-        };
+      packages.x86_64-linux = {
+        packagesWithoutGui = import self { inherit pkgs; enableGui = false; };
+        packagesWithGui = import self { inherit pkgs; enableGui = true; };
+      };
 
       defaultPackage.x86_64-linux = self.packages.x86_64-linux.packagesWithoutGui;
 
@@ -166,6 +165,37 @@
             }
           ];
         };
+      };
+
+      checks.x86_64-linux = {
+        default = self.defaultPackage.x86_64-linux;
+
+        packagesWithoutGui = self.packages.x86_64-linux.packagesWithoutGui;
+        packagesWithGui = self.packages.x86_64-linux.packagesWithGui;
+        ma = self.packages.x86_64-linux.packagesWithGui.ma;
+
+        nixosWithGui = self.nixosConfigurations.withGui.config.system.build.toplevel;
+        nixosWithoutGui = self.nixosConfigurations.withoutGui.config.system.build.toplevel;
+
+        testCommandsWithGui = pkgs.runCommand "test-commands-with-gui"
+          {
+            buildInputs = [
+              pkgs.which
+              self.packages.x86_64-linux.packagesWithGui
+            ];
+          } ''
+          which xmonad >$out
+        '';
+
+        testCommandsWithoutGui = pkgs.runCommand "test-commands-without-gui"
+          {
+            buildInputs = [
+              pkgs.which
+              self.packages.x86_64-linux.packagesWithoutGui
+            ];
+          } ''
+          ! which xmonad >$out
+        '';
       };
     };
 }
