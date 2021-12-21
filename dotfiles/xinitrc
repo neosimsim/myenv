@@ -16,6 +16,7 @@ amixer -c 0 set Headphone 70
 # plan9port
 if which 9 >/dev/null; then
   export NAMESPACE=$HOME/9p
+  export EDITOR=editinacme
   export tabstop=4
   # font for sam, 9term (not acme)
   export font=/mnt/font/DejaVuSansMono/18a/font
