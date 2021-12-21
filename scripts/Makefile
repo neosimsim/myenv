@@ -27,7 +27,6 @@ POSIX_BIN = \
 	getmod \
 	git-no-unstaged \
 	git-to-dot \
-	Hsfmt \
 	hsinit \
 	indirs \
 	license \
