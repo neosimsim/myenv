@@ -162,6 +162,7 @@ let
       dmenu
       editinacme
       feh
+      goScripts
       klavaro
       mplayer
       numlockx
@@ -174,7 +175,7 @@ let
       wire-desktop
       xsel
       zathura
-      ;
+     ;
 
     inherit (pkgs.xorg)
       xkill
