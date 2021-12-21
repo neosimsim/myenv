@@ -2,12 +2,6 @@ export GDK_SCALE=2
 export GDK_DPI_SCALE=0.5
 export BROWSER=chromium
 
-# plan9port
-export NAMESPACE=$HOME/9p
-export tabstop=4
-# font for plan9 sam, 9term etc. (not acme)
-export font=/mnt/font/DejaVuSansMono/18a/font
-
 xautolock -cornerdelay 1 -cornerredelay 5 -time 1 -locker 'slock' -corners 0-00 &
 xrdb ~/.Xresources
 [ -f ~/local/Xresources ] && xrdb -merge ~/local/Xresources
@@ -19,7 +13,16 @@ amixer set Master mute
 amixer -c 0 set Headphone unmute
 amixer -c 0 set Headphone 70
 
-which 9 && 9 plumber
+# plan9port
+if which 9 >/dev/null; then
+  export NAMESPACE=$HOME/9p
+  export tabstop=4
+  # font for sam, 9term (not acme)
+  export font=/mnt/font/DejaVuSansMono/18a/font
+  a &
+  9 plumber
+fi
+
 
 signal-desktop &
 wire-desktop &
