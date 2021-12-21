@@ -50,7 +50,10 @@
           {
             source = ./dotfiles + "/${name}";
             target = ".${name}";
-          });
+          })
+      // optionalAttrs config.myenv.enableGui {
+        "lib/plumbing".source = ./dotfiles/plumbing;
+      };
 
     xdg.configFile =
       let
