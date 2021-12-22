@@ -100,6 +100,24 @@ spec = do
           openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
             `shouldBe` "plumb -d edit -a 'addr=5-#0+#7-#1,6-#0+#10' $(pwd)/README.md"
 
+    describe "9" $ do
+      it "handles FilePathNoAddress" $
+        property $ \config ->
+          openResourceIdentifierCommand (config {configEditor = Nine Plumb}) (File $ FilePathNoAddress "README.md")
+            `shouldBe` "9 plumb -d edit $(pwd)/README.md"
+      it "handles FilePathLineAddress" $
+        property $ \config ->
+          openResourceIdentifierCommand (config {configEditor = Nine Plumb}) (File $ FilePathLineAddress "README.md" 5)
+            `shouldBe` "9 plumb -d edit -a 'addr=5' $(pwd)/README.md"
+      it "handles FilePathLineColumnAddress" $
+        property $ \config ->
+          openResourceIdentifierCommand (config {configEditor = Nine Plumb}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+            `shouldBe` "9 plumb -d edit -a 'addr=5-#0+#7-#1' $(pwd)/README.md"
+      it "handles FilePathRangeAddress" $
+        property $ \config ->
+          openResourceIdentifierCommand (config {configEditor = Nine Plumb}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+            `shouldBe` "9 plumb -d edit -a 'addr=5-#0+#7-#1,6-#0+#10' $(pwd)/README.md"
+
     describe "emacsclient" $ do
       it "handles FilePathNoAddress" $
         property $ \config ->

@@ -16,7 +16,9 @@ module Scripts.Open
 where
 
 import Control.Applicative ((<|>))
-import Data.Maybe (fromMaybe, listToMaybe)
+import Data.List.NonEmpty (NonEmpty ((:|)))
+import Data.List.NonEmpty qualified as NonEmpty
+import Data.Maybe (fromMaybe)
 import Data.String.Interpolate
 import Data.Text (Text)
 import Data.Text qualified as T
@@ -36,6 +38,7 @@ data Editor
   | Vis
   | EmacsClient
   | VSCodium
+  | Nine Editor
   | Unknown Text
   deriving (Show, Eq)
 
@@ -140,9 +143,11 @@ openResourceIdentifierCommand _ (URL url) =
   T.pack [i|chromium #{url}|]
 openResourceIdentifierCommand Config {configEditor = Vis} (File pathAddress) = openResourceIdentifierCommandWithVis pathAddress
 openResourceIdentifierCommand Config {configEditor = Plumb} (File pathAddress) = openResourceIdentifierCommandWithPlumb pathAddress
+openResourceIdentifierCommand Config {configEditor = Nine editor} (File pathAddress) = "9 " <> openResourceIdentifierCommand (Config {configEditor = editor}) (File pathAddress)
 openResourceIdentifierCommand Config {configEditor = EmacsClient} (File pathAddress) = openResourceIdentifierCommandWithEmacsclient pathAddress
 openResourceIdentifierCommand Config {configEditor = VSCodium} (File pathAddress) = openResourceIdentifierCommandWithVSCodium pathAddress
 openResourceIdentifierCommand Config {configEditor = Unknown editorName} (File pathAddress) = openResourceIdentifierCommandWithEditor editorName pathAddress
+
 
 openResourceIdentifierCommandWithEditor :: Text -> FilePathAddress -> Text
 openResourceIdentifierCommandWithEditor cmd (FilePathNoAddress path) =
@@ -211,26 +216,33 @@ openCommand :: Config -> Text -> Text
 openCommand c = openResourceIdentifierCommand c . parseResourceIdentifier
 
 getConfig :: IO Config
-getConfig = Config <$> getEditor
-
-getEditor :: IO Editor
-getEditor = do
+getConfig = do
   editorCmd <- fromMaybe "vis" <$> lookupEnv "EDITOR"
-  -- Only consider the first word of EDITOR to ignore editor arguments.
-  case listToMaybe (words editorCmd) of
+  case NonEmpty.nonEmpty $ words editorCmd of
     Nothing -> do
       putStrLn "EDITOR is empty"
       exitFailure
-    Just editor ->
-      case editor of
-        "vis" -> return Vis
-        "editinacme" -> return Plumb
-        "sam" -> return Plumb
-        "B" -> return Plumb
-        "E" -> return Plumb
-        "emacsclient" -> return EmacsClient
-        "codium" -> return VSCodium
-        x -> return $ Unknown $ T.pack x
+    Just cmd -> case getEditor cmd of
+      Left err -> do
+        putStrLn err
+        exitFailure
+      Right editor -> return $ Config editor
+
+getEditor :: NonEmpty.NonEmpty String -> Either String Editor
+getEditor command = do
+  -- Only consider the first word of EDITOR to ignore editor arguments.
+  case command of
+    "vis" :| _ -> return Vis
+    "editinacme" :| _ -> return Plumb
+    "sam" :| _ -> return Plumb
+    "B" :| _ -> return Plumb
+    "E" :| _ -> return Plumb
+    "emacsclient" :| _ -> return EmacsClient
+    "codium" :| _ -> return VSCodium
+    "9" :| args -> case NonEmpty.nonEmpty args of
+      Nothing -> Left "9 needs an editor command"
+      Just moreArgs -> Nine <$> getEditor moreArgs
+    x :| xs -> return $ Unknown $ T.pack $ mconcat $ x : xs
 
 main :: IO ()
 main = do
