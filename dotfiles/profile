@@ -1,4 +1,9 @@
+# Only execute this file once per shell.
+if [ -n "$HOME_PROFILE_SOURCED" ]; then return; fi
+export HOME_PROFILE_SOURCED=1
+
 stty -ixon
+
 export HISTFILE=$HOME/.shhistory
 export HISTSIZE=65535
 export EDITOR="emacsclient -tca  ''"
