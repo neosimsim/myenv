@@ -85,6 +85,12 @@
               version = "0.1.18";
               sha256 = "sha256-dmmx/u+hRQfY/MCIaSdcVtbYnf5cLCDUwr75heQxcuw=";
             }
+            {
+              name = "rust";
+              publisher = "rust-lang";
+              version = "0.7.8";
+              sha256 = "sha256-Y33agSNMVmaVCQdYd5mzwjiK5JTZTtzTkmSGTQrSNg0=";
+            }
           ];
         in
         with pkgs.vscode-extensions; [
