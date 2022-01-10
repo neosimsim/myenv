@@ -19,6 +19,8 @@ POSIX_BIN = \
 	find-ex-function \
 	find-ex-module \
 	find-match \
+	Font+ \
+	Font- \
 	fzf-open \
 	fzf-tags \
 	games \
