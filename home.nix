@@ -96,6 +96,9 @@
       userSettings = {
         "workbench.colorTheme" = "Default Light+";
         "nix.enableLanguageServer" = true;
+        "terminal.integrated.env.linux" = {
+          "EDITOR" = "codium";
+        };
       };
 
     };
