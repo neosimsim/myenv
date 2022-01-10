@@ -80,12 +80,6 @@
         let
           extraExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
-              name = "nix-ide";
-              publisher = "jnoortheen";
-              version = "0.1.18";
-              sha256 = "sha256-dmmx/u+hRQfY/MCIaSdcVtbYnf5cLCDUwr75heQxcuw=";
-            }
-            {
               name = "rust";
               publisher = "rust-lang";
               version = "0.7.8";
@@ -96,6 +90,7 @@
         with pkgs.vscode-extensions; [
           haskell.haskell
           justusadam.language-haskell
+          jnoortheen.nix-ide
         ] ++ extraExtensions;
 
       userSettings = {
