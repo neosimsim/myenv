@@ -78,7 +78,7 @@
 
       extensions =
         let
-          extraExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+          marketplaceExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
               name = "rust";
               publisher = "rust-lang";
@@ -91,7 +91,7 @@
           haskell.haskell
           justusadam.language-haskell
           jnoortheen.nix-ide
-        ] ++ extraExtensions;
+        ] ++ marketplaceExtensions;
 
       userSettings = {
         "workbench.colorTheme" = "Default Light+";
