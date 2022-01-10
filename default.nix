@@ -50,6 +50,7 @@ let
       pinentry-curses
       plan9port
       ripgrep
+      rnix-lsp
       tmux
       typespeed
       unzip

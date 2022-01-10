@@ -70,5 +70,33 @@
         configFiles = configFilesCore ++ optionals config.myenv.enableGui configFilesGui;
       in
       genAttrs configFiles (name: { source = ./dotfiles + "/${name}"; });
+
+    programs.vscode = {
+      enable = true;
+
+      package = pkgs.vscodium;
+
+      extensions =
+        let
+          extraExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+              name = "nix-ide";
+              publisher = "jnoortheen";
+              version = "0.1.18";
+              sha256 = "sha256-dmmx/u+hRQfY/MCIaSdcVtbYnf5cLCDUwr75heQxcuw=";
+            }
+          ];
+        in
+        with pkgs.vscode-extensions; [
+          haskell.haskell
+          justusadam.language-haskell
+        ] ++ extraExtensions;
+
+      userSettings = {
+        "workbench.colorTheme" = "Default Light+";
+        "nix.enableLanguageServer" = true;
+      };
+
+    };
   };
 }
