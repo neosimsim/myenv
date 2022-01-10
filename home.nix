@@ -91,6 +91,7 @@
           haskell.haskell
           justusadam.language-haskell
           jnoortheen.nix-ide
+          elixir-lsp.vscode-elixir-ls
         ] ++ marketplaceExtensions;
 
       userSettings = {
