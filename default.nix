@@ -175,7 +175,7 @@ let
       wire-desktop
       xsel
       zathura
-     ;
+      ;
 
     inherit (pkgs.xorg)
       xkill
