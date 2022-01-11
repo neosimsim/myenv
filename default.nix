@@ -165,6 +165,7 @@ let
       feh
       goScripts
       klavaro
+      meld
       mplayer
       numlockx
       rxvt-unicode
