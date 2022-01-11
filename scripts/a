@@ -6,6 +6,7 @@ ACME_FIXFONT=${ACME_FIXFONT:-/mnt/font/DejaVuSans/17a/font}
 export tabstop=${tabstob:-4}
 export TERM=dumb
 export NO_COLOR=1
+export FORCE_COLOR=0
 export SHELL=$(9 which rc)
 export acmeshell="$SHELL"
 export EDITOR=editinacme
