@@ -3,6 +3,13 @@
 
 editor=sam
 
+# diff file paths prefixed by a/ or b/ go to editor
+data matches '(a|b)/([.a-zA-Z¡-￿0-9_/\-]*[a-zA-Z¡-￿0-9_/\-])'
+arg isfile     $2
+data set       $file
+plumb to edit
+plumb client $editor
+
 # existing files tagged by line number:col1-col2 (e.g. hlint)
 data matches '([.a-zA-Z¡-￿0-9_/\-]*[a-zA-Z¡-￿0-9_/\-]):([0-9]+):([0-9]+)-([0-9]+)'
 arg isfile     $1
