@@ -131,9 +131,9 @@
 
           src = goTools;
 
-          vendorSha256 = "sha256-cxKDAxTAdVL3d4UK0Nid/oOAtF7rYes308V4eUf/K2c=";
+          vendorSha256 = "sha256-DvRtSBvp+5Dns26bWpu5+bbkaJBTCywd7mNDzox18AM=";
 
-          runVend = true;
+          proxyVendor = true;
 
           buildPhase = ''
             go install golang.org/x/tools/cmd/goimports
