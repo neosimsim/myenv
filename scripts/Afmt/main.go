@@ -1,14 +1,18 @@
 package main
 
-// Usage: Afmt <formatter> [formatter args...]
+// Usage: Afmt [flags] [formatter [formatter args...]]
 //
 // Formats the current Acme window using <formatter>.
+//
+// Flags
+//   -v	print verbose messages
 //
 // Based on "9fans.net/go/acme/acmego"
 
 import (
 	"bytes"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -27,14 +31,53 @@ func main() {
 	if err != nil {
 		log.Fatalf("Could not read $winid: %v", err)
 	}
-	if len(os.Args) < 2 {
-		log.Fatal("missing formatter")
-	}
+
 	formatter := flag.Args()
+	if len(flag.Args()) == 0 {
+
+		windows, err := acme.Windows()
+		if err != nil {
+			log.Fatalf("Could not acme windows: %v", err)
+		}
+
+		var filePath string
+		for _, window := range windows {
+			if window.ID == winid {
+				filePath = window.Name
+				break
+			}
+		}
+		log.Println(filePath)
+
+		formatter, err = formatterForFile(filePath)
+		if err != nil {
+			log.Fatalf("%v", err)
+		}
+	}
+
 	if *verbose {
 		log.Printf("using formatter '%s'\n", strings.Join(formatter, ""))
 	}
+
 	reformat(winid, formatter)
+}
+
+var formatters = map[string][]string{
+	".go":  []string{"goimports"},
+	".nix": []string{"nixpkgs-fmt"},
+	".rs":  []string{"rustfmt"},
+	".hs":  []string{"ormolu"},
+	".ex":  []string{"mix", "format", "-"},
+	".exs": []string{"mix", "format", "-"},
+}
+
+func formatterForFile(filePath string) ([]string, error) {
+	for suffix, formatter := range formatters {
+		if strings.HasSuffix(filePath, suffix) {
+			return formatter, nil
+		}
+	}
+	return nil, fmt.Errorf("no formatter registered for file '%s'", filePath)
 }
 
 func reformat(id int, formatter []string) {
