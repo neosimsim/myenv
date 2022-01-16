@@ -73,7 +73,7 @@
           });
 
         editinacme = final.buildGoModule {
-          name = "plan9fansGo";
+          name = "editinacme";
 
           src = plan9fansGo;
 
@@ -91,7 +91,7 @@
         };
 
         acmego = final.buildGoModule {
-          name = "plan9fansGo";
+          name = "acmego";
 
           src = plan9fansGo;
 
@@ -109,7 +109,7 @@
         };
 
         Watch = final.buildGoModule {
-          name = "plan9fansGo";
+          name = "Watch";
 
           src = plan9fansGo;
 
