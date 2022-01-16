@@ -38,6 +38,7 @@ let
       gnumake
       gnupg
       go
+      goimports
       haskell-language-server
       htop
       isync

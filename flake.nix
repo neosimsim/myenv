@@ -9,9 +9,14 @@
       url = "github:9fans/go";
       flake = false;
     };
+
+    goTools = {
+      url = "github:golang/tools";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, plan9fansGo }:
+  outputs = { self, nixpkgs, home-manager, plan9fansGo, goTools }:
     let pkgs = import nixpkgs {
       system = "x86_64-linux";
       overlays = [ self.overlay ];
@@ -117,6 +122,26 @@
           meta = with nixpkgs.lib; {
             homepage = "https://github.com/9fans/go";
             license = licenses.mit;
+            platforms = platforms.linux ++ platforms.darwin;
+          };
+        };
+
+        goimports = final.buildGoModule {
+          name = "goimports";
+
+          src = goTools;
+
+          vendorSha256 = "sha256-cxKDAxTAdVL3d4UK0Nid/oOAtF7rYes308V4eUf/K2c=";
+
+          runVend = true;
+
+          buildPhase = ''
+            go install golang.org/x/tools/cmd/goimports
+          '';
+
+          meta = with nixpkgs.lib; {
+            homepage = "https://pkg.go.dev/golang.org/x/tools/cmd/goimports";
+            license = licenses.bsd3;
             platforms = platforms.linux ++ platforms.darwin;
           };
         };

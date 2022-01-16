@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "goTools": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1642182422,
+        "narHash": "sha256-arHxkJfFwSqIoQjY3y/HbYxwSOWe+jBu8a8xAZUL/pc=",
+        "owner": "golang",
+        "repo": "tools",
+        "rev": "f29bdf1b5054720b2d7b470842d3734e34b9c251",
+        "type": "github"
+      },
+      "original": {
+        "owner": "golang",
+        "repo": "tools",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -65,6 +81,7 @@
     },
     "root": {
       "inputs": {
+        "goTools": "goTools",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
         "plan9fansGo": "plan9fansGo"
