@@ -163,7 +163,6 @@ let
       dmenu
       editinacme
       feh
-      goScripts
       klavaro
       meld
       mplayer

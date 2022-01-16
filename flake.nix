@@ -67,15 +67,6 @@
             };
           });
 
-        goScripts = final.buildGoModule {
-          name = "go-scripts";
-          CGO_ENABLED = "0";
-
-          src = ./scripts;
-
-          vendorSha256 = "sha256-xEKB+i6bbkdYZMsH5jHLUacff6aGam1Pm0JQUw9IuZY=";
-        };
-
         editinacme = final.buildGoModule {
           name = "plan9fansGo";
 

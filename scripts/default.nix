@@ -5,6 +5,7 @@ in with packages; pkgs.buildEnv {
   name = "scripts";
   paths = [
     posixScripts
+    goScripts
     (pkgs.haskell.lib.justStaticExecutables haskellPackages.scripts)
   ];
 }
