@@ -8,6 +8,7 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"io/ioutil"
 	"log"
 	"os"
@@ -19,6 +20,9 @@ import (
 )
 
 func main() {
+	verbose := flag.Bool("v", false, "print verbose messages")
+	flag.Parse()
+
 	winid, err := strconv.Atoi(os.Getenv("winid"))
 	if err != nil {
 		log.Fatalf("Could not read $winid: %v", err)
@@ -26,7 +30,11 @@ func main() {
 	if len(os.Args) < 2 {
 		log.Fatal("missing formatter")
 	}
-	reformat(winid, os.Args[1:])
+	formatter := flag.Args()
+	if *verbose {
+		log.Printf("using formatter '%s'\n", strings.Join(formatter, ""))
+	}
+	reformat(winid, formatter)
 }
 
 func reformat(id int, formatter []string) {
