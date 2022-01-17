@@ -23,6 +23,15 @@ import (
 	"9fans.net/go/acme"
 )
 
+var formatters = map[string][]string{
+	".go":  []string{"goimports"},
+	".nix": []string{"nixpkgs-fmt"},
+	".rs":  []string{"rustfmt"},
+	".hs":  []string{"ormolu"},
+	".ex":  []string{"mix", "format", "-"},
+	".exs": []string{"mix", "format", "-"},
+}
+
 func main() {
 	verbose := flag.Bool("v", false, "print verbose messages")
 	flag.Parse()
@@ -59,15 +68,6 @@ func main() {
 	}
 
 	reformat(winid, formatter)
-}
-
-var formatters = map[string][]string{
-	".go":  []string{"goimports"},
-	".nix": []string{"nixpkgs-fmt"},
-	".rs":  []string{"rustfmt"},
-	".hs":  []string{"ormolu"},
-	".ex":  []string{"mix", "format", "-"},
-	".exs": []string{"mix", "format", "-"},
 }
 
 func formatterForFile(filePath string) ([]string, error) {
