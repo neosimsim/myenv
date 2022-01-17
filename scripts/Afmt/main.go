@@ -47,7 +47,6 @@ func main() {
 				break
 			}
 		}
-		log.Println(filePath)
 
 		formatter, err = formatterForFile(filePath)
 		if err != nil {
