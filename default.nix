@@ -39,6 +39,7 @@ let
       gnupg
       go
       goimports
+      gosec
       haskell-language-server
       htop
       isync

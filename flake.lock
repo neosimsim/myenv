@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "gosec": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1642423837,
+        "narHash": "sha256-eDzLVoOPYm8WG07dfi6s+xtBliCwf1LXoHxQ10YWs1A=",
+        "owner": "securego",
+        "repo": "gosec",
+        "rev": "1d909e2687abe43eaa81af88d6efde3d20c8d481",
+        "type": "github"
+      },
+      "original": {
+        "owner": "securego",
+        "repo": "gosec",
+        "type": "github"
+      }
+    },
     "hconv": {
       "flake": false,
       "locked": {
@@ -114,6 +130,7 @@
     "root": {
       "inputs": {
         "goTools": "goTools",
+        "gosec": "gosec",
         "hconv": "hconv",
         "home-manager": "home-manager",
         "hookmark": "hookmark",

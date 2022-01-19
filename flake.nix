@@ -24,10 +24,16 @@
       url = "github:golang/tools";
       flake = false;
     };
+
+    gosec = {
+      url = "github:securego/gosec";
+      flake = false;
+    };
   };
 
   outputs =
     { self
+    , gosec
     , goTools
     , hconv
     , home-manager
@@ -153,6 +159,24 @@
           meta = with nixpkgs.lib; {
             homepage = "https://pkg.go.dev/golang.org/x/tools/cmd/goimports";
             license = licenses.bsd3;
+            platforms = platforms.linux ++ platforms.darwin;
+          };
+        };
+
+        gosec = final.buildGoModule {
+          name = "gosec";
+
+          src = gosec;
+
+          vendorSha256 = "sha256-ELfbdrMMeK6ZG+hnibhHNB+k/Zvkepl+cbUx+E/Dvr8=";
+
+          buildPhase = ''
+            go install github.com/securego/gosec/v2/cmd/gosec
+          '';
+
+          meta = with nixpkgs.lib; {
+            homepage = "https://github.com/securego/gosec";
+            license = licenses.apsl20;
             platforms = platforms.linux ++ platforms.darwin;
           };
         };
