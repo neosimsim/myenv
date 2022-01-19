@@ -24,12 +24,14 @@ import (
 )
 
 var formatters = map[string][]string{
-	".go":  []string{"goimports"},
-	".nix": []string{"nixpkgs-fmt"},
-	".rs":  []string{"rustfmt"},
-	".hs":  []string{"ormolu"},
-	".ex":  []string{"mix", "format", "-"},
-	".exs": []string{"mix", "format", "-"},
+	".go":    []string{"goimports"},
+	".nix":   []string{"nixpkgs-fmt"},
+	".rs":    []string{"rustfmt"},
+	".hs":    []string{"ormolu"},
+	".cabal": []string{"cabal-fmt"},
+	".ex":    []string{"mix", "format", "-"},
+	".exs":   []string{"mix", "format", "-"},
+	".json":  []string{"jq"},
 }
 
 func main() {
