@@ -29,6 +29,7 @@ let
     nixFlakes = mkCommandAlias nixFlakes "nix" ''--experimental-features "nix-command flakes"'';
 
     inherit (pkgs)
+      age
       binutils
       dhall
       dhall-json
@@ -49,6 +50,7 @@ let
       nixpkgs-fmt
       nix-prefetch-scripts
       pass
+      passage
       pinentry-curses
       plan9port
       ripgrep

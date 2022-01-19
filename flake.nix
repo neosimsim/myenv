@@ -29,6 +29,11 @@
       url = "github:securego/gosec";
       flake = false;
     };
+
+    passage = {
+      url = "github:FiloSottile/passage";
+      flake = false;
+    };
   };
 
   outputs =
@@ -39,6 +44,7 @@
     , home-manager
     , hookmark
     , nixpkgs
+    , passage
     , plan9fansGo
     }:
     let pkgs = import nixpkgs {
@@ -179,6 +185,20 @@
             license = licenses.apsl20;
             platforms = platforms.linux ++ platforms.darwin;
           };
+        };
+
+        passage = final.stdenv.mkDerivation {
+          name = "passage";
+          src = passage;
+
+          buildPhase = ''true'';
+
+          nativeBuildInputs = [ final.makeWrapper ];
+          installPhase = ''
+            make DESTDIR= PREFIX=$out install
+
+            wrapProgram $out/bin/passage --prefix PATH ${final.lib.makeBinPath [ final.age ]}
+          '';
         };
 
       };

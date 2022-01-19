@@ -111,6 +111,22 @@
         "type": "github"
       }
     },
+    "passage": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1640519945,
+        "narHash": "sha256-FJ+xtLEMUPsnUJg+ym+AtK/uFlqi29BTx/ha5yBPCZ0=",
+        "owner": "FiloSottile",
+        "repo": "passage",
+        "rev": "cb144e6fa556ccb9ddc4267dafbb2dbb69fc2b58",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FiloSottile",
+        "repo": "passage",
+        "type": "github"
+      }
+    },
     "plan9fansGo": {
       "flake": false,
       "locked": {
@@ -135,6 +151,7 @@
         "home-manager": "home-manager",
         "hookmark": "hookmark",
         "nixpkgs": "nixpkgs_2",
+        "passage": "passage",
         "plan9fansGo": "plan9fansGo"
       }
     }
