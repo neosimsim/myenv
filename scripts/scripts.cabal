@@ -33,7 +33,7 @@ library
     , safe
     , text
 
-  ghc-options:      -Wall -Werror
+  ghc-options:      -Wall -Wunused-packages -Werror
   hs-source-dirs:   hsSrc
   default-language: Haskell2010
 
@@ -84,7 +84,7 @@ executable o
       base
     , scripts
 
-  ghc-options:      -Wall -Werror
+  ghc-options:      -Wall -Wunused-packages -Werror
   hs-source-dirs:   hsMain
   default-language: Haskell2010
 
