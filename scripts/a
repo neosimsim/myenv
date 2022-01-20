@@ -6,12 +6,12 @@ case $1 in
   [0-9]*)
     font_size=$1
     shift 1
-    ACME_VARFONT=/mnt/font/DejaVuSansMono/${font_size}a/font
-    ACME_FIXFONT=/mnt/font/DejaVuSans/${font_size}a/font
+    ACME_VARFONT=/mnt/font/DejaVuSans/${font_size}a/font
+    ACME_FIXFONT=/mnt/font/DejaVuSansMono/${font_size}a/font
     ;;
   *)
-    ACME_VARFONT=${ACME_VARFONT:-/mnt/font/DejaVuSansMono/17a/font}
-    ACME_FIXFONT=${ACME_FIXFONT:-/mnt/font/DejaVuSans/17a/font}
+    ACME_VARFONT=${ACME_VARFONT:-/mnt/font/DejaVuSans/17a/font}
+    ACME_FIXFONT=${ACME_FIXFONT:-/mnt/font/DejaVuSansMono/17a/font}
     ;;
 esac
 
