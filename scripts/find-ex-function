@@ -4,7 +4,7 @@ module=$(echo $1 | awk -F. '{print $1}')
 function=$(echo $1 | awk -F. '{print $2}')
 
 if [ -z "$function" ]; then
-   rg -nH --no-heading --color never -e 'defp? '$module $(pwd)
+   rg -nH --no-heading --color never -e 'defp? '$module "$@"
 else
-    find-ex-module $module | xargs rg -nH --no-heading --color never -e 'defp? '$function
+    find-ex-module $module "$@" | xargs rg -nH --no-heading --color never -e 'defp? '$function
 fi

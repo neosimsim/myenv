@@ -1,6 +1,6 @@
 #!/bin/sh
 
-exec rg -nH --hidden --no-ignore --glob !.git --no-heading --color never "$@"
+exec rg -nH --no-heading --color never --hidden --glob !.git --no-ignore "$@"
 
 # POSIX version
 # find -name .git -prune -o -type f -print0 | xargs -0 grep -E -n "$@" -- /dev/null
