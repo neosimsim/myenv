@@ -19,6 +19,7 @@ POSIX_BIN = \
 	find-ex-function \
 	find-ex-module \
 	find-match \
+	fm \
 	Font+ \
 	Font- \
 	fzf-open \
