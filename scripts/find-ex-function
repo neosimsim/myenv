@@ -3,6 +3,8 @@
 module=$(echo $1 | awk -F. '{print $1}')
 function=$(echo $1 | awk -F. '{print $2}')
 
+shift 1
+
 if [ -z "$function" ]; then
    rg -nH --no-heading --color never -e 'defp? '$module "$@"
 else
