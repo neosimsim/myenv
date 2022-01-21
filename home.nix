@@ -27,7 +27,6 @@
           "ghci"
           "gnupg/gpg-agent.conf"
           "mkshrc"
-          "profile"
           "tmux.conf"
         ];
         dotfilesGui = [
@@ -45,15 +44,21 @@
         ];
         dotfiles = dotfilesCore ++ optionals config.myenv.enableGui dotfilesGui;
       in
-      genAttrs dotfiles
+      {
+        ".profile".text = ''
+          . "${./dotfiles/profile}"
+          . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+        '';
+      }
+      // optionalAttrs config.myenv.enableGui {
+        "lib/plumbing".source = ./dotfiles/plumbing;
+      }
+      // genAttrs dotfiles
         (name:
           {
             source = ./dotfiles + "/${name}";
             target = ".${name}";
-          })
-      // optionalAttrs config.myenv.enableGui {
-        "lib/plumbing".source = ./dotfiles/plumbing;
-      };
+          });
 
     xdg.configFile =
       let

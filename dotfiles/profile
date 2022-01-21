@@ -16,12 +16,6 @@ export GOBIN="$HOME/bin"
 export FZF_DEFAULT_COMMAND="set -o pipefail; command find -L . -mindepth 1 -path '*/\.*' -prune -o -type f -print -o -type l -print | cut -b3-" fzf
 
 [ -r $HOME/.nix-profile/etc/profile.d/nix.sh ] && . $HOME/.nix-profile/etc/profile.d/nix.sh
-# Unless I manages my shell with Home Manager I have to source vars manually.
-if [ -r "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh" ]; then
-  . "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
-elif [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-  . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-fi
 
 PATH=$HOME/bin:$PATH
 PATH=$HOME/bin/aliases:$PATH
