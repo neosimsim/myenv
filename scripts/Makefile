@@ -36,7 +36,7 @@ POSIX_BIN = \
 	lower \
 	memusage \
 	NewW \
-	nocolor \
+	noesc \
 	now \
 	open \
 	overwrite \

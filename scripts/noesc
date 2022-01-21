@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Remove ansi escape codes from commands stdin and stderr.
+# If a line contains `ESC[2K` (erase the entire line), the line is removed.
+# If no command is provided stdin is read
+# usage: noesc [cmd [args...]]
+#
+# Note:
+# - not all codes are supported
+# - merges stdout and stderr to stdout.
+
+noesc() {
+  sed '
+    # erase the entire line
+    /\x1b\[2K/ d
+
+    # colors / graphics mode
+    s/\x1b\[[0-9;]*m//g
+
+    # cursor controls
+    s/\x1b\[[0-9]*[ABCDEFG]//g
+  '
+}
+
+case $# in
+  0) noesc ;;
+  *)  exec "$@" 2>&1 | noesc ;;
+esac
