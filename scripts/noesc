@@ -9,8 +9,15 @@
 # - not all codes are supported
 # - merges stdout and stderr to stdout.
 
+# https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 noesc() {
   sed '
+    # erase in line (same as ESC[0K)
+    s/^.*\x1b\[K//
+
+    # erase from cursor to end of line
+    s/^.*\x1b\[0K//
+
     # erase the entire line
     /\x1b\[2K/ d
 
