@@ -6,16 +6,18 @@ let
 in
 {
 
-  haskellPackages = hsPkgs.extend (pkgs.haskell.lib.packageSourceOverrides {
-    scripts = (pkgs.lib.sourceByRegex ./. [
-      "^.*\.md$"
-      "^.*\.hs$"
-      "^scripts\.cabal$"
-      "^hsSrc.*$"
-      "^hsTest.*$"
-      "^hsMain.*$"
-    ]);
-  });
+  haskellPackages = hsPkgs.override {
+    overrides = pkgs.haskell.lib.packageSourceOverrides {
+      scripts = pkgs.lib.sourceByRegex ./. [
+        "^.*\.md$"
+        "^.*\.hs$"
+        "^scripts\.cabal$"
+        "^hsSrc.*$"
+        "^hsTest.*$"
+        "^hsMain.*$"
+      ];
+    };
+  };
 
   posixScripts = pkgs.stdenv.mkDerivation {
     name = "posix-scripts";

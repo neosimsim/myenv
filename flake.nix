@@ -78,6 +78,7 @@
                   sha256 = "sha256-zXw2qcqeU/f7edpiC1ZZCiUeKaRUINbqZ6Nhc70y4QQ=";
                 }
                 { };
+
               xmonad-contrib = finalHspkgs.callHackageDirect
                 {
                   pkg = "xmonad-contrib";
@@ -85,14 +86,18 @@
                   sha256 = "sha256-MaskRCiMtS4hhTpkxfySMiQ3QsIUkiEPEjgDnoWA7GM=";
                 }
                 { };
-            };
-          }).extend (haskell.lib.packageSourceOverrides {
-            inherit
-              hconv
-              hookmark
-              ;
 
-            neosimsim-shell = ./tools/shell;
+            } // (haskell.lib.packageSourceOverrides
+              {
+                inherit
+                  hconv
+                  hookmark
+                  ;
+
+                neosimsim-shell = ./tools/shell;
+              }
+              finalHspkgs
+              prevHspkgs);
           });
 
         editinacme = final.buildGoModule {
