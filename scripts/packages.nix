@@ -22,6 +22,12 @@ in
     src = ./.;
     buildPhase = "true";
     buildInputs = [ pkgs.makeWrapper ];
+
+    doCheck = true;
+    checkPhase = ''
+      make test-posix
+    '';
+
     installPhase = ''
       make PREFIX=$out install-posix
 

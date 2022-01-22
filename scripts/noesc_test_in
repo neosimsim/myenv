@@ -1,0 +1,22 @@
+% docker run --pull always -it --rm nixos/nix
+[Kbash-4.4#
+foo [Kbash-4.4#
+
+% docker pull alpine
+[1B[1A[2K
+59bf1c3509f3: Downloading  28.75kB/2.818MB
+[1B[1A[2K
+59bf1c3509f3: Downloading  641.4kB/2.818MB
+[1B[1A[2K
+59bf1c3509f3: Downloading  1.801MB/2.818MB
+[1B[1A[2K
+59bf1c3509f3: Verifying Checksum
+[1B[1A[2K
+59bf1c3509f3: Extracting  2.818MB/2.818MB
+[1B[1A[2K
+
+% niv init
+[1m[97mInitializing[0m
+  Not updating sources.nix
+  Not creating nix/sources.json
+[1m[92mDone[0m: Initializing
