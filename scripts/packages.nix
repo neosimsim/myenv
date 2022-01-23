@@ -1,4 +1,4 @@
-{ pkgs, ghc ? "default" }:
+{ pkgs ? import <nixpkgs> { }, ghc ? "default" }:
 let
   hsPkgs = with pkgs; if ghc == "default"
   then haskellPackages
@@ -7,15 +7,31 @@ in
 {
 
   haskellPackages = hsPkgs.override {
-    overrides = pkgs.haskell.lib.packageSourceOverrides {
-      scripts = pkgs.lib.sourceByRegex ./. [
-        "^.*\.md$"
-        "^.*\.hs$"
-        "^scripts\.cabal$"
-        "^hsSrc.*$"
-        "^hsTest.*$"
-        "^hsMain.*$"
-      ];
+    overrides = final: prev: {
+      scripts = (prev.callCabal2nix "scripts"
+        (pkgs.lib.sourceByRegex ./. [
+          "^.*\.md$"
+          "^.*\.hs$"
+          "^scripts\.cabal$"
+          ".*_test_in"
+          ".*_test_out"
+          "^hsSrc.*$"
+          "^hsTest.*$"
+          "^hsMain.*$"
+        ])
+        { }).overrideAttrs (oldAttrs: {
+        checkPhase = ''
+          ${oldAttrs.checkPhase}
+
+          ./dist/build/uni/uni < uni_test_in | diff uni_test_out -
+          echo test broken pipes
+          ./dist/build/uni/uni < uni_test_in | sed 2q >/dev/null
+          echo test print
+          ./dist/build/uni/uni print | diff uni_print_test_out -
+          echo test print broken pipes
+          ./dist/build/uni/uni print | sed 2q >/dev/null
+        '';
+      });
     };
   };
 
