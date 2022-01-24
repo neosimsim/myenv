@@ -11,7 +11,7 @@
 
 # https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 noesc() {
-  sed '
+  sed -u '
     # erase in line (same as ESC[0K)
     s/^.*\x1b\[K//
 
