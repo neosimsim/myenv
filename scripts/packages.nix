@@ -35,7 +35,7 @@ in
     };
   };
 
-  posixScripts = pkgs.stdenv.mkDerivation {
+  posix = pkgs.stdenv.mkDerivation {
     name = "posix-scripts";
     src = ./.;
     buildPhase = "true";
@@ -55,7 +55,7 @@ in
     '';
   };
 
-  goScripts = pkgs.buildGoModule {
+  go = pkgs.buildGoModule {
     name = "go-scripts";
     CGO_ENABLED = "0";
 
