@@ -1,0 +1,12 @@
+#!/bin/sh
+
+9 9p read acme/$winid/tag | awk '{ print $1 }' | 9 ssam '{
+  g/Spec\.hs$/ {
+    $-/test/ c/src/
+    x/Spec\.hs$/ c/.hs/
+  }
+  v/Spec\.hs$/ {
+    $-/src/ c/test/
+    x/\.hs$/ i/Spec/
+  }
+}' | xargs 9 B
