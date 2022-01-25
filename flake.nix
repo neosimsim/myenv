@@ -202,7 +202,7 @@
           installPhase = ''
             make DESTDIR= PREFIX=$out install
 
-            wrapProgram $out/bin/passage --prefix PATH ${final.lib.makeBinPath [ final.age ]}
+            wrapProgram $out/bin/passage --prefix PATH ${with final; lib.makeBinPath [ age tree ]}
           '';
         };
 
