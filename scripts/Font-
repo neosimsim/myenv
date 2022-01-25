@@ -1,12 +1,1 @@
-#!/bin/sh
-
-font=$(9 9p read acme/$winid/ctl |9 awk '{ print $7 }')
-
-# extract font size
-size=font
-size=${font%/font}
-size=${size%a}
-size=${size##*/}
-
-newFont=${font%/*a/font}/$((size-1))a/font
-echo  font $newFont |9 9p write acme/$winid/ctl
+Font+

@@ -8,5 +8,10 @@ size=${font%/font}
 size=${size%a}
 size=${size##*/}
 
-newFont=${font%/*a/font}/$((size+1))a/font
+case $0 in
+  *Font-) newFont=${font%/*a/font}/$((size-1))a/font ;;
+  *Font+) newFont=${font%/*a/font}/$((size+1))a/font ;;
+  *) newFont=${font%/*a/font}/$((size+1))a/font ;;
+esac
+
 echo  font $newFont |9 9p write acme/$winid/ctl
