@@ -1,7 +1,0 @@
-#!/bin/sh
-
-passcmd='pass show -c'
-find $HOME/.password-store/ -type f -name '*.gpg' |
-	sed 's#^.*password-store/\(.*\)\.gpg$#\1#'  |
-	dmenu  |
-	xargs $passcmd

@@ -49,7 +49,6 @@ let
       mutt
       nixpkgs-fmt
       nix-prefetch-scripts
-      pass
       passage
       pinentry-curses
       plan9port

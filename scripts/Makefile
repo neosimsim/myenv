@@ -12,7 +12,6 @@ POSIX_BIN = \
 	bundle \
 	cmnt \
 	codespell \
-	dpass \
 	ec \
 	fext \
 	filter \
