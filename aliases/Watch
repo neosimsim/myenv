@@ -1,3 +1,0 @@
-#!/bin/sh -e
-
-exec $HOME/bin/Watch -x '\.git|dist-newstyle|_build|MAlonzo|\.lock' "$@"

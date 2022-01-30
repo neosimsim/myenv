@@ -3,7 +3,6 @@
 PREFIX=$(HOME)
 
 BIN = \
-	Watch \
 
 install: phony
 	@echo install aliases
