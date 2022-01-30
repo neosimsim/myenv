@@ -4,6 +4,7 @@ local uni = require('plugins/uni')
 vis.events.subscribe(vis.events.INIT, function()
   uni:mapKeys()
   vis:command('set theme peaksea')
+  vis:command('set escdelay 0')
 end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
