@@ -1,8 +1,8 @@
 PREFIX=$(HOME)
 MANPREFIX=$(PREFIX)/man
 
-# Edit 0/^POSIX_BIN/+1;/^$/-|sort
-POSIX_BIN = \
+# Edit 0/^BIN/+1;/^$/-|sort
+BIN = \
 	1 \
 	2 \
 	3 \
@@ -56,52 +56,13 @@ POSIX_BIN = \
 	upper \
 	year \
 
-BIN = \
-	$(POSIX_BIN) \
-
 # MAN = $(BIN:=.1)
 
-install: install-posix install-haskell
-
-install-posix: phony
-	@echo install posix compatible scripts
+install: phony
 	mkdir -p $(PREFIX)/bin
-	cp -f $(POSIX_BIN) $(PREFIX)/bin
-
-install-haskell: phony test-haskell
-	@echo install Haskell scripts
-	cabal v2-install --installdir $(PREFIX)/bin --install-method copy --overwrite-policy always
+	cp -f $(BIN) $(PREFIX)/bin
 
 uninstall: phony
 	cd $(PREFIX)/bin && rm -f $(BIN)
-
-test: test-posix test-haskell
-
-test-posix: test-noesc
-
-test-haskell: test-uni
-	cabal v2-test
-
-test-uni:
-	cabal v2-run -v0 exe:uni < uni_test_in | diff uni_test_out -
-	@echo test broken pipes
-	cabal v2-run -v0 exe:uni < uni_test_in | sed 2q >/dev/null
-	@echo test print
-	cabal v2-run -v0 exe:uni -- print | diff uni_print_test_out -
-	@echo test print broken pipes
-	cabal v2-run -v0 exe:uni -- print | sed 2q >/dev/null
-
-test-noesc:
-	./noesc < noesc_test_in | diff noesc_test_out -
-	@echo test broken pipes
-	./noesc < noesc_test_in | sed 2q >/dev/null
-
-verify:
-	cabal-fmt scripts.cabal | diff scripts.cabal -
-	find . -name '*.hs' | xargs hfmt
-
-verify-apply:
-	cabal-fmt -i scripts.cabal
-	find . -name '*.hs' | xargs hfmt -w
 
 phony:

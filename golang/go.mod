@@ -1,4 +1,4 @@
-module gitlab.com/neosimsim/myenv/scripts
+module gitlab.com/neosimsim/myenv/go
 
 go 1.16
 

@@ -28,6 +28,21 @@ let
     # make sure we use unstable (until flakes become stable)
     nixFlakes = mkCommandAlias nixFlakes "nix" ''--experimental-features "nix-command flakes"'';
 
+    scripts = import ./scripts { inherit pkgs; };
+
+    goScripts = import ./golang { inherit pkgs; };
+
+    haskellScripts = (import ./haskell { inherit pkgs; }).scripts;
+
+    texlive-full =
+      let
+        texfiles.pkgs = [ (import ./texfiles { inherit pkgs; }) ];
+      in
+      texlive.combine {
+        inherit (texlive) scheme-full;
+        inherit texfiles;
+      };
+
     inherit (pkgs)
       age
       binutils
@@ -59,17 +74,6 @@ let
       unzip
       vis
       ;
-
-    scripts = import ./scripts { inherit pkgs; };
-
-    texlive-full =
-      let
-        texfiles.pkgs = [ (import ./texfiles { inherit pkgs; }) ];
-      in
-      texlive.combine {
-        inherit (texlive) scheme-full;
-        inherit texfiles;
-      };
 
     agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
 

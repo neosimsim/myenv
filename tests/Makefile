@@ -1,5 +1,16 @@
-test-core: agda
-test-gui: test-core xmonad
+test: test-core
+
+test-core: \
+	agda \
+	noesc \
+	uniq-paths \
+
+test-gui: \
+	test-core \
+	xmonad \
+
+noesc:
+	noesc < noesc_test_in | diff noesc_test_out -
 
 agda:
 	agda --library standard-library -i . -c hello-agda.agda
@@ -9,8 +20,8 @@ xmonad:
 	xmonad --recompile
 
 uniq-paths:
-	$(SHELL) -c '! echo $$PATH | sed "s/:/\n/g" | sort | uniq -d | grep .'
-	$(SHELL) -c '! echo $$MANPATH | sed "s/:/\n/g" | sort | uniq -d | grep .'
+	! echo $$PATH | sed "s/:/\n/g" | sort | uniq -d | grep .
+	! echo $$MANPATH | sed "s/:/\n/g" | sort | uniq -d | grep .
 
 clean:
 	rm -f hello-agda *.agdai

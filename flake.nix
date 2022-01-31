@@ -269,7 +269,10 @@
               self.packages.x86_64-linux.packagesWithGui
             ];
           } ''
-          which xmonad >$out
+          (
+          which Afmt
+          which xmonad
+          )>$out
         '';
 
         testCommandsWithoutGui = pkgs.runCommand "test-commands-without-gui"
@@ -279,7 +282,11 @@
               self.packages.x86_64-linux.packagesWithoutGui
             ];
           } ''
-          ! which xmonad >$out
+          (
+          which fm
+          which o
+          ! which xmonad
+          )>$out
         '';
       };
     };

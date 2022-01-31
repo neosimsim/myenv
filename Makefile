@@ -32,8 +32,9 @@ reload-core:
 reload-gui:
 	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-gui'
 
+test: test-core
+
 test-core:
-	$(SHELL) -l -c '$(MAKE) -C scripts test'
 	$(SHELL) -l -c '$(MAKE) -C texfiles pdf'
 	$(SHELL) -l -c '$(MAKE) -C tests test-core'
 

@@ -1,4 +1,3 @@
-
 import Control.Monad
 import Data.Functor
 import qualified Data.Text.Lazy as T

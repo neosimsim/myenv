@@ -3,8 +3,8 @@
 
 module Scripts.FindRustModuleSpec (spec) where
 
-import Test.Hspec
 import Scripts.FindRustModule
+import Test.Hspec
 
 spec :: Spec
 spec = do

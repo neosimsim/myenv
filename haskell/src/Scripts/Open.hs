@@ -148,7 +148,6 @@ openResourceIdentifierCommand Config {configEditor = EmacsClient} (File pathAddr
 openResourceIdentifierCommand Config {configEditor = VSCodium} (File pathAddress) = openResourceIdentifierCommandWithVSCodium pathAddress
 openResourceIdentifierCommand Config {configEditor = Unknown editorName} (File pathAddress) = openResourceIdentifierCommandWithEditor editorName pathAddress
 
-
 openResourceIdentifierCommandWithEditor :: Text -> FilePathAddress -> Text
 openResourceIdentifierCommandWithEditor cmd (FilePathNoAddress path) =
   T.pack [i|#{cmd} #{path}|]

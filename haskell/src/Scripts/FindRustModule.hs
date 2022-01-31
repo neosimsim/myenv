@@ -2,9 +2,9 @@ module Scripts.FindRustModule (moduleFiles, main) where
 
 import Data.Sequences (splitSeq)
 import System.Environment (getArgs)
+import System.Exit (exitFailure)
 import System.FilePath as FilePath
 import System.FilePath.Glob (glob)
-import System.Exit (exitFailure)
 
 moduleFiles :: String -> [FilePath]
 moduleFiles = moduleFiles_ . splitSeq "::"
