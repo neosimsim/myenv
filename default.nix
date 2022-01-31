@@ -22,7 +22,7 @@ let
   packageSet = {
     # make sure nix-shell runs mksh
     nix-shell-wrapped = (lib.hiPrio (writeShellScriptBin "nix-shell" ''
-      exec ${nix}/bin/nix-shell --run ${mksh}/bin/mksh "$@"
+      exec ${nix}/bin/nix-shell --run $SHELL "$@"
     ''));
 
     # make sure we use unstable (until flakes become stable)
