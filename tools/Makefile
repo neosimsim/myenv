@@ -17,39 +17,29 @@ install: install-core
 install-gui:
 	$(MAKE) editinacme
 	$(MAKE) acmego
+	$(MAKE) goimports
 	$(MAKE) Watch
 	$(MAKE) xplor
 
 install-core:
+	$(MAKE) ormolu
+	$(MAKE) cabal-fmt
+	$(MAKE) hlint
+	$(MAKE) apply-refact
 
 install-haskell-env:
 	$(MAKE) all-ghc
 	$(MAKE) cabal
 	$(MAKE) agda
 	$(MAKE) agda-stdlib
-	$(MAKE) cabal-fmt
-	$(MAKE) hlint
-	$(MAKE) apply-refact
-	$(MAKE) brittany
-	$(MAKE) stylish-haskell
 
 # Haskell
 
-## installable with GHC 8.10.1
-hlint \
-apply-refact \
-stylish-haskell:
-	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) $@
-
-## installable with GHC 8.8.4
+ormolu \
 cabal-fmt \
-brittany :
-	cabal v2-install -w ghc-8.8.4 $(CABAL_FLAGS) $@
-
-hwk:
-	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) hwk
-	cabal v2-install -w ghc-8.10.1 $(CABAL_FLAGS) --lib --package-env hwk extra
-	mkdir -p $(HOME)/.config/hwk
+hlint \
+apply-refact:
+	cabal v2-install $(CABAL_FLAGS) $@
 
 all-ghc:
 	# You might need to adapt MAKE_GHC_VERSIONS.
@@ -168,8 +158,11 @@ acmego:
 editinacme:
 	go get -u 9fans.net/go/acme/editinacme
 
+goimports:
+	go get -u 9fans.net/go/acme/goimports
+
 Watch:
-	go get -u github.com/eaburns/Watch
+	go get -u 9fans.net/go/acme/Watch
 
 xplor:
 	go get -u github.com/mpl/xplor

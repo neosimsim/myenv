@@ -3,27 +3,25 @@
 install: install-core
 
 # use a new login shell to ensure installed dotfiles are sourced
+# TODO can this be done defining SHELL and the beginning of the file? eg:
+# SHELL = $(SHELL) -l
 
-install-gui:
+install-gui: install-core
 	$(SHELL) -l -c '$(MAKE) -C dotfiles install-gui'
 	$(SHELL) -l -c '$(MAKE) -C tools install-gui'
 
-# stuff installed as part of default.nix
-install-core: install-nixos
+install-core:
 	$(MAKE) -C dotfiles install
 	$(SHELL) -l -c '$(MAKE) -C scripts install'
 	$(SHELL) -l -c '$(MAKE) -C texfiles install'
-
-# stuff not installed as part of default.nix
-install-nixos:
+	$(SHELL) -l -c 'cd golang && go install ./...'
+	$(SHELL) -l -c 'cd haskell && cabal update && cabal install'
 	$(SHELL) -l -c '$(MAKE) -C tools install'
-	$(SHELL) -l -c '$(MAKE) -C aliases install'
 
 uninstall:
 	$(SHELL) -l -c '$(MAKE) -C dotfiles uninstall'
 	$(SHELL) -l -c '$(MAKE) -C texfiles uninstall'
 	$(SHELL) -l -c '$(MAKE) -C scripts uninstall'
-	$(SHELL) -l -c '$(MAKE) -C aliases uninstall'
 
 reload-core:
 	$(SHELL) -l -c gen-vis-uni
@@ -38,5 +36,5 @@ test-core:
 	$(SHELL) -l -c '$(MAKE) -C texfiles pdf'
 	$(SHELL) -l -c '$(MAKE) -C tests test-core'
 
-test-gui:
+test-gui: test-core
 	$(SHELL) -l -c '$(MAKE) -C tests test-gui'

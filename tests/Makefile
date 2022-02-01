@@ -3,11 +3,14 @@ test: test-core
 test-core: \
 	agda \
 	noesc \
-	uniq-paths \
+	uniq-paths
+	which fm
+	which o
 
 test-gui: \
 	test-core \
-	xmonad \
+	xmonad
+	which Afmt
 
 noesc:
 	noesc < noesc_test_in | diff noesc_test_out -
