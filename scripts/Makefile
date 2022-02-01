@@ -18,6 +18,7 @@ BIN = \
 	find-ex-function \
 	find-ex-module \
 	find-match \
+	fix-ex-string \
 	fm \
 	Font+ \
 	Font- \

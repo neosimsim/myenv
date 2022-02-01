@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# "Fixes" an elixir expression typically printed by a missing function clause exception.
+# The output can then be formatted using `mix format -`
+
+9 ssam -n 'x/#(Function|PID)?<[^>]*>/ {
+  i/"
+  a/"
+}
+' |
+9 ssam 'x/, \.\.\./ d'
