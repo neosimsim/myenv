@@ -33,6 +33,7 @@ BIN = \
 	hsinit \
 	indirs \
 	license \
+	LN \
 	lower \
 	memusage \
 	NewW \
