@@ -7,7 +7,7 @@
 usage() {
 cat >/dev/stderr <<EOF
 USAGE
-$0 [-n|-h] [-l <gpl3|lglp3|wtfpl|cp|bsd3>]
+$0 [-n|-h] [-l <gpl3|lgpl3|wtfpl|cp|bsd3>]
 	-l <license> print content of the license
 	-n           print notice of the license
 	-h           print usage
