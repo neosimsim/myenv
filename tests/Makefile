@@ -1,9 +1,12 @@
 test: test-core
 
-test-core: \
+TESTS= \
 	agda \
 	noesc \
-	uniq-paths
+	uniq-paths \
+	fix-ex-string \
+
+test-core: $(TESTS)
 	which fm
 	which o
 
@@ -12,8 +15,8 @@ test-gui: \
 	xmonad
 	which Afmt
 
-noesc:
-	noesc < noesc_test_in | diff noesc_test_out -
+noesc fix-ex-string:
+	$@ < $@_test_in | diff $@_test_out -
 
 agda:
 	agda --library standard-library -i . -c hello-agda.agda
