@@ -4,7 +4,6 @@
 	email = me@abn.sh
 	name = Alexander Ben Nasrallah
 [core]
-	excludesfile = ~/.config/git/ignore
 	editor = $EDITOR
 [alias]
 	log-graph = log --pretty=oneline --graph --decorate
@@ -56,4 +55,4 @@
 	process = git-lfs filter-process
 	required = true
 [diff "lfs"]
-        textconv = bsdcat
+	textconv = bsdcat
