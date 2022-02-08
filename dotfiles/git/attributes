@@ -1,0 +1,3 @@
+*.gz diff=compressed
+*.bz2 diff=compressed
+*.xz diff=compressed
