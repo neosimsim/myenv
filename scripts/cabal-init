@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -ev
+
+name=$(basename $(pwd));
+cabal init \
+  --minimal --non-interactive --no-comments --libandexe --tests --test-dir test --language GHC2021 \
+  -p $name \
+  -a 'Alexander Ben Nasrallah' \
+  -e me@abn.sh \
+  -u https://gitlab.com/neosimsim/$name \
+  -l BSD-3-Clause \
+  -s "$@"
+cabal-fmt -i $name.cabal

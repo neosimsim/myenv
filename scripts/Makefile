@@ -10,6 +10,7 @@ BIN = \
 	a+ \
 	a- \
 	bundle \
+	cabal-init \
 	cmnt \
 	codespell \
 	ec \
