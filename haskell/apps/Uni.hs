@@ -93,6 +93,7 @@ mapping =
     ("B", "𝔹"),
     ("E", "𝔼"),
     ("F", "𝔽"),
+    ("ell", "ℓ"),
     ("to", "→"),
     ("mapsto", "↦"),
     ("infty", "∞"),
@@ -184,8 +185,7 @@ mapping =
     (":)", "☺"),
     ("XD", "😁"),
     (";)", "😉"),
-    -- misc
-    ("ell", "ℓ"),
+    -- German umlauts and ß
     ("ae", "ä"),
     ("Ae", "Ä"),
     ("oe", "ö"),
@@ -194,6 +194,7 @@ mapping =
     ("Ue", "Ü"),
     ("ss", "ß"),
     ("Ss", "ẞ"),
+    -- misc
     (",", " "), -- Narrow No-Break Space
     ("~", " "), -- No-Break Space
     ("'", "́"), -- Combining Acute Accent, e. g. é
@@ -207,7 +208,8 @@ mapping =
     ("'''", "‴"),
     ("''''", "⁗"),
     ("apos", "ʼ"),
-    ("degree", "°")
+    ("degree", "°"),
+    ("check", "✔")
   ]
 
 data Fragment
