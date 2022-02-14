@@ -13,12 +13,10 @@ addrFid=<>{ 9p rdwr acme/$winid/addr } {
   # add line numbers
   echo ',' >$addrFid(2)
   if (aread body | grep -Evq '[0-9]+	') {
-    echo nomark | awrite ctl
     aread body | awk '{printf("%d\t%s\n", NR, $0)}' | awrite data
   }
   if not {
     aread body | 9 ssam 'x/^[0-9]+	/d' | awrite data
-    echo mark | awrite ctl
   }
 
   # reset the address
