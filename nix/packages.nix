@@ -28,15 +28,15 @@ let
     # make sure we use unstable (until flakes become stable)
     nixFlakes = mkCommandAlias nixFlakes "nix" ''--experimental-features "nix-command flakes"'';
 
-    scripts = import ./scripts { inherit pkgs; };
+    scripts = import ../scripts { inherit pkgs; };
 
-    goScripts = import ./golang { inherit pkgs; };
+    goScripts = import ../golang { inherit pkgs; };
 
-    haskellScripts = (import ./haskell { inherit pkgs; }).scripts;
+    haskellScripts = (import ../haskell { inherit pkgs; }).scripts;
 
     texlive-full =
       let
-        texfiles.pkgs = [ (import ./texfiles { inherit pkgs; }) ];
+        texfiles.pkgs = [ (import ../texfiles { inherit pkgs; }) ];
       in
       texlive.combine {
         inherit (texlive) scheme-full;

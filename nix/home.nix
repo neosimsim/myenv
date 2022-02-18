@@ -16,7 +16,7 @@
   config = mkIf config.myenv.enable {
     home.packages =
       let
-        myenv = with config.myenv; import ./. { inherit pkgs enableGui; };
+        myenv = with config.myenv; import ./packages.nix { inherit pkgs enableGui; };
       in
       [ (lowPrio myenv) ];
 
@@ -46,17 +46,17 @@
       in
       {
         ".profile".text = ''
-          . "${./dotfiles/profile}"
+          . "${../dotfiles/profile}"
           . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
         '';
       }
       // optionalAttrs config.myenv.enableGui {
-        "lib/plumbing".source = ./dotfiles/plumbing;
+        "lib/plumbing".source = ../dotfiles/plumbing;
       }
       // genAttrs dotfiles
         (name:
           {
-            source = ./dotfiles + "/${name}";
+            source = ../dotfiles + "/${name}";
             target = ".${name}";
           });
 
@@ -75,7 +75,7 @@
         ];
         configFiles = configFilesCore ++ optionals config.myenv.enableGui configFilesGui;
       in
-      genAttrs configFiles (name: { source = ./dotfiles + "/${name}"; });
+      genAttrs configFiles (name: { source = ../dotfiles + "/${name}"; });
 
     programs.vscode = {
       enable = true;

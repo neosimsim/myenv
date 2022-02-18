@@ -54,8 +54,8 @@
     in
     {
       packages.x86_64-linux = {
-        packagesWithoutGui = import self { inherit pkgs; enableGui = false; };
-        packagesWithGui = import self { inherit pkgs; enableGui = true; };
+        packagesWithoutGui = import ./nix/packages.nix { inherit pkgs; enableGui = false; };
+        packagesWithGui = import ./nix/packages.nix { inherit pkgs; enableGui = true; };
       };
 
       defaultPackage.x86_64-linux = self.packages.x86_64-linux.packagesWithoutGui;
@@ -64,7 +64,7 @@
         packages = p: with p; [ neosimsim-shell ];
       };
 
-      nixosModules.home-manager = import ./home.nix;
+      nixosModules.home-manager = import ./nix/home.nix;
 
       overlay = final: prev: {
 
