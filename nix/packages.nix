@@ -34,6 +34,10 @@ let
 
     haskellScripts = (import ../haskell { inherit pkgs; }).scripts;
 
+    cabalShell = pkgs.writeShellScriptBin "cabal-shell" ''
+      nix-shell ${./cabal-shell.nix} --command $SHELL
+    '';
+
     texlive-full =
       let
         texfiles.pkgs = [ (import ../texfiles { inherit pkgs; }) ];
