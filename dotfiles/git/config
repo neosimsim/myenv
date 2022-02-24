@@ -44,7 +44,7 @@
 	fontui = -family \"Liberation Sans\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
 	fontdiff = -family \"Liberation Mono\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
 [format]
-	pretty = format:commit %H %D%nParent(s): %P%nAuthor   : %an <%ae> %ad%nCommitter: %cn <%ce> %cd%w(0,0,11)%+s%n%w(0,0,11)%+b
+	pretty = format:commit %H %D%nParent(s): %P%nAuthor   : %an <%ae> %ad%nCommitter: %cn <%ce> %cd%+s%n%+b
 [gpg]
 	program = gpg2
 [http]
