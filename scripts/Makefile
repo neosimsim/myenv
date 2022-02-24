@@ -33,6 +33,7 @@ BIN = \
 	git-to-dot \
 	hsinit \
 	indirs \
+	InEmacs \
 	license \
 	LN \
 	lower \

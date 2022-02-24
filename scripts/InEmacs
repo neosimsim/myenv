@@ -1,0 +1,22 @@
+#!/urs/bin/env -S 9 rc
+
+fn aread { 9p read acme/$winid/$1 }
+fn awrite { 9p write acme/$winid/$1 }
+
+addrFid=<>{ 9p rdwr acme/$winid/addr } {
+  9 read $addrFid(1)>/dev/null
+  echo 'addr=dot' | awrite ctl
+  echo . >$addrFid(2)
+  addr=`{ 9 read $addrFid(1) }
+}
+
+filename=`{ aread tag | awk 'NR == 1 { print $1 }' }
+# Acme starts at 0 emacs at 1
+position=`{ 9 hoc -e $addr(1)' +1' }
+
+emacsclient -n -e '
+  (with-current-buffer
+    (find-file "'$filename'")
+    (goto-char '$position')
+  )
+' >/dev/null
