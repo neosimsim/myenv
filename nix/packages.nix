@@ -96,6 +96,7 @@ let
         fzf
 
         nix-mode
+        elm-mode
         elixir-mode
         rust-mode
         elisp-format
@@ -150,6 +151,14 @@ let
       xmonad
       xmonad-contrib
     ]);
+
+    inherit (elmPackages)
+      elm
+      elm-format
+      elm-language-server
+      elm-review
+      elm-test
+      ;
   } // lib.mapAttrs (_: p: haskell.lib.justStaticExecutables p) {
     inherit (haskellPackages)
       apply-refact
