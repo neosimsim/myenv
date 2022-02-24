@@ -49,6 +49,14 @@ stdout and stderr) in displayed in a new buffer."
              (kill-buffer out-buffer))
     (display-buffer out-buffer)))
 
+(defun plumb-file ()
+  "Sends filename to plumber"
+  (interactive)
+  (call-process "plumb" nil nil nil
+                "-d" "edit"
+                "-a" (concat "addr=#" (number-to-string (- (point) 1)))
+                (buffer-file-name)))
+
 (defun send-to-tmux-region
     (&optional
      start
