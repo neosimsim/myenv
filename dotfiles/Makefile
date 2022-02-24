@@ -27,6 +27,7 @@ CONFIG_DIR=$(HOME)/.config
 
 CONFIGFILES_CORE= \
 	emacs/init.el \
+	emacs/init_mksh.sh \
 	git/attributes \
 	git/config \
 	git/ignore \

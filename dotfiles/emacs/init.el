@@ -52,7 +52,8 @@ stdout and stderr) in displayed in a new buffer."
 (defun plumb-file ()
   "Sends filename to plumber"
   (interactive)
-  (call-process "plumb" nil nil nil
+  (call-process "9" nil nil nil
+                "plumb"
                 "-d" "edit"
                 "-a" (concat "addr=#" (number-to-string (- (point) 1)))
                 (buffer-file-name)))
