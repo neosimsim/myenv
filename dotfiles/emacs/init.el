@@ -29,6 +29,13 @@
   (forward-whitespace -1))
 (global-set-key [M-left] 'backward-whitespace)
 
+;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
+(require 'comint)
+;; hide doas prompt
+(setq comint-password-prompt-regexp
+      (concat comint-password-prompt-regexp
+              "\\|password: \\'"))
+
 (load-file (let ((coding-system-for-read 'utf-8))
              (shell-command-to-string "agda-mode locate")))
 (add-to-list 'auto-mode-alist '("\\.lagda.md\\'" . agda2-mode))
