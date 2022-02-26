@@ -47,7 +47,13 @@
 (add-hook 'agda2-mode-hook 'agda-setup)
 
 (defun open ()
-  "Open file at point using `open`."
+  "Open file at point using `open`.
+
+When called from Emacs shell mode this might not work properly since
+tracking the current working directory of the shell is sometimes off.
+https://www.emacswiki.org/emacs/ShellMode#h5o-9
+However, this can be used to (cd) to the proper directory when working
+with multi package cabal projects or mix umbrella projects."
   (interactive)
   (start-process "open" nil "open" (thing-at-point 'filename 'no-properties)))
 
