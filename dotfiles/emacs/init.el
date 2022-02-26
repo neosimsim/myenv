@@ -46,6 +46,11 @@
   (setq agda2-highlight-level 'none))
 (add-hook 'agda2-mode-hook 'agda-setup)
 
+(defun open ()
+  "Open file at point using `open`."
+  (interactive)
+  (start-process "open" nil "open" (thing-at-point 'filename 'no-properties)))
+
 (defun pipe-shell-region (cmd start end)
   "Pipe region to shell command and replace region with the output
 (combined stdout and stderr). The region is only replaced when the
