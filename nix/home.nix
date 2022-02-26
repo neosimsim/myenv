@@ -64,7 +64,6 @@
       let
         configFilesCore = [
           "emacs/init.el"
-          "emacs/init_mksh.sh"
           "git/attributes"
           "git/config"
           "git/ignore"

@@ -1,3 +1,6 @@
+(setenv "EDITOR" "emacsclient")
+(setenv "PAGER" "cat")
+
 (setq create-lockfiles nil)
 (setq auto-save-default nil)
 (setq make-backup-files nil)
