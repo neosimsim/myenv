@@ -19,7 +19,7 @@
 (show-paren-mode 1)
 ;; auto-indend without realign current line
 (electric-indent-mode 0)
-(global-set-key [?\r] #'newline-and-indent)
+(global-set-key (kbd "RET") #'newline-and-indent)
 (load-theme 'acme 1)
 (set-face-attribute 'isearch-fail nil
                     :foreground "white smoke"
@@ -33,10 +33,10 @@
 (global-set-key [M-left] 'backward-whitespace)
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. filters
-(global-set-key [C-x C-b] #'ibuffer)
-(global-set-key [C-x b] #'fzf-switch-buffer)
-(global-set-key [C-x C-f] #'fzf)
-(global-set-key [C-x C-g] #'fzf-git)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x b") #'fzf-switch-buffer)
+(global-set-key (kbd "C-x C-f") #'fzf)
+(global-set-key (kbd "C-x C-g") #'fzf-git)
 
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
@@ -100,7 +100,7 @@ stdout and stderr) in displayed in a new buffer."
   "Apply shell command uni on region."
   (interactive "r")
   (pipe-shell-region "uni" start end))
-(global-set-key [C-c C-u] #'apply-uni-region)
+(global-set-key (kbd "C-c C-u") #'apply-uni-region)
 
 (defvar formatter "sed 's/[[:blank:]]*$//'"
   "Commands used by format-buffer")
@@ -112,7 +112,7 @@ stdout and stderr) in displayed in a new buffer."
   (pipe-shell-region formatter (point-min)
                      (point-max))
   (goto-char p))
-(global-set-key [C-x M-f] #'format-buffer)
+(global-set-key (kbd "C-x M-f") #'format-buffer)
 
 (defun haskell-setup ()
   (setq formatter "ormolu"))
@@ -136,21 +136,21 @@ stdout and stderr) in displayed in a new buffer."
   (setq formatter "nixpkgs-fmt"))
 (add-hook 'nix-mode-hook #'nix-setup)
 
-(global-set-key [C-*] 'highlight-symbol-next)
-(global-set-key [C-\#] 'highlight-symbol-prev)
+(global-set-key (kbd "C-*") 'highlight-symbol-next)
+(global-set-key (kbd "C-#") 'highlight-symbol-prev)
 
 (require 'multiple-cursors)
-(global-set-key [C-S-c C-S-c] #'mc/edit-lines)
-(global-set-key [C->] #'mc/mark-next-like-this-word)
-(global-set-key [C-<] #'mc/mark-previous-like-this-word)
-(global-set-key [C-c C-<] #'mc/mark-all-word-like-this)
-(global-set-key [C-S-<mouse-1>] 'mc/add-cursor-on-click)
+(global-set-key (kbd "C-S-c C-S-c") #'mc/edit-lines)
+(global-set-key (kbd "C->") #'mc/mark-next-like-this-word)
+(global-set-key (kbd "C-<") #'mc/mark-previous-like-this-word)
+(global-set-key (kbd "C-c C-<") #'mc/mark-all-word-like-this)
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 (require 'buffer-move)
-(global-set-key [<C-S-up>]     'buf-move-up)
-(global-set-key [<C-S-down>]   'buf-move-down)
-(global-set-key [<C-S-left>]   'buf-move-left)
-(global-set-key [<C-S-right>]  'buf-move-right)
+(global-set-key (kbd "<C-S-up>")     'buf-move-up)
+(global-set-key (kbd "<C-S-down>")   'buf-move-down)
+(global-set-key (kbd "<C-S-left>")   'buf-move-left)
+(global-set-key (kbd "<C-S-right>")  'buf-move-right)
 
 (require 'elisp-format)
 
@@ -163,7 +163,7 @@ stdout and stderr) in displayed in a new buffer."
                                      (reusable-frames . visible)
                                      (window-height   . 0.33)))
 
-(global-set-key [C-c C-.] 'company-complete)
+(global-set-key (kbd "C-c C-.") 'company-complete)
 
 ;; set prefix before lsp-mode has been loaded
 ;; https://github.com/emacs-lsp/lsp-mode/issues/1672
