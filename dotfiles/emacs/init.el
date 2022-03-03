@@ -32,6 +32,9 @@
   (forward-whitespace -1))
 (global-set-key [M-left] 'backward-whitespace)
 
+;; ibuffer is a bit smarter than buffer-menu, e.g. filters
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
 ;; hide doas prompt
