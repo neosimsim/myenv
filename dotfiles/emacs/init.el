@@ -39,8 +39,10 @@
 (global-set-key (kbd "C-x b") #'fzf-switch-buffer)
 (global-set-key (kbd "C-x C-g") #'fzf-git)
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c") #'with-editor-finish)
+
+(global-set-key (kbd "M-x") #'smex)
+(global-set-key (kbd "M-X") #'smex-major-mode-commands)
 
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
