@@ -136,6 +136,9 @@ stdout and stderr) in displayed in a new buffer."
   (setq formatter "nixpkgs-fmt"))
 (add-hook 'nix-mode-hook #'nix-setup)
 
+(global-set-key [C-*] 'highlight-symbol-next)
+(global-set-key [C-\#] 'highlight-symbol-prev)
+
 (require 'multiple-cursors)
 (global-set-key [C-S-c C-S-c] #'mc/edit-lines)
 (global-set-key [C->] #'mc/mark-next-like-this-word)
