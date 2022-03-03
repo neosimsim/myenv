@@ -56,6 +56,8 @@ with multi package cabal projects or mix umbrella projects."
   (interactive)
   (start-process "open" nil "open" (thing-at-point 'filename 'no-properties)))
 
+(global-set-key [C-M-mouse-3] 'open)
+
 (defun pipe-shell-region (cmd start end)
   "Pipe region to shell command and replace region with the output
 (combined stdout and stderr). The region is only replaced when the
