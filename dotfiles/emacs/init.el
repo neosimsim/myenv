@@ -143,6 +143,10 @@ stdout and stderr) in displayed in a new buffer."
 (global-set-key (kbd "C-*") 'highlight-symbol-next)
 (global-set-key (kbd "C-#") 'highlight-symbol-prev)
 
+(defun my-magit-mode-hook ()
+  (font-lock-mode t))
+(add-hook 'magit-mode-hook #'my-magit-mode-hook)
+
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") #'mc/edit-lines)
 (global-set-key (kbd "C->") #'mc/mark-next-like-this-word)
