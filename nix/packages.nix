@@ -92,6 +92,7 @@ let
       (emacsPackagesGen emacs_).withPackages (epkgs: with epkgs; [
         acme-theme
         fzf
+        smex
         highlight-symbol
         buffer-move
         multiple-cursors
