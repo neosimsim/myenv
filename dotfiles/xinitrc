@@ -20,10 +20,11 @@ if which 9 >/dev/null; then
   export tabstop=4
   # font for sam, 9term (not acme)
   export font=/mnt/font/DejaVuSansMono/18a/font
-  a &
+  # a &
   9 plumber
 fi
 
+ec -n
 
 signal-desktop &
 wire-desktop &
