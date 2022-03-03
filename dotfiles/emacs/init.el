@@ -32,10 +32,11 @@
   (forward-whitespace -1))
 (global-set-key [M-left] 'backward-whitespace)
 
+(ido-mode t)
+
 ;; ibuffer is a bit smarter than buffer-menu, e.g. filters
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-x b") #'fzf-switch-buffer)
-(global-set-key (kbd "C-x C-f") #'fzf)
 (global-set-key (kbd "C-x C-g") #'fzf-git)
 
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
