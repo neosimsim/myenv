@@ -94,6 +94,7 @@ let
         fzf
         smex
         highlight-symbol
+        magit
         buffer-move
         multiple-cursors
 
