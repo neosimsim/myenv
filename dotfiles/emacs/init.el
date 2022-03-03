@@ -34,6 +34,9 @@
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. filters
 (global-set-key [C-x C-b] #'ibuffer)
+(global-set-key [C-x b] #'fzf-switch-buffer)
+(global-set-key [C-x C-f] #'fzf)
+(global-set-key [C-x C-g] #'fzf-git)
 
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)

@@ -91,9 +91,9 @@ let
       in
       (emacsPackagesGen emacs_).withPackages (epkgs: with epkgs; [
         acme-theme
+        fzf
         buffer-move
         multiple-cursors
-        fzf
 
         nix-mode
         elm-mode
