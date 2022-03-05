@@ -145,6 +145,10 @@ stdout and stderr) in displayed in a new buffer."
 (global-set-key (kbd "C-*") 'highlight-symbol-next)
 (global-set-key (kbd "C-#") 'highlight-symbol-prev)
 
+(defun my-org-mode-hook ()
+  (font-lock-mode t))
+(add-hook 'org-mode-hook #'my-org-mode-hook)
+
 (defun my-magit-mode-hook ()
   (font-lock-mode t))
 (add-hook 'magit-mode-hook #'my-magit-mode-hook)
