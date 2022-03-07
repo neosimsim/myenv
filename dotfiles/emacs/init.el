@@ -208,6 +208,7 @@ stdout and stderr) in displayed in a new buffer."
 (setq lsp-ui-doc-enable nil)
 (setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-doc-show-with-mouse nil)
+(setq lsp-ui-sideline-show-code-actions t)
 
 (load-file (let ((coding-system-for-read 'utf-8))
              (shell-command-to-string "agda-mode locate")))
