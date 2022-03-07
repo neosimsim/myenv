@@ -36,7 +36,6 @@
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. filters
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-x b") #'fzf-switch-buffer)
 (global-set-key (kbd "C-x C-g") #'fzf-git)
 
 (global-set-key (kbd "C-c C-c") #'with-editor-finish)
