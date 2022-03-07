@@ -14,6 +14,7 @@ BIN = \
 	cmnt \
 	codespell \
 	ec \
+	ec-set-path \
 	fext \
 	filter \
 	find-ex-function \

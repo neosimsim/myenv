@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# note that this will drop EXEC_PATH, e.g. /nix/store/mnr6x69w07k1bx474hjb1690vh8rk4r0-emacs-packages-deps/bin
+emacsclient -e '
+(setenv "PATH" "'$PATH'")
+(setq exec-path (split-string "'$PATH'" path-separator))))
+'
