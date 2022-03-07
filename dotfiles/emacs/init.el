@@ -148,6 +148,11 @@ stdout and stderr) in displayed in a new buffer."
   (font-lock-mode t))
 (add-hook 'org-mode-hook #'my-org-mode-hook)
 
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)
+    (shell . t)))
+
 (defun my-magit-mode-hook ()
   (font-lock-mode t))
 (add-hook 'magit-mode-hook #'my-magit-mode-hook)
