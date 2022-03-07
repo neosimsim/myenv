@@ -1,7 +1,9 @@
 #!/bin/sh
 
-# note that this will drop EXEC_PATH, e.g. /nix/store/mnr6x69w07k1bx474hjb1690vh8rk4r0-emacs-packages-deps/bin
+# Note that this will drop EXEC_PATH, e.g. /nix/store/mnr6x69w07k1bx474hjb1690vh8rk4r0-emacs-packages-deps/bin
+# and libexec/emacs. Compare with original value of exec-path.
 emacsclient -e '
-(setenv "PATH" "'$PATH'")
-(setq exec-path (split-string "'$PATH'" path-separator))))
+(progn
+  (setenv "PATH" "'$PATH'")
+  (setq exec-path (split-string "'$PATH'" path-separator)))
 '
