@@ -229,7 +229,6 @@ stdout and stderr) in displayed in a new buffer."
 
 ;; explicitly require lsp-ui to address the face
 (require 'lsp-ui)
-(set-face-foreground 'lsp-ui-sideline-code-action "dim gray")
 (setq lsp-ui-doc-enable nil)
 (setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-doc-show-with-mouse nil)
