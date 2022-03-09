@@ -153,6 +153,7 @@ stdout and stderr) in displayed in a new buffer."
 (defun my-org-mode-hook ()
   (font-lock-mode t))
 (add-hook 'org-mode-hook #'my-org-mode-hook)
+(setq org-html-checkbox-type 'unicode)
 
 (org-babel-do-load-languages
   'org-babel-load-languages
