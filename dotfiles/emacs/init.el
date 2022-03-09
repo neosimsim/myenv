@@ -131,6 +131,12 @@ stdout and stderr) in displayed in a new buffer."
   (setq formatter "mix format"))
 (add-hook 'elixir-mode-hook #'elixir-setup)
 
+(defun copy-buffer-name ()
+  (interactive)
+  (kill-new (if (buffer-file-name)
+                (buffer-file-name)
+                (buffer-name))))
+
 (defun rust-setup ()
   (setq formatter "rustfmt"))
 (add-hook 'rust-mode-hook #'rust-setup)
