@@ -90,7 +90,8 @@ let
         emacs_ = with super; if enableGui then pkgs.emacs else emacs-nox;
       in
       (emacsPackagesGen emacs_).withPackages (epkgs: with epkgs; [
-        acme-theme
+        spacemacs-theme
+
         fzf
         smex
         highlight-symbol

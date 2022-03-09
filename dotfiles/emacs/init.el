@@ -20,7 +20,6 @@
 ;; auto-indend without realign current line
 (electric-indent-mode 0)
 (global-set-key (kbd "RET") #'newline-and-indent)
-(load-theme 'acme 1)
 (set-face-attribute 'isearch-fail nil
                     :foreground "white smoke"
                     :weight 'bold)
@@ -42,6 +41,21 @@
 
 (global-set-key (kbd "M-x") #'smex)
 (global-set-key (kbd "M-X") #'smex-major-mode-commands)
+
+(defun only-theme (theme)
+  (dolist (theme (custom-available-themes))
+    (disable-theme theme))
+    (load-theme theme 'no-confirm))
+
+(defun light-theme ()
+  (interactive)
+  (only-theme 'spacemacs-light))
+
+(defun dark-theme ()
+  (interactive)
+  (only-theme 'spacemacs-dark))
+
+(light-theme)
 
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
