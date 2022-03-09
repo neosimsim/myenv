@@ -164,6 +164,10 @@ stdout and stderr) in displayed in a new buffer."
 (global-set-key (kbd "C-*") 'highlight-symbol-next)
 (global-set-key (kbd "C-#") 'highlight-symbol-prev)
 
+(defun my-shell-mode-hook ()
+  (setq-default show-trailing-whitespace nil))
+(add-hook 'shell-mode-hook #'my-shell-mode-hook)
+
 (defun my-org-mode-hook ()
   (font-lock-mode t))
 (add-hook 'org-mode-hook #'my-org-mode-hook)
