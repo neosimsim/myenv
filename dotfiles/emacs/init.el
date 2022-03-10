@@ -220,6 +220,7 @@ stdout and stderr) in displayed in a new buffer."
 (setq lsp-lens-enable t)
 (setq lsp-haskell-formatting-provider "ormolu")
 (setq lsp-elixir-dialyzer-enabled nil)
+(setq lsp-elixir-server-command '("elixir-ls"))
 ;; https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
 (with-eval-after-load 'lsp-mode (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]deps\\'")
