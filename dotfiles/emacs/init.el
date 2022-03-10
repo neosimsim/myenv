@@ -14,7 +14,7 @@
 (setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
 (setq vc-handled-backends ())
-(global-font-lock-mode 0)
+(global-font-lock-mode t)
 (column-number-mode t)
 (show-paren-mode 1)
 ;; auto-indend without realign current line
