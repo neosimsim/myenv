@@ -89,6 +89,34 @@ stdout and stderr) is displayed in *Shell Command Output*."
              (kill-buffer "*Shell Command Output*"))
     (display-buffer "*Shell Command Output*")))
 
+(defun x (regex fn)
+  "Like plan9 sam x
+
+Loops over each mach on regex, set point to start of the
+match and applies start and end of the match to fn.
+
+Examples:
+(x \"emacs\"
+  (lambda (start end)
+    (call-shell-region start end \"tr [e] [E]\" t (current-buffer))))
+
+(x \"macs\"
+  (lambda (start end)
+    (insert-char ?E)))
+
+(x \"vim\" #'delete-region)
+"
+  (let ((pos (if mark-active
+                 (min (point) (mark))
+                 (point-min)))
+        (region-end (if mark-active
+                 (max (point) (mark))
+                 (point-max))))
+    (while (> region-end (string-match regex (buffer-string) pos))
+      (setq pos (match-end 0))
+      (goto-char (+ 1 (match-beginning 0)))
+      (funcall fn (point) (+ 1 pos)))))
+
 (defun plumb-file ()
   "Sends filename to plumber"
   (interactive)
