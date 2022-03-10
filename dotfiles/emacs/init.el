@@ -81,14 +81,13 @@ with multi package cabal projects or mix umbrella projects."
   "Pipe region to shell command and replace region with the output
 (combined stdout and stderr). The region is only replaced when the
 shell command exits 0, otherwise the commands output (combined
-stdout and stderr) in displayed in a new buffer."
-  (defconst out-buffer (generate-new-buffer "pipe"))
-  (setq exit-status (call-shell-region start end cmd nil out-buffer))
+stdout and stderr) is displayed in *Shell Command Output*."
+  (setq exit-status (call-shell-region start end cmd nil "*Shell Command Output*"))
   (if (equal 0 exit-status)
       (progn (delete-region start end)
-             (insert-buffer-substring out-buffer)
-             (kill-buffer out-buffer))
-    (display-buffer out-buffer)))
+             (insert-buffer-substring "*Shell Command Output*")
+             (kill-buffer "*Shell Command Output*"))
+    (display-buffer "*Shell Command Output*")))
 
 (defun plumb-file ()
   "Sends filename to plumber"
