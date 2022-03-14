@@ -89,7 +89,7 @@ let
       let
         emacs_ = with super; if enableGui then pkgs.emacs else emacs-nox;
       in
-      (emacsPackagesGen emacs_).withPackages (epkgs: with epkgs; [
+      (emacsPackagesFor emacs_).withPackages (epkgs: with epkgs; [
         spacemacs-theme
 
         fzf

@@ -159,7 +159,7 @@
 
           src = goTools;
 
-          vendorSha256 = "sha256-DvRtSBvp+5Dns26bWpu5+bbkaJBTCywd7mNDzox18AM=";
+          vendorSha256 = "sha256-vIRXyekU7DNWLg/sQplchGfW0en0OMLKdiuQKLxf20w=";
 
           proxyVendor = true;
 
@@ -179,7 +179,7 @@
 
           src = gosec;
 
-          vendorSha256 = "sha256-ELfbdrMMeK6ZG+hnibhHNB+k/Zvkepl+cbUx+E/Dvr8=";
+          vendorSha256 = "sha256-3ZGzVGKwnNab8wUn0fRepl4FDo43MAqNAO3zijH90/0=";
 
           buildPhase = ''
             go install github.com/securego/gosec/v2/cmd/gosec
