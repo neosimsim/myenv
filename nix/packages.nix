@@ -100,6 +100,7 @@ let
         buffer-move
         multiple-cursors
 
+        haskell-mode
         nix-mode
         elm-mode
         elixir-mode
