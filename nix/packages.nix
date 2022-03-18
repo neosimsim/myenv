@@ -96,6 +96,7 @@ let
         smex
         highlight-symbol
         magit
+        htmlize
         buffer-move
         multiple-cursors
 
