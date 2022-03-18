@@ -196,7 +196,8 @@ Examples:
 (add-hook 'shell-mode-hook #'my-shell-mode-hook)
 
 (defun my-org-mode-hook ()
-  (font-lock-mode t))
+  (font-lock-mode t)
+  (display-line-numbers-mode 0))
 (add-hook 'org-mode-hook #'my-org-mode-hook)
 (setq org-html-checkbox-type 'unicode)
 
