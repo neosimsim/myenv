@@ -197,7 +197,8 @@ Examples:
 
 (defun my-org-mode-hook ()
   (font-lock-mode t)
-  (display-line-numbers-mode 0))
+  (display-line-numbers-mode 0)
+  (mixed-pitch-mode t))
 (add-hook 'org-mode-hook #'my-org-mode-hook)
 (setq org-html-checkbox-type 'unicode)
 

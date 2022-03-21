@@ -97,6 +97,7 @@ let
         highlight-symbol
         magit
         htmlize
+        mixed-pitch
         buffer-move
         multiple-cursors
 
