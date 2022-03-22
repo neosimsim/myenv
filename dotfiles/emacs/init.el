@@ -24,20 +24,10 @@
                     :foreground "white smoke"
                     :weight 'bold)
 
-(global-set-key [M-right] 'forward-whitespace)
-(defun backward-whitespace ()
-  "Move point to the beginneg of the previous sequence of whitespace char"
-  (interactive)
-  (forward-whitespace -1))
-(global-set-key [M-left] 'backward-whitespace)
-
 (ido-mode t)
 
-;; ibuffer is a bit smarter than buffer-menu, e.g. filters
+;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-x C-g") #'fzf-git)
-
-(global-set-key (kbd "C-c C-c") #'with-editor-finish)
 
 (global-set-key (kbd "M-x") #'smex)
 (global-set-key (kbd "M-X") #'smex-major-mode-commands)
