@@ -95,7 +95,6 @@ let
         myEmacsConfig
 
         spacemacs-theme
-
         ivy
         counsel
         amx
@@ -104,6 +103,7 @@ let
         magit
         htmlize
         mixed-pitch
+        avy
         buffer-move
 
         haskell-mode
@@ -117,7 +117,6 @@ let
         lsp-ui
         flycheck
         company
-        avy
         lsp-haskell
       ]);
 

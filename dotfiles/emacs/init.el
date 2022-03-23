@@ -33,6 +33,8 @@
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+(global-set-key (kbd "C-:") 'avy-goto-char)
+
 (defun only-theme (theme)
   (dolist (theme (custom-available-themes))
     (disable-theme theme))
