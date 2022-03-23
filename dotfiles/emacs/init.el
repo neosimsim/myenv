@@ -17,12 +17,10 @@
 (global-font-lock-mode t)
 (column-number-mode t)
 (show-paren-mode 1)
-;; auto-indend without realign current line
+;; auto-indent without realign current line
 (electric-indent-mode 0)
+;; rebind RET because electric-indent-mode is disabled
 (global-set-key (kbd "RET") #'newline-and-indent)
-(set-face-attribute 'isearch-fail nil
-                    :foreground "white smoke"
-                    :weight 'bold)
 
 (ido-mode t)
 
