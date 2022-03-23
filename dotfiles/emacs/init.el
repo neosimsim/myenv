@@ -22,13 +22,13 @@
 ;; rebind RET because electric-indent-mode is disabled
 (global-set-key (kbd "RET") #'newline-and-indent)
 
-(ido-mode t)
+(counsel-mode t)
+(global-set-key (kbd "M-x") #'counsel-M-x)
+;; ivy comes with counsel
+(setq ivy-count-format "")
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-
-(global-set-key (kbd "M-x") #'smex)
-(global-set-key (kbd "M-X") #'smex-major-mode-commands)
 
 (defun only-theme (theme)
   (dolist (theme (custom-available-themes))

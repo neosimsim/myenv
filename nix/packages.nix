@@ -92,8 +92,9 @@ let
       (emacsPackagesFor emacs_).withPackages (epkgs: with epkgs; [
         spacemacs-theme
 
+        counsel
+
         fzf
-        smex
         highlight-symbol
         magit
         htmlize
