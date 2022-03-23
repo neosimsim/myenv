@@ -9,6 +9,7 @@
 (setq-default cursor-type 'bar)
 (setq set-mark-command-repeat-pop t)
 (tool-bar-mode 0)
+(scroll-bar-mode 0)
 (global-display-line-numbers-mode t)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq-default indicate-empty-lines t)
