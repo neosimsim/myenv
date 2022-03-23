@@ -63,7 +63,6 @@
     xdg.configFile =
       let
         configFilesCore = [
-          "emacs/init.el"
           "git/attributes"
           "git/config"
           "git/ignore"

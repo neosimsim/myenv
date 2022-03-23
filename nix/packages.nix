@@ -19,6 +19,8 @@ let
       ];
     };
 
+  myEmacsConfig = pkgs.writeTextDir "share/emacs/site-lisp/default.el" (builtins.readFile ../dotfiles/emacs/init.el);
+
   packageSet = {
     # make sure nix-shell runs mksh
     nix-shell-wrapped = (lib.hiPrio (writeShellScriptBin "nix-shell" ''
@@ -90,6 +92,8 @@ let
         emacs_ = with super; if enableGui then pkgs.emacs else emacs-nox;
       in
       (emacsPackagesFor emacs_).withPackages (epkgs: with epkgs; [
+        myEmacsConfig
+
         spacemacs-theme
 
         counsel
@@ -280,5 +284,7 @@ pkgs.buildEnv {
   paths = pkgs.lib.attrValues (builtins.removeAttrs packageSet [ "ma" ]);
   pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/terminfo" "/bin" "/etc" ];
   extraOutputsToInstall = [ "man" "doc" ];
-  passthru = packageSet;
+  passthru = packageSet // {
+    inherit myEmacsConfig;
+  };
 }
