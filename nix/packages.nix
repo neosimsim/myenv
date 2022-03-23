@@ -99,7 +99,6 @@ let
         htmlize
         mixed-pitch
         buffer-move
-        multiple-cursors
 
         haskell-mode
         nix-mode

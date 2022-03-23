@@ -202,13 +202,6 @@ Examples:
 (add-hook 'magit-mode-hook #'my-magit-mode-hook)
 (setq magit-diff-refine-hunk 'all)
 
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") #'mc/edit-lines)
-(global-set-key (kbd "C->") #'mc/mark-next-like-this-word)
-(global-set-key (kbd "C-<") #'mc/mark-previous-like-this-word)
-(global-set-key (kbd "C-c C-<") #'mc/mark-all-word-like-this)
-(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-
 (require 'buffer-move)
 (global-set-key (kbd "<C-S-up>")     'buf-move-up)
 (global-set-key (kbd "<C-S-down>")   'buf-move-down)
