@@ -22,7 +22,9 @@
 ;; rebind RET because electric-indent-mode is disabled
 (global-set-key (kbd "RET") #'newline-and-indent)
 
+(ivy-mode t)
 (counsel-mode t)
+(amx-mode)
 (global-set-key (kbd "M-x") #'counsel-M-x)
 ;; ivy comes with counsel
 (setq ivy-count-format "")

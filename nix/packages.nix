@@ -96,8 +96,9 @@ let
 
         spacemacs-theme
 
+        ivy
         counsel
-
+        amx
         fzf
         highlight-symbol
         magit
