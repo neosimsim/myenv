@@ -26,8 +26,6 @@
 (ivy-mode t)
 (counsel-mode t)
 (amx-mode)
-(global-set-key (kbd "M-x") #'counsel-M-x)
-;; ivy comes with counsel
 (setq ivy-count-format "")
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
