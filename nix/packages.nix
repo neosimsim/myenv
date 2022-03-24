@@ -94,7 +94,6 @@ let
       (emacsPackagesFor emacs_).withPackages (epkgs: with epkgs; [
         myEmacsConfig
 
-        spacemacs-theme
         ivy
         counsel
         amx

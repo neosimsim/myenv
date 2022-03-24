@@ -42,11 +42,11 @@
 
 (defun light-theme ()
   (interactive)
-  (only-theme 'spacemacs-light))
+  (only-theme 'whiteboard))
 
 (defun dark-theme ()
   (interactive)
-  (only-theme 'spacemacs-dark))
+  (only-theme 'deeper-blue))
 
 (light-theme)
 
