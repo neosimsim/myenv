@@ -48,6 +48,10 @@
 
 (light-theme)
 
+(defun my-shell-mode-hook ()
+  (display-line-numbers-mode 0))
+(add-hook 'shell-mode-hook #'my-shell-mode-hook)
+
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
 ;; hide doas prompt
