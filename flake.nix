@@ -49,7 +49,7 @@
     }:
     let pkgs = import nixpkgs {
       system = "x86_64-linux";
-      overlays = [ self.overlay ];
+      overlays = [ self.overlays.default ];
     };
     in
     {
@@ -58,7 +58,6 @@
         packagesWithGui = import ./nix/packages.nix { inherit pkgs; enableGui = true; };
       };
 
-      defaultPackage.x86_64-linux = self.packages.x86_64-linux.packagesWithoutGui;
 
       devShells.x86_64-linux.neosimsim-shell = pkgs.haskellPackages.shellFor {
         packages = p: with p; [ neosimsim-shell ];
@@ -66,7 +65,7 @@
 
       nixosModules.home-manager = import ./nix/home.nix;
 
-      overlay = final: prev: {
+      overlays.default = final: prev: {
 
         haskellPackages = with prev;
           (haskellPackages.override {
@@ -213,7 +212,7 @@
           system = "x86_64-linux";
           modules = [
             ({ ... }: {
-              nixpkgs.overlays = [ self.overlay ];
+              nixpkgs.overlays = [ self.overlays.default ];
               boot.isContainer = true;
               users.users.neosimsim.isNormalUser = true;
             })
@@ -233,7 +232,7 @@
           system = "x86_64-linux";
           modules = [
             ({ ... }: {
-              nixpkgs.overlays = [ self.overlay ];
+              nixpkgs.overlays = [ self.overlays.default ];
               boot.isContainer = true;
               services.xserver.enable = true;
               users.users.neosimsim.isNormalUser = true;
@@ -253,8 +252,6 @@
       };
 
       checks.x86_64-linux = {
-        default = self.defaultPackage.x86_64-linux;
-
         packagesWithoutGui = self.packages.x86_64-linux.packagesWithoutGui;
         packagesWithGui = self.packages.x86_64-linux.packagesWithGui;
         ma = self.packages.x86_64-linux.packagesWithGui.ma;
