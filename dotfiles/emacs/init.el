@@ -5,13 +5,11 @@
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 (setq kill-whole-line t)
-(setq-default show-trailing-whitespace t)
 (setq-default cursor-type 'bar)
 (setq set-mark-command-repeat-pop t)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
-(setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
 (setq vc-handled-backends ())
 (global-font-lock-mode t)
@@ -31,6 +29,9 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key (kbd "C-:") 'avy-goto-char)
+(global-set-key (kbd "C-*") 'highlight-symbol-next)
+(global-set-key (kbd "C-#") 'highlight-symbol-prev)
+
 
 (defun only-theme (theme)
   (dolist (theme (custom-available-themes))
@@ -139,8 +140,16 @@ Examples:
 (global-set-key (kbd "C-c C-u") #'apply-uni-region)
 
 (defun my-prog-mode-hook ()
+  (setq indicate-empty-lines t)
+  (setq show-trailing-whitespace t)
   (display-line-numbers-mode t))
 (add-hook 'prog-mode-hook #'my-prog-mode-hook)
+
+(defun my-text-mode-hook ()
+  (mixed-pitch-mode t)
+  (setq indicate-empty-lines t)
+  (setq show-trailing-whitespace t))
+(add-hook 'text-mode-hook #'my-text-mode-hook)
 
 (defvar formatter "sed 's/[[:blank:]]*$//'"
   "Commands used by format-buffer")
@@ -182,18 +191,11 @@ Examples:
   (setq formatter "nixpkgs-fmt"))
 (add-hook 'nix-mode-hook #'nix-setup)
 
-(global-set-key (kbd "C-*") 'highlight-symbol-next)
-(global-set-key (kbd "C-#") 'highlight-symbol-prev)
-
-(defun my-shell-mode-hook ()
-  (setq-default show-trailing-whitespace nil))
-(add-hook 'shell-mode-hook #'my-shell-mode-hook)
-
-(defun my-org-mode-hook ()
+(defun my-Info-mode-hook ()
   (mixed-pitch-mode t))
-(add-hook 'org-mode-hook #'my-org-mode-hook)
-(setq org-html-checkbox-type 'unicode)
+(add-hook 'Info-mode-hook #'my-Info-mode-hook)
 
+(setq org-html-checkbox-type 'unicode)
 (org-babel-do-load-languages
   'org-babel-load-languages
   '((emacs-lisp . t)
