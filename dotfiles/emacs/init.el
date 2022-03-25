@@ -10,7 +10,6 @@
 (setq set-mark-command-repeat-pop t)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-(global-display-line-numbers-mode t)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq-default indicate-empty-lines t)
 (setq-default indent-tabs-mode nil)
@@ -47,10 +46,6 @@
   (only-theme 'deeper-blue))
 
 (light-theme)
-
-(defun my-shell-mode-hook ()
-  (display-line-numbers-mode 0))
-(add-hook 'shell-mode-hook #'my-shell-mode-hook)
 
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
@@ -143,6 +138,10 @@ Examples:
   (pipe-shell-region "uni" start end))
 (global-set-key (kbd "C-c C-u") #'apply-uni-region)
 
+(defun my-prog-mode-hook ()
+  (display-line-numbers-mode t))
+(add-hook 'prog-mode-hook #'my-prog-mode-hook)
+
 (defvar formatter "sed 's/[[:blank:]]*$//'"
   "Commands used by format-buffer")
 (make-variable-buffer-local 'formatter)
@@ -192,7 +191,6 @@ Examples:
 
 (defun my-org-mode-hook ()
   (font-lock-mode t)
-  (display-line-numbers-mode 0)
   (mixed-pitch-mode t))
 (add-hook 'org-mode-hook #'my-org-mode-hook)
 (setq org-html-checkbox-type 'unicode)
