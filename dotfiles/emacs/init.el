@@ -132,7 +132,7 @@ Examples:
                  start
                  end)
                 "Enter"))
-(defalias 'tm 'send-to-tmux-region)
+(defalias 'tm #'send-to-tmux-region)
 
 (defun apply-uni-region
     (&optional
