@@ -190,7 +190,6 @@ Examples:
 (add-hook 'shell-mode-hook #'my-shell-mode-hook)
 
 (defun my-org-mode-hook ()
-  (font-lock-mode t)
   (mixed-pitch-mode t))
 (add-hook 'org-mode-hook #'my-org-mode-hook)
 (setq org-html-checkbox-type 'unicode)
@@ -200,9 +199,6 @@ Examples:
   '((emacs-lisp . t)
     (shell . t)))
 
-(defun my-magit-mode-hook ()
-  (font-lock-mode t))
-(add-hook 'magit-mode-hook #'my-magit-mode-hook)
 (setq magit-diff-refine-hunk 'all)
 
 (require 'buffer-move)
