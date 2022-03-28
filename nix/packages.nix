@@ -94,6 +94,7 @@ let
       (emacsPackagesFor emacs_).withPackages (epkgs: with epkgs; [
         myEmacsConfig
 
+        spacemacs-theme
         ivy
         counsel
         amx
@@ -104,6 +105,7 @@ let
         mixed-pitch
         avy
         buffer-move
+        vimgolf
 
         haskell-mode
         nix-mode

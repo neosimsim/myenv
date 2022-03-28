@@ -32,7 +32,6 @@
 (global-set-key (kbd "C-*") 'highlight-symbol-next)
 (global-set-key (kbd "C-#") 'highlight-symbol-prev)
 
-
 (defun only-theme (theme)
   (dolist (theme (custom-available-themes))
     (disable-theme theme))
@@ -40,13 +39,20 @@
 
 (defun light-theme ()
   (interactive)
-  (only-theme 'whiteboard))
+  (only-theme 'spacemacs-light))
 
 (defun dark-theme ()
   (interactive)
-  (only-theme 'deeper-blue))
+  (only-theme 'spacemacs-dark))
 
 (light-theme)
+
+(setq
+  spacemacs-theme-org-bold nil
+  spacemacs-theme-org-height nil)
+
+;; Selection is not visible with (counsel-describe-function) -> ivy mode
+(set-face-attribute 'ivy-highlight-face nil :inherit nil)
 
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
