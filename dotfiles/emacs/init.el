@@ -32,6 +32,10 @@
 (global-set-key (kbd "C-*") 'highlight-symbol-next)
 (global-set-key (kbd "C-#") 'highlight-symbol-prev)
 
+(setq
+  spacemacs-theme-org-bold nil
+  spacemacs-theme-org-height nil)
+
 (defun only-theme (theme)
   (dolist (theme (custom-available-themes))
     (disable-theme theme))
@@ -46,10 +50,6 @@
   (only-theme 'spacemacs-dark))
 
 (light-theme)
-
-(setq
-  spacemacs-theme-org-bold nil
-  spacemacs-theme-org-height nil)
 
 ;; Selection is not visible with (counsel-describe-function) -> ivy mode
 (set-face-attribute 'ivy-highlight-face nil :inherit nil)
