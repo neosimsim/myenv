@@ -40,6 +40,8 @@
        (swiper-multi . swiper--all-format-function)
        (t . ivy-format-function-arrow)))
 
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c k") 'counsel-rg)
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
 (global-set-key (kbd "C-x C-b") 'ibuffer)

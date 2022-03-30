@@ -98,7 +98,6 @@ let
         ivy
         counsel
         amx
-        fzf
         highlight-symbol
         magit
         htmlize
