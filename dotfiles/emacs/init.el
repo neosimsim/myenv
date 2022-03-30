@@ -23,7 +23,23 @@
 (ivy-mode t)
 (counsel-mode t)
 (amx-mode)
-(setq ivy-count-format "")
+(setq
+   ivy-use-virtual-buffers t
+   ivy-count-format "(%d/%d) "
+   ivy-format-functions-alist
+     '((counsel-compile-env . counsel-compile-env--format-hint)
+       (counsel-kmacro . counsel--kmacro-format-function)
+       (counsel-colors-web . counsel--colors-web-format-function)
+       (counsel-colors-emacs . counsel--colors-emacs-format-function)
+       (counsel-evil-registers . counsel--yank-pop-format-function)
+       (counsel-yank-pop . counsel--yank-pop-format-function)
+       (counsel-git-log . counsel--git-log-format-function)
+       (counsel-faces . counsel--faces-format-function)
+       (swiper-isearch . swiper-isearch-format-function)
+       (swiper-all . swiper--all-format-function)
+       (swiper-multi . swiper--all-format-function)
+       (t . ivy-format-function-arrow)))
+
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -50,9 +66,6 @@
   (only-theme 'spacemacs-dark))
 
 (light-theme)
-
-;; Selection is not visible with (counsel-describe-function) -> ivy mode
-(set-face-attribute 'ivy-highlight-face nil :inherit nil)
 
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
