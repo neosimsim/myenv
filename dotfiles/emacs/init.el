@@ -20,6 +20,9 @@
 ;; rebind RET because electric-indent-mode is disabled
 (global-set-key (kbd "RET") #'newline-and-indent)
 
+(set-fontset-font t '(#x1f000 . #x1faff)
+  (font-spec :family "Noto Color Emoji"))
+
 (ivy-mode t)
 (counsel-mode t)
 (amx-mode)
