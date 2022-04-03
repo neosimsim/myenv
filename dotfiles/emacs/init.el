@@ -196,7 +196,7 @@ Examples:
 (add-hook 'haskell-cabal-mode-hook #'cabal-setup)
 
 (defun elixir-setup ()
-  (setq formatter "mix format"))
+  (local-set-key (kbd "C-x M-f") #'elixir-format))
 (add-hook 'elixir-mode-hook #'elixir-setup)
 
 (defun copy-buffer-name ()
