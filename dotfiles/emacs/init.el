@@ -181,10 +181,10 @@ Examples:
 (defun format-buffer ()
   "Format the current buffer using the shell command stored in formatter."
   (interactive)
-  (defconst p (point))
-  (pipe-shell-region formatter (point-min)
-                     (point-max))
-  (goto-char p))
+  (let ((p (point))
+        (prev-point-max (point-max)))
+    (pipe-shell-region formatter (point-min) (point-max))
+    (goto-char (+ p (- (point-max) prev-point-max)))))
 (global-set-key (kbd "C-x M-f") #'format-buffer)
 
 (defun haskell-setup ()
