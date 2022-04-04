@@ -250,6 +250,7 @@ Examples:
 ;; https://github.com/emacs-lsp/lsp-mode/issues/1672
 (setq lsp-keymap-prefix "C-.")
 (require 'lsp-mode)
+(setq lsp-modeline-code-actions-segments '(icon count name))
 ;; lsp-mode tweaks https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
