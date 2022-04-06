@@ -95,6 +95,7 @@ let
         myEmacsConfig
 
         spacemacs-theme
+        kaolin-themes
         ivy
         counsel
         amx
