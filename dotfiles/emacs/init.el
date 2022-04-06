@@ -8,6 +8,7 @@
 (setq-default cursor-type 'bar)
 (setq set-mark-command-repeat-pop t)
 (tool-bar-mode 0)
+(menu-bar-mode 0)
 (scroll-bar-mode 0)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq-default indent-tabs-mode nil)
