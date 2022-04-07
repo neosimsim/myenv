@@ -1,3 +1,4 @@
 #!/bin/sh
 
-emacsclient -c -a '' "$@"
+# https://github.com/arcticicestudio/nord-emacs/issues/59
+emacsclient -e '(light-theme)' -c -a '' "$@"
