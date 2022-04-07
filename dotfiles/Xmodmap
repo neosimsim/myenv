@@ -17,6 +17,10 @@ keysym q = q Q q Q U0308
 
 ! © instead of ç (use AltGr+[,] [c])
 keysym c = c C c C copyright
+
+! additional degree
+keysym d = d D d D dead_diaeresis degree
+
 ! additional Narrow No-Break Space before Narrow No-Break Space
 keysym space = space space space space U202F nobreakspace
 
