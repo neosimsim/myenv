@@ -35,8 +35,6 @@
           "xinitrc"
           "xmobarrc"
           "Xmodmap"
-          "Xmodmap.colemak"
-          "Xmodmap.qwerty"
           "xmonad/build"
           "xmonad/xmonad.hs"
           "Xresources"

@@ -1,28 +1,24 @@
-! Kinesis Right Padel
-keycode 108 = Mode_switch
-keysym 1 = 1 exclam U0308
-keysym a = a A adiaeresis Adiaeresis
-keysym b = b B leftsinglequotemark leftdoublequotemark
-keysym c = c C copyright
-keysym e = e E EuroSign
-keysym l = l L Greek_lamda Greek_LAMDA
-keysym o = o O odiaeresis Odiaeresis
-keysym s = s S ssharp U1E9E
-keysym u = u U udiaeresis Udiaeresis
-keysym v = v V singlelowquotemark doublelowquotemark
-keysym n = n N U2115
-keysym r = r R U211D
-keysym p = p P U2119
-keysym q = q Q U211A
-keysym z = z Z U2124
-keysym t = t T t U22A4
-keysym minus = minus underscore endash emdash
-keysym space = space space U202F nobreakspace
-keysym comma = comma less guillemotleft
-keysym period = period greater guillemotright ellipsis
-keysym apostrophe = apostrophe quotedbl leftsinglequotemark rightsinglequotemark
-keysym backslash = backslash bar leftdoublequotemark rightdoublequotemark
-keysym equal = equal plus U0301 U0300
-keysym grave = grave asciitilde U0300 U0302
-keysym Right = Right Right rightarrow
-keysym Left = Left Left leftarrow
+! map CapsLock to Escape
+keycode 66 = Escape
+
+! Assuming colemak variant,
+! when using default variant you may want to uncommtent the next line.
+!remove Lock = Caps_Lock
+
+! Modifications to https://colemak.com/Multilingual
+
+! [‚] / [„] instead of [ü] / [Ü]
+keysym y = y Y y Y singlelowquotemark doublelowquotemark
+! [‘] / [“] instead of [ö] / [Ö]
+keysym semicolon = semicolon colon semicolon colon leftsinglequotemark leftdoublequotemark
+
+! Combining Diaeresis instead of ä (use AltGr+[d] [a])
+keysym q = q Q q Q U0308
+
+! © instead of ç (use AltGr+[,] [c])
+keysym c = c C c C copyright
+! additional Narrow No-Break Space before Narrow No-Break Space
+keysym space = space space space space U202F nobreakspace
+
+! additional ellipsis
+keysym period = period greater period greater dead_abovedot ellipsis
