@@ -27,8 +27,6 @@ BIN = \
 	fzf-open \
 	fzf-tags \
 	games \
-	gen-vim-uni \
-	gen-vis-uni \
 	getmod \
 	git-no-unstaged \
 	git-to-dot \

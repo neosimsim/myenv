@@ -58,7 +58,6 @@ let
       fzf
       git-lfs
       gnumake
-      gnupg
       go
       goimports
       gosec
@@ -67,18 +66,15 @@ let
       isync
       jq
       libarchive
-      mutt
       nixpkgs-fmt
       nix-prefetch-scripts
       passage
-      pinentry-curses
       plan9port
       ripgrep
       rnix-lsp
       tmux
       typespeed
       unzip
-      vis
       ;
 
     agda = pkgs.agda.withPackages (p: [ p.standard-library ]);

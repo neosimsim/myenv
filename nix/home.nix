@@ -25,13 +25,10 @@
         dotfilesCore = [
           "cabal/config"
           "ghci"
-          "gnupg/gpg-agent.conf"
           "mkshrc"
           "tmux.conf"
         ];
         dotfilesGui = [
-          "themes/urxvt/atom-one-light"
-          "themes/urxvt/tango"
           "xinitrc"
           "xmobarrc"
           "Xmodmap"
@@ -64,8 +61,6 @@
           "git/attributes"
           "git/config"
           "git/ignore"
-          "vis/visrc.lua"
-          "vis/themes/peaksea.lua"
         ];
         configFilesGui = [
           "alacritty/alacritty.yml"

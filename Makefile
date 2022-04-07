@@ -24,7 +24,6 @@ uninstall:
 	$(SHELL) -l -c '$(MAKE) -C scripts uninstall'
 
 reload-core:
-	$(SHELL) -l -c gen-vis-uni
 	$(SHELL) -l -c '$(MAKE) -C dotfiles reload-core'
 
 reload-gui:

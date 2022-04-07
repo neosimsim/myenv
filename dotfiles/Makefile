@@ -3,14 +3,11 @@
 DOTFILES_CORE= \
 	cabal/config \
 	ghci \
-	gnupg/gpg-agent.conf \
 	mkshrc \
 	profile \
 	tmux.conf \
 
 DOTFILES_GUI= \
-	themes/urxvt/atom-one-light \
-	themes/urxvt/tango \
 	xinitrc \
 	xmobarrc \
 	Xmodmap \
@@ -28,8 +25,6 @@ CONFIGFILES_CORE= \
 	git/attributes \
 	git/config \
 	git/ignore \
-	vis/visrc.lua \
-	vis/themes/peaksea.lua \
 
 CONFIGFILES_GUI= \
 	alacritty/alacritty.yml \

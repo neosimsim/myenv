@@ -1,3 +1,0 @@
-#!/bin/sh
-
-uni print | awk '{printf("noremap! <Leader>%s %s\n", $1, $2)}' >$HOME/.vim/uni.vim
