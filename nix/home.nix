@@ -14,11 +14,9 @@
 
 
   config = mkIf config.myenv.enable {
-    home.packages =
-      let
-        myenv = with config.myenv; import ./packages.nix { inherit pkgs enableGui; };
-      in
-      [ (lowPrio myenv) ];
+    home.packages = [
+      (with config.myenv; import ./packages.nix { inherit pkgs enableGui; })
+    ];
 
     home.file =
       let
