@@ -251,40 +251,52 @@
         };
       };
 
-      checks.x86_64-linux = {
-        packagesWithoutGui = self.packages.x86_64-linux.packagesWithoutGui;
-        packagesWithGui = self.packages.x86_64-linux.packagesWithGui;
-        ma = self.packages.x86_64-linux.packagesWithGui.ma;
+      checks.x86_64-linux =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+          checkInstalled = pkgs.writeShellScript "checkInstalled" ''
+            if ! [ -x $1 ]; then
+              echo missing $1 >&2
+              exit 1
+            fi
+          '';
+          checkUninstalled = pkgs.writeShellScript "checkUninstalled" ''
+            if [ -x $1 ]; then
+              echo unexpected $1 >&2
+              exit 1
+            fi
+          '';
+        in
+        {
+          packagesWithoutGui = self.packages.x86_64-linux.packagesWithoutGui;
+          packagesWithGui = self.packages.x86_64-linux.packagesWithGui;
 
-        nixosWithGui = self.nixosConfigurations.withGui.config.system.build.toplevel;
-        nixosWithoutGui = self.nixosConfigurations.withoutGui.config.system.build.toplevel;
+          # disabled packages
+          ma = self.packages.x86_64-linux.packagesWithGui.ma;
 
-        testCommandsWithGui = pkgs.runCommand "test-commands-with-gui"
-          {
-            buildInputs = [
-              pkgs.which
-              self.packages.x86_64-linux.packagesWithGui
-            ];
-          } ''
-          (
-          which Afmt
-          which xmonad
-          )>$out
-        '';
+          nixosWithGui = pkgs.runCommand "test-myenv-with-gui"
+            {
+              nixRoot = self.nixosConfigurations.withGui.config.system.build.toplevel;
+            } ''
+            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
+            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
 
-        testCommandsWithoutGui = pkgs.runCommand "test-commands-without-gui"
-          {
-            buildInputs = [
-              pkgs.which
-              self.packages.x86_64-linux.packagesWithoutGui
-            ];
-          } ''
-          (
-          which fm
-          which o
-          ! which xmonad
-          )>$out
-        '';
-      };
+            echo successful >$out
+          '';
+
+          nixosWithoutGui = pkgs.runCommand "test-myenv-without-gui"
+            {
+              nixRoot = self.nixosConfigurations.withoutGui.config.system.build.toplevel;
+            } ''
+            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
+            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
+            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/o
+            ${checkUninstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+
+            echo successful >$out
+          '';
+        };
     };
 }
