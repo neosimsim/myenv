@@ -63,7 +63,31 @@
         packages = p: with p; [ neosimsim-shell ];
       };
 
-      nixosModules.home-manager = import ./nix/home.nix;
+      nixosModule = { config, ... }: {
+
+        imports = [
+          home-manager.nixosModules.home-manager
+        ];
+
+        nixpkgs.overlays = [
+          self.overlays.default
+        ];
+
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+
+          users.neosimsim = { ... }: {
+            imports = [ (import ./nix/home.nix) ];
+
+            myenv = {
+              enable = true;
+              enableGui = config.services.xserver.enable || config.programs.sway.enable;
+            };
+          };
+        };
+
+      };
 
       overlays.default = final: prev: {
 
@@ -212,19 +236,10 @@
           system = "x86_64-linux";
           modules = [
             ({ ... }: {
-              nixpkgs.overlays = [ self.overlays.default ];
               boot.isContainer = true;
               users.users.neosimsim.isNormalUser = true;
             })
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.neosimsim = { ... }: {
-                imports = [ self.nixosModules.home-manager ];
-                myenv.enable = true;
-              };
-            }
+            self.nixosModule
           ];
         };
 
@@ -232,21 +247,11 @@
           system = "x86_64-linux";
           modules = [
             ({ ... }: {
-              nixpkgs.overlays = [ self.overlays.default ];
               boot.isContainer = true;
               services.xserver.enable = true;
               users.users.neosimsim.isNormalUser = true;
             })
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.neosimsim = { ... }: {
-                imports = [ self.nixosModules.home-manager ];
-                myenv.enable = true;
-                myenv.enableGui = true;
-              };
-            }
+            self.nixosModule
           ];
         };
       };
