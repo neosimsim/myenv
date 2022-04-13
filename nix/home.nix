@@ -18,6 +18,8 @@
       (with config.myenv; import ./packages.nix { inherit pkgs enableGui; })
     ];
 
+    home.stateVersion = "22.05";
+
     home.file =
       let
         dotfilesCore = [
@@ -68,6 +70,32 @@
       genAttrs configFiles (name: { source = ../dotfiles + "/${name}"; });
 
     programs = {
+
+      firefox = {
+        enable = true;
+
+        package = pkgs.firefox-esr.override {
+          extraPolicies = {
+            SearchEngines = {
+              Default = "DuckDuckGo";
+            };
+          };
+        };
+
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          ublock-origin
+          vimium
+        ];
+
+        # We need a profile because extensions listed here will only
+        # be available in Firefox profiles managed by Home Manager.
+        # https://github.com/nix-community/home-manager/blob/e39a9d0103e3b2e42059c986a8c633824b96c193/modules/programs/firefox.nix
+        profiles = {
+          default = { };
+        };
+
+      };
+
       vscode = {
         enable = true;
 

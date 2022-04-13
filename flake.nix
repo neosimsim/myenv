@@ -9,6 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur.url = "github:nix-community/NUR";
+
     hconv = {
       url = "gitlab:neosimsim/hconv";
       flake = false;
@@ -48,6 +50,7 @@
     , home-manager
     , hookmark
     , nixpkgs
+    , nur
     , passage
     , plan9fansGo
     }@inputs:
@@ -75,6 +78,7 @@
 
         nixpkgs.overlays = [
           self.overlays.default
+          self.inputs.nur.overlay
         ];
 
         home-manager = {
