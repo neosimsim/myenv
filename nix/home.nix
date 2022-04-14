@@ -69,7 +69,7 @@
       in
       genAttrs configFiles (name: { source = ../dotfiles + "/${name}"; });
 
-    programs = {
+    programs = optionalAttrs config.myenv.enableGui {
 
       firefox = {
         enable = true;
