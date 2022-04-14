@@ -129,14 +129,14 @@
           pkgs = import nixpkgs {
             system = "x86_64-linux";
           };
-          checkInstalled = pkgs.writeShellScript "checkInstalled" ''
-            if ! [ -x $1 ]; then
+          checkPresent = pkgs.writeShellScript "checkPresent" ''
+            if ! [ -f $1 ]; then
               echo missing $1 >&2
               exit 1
             fi
           '';
-          checkUninstalled = pkgs.writeShellScript "checkUninstalled" ''
-            if [ -x $1 ]; then
+          checkMissing = pkgs.writeShellScript "checkMissing" ''
+            if [ -f $1 ]; then
               echo unexpected $1 >&2
               exit 1
             fi
@@ -152,9 +152,18 @@
           nixosWithGui = pkgs.runCommand "test-myenv-with-gui"
             {
               nixRoot = self.nixosConfigurations.withGui.config.system.build.toplevel;
+              homeFiles = self.nixosConfigurations.withGui.config.home-manager.users.neosimsim.home-files;
             } ''
-            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
-            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/o
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
+
+            ${checkPresent} $homeFiles/.config/git/config
+            ${checkPresent} $homeFiles/.Xresources
+            ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
 
             echo successful >$out
           '';
@@ -162,11 +171,16 @@
           nixosWithoutGui = pkgs.runCommand "test-myenv-without-gui"
             {
               nixRoot = self.nixosConfigurations.withoutGui.config.system.build.toplevel;
+              homeFiles = self.nixosConfigurations.withoutGui.config.home-manager.users.neosimsim.home-files;
             } ''
-            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
-            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
-            ${checkInstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/o
-            ${checkUninstalled} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/o
+            ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+            ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
+
+            ${checkPresent} $homeFiles/.config/git/config
+            ${checkMissing} $homeFiles/.Xresources
 
             echo successful >$out
           '';
