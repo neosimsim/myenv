@@ -93,6 +93,8 @@
         profiles = {
           default = {
             settings = {
+              "signon.rememberSignons" = false;
+
               # disable all sorts of telemetry
               # https://support.mozilla.org/en-US/questions/1197144
               "browser.newtabpage.activity-stream.feeds.telemetry" = false;
