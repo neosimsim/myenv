@@ -14,60 +14,55 @@
 
 
   config = mkIf config.myenv.enable {
-    home.packages = [
-      (with config.myenv; import ./packages.nix { inherit pkgs enableGui; })
-    ];
+    home = {
+      stateVersion = "22.05";
 
-    home.stateVersion = "22.05";
+      packages = [
+        (with config.myenv; import ./packages.nix { inherit pkgs enableGui; })
+      ];
 
-    home.file =
-      let
-        dotfilesCore = [
-          "cabal/config"
-          "ghci"
-          "mkshrc"
-          "tmux.conf"
-        ];
-        dotfilesGui = [
-          "xinitrc"
-          "xmobarrc"
-          "Xmodmap"
-          "xmonad/build"
-          "xmonad/xmonad.hs"
-          "Xresources"
-          "xsession"
-        ];
-        dotfiles = dotfilesCore ++ optionals config.myenv.enableGui dotfilesGui;
-      in
-      {
-        ".profile".text = ''
-          . "${../dotfiles/profile}"
-          . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
-        '';
-      }
-      // optionalAttrs config.myenv.enableGui {
-        "lib/plumbing".source = ../dotfiles/plumbing;
-      }
-      // genAttrs dotfiles
-        (name:
-          {
-            source = ../dotfiles + "/${name}";
-            target = ".${name}";
-          });
+      file =
+        {
+          ".profile".text = ''
+            . "${../dotfiles/profile}"
+            . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+          '';
+        }
+        // optionalAttrs config.myenv.enableGui {
+          "lib/plumbing".source = ../dotfiles/plumbing;
+        }
+        // genAttrs
+          ([
+            "cabal/config"
+            "ghci"
+            "mkshrc"
+            "tmux.conf"
+          ] ++ optionals config.myenv.enableGui [
+            "xinitrc"
+            "xmobarrc"
+            "Xmodmap"
+            "xmonad/build"
+            "xmonad/xmonad.hs"
+            "Xresources"
+            "xsession"
+          ])
+          (name:
+            {
+              source = ../dotfiles + "/${name}";
+              target = ".${name}";
+            });
+    };
 
     xdg.configFile =
-      let
-        configFilesCore = [
+      genAttrs
+        ([
           "git/attributes"
           "git/config"
           "git/ignore"
-        ];
-        configFilesGui = [
+        ] ++ optionals config.myenv.enableGui [
           "alacritty/alacritty.yml"
-        ];
-        configFiles = configFilesCore ++ optionals config.myenv.enableGui configFilesGui;
-      in
-      genAttrs configFiles (name: { source = ../dotfiles + "/${name}"; });
+        ])
+        (name: { source = ../dotfiles + "/${name}"; });
 
     programs = optionalAttrs config.myenv.enableGui {
 
