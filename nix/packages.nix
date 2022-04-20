@@ -1,4 +1,6 @@
-{ enableGui ? false
+{ useXServer ? false
+, useSway ? false
+, enableGui ? useXServer || useSway
 , pkgs
 }:
 with pkgs;
@@ -155,7 +157,7 @@ let
       profunctors
       safe
       semigroupoids
-    ] ++ lib.optionals enableGui [
+    ] ++ lib.optionals useXServer [
       xmonad
       xmonad-contrib
     ]);
@@ -204,11 +206,6 @@ let
       wire-desktop
       xsel
       zathura
-      ;
-
-    inherit (pkgs.xorg)
-      xkill
-      xmodmap
       ;
 
     inherit (pkgs.xfce)
@@ -274,6 +271,20 @@ let
         export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
         exec ${myXmobar}/bin/xmobar
       '';
+  } // lib.optionalAttrs useXServer {
+    inherit (pkgs.xorg)
+      xkill
+      xmodmap
+      ;
+  } // lib.optionalAttrs useSway {
+    inherit (pkgs)
+      swaylock
+      swayidle
+      wl-clipboard
+      mako
+      wofi
+      pulseaudio
+      ;
   };
 in
 pkgs.buildEnv {

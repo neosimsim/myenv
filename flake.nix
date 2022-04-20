@@ -90,7 +90,8 @@
 
             myenv = {
               enable = true;
-              enableGui = config.services.xserver.enable || config.programs.sway.enable;
+              useXServer = config.services.xserver.enable;
+              useSway = config.programs.sway.enable;
             };
           };
         };
@@ -111,12 +112,24 @@
           ];
         };
 
-        withGui = nixpkgs.lib.nixosSystem {
+        withXServer = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ({ ... }: {
               boot.isContainer = true;
               services.xserver.enable = true;
+              users.users.neosimsim.isNormalUser = true;
+            })
+            self.nixosModule
+          ];
+        };
+
+        withSway = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ({ ... }: {
+              boot.isContainer = true;
+              programs.sway.enable = true;
               users.users.neosimsim.isNormalUser = true;
             })
             self.nixosModule
@@ -149,21 +162,45 @@
           # disabled packages
           ma = self.packages.x86_64-linux.packagesWithGui.ma;
 
-          nixosWithGui = pkgs.runCommand "test-myenv-with-gui"
+          nixosWithXServer = pkgs.runCommand "test-myenv-with-xserver"
             {
-              nixRoot = self.nixosConfigurations.withGui.config.system.build.toplevel;
-              homeFiles = self.nixosConfigurations.withGui.config.home-manager.users.neosimsim.home-files;
+              nixRoot = self.nixosConfigurations.withXServer.config.system.build.toplevel;
+              homeFiles = self.nixosConfigurations.withXServer.config.home-manager.users.neosimsim.home-files;
             } ''
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/o
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+            ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/sway
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
 
             ${checkPresent} $homeFiles/.config/git/config
             ${checkPresent} $homeFiles/.Xresources
             ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
+            ${checkPresent} $homeFiles/lib/plumbing
+
+            echo successful >$out
+          '';
+
+          nixosWithSway = pkgs.runCommand "test-myenv-with-sway"
+            {
+              nixRoot = self.nixosConfigurations.withSway.config.system.build.toplevel;
+              homeFiles = self.nixosConfigurations.withSway.config.home-manager.users.neosimsim.home-files;
+            } ''
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/o
+            ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/sway
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
+            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
+
+            ${checkPresent} $homeFiles/.config/git/config
+            ${checkPresent} $homeFiles/.config/sway/config
+            ${checkMissing} $homeFiles/.Xresources
+            ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
+            ${checkPresent} $homeFiles/lib/plumbing
 
             echo successful >$out
           '';
@@ -173,7 +210,6 @@
               nixRoot = self.nixosConfigurations.withoutGui.config.system.build.toplevel;
               homeFiles = self.nixosConfigurations.withoutGui.config.home-manager.users.neosimsim.home-files;
             } ''
-            ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/o
             ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
@@ -181,6 +217,7 @@
 
             ${checkPresent} $homeFiles/.config/git/config
             ${checkMissing} $homeFiles/.Xresources
+            ${checkMissing} $homeFiles/.config/sway/config
 
             echo successful >$out
           '';
