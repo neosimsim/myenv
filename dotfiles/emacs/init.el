@@ -9,7 +9,8 @@
 (setq set-mark-command-repeat-pop t)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(scroll-bar-mode 0)
+(when (fboundp #'scroll-bar-mode)
+  (scroll-bar-mode 0))
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq-default indent-tabs-mode nil)
 (setq vc-handled-backends ())
@@ -21,8 +22,9 @@
 ;; rebind RET because electric-indent-mode is disabled
 (global-set-key (kbd "RET") #'newline-and-indent)
 
-(set-fontset-font t '(#x1f000 . #x1faff)
-  (font-spec :family "Noto Color Emoji"))
+(when (fboundp #'set-fontset-font)
+  (set-fontset-font t '(#x1f000 . #x1faff)
+    (font-spec :family "Noto Color Emoji")))
 
 (ivy-mode t)
 (counsel-mode t)
