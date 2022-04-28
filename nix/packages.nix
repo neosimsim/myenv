@@ -290,7 +290,17 @@ in
 pkgs.buildEnv {
   name = "my-packages";
   paths = pkgs.lib.attrValues (builtins.removeAttrs packageSet [ "ma" ]);
-  pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/terminfo" "/bin" "/etc" ];
+  pathsToLink = [
+    "/bin"
+    "/etc"
+    "/share/doc"
+    "/share/fish/vendor_completions.d"
+    "/share/fish/vendor_conf.d"
+    "/share/fish/vendor_functions.d"
+    "/share/info"
+    "/share/man"
+    "/share/terminfo"
+  ];
   extraOutputsToInstall = [ "man" "doc" ];
   passthru = packageSet // {
     inherit myEmacsConfig;
