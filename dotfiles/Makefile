@@ -22,6 +22,7 @@ CONFIG_DIR=$(HOME)/.config
 
 CONFIGFILES_CORE= \
 	emacs/init.el \
+	fish/config.fish \
 	git/attributes \
 	git/config \
 	git/ignore \

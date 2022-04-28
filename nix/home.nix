@@ -74,6 +74,7 @@
 
     xdg.configFile = genAttrs
       ([
+        "fish/config.fish"
         "git/attributes"
         "git/config"
         "git/ignore"
