@@ -4,8 +4,6 @@ export HOME_PROFILE_SOURCED=1
 
 stty -ixon
 
-export HISTFILE=$HOME/.shhistory
-export HISTSIZE=65535
 export EDITOR="emacsclient -tca  ''"
 export VISUAL="$EDITOR"
 export FCEDIT="$EDITOR"
