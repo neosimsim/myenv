@@ -130,11 +130,16 @@ inputs: final: prev: {
 
     buildPhase = ''true'';
 
-    nativeBuildInputs = [ final.makeWrapper ];
+    nativeBuildInputs = with final; [ makeWrapper installShellFiles ];
     installPhase = ''
       make DESTDIR= PREFIX=$out install
 
       wrapProgram $out/bin/passage --prefix PATH : ${with final; lib.makeBinPath [ age tree xclip ]}
+
+      installShellCompletion --cmd passage \
+        --bash src/completion/pass.bash-completion \
+        --fish ${./passage/pass.fish-completion} \
+        --zsh src/completion/pass.zsh-completion
     '';
   };
 
