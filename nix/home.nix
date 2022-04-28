@@ -100,6 +100,20 @@
                 extraPolicies = {
                   SearchEngines = {
                     Default = "DuckDuckGo";
+                    Add = [
+                      {
+                        Name = "Hoogle";
+                        URLTemplate = "https://hoogle.haskell.org/?hoogle={searchTerms}";
+                        Alias = "hoogle";
+                        IconURL = "https://hoogle.haskell.org/favicon.png";
+                      }
+                      {
+                        Name = "Hackage";
+                        URLTemplate = "https://hackage.haskell.org/packages/search?terms={searchTerms}";
+                        Alias = "hackage";
+                        IconURL = "https://hackage.haskell.org/static/favicon.png";
+                      }
+                    ];
                   };
                 };
               };
