@@ -63,6 +63,8 @@
       packages.x86_64-linux = {
         packagesWithoutGui = import ./nix/packages.nix { inherit pkgs; enableGui = false; };
         packagesWithGui = import ./nix/packages.nix { inherit pkgs; enableGui = true; };
+        packagesWithXServer = import ./nix/packages.nix { inherit pkgs; useXServer = true; };
+        packagesWithSway = import ./nix/packages.nix { inherit pkgs; useSway = true; };
       };
 
 

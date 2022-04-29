@@ -181,7 +181,6 @@ let
       hookmark
       ormolu
       pandoc
-      steeloverseer
       stylish-haskell
       ;
   } // lib.optionalAttrs enableGui {
@@ -212,10 +211,6 @@ let
       thunar
       ;
 
-    inherit (pkgs.haskellPackages)
-      threadscope
-      ;
-
     ma = stdenv.mkDerivation rec {
       pname = "ma";
       version = "11_2019-03-16";
@@ -240,6 +235,11 @@ let
         cp ${lib.concatStringsSep " " cmds} $out/bin
       '';
     };
+  } // lib.optionalAttrs useXServer {
+    inherit (pkgs.xorg)
+      xkill
+      xmodmap
+      ;
 
     # Using the ALSA plugin of xmobar e.g. by adding
     #
@@ -271,11 +271,6 @@ let
         export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
         exec ${myXmobar}/bin/xmobar
       '';
-  } // lib.optionalAttrs useXServer {
-    inherit (pkgs.xorg)
-      xkill
-      xmodmap
-      ;
   } // lib.optionalAttrs useSway {
     inherit (pkgs)
       swaylock
