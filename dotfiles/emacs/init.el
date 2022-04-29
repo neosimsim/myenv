@@ -157,6 +157,15 @@ Examples:
                 "Enter"))
 (defalias 'tm #'send-to-tmux-region)
 
+(defun tmux-git ()
+  (interactive)
+  (let ((git-root (substring (shell-command-to-string "git rev-parse --show-toplevel") 0 -1)))
+    (call-process "tmux" nil nil nil "new-window" "-c" git-root)))
+
+(defun tmux-cwd ()
+  (interactive)
+  (call-process "tmux" nil nil nil "new-window" "-c" default-directory))
+
 (defun apply-uni-region
     (&optional
      start
