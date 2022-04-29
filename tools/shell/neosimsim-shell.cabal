@@ -25,7 +25,7 @@ library
   exposed-modules:  Shell
   ghc-options:      -Weverything -Werror -Wno-unsafe -Wno-missing-safe-haskell-mode
   build-depends:
-    , base            ^>=4.14.3.0
+    , base
     , bytestring
     , text
     , typed-process

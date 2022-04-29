@@ -2,34 +2,14 @@ inputs: final: prev: {
 
   haskellPackages = with prev;
     (haskellPackages.override {
-      overrides = finalHspkgs: prevHspkgs: {
-        xmonad = finalHspkgs.callHackageDirect
-          {
-            pkg = "xmonad";
-            ver = "0.17.0";
-            sha256 = "sha256-zXw2qcqeU/f7edpiC1ZZCiUeKaRUINbqZ6Nhc70y4QQ=";
-          }
-          { };
+      overrides = haskell.lib.packageSourceOverrides {
+        inherit (inputs)
+          hconv
+          hookmark
+          ;
 
-        xmonad-contrib = finalHspkgs.callHackageDirect
-          {
-            pkg = "xmonad-contrib";
-            ver = "0.17.0";
-            sha256 = "sha256-MaskRCiMtS4hhTpkxfySMiQ3QsIUkiEPEjgDnoWA7GM=";
-          }
-          { };
-
-      } // (haskell.lib.packageSourceOverrides
-        {
-          inherit (inputs)
-            hconv
-            hookmark
-            ;
-
-          neosimsim-shell = ../tools/shell;
-        }
-        finalHspkgs
-        prevHspkgs);
+        neosimsim-shell = ../tools/shell;
+      };
     });
 
   editinacme = final.buildGoModule {
