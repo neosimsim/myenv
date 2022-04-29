@@ -1,5 +1,0 @@
-#!/bin/sh
-
-set -e
-
-fzf | xargs o | sh

@@ -2,13 +2,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 
-module Scripts.Open
+module Scripts.DoTheThing
   ( main,
     ResourceIdentifier (..),
     parseResourceIdentifier,
-    openResourceIdentifierCommand,
+    doTheThingForResourceIdentifier,
     inspect,
-    openCommand,
+    doTheThingCommand,
     Editor (..),
     FilePathAddress (..),
     Config (..),
@@ -134,72 +134,72 @@ parseGitCommit x =
     gitCommitExpr :: Text
     gitCommitExpr = [r|^[a-f0-9]{7}$|^[a-f0-9]{40}$|]
 
-openResourceIdentifierCommand :: Config -> ResourceIdentifier -> Text
-openResourceIdentifierCommand _ (ManPage cmd section) =
+doTheThingForResourceIdentifier :: Config -> ResourceIdentifier -> Text
+doTheThingForResourceIdentifier _ (ManPage cmd section) =
   T.pack [i|man #{section} #{cmd}|]
-openResourceIdentifierCommand _ (GitCommit commit) =
+doTheThingForResourceIdentifier _ (GitCommit commit) =
   T.pack [i|git show #{commit}|]
-openResourceIdentifierCommand _ (URL url) =
+doTheThingForResourceIdentifier _ (URL url) =
   T.pack [i|chromium #{url}|]
-openResourceIdentifierCommand Config {configEditor = Vis} (File pathAddress) = openResourceIdentifierCommandWithVis pathAddress
-openResourceIdentifierCommand Config {configEditor = Plumb} (File pathAddress) = openResourceIdentifierCommandWithPlumb pathAddress
-openResourceIdentifierCommand Config {configEditor = Nine editor} (File pathAddress) = "9 " <> openResourceIdentifierCommand (Config {configEditor = editor}) (File pathAddress)
-openResourceIdentifierCommand Config {configEditor = EmacsClient} (File pathAddress) = openResourceIdentifierCommandWithEmacsclient pathAddress
-openResourceIdentifierCommand Config {configEditor = VSCodium} (File pathAddress) = openResourceIdentifierCommandWithVSCodium pathAddress
-openResourceIdentifierCommand Config {configEditor = Unknown editorName} (File pathAddress) = openResourceIdentifierCommandWithEditor editorName pathAddress
+doTheThingForResourceIdentifier Config {configEditor = Vis} (File pathAddress) = doTheThingForResourceIdentifierWithVis pathAddress
+doTheThingForResourceIdentifier Config {configEditor = Plumb} (File pathAddress) = doTheThingForResourceIdentifierWithPlumb pathAddress
+doTheThingForResourceIdentifier Config {configEditor = Nine editor} (File pathAddress) = "9 " <> doTheThingForResourceIdentifier (Config {configEditor = editor}) (File pathAddress)
+doTheThingForResourceIdentifier Config {configEditor = EmacsClient} (File pathAddress) = doTheThingForResourceIdentifierWithEmacsclient pathAddress
+doTheThingForResourceIdentifier Config {configEditor = VSCodium} (File pathAddress) = doTheThingForResourceIdentifierWithVSCodium pathAddress
+doTheThingForResourceIdentifier Config {configEditor = Unknown editorName} (File pathAddress) = doTheThingForResourceIdentifierWithEditor editorName pathAddress
 
-openResourceIdentifierCommandWithEditor :: Text -> FilePathAddress -> Text
-openResourceIdentifierCommandWithEditor cmd (FilePathNoAddress path) =
+doTheThingForResourceIdentifierWithEditor :: Text -> FilePathAddress -> Text
+doTheThingForResourceIdentifierWithEditor cmd (FilePathNoAddress path) =
   T.pack [i|#{cmd} #{path}|]
-openResourceIdentifierCommandWithEditor cmd (FilePathLineAddress path _) =
+doTheThingForResourceIdentifierWithEditor cmd (FilePathLineAddress path _) =
   T.pack [i|#{cmd} #{path}|]
-openResourceIdentifierCommandWithEditor cmd (FilePathLineColumnAddress path _ _) =
+doTheThingForResourceIdentifierWithEditor cmd (FilePathLineColumnAddress path _ _) =
   T.pack [i|#{cmd} #{path}|]
-openResourceIdentifierCommandWithEditor cmd (FilePathRangeAddress path _ _ _ _) =
+doTheThingForResourceIdentifierWithEditor cmd (FilePathRangeAddress path _ _ _ _) =
   T.pack [i|#{cmd} #{path}|]
 
-openResourceIdentifierCommandWithVis :: FilePathAddress -> Text
-openResourceIdentifierCommandWithVis (FilePathNoAddress path) =
+doTheThingForResourceIdentifierWithVis :: FilePathAddress -> Text
+doTheThingForResourceIdentifierWithVis (FilePathNoAddress path) =
   T.pack [i|vis #{path}|]
-openResourceIdentifierCommandWithVis (FilePathLineAddress path line) =
+doTheThingForResourceIdentifierWithVis (FilePathLineAddress path line) =
   T.pack [i|vis +#{line}-\#0 #{path}|]
-openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line 0) =
+doTheThingForResourceIdentifierWithVis (FilePathLineColumnAddress path line 0) =
   T.pack [i|vis +#{line}-\#0 #{path}|]
-openResourceIdentifierCommandWithVis (FilePathLineColumnAddress path line column) =
+doTheThingForResourceIdentifierWithVis (FilePathLineColumnAddress path line column) =
   T.pack [i|vis +#{line}-\#0+\##{column}-\#1 #{path}|]
-openResourceIdentifierCommandWithVis (FilePathRangeAddress path line1 column1 line2 column2) =
+doTheThingForResourceIdentifierWithVis (FilePathRangeAddress path line1 column1 line2 column2) =
   T.pack [i|vis +#{line1}-\#0+\##{column1}-\#1,#{line2}-\#0+\##{column2} #{path}|]
 
-openResourceIdentifierCommandWithPlumb :: FilePathAddress -> Text
-openResourceIdentifierCommandWithPlumb (FilePathNoAddress path) =
+doTheThingForResourceIdentifierWithPlumb :: FilePathAddress -> Text
+doTheThingForResourceIdentifierWithPlumb (FilePathNoAddress path) =
   T.pack [i|plumb -d edit $(pwd)/#{path}|]
-openResourceIdentifierCommandWithPlumb (FilePathLineAddress path line) =
+doTheThingForResourceIdentifierWithPlumb (FilePathLineAddress path line) =
   T.pack [i|plumb -d edit -a 'addr=#{line}' $(pwd)/#{path}|]
-openResourceIdentifierCommandWithPlumb (FilePathLineColumnAddress path line 0) =
+doTheThingForResourceIdentifierWithPlumb (FilePathLineColumnAddress path line 0) =
   T.pack [i|plumb -d edit -a 'addr=#{line}:0' $(pwd)/#{path}|]
-openResourceIdentifierCommandWithPlumb (FilePathLineColumnAddress path line column) =
+doTheThingForResourceIdentifierWithPlumb (FilePathLineColumnAddress path line column) =
   T.pack [i|plumb -d edit -a 'addr=#{line}-\#0+\##{column}-\#1' $(pwd)/#{path}|]
-openResourceIdentifierCommandWithPlumb (FilePathRangeAddress path line1 column1 line2 column2) =
+doTheThingForResourceIdentifierWithPlumb (FilePathRangeAddress path line1 column1 line2 column2) =
   T.pack [i|plumb -d edit -a 'addr=#{line1}-\#0+\##{column1}-\#1,#{line2}-\#0+\##{column2}' $(pwd)/#{path}|]
 
-openResourceIdentifierCommandWithEmacsclient :: FilePathAddress -> Text
-openResourceIdentifierCommandWithEmacsclient (FilePathNoAddress path) =
+doTheThingForResourceIdentifierWithEmacsclient :: FilePathAddress -> Text
+doTheThingForResourceIdentifierWithEmacsclient (FilePathNoAddress path) =
   T.pack [i|emacsclient -n -a '' #{path}|]
-openResourceIdentifierCommandWithEmacsclient (FilePathLineAddress path line) =
+doTheThingForResourceIdentifierWithEmacsclient (FilePathLineAddress path line) =
   T.pack [i|emacsclient -n -a '' +#{line} #{path}|]
-openResourceIdentifierCommandWithEmacsclient (FilePathLineColumnAddress path line column) =
+doTheThingForResourceIdentifierWithEmacsclient (FilePathLineColumnAddress path line column) =
   T.pack [i|emacsclient -n -a '' +#{line}:#{column} #{path}|]
-openResourceIdentifierCommandWithEmacsclient (FilePathRangeAddress path line1 column1 _line2 _column2) =
+doTheThingForResourceIdentifierWithEmacsclient (FilePathRangeAddress path line1 column1 _line2 _column2) =
   T.pack [i|emacsclient -n -a '' +#{line1}:#{column1} #{path}|]
 
-openResourceIdentifierCommandWithVSCodium :: FilePathAddress -> Text
-openResourceIdentifierCommandWithVSCodium (FilePathNoAddress path) =
+doTheThingForResourceIdentifierWithVSCodium :: FilePathAddress -> Text
+doTheThingForResourceIdentifierWithVSCodium (FilePathNoAddress path) =
   T.pack [i|codium -g #{path}|]
-openResourceIdentifierCommandWithVSCodium (FilePathLineAddress path line) =
+doTheThingForResourceIdentifierWithVSCodium (FilePathLineAddress path line) =
   T.pack [i|codium -g #{path}:#{line}|]
-openResourceIdentifierCommandWithVSCodium (FilePathLineColumnAddress path line column) =
+doTheThingForResourceIdentifierWithVSCodium (FilePathLineColumnAddress path line column) =
   T.pack [i|codium -g #{path}:#{line}:#{column}|]
-openResourceIdentifierCommandWithVSCodium (FilePathRangeAddress path line1 column1 _line2 _column2) =
+doTheThingForResourceIdentifierWithVSCodium (FilePathRangeAddress path line1 column1 _line2 _column2) =
   T.pack [i|codium -g #{path}:#{line1}:#{column1}|]
 
 inspect :: ResourceIdentifier -> Text
@@ -211,8 +211,8 @@ inspect (ManPage cmd section) = T.pack [i|#{cmd}(#{section})|]
 inspect (GitCommit commit) = commit
 inspect (URL url) = url
 
-openCommand :: Config -> Text -> Text
-openCommand c = openResourceIdentifierCommand c . parseResourceIdentifier
+doTheThingCommand :: Config -> Text -> Text
+doTheThingCommand c = doTheThingForResourceIdentifier c . parseResourceIdentifier
 
 getConfig :: IO Config
 getConfig = do
@@ -248,5 +248,5 @@ main = do
   args <- getArgs
   config <- getConfig
   case args of
-    [arg] -> T.putStrLn . openCommand config $ T.pack arg
+    [arg] -> T.putStrLn . doTheThingCommand config $ T.pack arg
     _ -> return ()

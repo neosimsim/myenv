@@ -1,11 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module Scripts.OpenSpec (spec) where
+module Scripts.DoTheThingSpec (spec) where
 
 import qualified Data.Text as T
 import Numeric.Natural
-import Scripts.Open
+import Scripts.DoTheThing
 import Test.Hspec
 import Test.QuickCheck
 
@@ -48,132 +48,132 @@ spec = do
     it "matches file URL" $
       parseResourceIdentifier "file:///foo.bar" `shouldBe` URL "file:///foo.bar"
 
-  describe "openResourceIdentifierCommand" $ do
+  describe "doTheThingForResourceIdentifier" $ do
     describe "unkown editor" $ do
       it "handles FilePathNoAddress" $
         property $ \config NonEmptyText {fromNonEmptyText = editor} ->
-          openResourceIdentifierCommand (config {configEditor = Unknown editor}) (File $ FilePathNoAddress "README.md")
+          doTheThingForResourceIdentifier (config {configEditor = Unknown editor}) (File $ FilePathNoAddress "README.md")
             `shouldBe` editor <> " README.md"
       it "handles FilePathLineAddress" $
         property $ \config NonEmptyText {fromNonEmptyText = editor} ->
-          openResourceIdentifierCommand (config {configEditor = Unknown editor}) (File $ FilePathLineAddress "README.md" 5)
+          doTheThingForResourceIdentifier (config {configEditor = Unknown editor}) (File $ FilePathLineAddress "README.md" 5)
             `shouldBe` editor <> " README.md"
       it "handles FilePathLineColumnAddress" $
         property $ \config NonEmptyText {fromNonEmptyText = editor} ->
-          openResourceIdentifierCommand (config {configEditor = Unknown editor}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          doTheThingForResourceIdentifier (config {configEditor = Unknown editor}) (File $ FilePathLineColumnAddress "README.md" 5 7)
             `shouldBe` editor <> " README.md"
 
-  describe "openResourceIdentifierCommand" $ do
+  describe "doTheThingForResourceIdentifier" $ do
     describe "vis" $ do
       it "handles FilePathNoAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathNoAddress "README.md")
+          doTheThingForResourceIdentifier (config {configEditor = Vis}) (File $ FilePathNoAddress "README.md")
             `shouldBe` "vis README.md"
       it "handles FilePathLineAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathLineAddress "README.md" 5)
+          doTheThingForResourceIdentifier (config {configEditor = Vis}) (File $ FilePathLineAddress "README.md" 5)
             `shouldBe` "vis +5-#0 README.md"
       it "handles FilePathLineColumnAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          doTheThingForResourceIdentifier (config {configEditor = Vis}) (File $ FilePathLineColumnAddress "README.md" 5 7)
             `shouldBe` "vis +5-#0+#7-#1 README.md"
       it "handles FilePathRangeAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Vis}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+          doTheThingForResourceIdentifier (config {configEditor = Vis}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
             `shouldBe` "vis +5-#0+#7-#1,6-#0+#10 README.md"
 
     describe "plumb" $ do
       it "handles FilePathNoAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathNoAddress "README.md")
+          doTheThingForResourceIdentifier (config {configEditor = Plumb}) (File $ FilePathNoAddress "README.md")
             `shouldBe` "plumb -d edit $(pwd)/README.md"
       it "handles FilePathLineAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathLineAddress "README.md" 5)
+          doTheThingForResourceIdentifier (config {configEditor = Plumb}) (File $ FilePathLineAddress "README.md" 5)
             `shouldBe` "plumb -d edit -a 'addr=5' $(pwd)/README.md"
       it "handles FilePathLineColumnAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          doTheThingForResourceIdentifier (config {configEditor = Plumb}) (File $ FilePathLineColumnAddress "README.md" 5 7)
             `shouldBe` "plumb -d edit -a 'addr=5-#0+#7-#1' $(pwd)/README.md"
       it "handles FilePathRangeAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Plumb}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+          doTheThingForResourceIdentifier (config {configEditor = Plumb}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
             `shouldBe` "plumb -d edit -a 'addr=5-#0+#7-#1,6-#0+#10' $(pwd)/README.md"
 
     describe "9" $ do
       it "handles FilePathNoAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Nine Plumb}) (File $ FilePathNoAddress "README.md")
+          doTheThingForResourceIdentifier (config {configEditor = Nine Plumb}) (File $ FilePathNoAddress "README.md")
             `shouldBe` "9 plumb -d edit $(pwd)/README.md"
       it "handles FilePathLineAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Nine Plumb}) (File $ FilePathLineAddress "README.md" 5)
+          doTheThingForResourceIdentifier (config {configEditor = Nine Plumb}) (File $ FilePathLineAddress "README.md" 5)
             `shouldBe` "9 plumb -d edit -a 'addr=5' $(pwd)/README.md"
       it "handles FilePathLineColumnAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Nine Plumb}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          doTheThingForResourceIdentifier (config {configEditor = Nine Plumb}) (File $ FilePathLineColumnAddress "README.md" 5 7)
             `shouldBe` "9 plumb -d edit -a 'addr=5-#0+#7-#1' $(pwd)/README.md"
       it "handles FilePathRangeAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = Nine Plumb}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+          doTheThingForResourceIdentifier (config {configEditor = Nine Plumb}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
             `shouldBe` "9 plumb -d edit -a 'addr=5-#0+#7-#1,6-#0+#10' $(pwd)/README.md"
 
     describe "emacsclient" $ do
       it "handles FilePathNoAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = EmacsClient}) (File $ FilePathNoAddress "README.md")
+          doTheThingForResourceIdentifier (config {configEditor = EmacsClient}) (File $ FilePathNoAddress "README.md")
             `shouldBe` "emacsclient -n -a '' README.md"
       it "handles FilePathLineAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = EmacsClient}) (File $ FilePathLineAddress "README.md" 5)
+          doTheThingForResourceIdentifier (config {configEditor = EmacsClient}) (File $ FilePathLineAddress "README.md" 5)
             `shouldBe` "emacsclient -n -a '' +5 README.md"
       it "handles FilePathLineColumnAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = EmacsClient}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          doTheThingForResourceIdentifier (config {configEditor = EmacsClient}) (File $ FilePathLineColumnAddress "README.md" 5 7)
             `shouldBe` "emacsclient -n -a '' +5:7 README.md"
       it "handles FilePathRangeAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = EmacsClient}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+          doTheThingForResourceIdentifier (config {configEditor = EmacsClient}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
             `shouldBe` "emacsclient -n -a '' +5:7 README.md"
 
     describe "vscodium" $ do
       it "handles FilePathNoAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = VSCodium}) (File $ FilePathNoAddress "README.md")
+          doTheThingForResourceIdentifier (config {configEditor = VSCodium}) (File $ FilePathNoAddress "README.md")
             `shouldBe` "codium -g README.md"
       it "handles FilePathLineAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = VSCodium}) (File $ FilePathLineAddress "README.md" 5)
+          doTheThingForResourceIdentifier (config {configEditor = VSCodium}) (File $ FilePathLineAddress "README.md" 5)
             `shouldBe` "codium -g README.md:5"
       it "handles FilePathLineColumnAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = VSCodium}) (File $ FilePathLineColumnAddress "README.md" 5 7)
+          doTheThingForResourceIdentifier (config {configEditor = VSCodium}) (File $ FilePathLineColumnAddress "README.md" 5 7)
             `shouldBe` "codium -g README.md:5:7"
       it "handles FilePathRangeAddress" $
         property $ \config ->
-          openResourceIdentifierCommand (config {configEditor = VSCodium}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
+          doTheThingForResourceIdentifier (config {configEditor = VSCodium}) (File $ FilePathRangeAddress "README.md" 5 7 6 10)
             `shouldBe` "codium -g README.md:5:7"
 
     it "handles ManPage" $
       property $ \config ->
-        openResourceIdentifierCommand config (ManPage "foo" 7)
+        doTheThingForResourceIdentifier config (ManPage "foo" 7)
           `shouldBe` "man 7 foo"
     it "handles GitCommit" $
       property $ \config ->
-        openResourceIdentifierCommand config (GitCommit "7437dd88ba8ffb7648ab1bb32fe1465851f2804f")
+        doTheThingForResourceIdentifier config (GitCommit "7437dd88ba8ffb7648ab1bb32fe1465851f2804f")
           `shouldBe` "git show 7437dd88ba8ffb7648ab1bb32fe1465851f2804f"
     it "handles URL" $
       property $ \config ->
-        openResourceIdentifierCommand config (URL "https://www.haskell.org/")
+        doTheThingForResourceIdentifier config (URL "https://www.haskell.org/")
           `shouldBe` "chromium https://www.haskell.org/"
 
   describe "parse . inspect" $ do
     it "is the identity" $
       property $ \r -> parseResourceIdentifier (inspect r) `shouldBe` r
 
-  describe "openCommand" $ do
-    it "behaves like openResourceIdentifierCommand on parseResourceIdentifier" $
-      property $ \config r -> openCommand config (inspect r) `shouldBe` openResourceIdentifierCommand config (parseResourceIdentifier (inspect r))
+  describe "doTheThingCommand" $ do
+    it "behaves like doTheThingForResourceIdentifier on parseResourceIdentifier" $
+      property $ \config r -> doTheThingCommand config (inspect r) `shouldBe` doTheThingForResourceIdentifier config (parseResourceIdentifier (inspect r))
 
 arbNonEmptyText :: Gen T.Text
 arbNonEmptyText =

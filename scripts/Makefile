@@ -13,6 +13,7 @@ BIN = \
 	cabal-init \
 	cmnt \
 	codespell \
+	dtt \
 	ec \
 	ec-set-path \
 	fext \
@@ -24,7 +25,7 @@ BIN = \
 	fm \
 	Font+ \
 	Font- \
-	fzf-open \
+	fzf-dtt \
 	fzf-tags \
 	games \
 	getmod \
@@ -40,7 +41,6 @@ BIN = \
 	NewW \
 	noesc \
 	now \
-	open \
 	overwrite \
 	passgen \
 	quote \

@@ -1,1 +1,0 @@
-import Scripts.Open (main)

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# To The Thing like Zhu Li
+
 EDITOR=${EDITOR:-vim}
 PAGER=${PAGER:-more}
 
@@ -9,4 +11,4 @@ then
 	exec $SHELL
 fi
 
-eval $(o $1)
+eval $(do-the-thing $1)

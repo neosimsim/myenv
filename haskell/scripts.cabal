@@ -19,7 +19,7 @@ maintainer:    me@abn.sh
 build-type:    Simple
 
 library
-  exposed-modules:  Scripts.Open
+  exposed-modules:  Scripts.DoTheThing
   exposed-modules:  Scripts.FindRustModule
   build-depends:
       base
@@ -77,8 +77,8 @@ executable map
   hs-source-dirs:   apps
   default-language: Haskell2010
 
-executable o
-  main-is:          Open.hs
+executable do-the-thing
+  main-is:          DoTheThing.hs
   build-depends:
       base
     , scripts
@@ -110,8 +110,8 @@ executable nateof
 test-suite test
   main-is:          Spec.hs
   other-modules:
+    Scripts.DoTheThingSpec
     Scripts.FindRustModuleSpec
-    Scripts.OpenSpec
 
   type:             exitcode-stdio-1.0
   build-depends:

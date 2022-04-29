@@ -82,8 +82,8 @@
       (concat comint-password-prompt-regexp
               "\\|password: \\'"))
 
-(defun open ()
-  "Open file at point using `open`.
+(defun dtt ()
+  "Run `dtt` with file at point.
 
 When called from Emacs shell mode this might not work properly since
 tracking the current working directory of the shell is sometimes off.
@@ -91,9 +91,9 @@ https://www.emacswiki.org/emacs/ShellMode#h5o-9
 However, this can be used to (cd) to the proper directory when working
 with multi package cabal projects or mix umbrella projects."
   (interactive)
-  (start-process "open" nil "open" (thing-at-point 'filename 'no-properties)))
+  (start-process "dtt" nil "dtt" (thing-at-point 'filename 'no-properties)))
 
-(global-set-key [C-M-mouse-3] 'open)
+(global-set-key [C-M-mouse-3] 'dtt)
 
 (defun pipe-shell-region (cmd start end)
   "Pipe region to shell command and replace region with the output

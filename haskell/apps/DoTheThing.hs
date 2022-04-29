@@ -1,0 +1,1 @@
+import Scripts.DoTheThing (main)
