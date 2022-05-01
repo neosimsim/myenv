@@ -119,11 +119,11 @@
     "passage": {
       "flake": false,
       "locked": {
-        "lastModified": 1649544957,
-        "narHash": "sha256-UV2JzWTYXaz19wa7y7qpbKm5M26cefDCkMWLMUt01Jc=",
+        "lastModified": 1651407102,
+        "narHash": "sha256-6FPyv4MJrDbXbhHk7dxUiZ/kfIwC5hwikZ3+mShHVO0=",
         "owner": "FiloSottile",
         "repo": "passage",
-        "rev": "a7dd7a97f89381f77a07fdc5e9298deb186bbad3",
+        "rev": "1262d308f09db9b243513a428ab4b8fb1c30d31d",
         "type": "github"
       },
       "original": {

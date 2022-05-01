@@ -118,7 +118,7 @@ inputs: final: prev: {
 
       installShellCompletion --cmd passage \
         --bash src/completion/pass.bash-completion \
-        --fish ${./passage/pass.fish-completion} \
+        --fish src/completion/pass.fish-completion \
         --zsh src/completion/pass.zsh-completion
     '';
   };
