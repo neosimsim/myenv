@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:neosimsim/home-manager/fish-extra-outputs-to-install-completions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
