@@ -67,12 +67,11 @@
         packagesWithSway = import ./nix/packages.nix { inherit pkgs; useSway = true; };
       };
 
-
       devShells.x86_64-linux.neosimsim-shell = pkgs.haskellPackages.shellFor {
         packages = p: with p; [ neosimsim-shell ];
       };
 
-      nixosModule = { config, ... }: {
+      nixosModules.default = { config, ... }: {
 
         imports = [
           home-manager.nixosModules.home-manager
@@ -110,7 +109,7 @@
               boot.isContainer = true;
               users.users.neosimsim.isNormalUser = true;
             })
-            self.nixosModule
+            self.nixosModules.default
           ];
         };
 
@@ -122,7 +121,7 @@
               services.xserver.enable = true;
               users.users.neosimsim.isNormalUser = true;
             })
-            self.nixosModule
+            self.nixosModules.default
           ];
         };
 
@@ -134,7 +133,7 @@
               programs.sway.enable = true;
               users.users.neosimsim.isNormalUser = true;
             })
-            self.nixosModule
+            self.nixosModules.default
           ];
         };
       };

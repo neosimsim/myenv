@@ -3,11 +3,11 @@
     "goTools": {
       "flake": false,
       "locked": {
-        "lastModified": 1651200781,
-        "narHash": "sha256-NFaCkNHbEcJnajmD+EqMt8c6U4ifESu6F4F6JfgbbNg=",
+        "lastModified": 1651530022,
+        "narHash": "sha256-g0KG2ZViVxB/zEiKwAQTT0QFXE5YDFvT1zL2cSrHLC4=",
         "owner": "golang",
         "repo": "tools",
-        "rev": "c862641ee9b677b106a05ec7a5458e062596186f",
+        "rev": "556c550a381650eb5b7b2ca5126b4bed281d47f9",
         "type": "github"
       },
       "original": {
@@ -19,11 +19,11 @@
     "gosec": {
       "flake": false,
       "locked": {
-        "lastModified": 1649701269,
-        "narHash": "sha256-G1F39uuc2KbsffnJ8FayyoXe5vsOUepXhJiG+p2S6aU=",
+        "lastModified": 1651518033,
+        "narHash": "sha256-TKyicByWYg0e/nVG8nRAvRBBC9W1S7LRjYyALjcJ70o=",
         "owner": "securego",
         "repo": "gosec",
-        "rev": "a64cde55a4499d951566243783f204e94b9197ed",
+        "rev": "0dcc3362ae3c5f9f55b2ad0b0dd4ca8d3febdafa",
         "type": "github"
       },
       "original": {
@@ -55,11 +55,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1651402528,
-        "narHash": "sha256-UXauMVL1yomiHG+zeHahBWaBeAnPGV88vtbxusxrhSo=",
+        "lastModified": 1651551975,
+        "narHash": "sha256-C7eVVKgA9ngm/RGvYgRGYgT5WZpIG9ZoQK0KqL5at9k=",
         "owner": "neosimsim",
         "repo": "home-manager",
-        "rev": "68fcfc5f17d5aa99276e15a1157b4f4f6cac5bb0",
+        "rev": "fea06a1e3b2d2cdfad3c46acb22321d4853c720c",
         "type": "github"
       },
       "original": {
@@ -103,11 +103,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1651236375,
-        "narHash": "sha256-jXz+cTw1PwNC3oBDQfghcLewCFO8PuWOVbs13Iostyw=",
+        "lastModified": 1651550868,
+        "narHash": "sha256-ErpYD72xPXCjwvM/pPwaR84SlYqbySbQkhN3BkskqrM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "df1ffb1cbed4c49949f7d00a3436907bd6261aed",
+        "rev": "71d7845de51b0fb3358b764e7227a9fcdba2cd43",
         "type": "github"
       },
       "original": {
