@@ -163,6 +163,16 @@
           # disabled packages
           ma = self.packages.x86_64-linux.packagesWithGui.ma;
 
+          xmonadBuilds = pkgs.runCommand "xmonad-builds"
+            {
+              nixRoot = self.nixosConfigurations.withXServer.config.system.build.toplevel;
+              homeFiles = self.nixosConfigurations.withXServer.config.home-manager.users.neosimsim.home-files;
+            } ''
+            # xmonad.hs needs to be in a writable folder for xmonad.hi etc.
+            cp $homeFiles/.xmonad/xmonad.hs .
+            $nixRoot/etc/profiles/per-user/neosimsim/bin/ghc xmonad.hs -o $out
+          '';
+
           nixosWithXServer = pkgs.runCommand "test-myenv-with-xserver"
             {
               nixRoot = self.nixosConfigurations.withXServer.config.system.build.toplevel;
