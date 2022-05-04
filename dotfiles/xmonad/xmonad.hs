@@ -37,6 +37,7 @@ myConfig =
         composeAll
           [ manageHook def,
             stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "3",
+            title =? "Ediff" --> doFloat,
             className =? "Gimp" --> doFloat,
             className =? "Signal" --> doShift "9",
             className =? "Wire" --> doShift "9",
