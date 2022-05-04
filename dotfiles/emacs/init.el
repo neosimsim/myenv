@@ -238,6 +238,7 @@ Examples:
     (shell . t)))
 
 (setq magit-diff-refine-hunk 'all)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (require 'buffer-move)
 (global-set-key (kbd "<C-S-up>")     'buf-move-up)
