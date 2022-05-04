@@ -17,3 +17,5 @@ fi
 set -v
 
 nix flake check
+nix shell .#packagesWithoutGui.emacs --command emacs --batch -l dotfiles/emacs/init.el
+nix shell .#packagesWithGui.emacs --command emacs --batch -l dotfiles/emacs/init.el
