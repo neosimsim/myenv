@@ -44,7 +44,8 @@ myConfig =
             className =? "discord" --> doShift "9",
             className =? "Slack" --> doShift "9",
             className =? "pavucontrol" <||> className =? "Pavucontrol"
-              --> doCenterFloat
+              --> doCenterFloat,
+            className =? "Microsoft Teams - Preview" --> doShift "5"
           ],
       layoutHook =
         smartBorders . avoidStruts $ Tall 1 (1 / 300) (3 / 4) ||| Full ||| Grid,
