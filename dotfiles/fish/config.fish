@@ -1,6 +1,6 @@
 set -U fish_greeting
 
-set -gx EDITOR emacsclient -tca  ''
+set -gx EDITOR emacsclient -tca  "''"
 set -gx CDPATH . $HOME $HOME/src
 set -gx GOOS linux
 set -gx GOARCH amd64
