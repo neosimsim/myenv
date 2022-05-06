@@ -4,7 +4,7 @@ export HOME_PROFILE_SOURCED=1
 
 stty -ixon
 
-export EDITOR="emacsclient -tca  ''"
+export EDITOR="emacsclient -ca  ''"
 export VISUAL="$EDITOR"
 export FCEDIT="$EDITOR"
 export CDPATH=".:$HOME:$HOME/src"
