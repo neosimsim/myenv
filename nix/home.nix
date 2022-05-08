@@ -1,4 +1,16 @@
 { pkgs, config, lib, ... }: with lib;
+let
+
+  dotfiles = files: genAttrs files (name: {
+    source = ../dotfiles + "/${name}";
+    target = ".${name}";
+  });
+
+  configFiles = files: genAttrs files (name: {
+    source = ../dotfiles + "/${name}";
+  });
+
+in
 {
   options.myenv = {
 
@@ -24,71 +36,55 @@
   };
 
 
-  config = mkIf config.myenv.enable {
-    home = {
-      stateVersion = "22.05";
+  config = mkIf config.myenv.enable (lib.mkMerge [
+    {
+      home = {
+        stateVersion = "22.05";
 
-      sessionVariables = optionalAttrs config.myenv.useSway {
-        MOZ_ENABLE_WAYLAND = 1;
-      };
-
-      packages =
-        [
+        packages = [
           (with config.myenv; import ./packages.nix { inherit pkgs enableGui useXServer useSway; })
-        ]
-        # waybar icons
-        ++ optional config.myenv.useSway pkgs.font-awesome;
+        ];
 
-      file =
-        {
-          ".profile".text = ''
-            . "${../dotfiles/profile}"
-            . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
-          '';
-        }
-        // optionalAttrs config.myenv.enableGui
+        file =
           {
-            "lib/plumbing".source = ../dotfiles/plumbing;
+            ".profile".text = ''
+              . "${../dotfiles/profile}"
+              . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+            '';
           }
-        // genAttrs
-          ([
+          // dotfiles [
             "cabal/config"
             "ghci"
             "mkshrc"
             "tmux.conf"
-          ] ++ optionals config.myenv.useXServer [
-            "xinitrc"
-            "xmobarrc"
-            "Xmodmap"
-            "Xresources"
-            "xsession"
-          ])
-          (name:
-            {
-              source = ../dotfiles + "/${name}";
-              target = ".${name}";
-            });
-    };
+          ];
+      };
 
-    xdg.configFile = genAttrs
-      ([
+      xdg.configFile = configFiles [
         "git/attributes"
         "git/config"
         "git/ignore"
-      ] ++ optionals config.myenv.enableGui [
-        "alacritty/alacritty.yml"
-      ])
-      (name: { source = ../dotfiles + "/${name}"; });
+      ];
 
-    programs =
-      {
-        fish = {
-          enable = true;
-          shellInit = ''
-            source "${../dotfiles/fish/config.fish}"
-          '';
-        };
-      } // optionalAttrs config.myenv.enableGui {
+      programs.fish = {
+        enable = true;
+        shellInit = ''
+          source "${../dotfiles/fish/config.fish}"
+        '';
+      };
+    }
+
+    (lib.mkIf config.myenv.enableGui {
+      home.file = {
+        "lib/plumbing".source = ../dotfiles/plumbing;
+      };
+
+
+      xdg.configFile = configFiles [
+        "alacritty/alacritty.yml"
+      ];
+
+      programs = {
         firefox = {
           enable = true;
 
@@ -195,56 +191,79 @@
             };
           };
         };
-      } // optionalAttrs config.myenv.useSway {
-        waybar = {
-          enable = true;
+      };
+    })
+
+    (lib.mkIf config.myenv.useXServer {
+      home.file = dotfiles [
+        "xinitrc"
+        "xmobarrc"
+        "Xmodmap"
+        "Xresources"
+        "xsession"
+      ];
+
+      xsession.windowManager.xmonad = {
+        enable = true;
+        config = ../dotfiles/xmonad/xmonad.hs;
+        enableContribAndExtras = true;
+      };
+    })
+
+    (lib.mkIf config.myenv.useSway {
+      wayland.windowManager.sway = {
+        enable = true;
+        wrapperFeatures.gtk = true;
+        config = {
+          modifier = "Mod4";
+          fonts = {
+            names = [ "Liberation Sans" "Noto Color Emoji" ];
+            size = 14.0;
+          };
+          terminal = "alacritty";
+          menu = "wofi --show run";
+          bars = [{
+            command = "waybar";
+          }];
+          output = {
+            eDP-1 = {
+              scale = "1";
+              resolution = "1920x1080";
+            };
+          };
+          input = {
+            "*" = {
+              xkb_layout = "us";
+              xkb_variant = "colemak";
+            };
+          };
+        };
+        extraConfig = ''
+          # Brightness
+          bindsym XF86MonBrightnessDown exec "brightnessctl set 5%-"
+          bindsym XF86MonBrightnessUp exec "brightnessctl set +5%"
+
+          # Volume
+          bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'
+          bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'
+          bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+        '';
+      };
+
+      programs.waybar.enable = true;
+
+      home = {
+        packages = [
+          # waybar icons
+          pkgs.font-awesome
+        ];
+
+        sessionVariables = {
+          MOZ_ENABLE_WAYLAND = 1;
         };
       };
 
-    xsession.windowManager.xmonad = optionalAttrs config.myenv.useXServer {
-      enable = true;
-      config = ../dotfiles/xmonad/xmonad.hs;
-      enableContribAndExtras = true;
-    };
-
-    wayland.windowManager.sway = optionalAttrs config.myenv.useSway {
-      enable = true;
-      wrapperFeatures.gtk = true;
-      config = {
-        modifier = "Mod4";
-        fonts = {
-          names = [ "Liberation Sans" "Noto Color Emoji" ];
-          size = 14.0;
-        };
-        terminal = "alacritty";
-        menu = "wofi --show run";
-        bars = [{
-          command = "waybar";
-        }];
-        output = {
-          eDP-1 = {
-            scale = "1";
-            resolution = "1920x1080";
-          };
-        };
-        input = {
-          "*" = {
-            xkb_layout = "us";
-            xkb_variant = "colemak";
-          };
-        };
-      };
-      extraConfig = ''
-        # Brightness
-        bindsym XF86MonBrightnessDown exec "brightnessctl set 5%-"
-        bindsym XF86MonBrightnessUp exec "brightnessctl set +5%"
-
-        # Volume
-        bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'
-        bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'
-        bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
-      '';
-    };
-  };
+    })
+  ]);
 
 }
