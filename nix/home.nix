@@ -60,8 +60,6 @@
             "xinitrc"
             "xmobarrc"
             "Xmodmap"
-            "xmonad/build"
-            "xmonad/xmonad.hs"
             "Xresources"
             "xsession"
           ])
@@ -202,6 +200,12 @@
           enable = true;
         };
       };
+
+    xsession.windowManager.xmonad = optionalAttrs config.myenv.useXServer {
+      enable = true;
+      config = ../dotfiles/xmonad/xmonad.hs;
+      enableContribAndExtras = true;
+    };
 
     wayland.windowManager.sway = optionalAttrs config.myenv.useSway {
       enable = true;

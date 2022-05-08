@@ -157,9 +157,6 @@ let
       profunctors
       safe
       semigroupoids
-    ] ++ lib.optionals useXServer [
-      xmonad
-      xmonad-contrib
     ]);
 
     inherit (elmPackages)
