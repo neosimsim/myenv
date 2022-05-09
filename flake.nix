@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur.url = "github:nix-community/NUR";
 
     hconv = {
@@ -44,6 +49,7 @@
 
   outputs =
     { self
+    , emacs-overlay
     , gosec
     , goTools
     , hconv
@@ -56,7 +62,10 @@
     }@inputs:
     let pkgs = import nixpkgs {
       system = "x86_64-linux";
-      overlays = [ self.overlays.default ];
+      overlays = [
+        self.overlays.default
+        emacs-overlay.overlay
+      ];
     };
     in
     {
@@ -79,7 +88,8 @@
 
         nixpkgs.overlays = [
           self.overlays.default
-          self.inputs.nur.overlay
+          nur.overlay
+          emacs-overlay.overlay
         ];
 
         home-manager = {

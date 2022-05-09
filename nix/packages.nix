@@ -87,7 +87,8 @@ let
 
     emacs =
       let
-        emacs_ = with super; if enableGui then pkgs.emacs else emacs-nox;
+        # use emacs Pure GTK to make use of Wayland scaling
+        emacs_ = with super; if enableGui then pkgs.emacsPgtk else emacs-nox;
       in
       (emacsPackagesFor emacs_).withPackages (epkgs: with epkgs; [
         myEmacsConfig
