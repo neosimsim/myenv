@@ -47,6 +47,8 @@
        (swiper-multi . swiper--all-format-function)
        (t . ivy-format-function-arrow)))
 
+(setq counsel-rg-base-command (append counsel-rg-base-command '("--hidden")))
+
 (global-set-key (kbd "C-c C-r") #'ivy-resume)
 (global-set-key (kbd "C-c g") #'counsel-git)
 (global-set-key (kbd "C-c k") #'counsel-rg)
