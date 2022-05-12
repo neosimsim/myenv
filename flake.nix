@@ -118,6 +118,7 @@
             ({ ... }: {
               boot.isContainer = true;
               users.users.neosimsim.isNormalUser = true;
+              system.stateVersion = "22.05";
             })
             self.nixosModules.default
           ];
@@ -130,6 +131,7 @@
               boot.isContainer = true;
               services.xserver.enable = true;
               users.users.neosimsim.isNormalUser = true;
+              system.stateVersion = "22.05";
             })
             self.nixosModules.default
           ];
@@ -142,6 +144,7 @@
               boot.isContainer = true;
               programs.sway.enable = true;
               users.users.neosimsim.isNormalUser = true;
+              system.stateVersion = "22.05";
             })
             self.nixosModules.default
           ];
