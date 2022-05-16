@@ -250,7 +250,15 @@ in
         '';
       };
 
-      programs.waybar.enable = true;
+      programs = {
+        waybar.enable = true;
+
+        fish.loginShellInit = ''
+          if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]
+            exec sway
+          end
+        '';
+      };
 
       home = {
         packages = [
