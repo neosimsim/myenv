@@ -218,7 +218,7 @@ in
           modifier = "Mod4";
           fonts = {
             names = [ "Liberation Sans" "Noto Color Emoji" ];
-            size = 14.0;
+            size = 12.0;
           };
           terminal = "alacritty";
           menu = "wofi --show run";
