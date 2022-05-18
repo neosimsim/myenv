@@ -225,12 +225,6 @@ in
           bars = [{
             command = "waybar";
           }];
-          output = {
-            eDP-1 = {
-              scale = "1";
-              resolution = "1920x1080";
-            };
-          };
           input = {
             "*" = {
               xkb_layout = "us";
