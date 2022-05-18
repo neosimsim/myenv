@@ -229,6 +229,7 @@ in
             "*" = {
               xkb_layout = "us";
               xkb_variant = "colemak";
+              pointer_accel = "-0.8";
             };
           };
         };

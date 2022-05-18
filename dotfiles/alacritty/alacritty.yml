@@ -8,7 +8,7 @@ cursor:
 font:
   normal:
     family: DejaVuSans Mono
-  size: 14.0
+  size: 12.0
 
 # adapted from https://github.com/rajasegar/alacritty-themes/blob/2caad0a3598137a12fb4583298d715e5971fb134/themes/3024.light.yml
 colors:
