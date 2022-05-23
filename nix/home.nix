@@ -265,7 +265,19 @@ in
               xkb_variant = "colemak";
               pointer_accel = "-0.8";
             };
+            "type:touchpad" = {
+              pointer_accel = "0";
+              tap = "disabled";
+            };
           };
+          keybindings =
+            let
+              modifier = config.wayland.windowManager.sway.config.modifier;
+            in
+            lib.mkOptionDefault {
+              "${modifier}+Control+Shift+left" = "move workspace to output left";
+              "${modifier}+Control+Shift+right" = "move workspace to output right";
+            };
         };
         extraConfig = ''
           # Brightness
@@ -290,9 +302,10 @@ in
       };
 
       home = {
-        packages = [
+        packages = with pkgs; [
+          sway-contrib.grimshot
           # waybar icons
-          pkgs.font-awesome
+          font-awesome
         ];
 
         sessionVariables = {
