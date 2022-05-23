@@ -1,7 +1,7 @@
 #export GDK_SCALE=2
 #export GDK_DPI_SCALE=0.5
 export EDITOR="emacsclient -a ''"
-export BROWSER=firefox
+export BROWSER=chromium
 
 xautolock -cornerdelay 1 -cornerredelay 5 -time 1 -locker 'slock' -corners 0-00 &
 xrdb ~/.Xresources

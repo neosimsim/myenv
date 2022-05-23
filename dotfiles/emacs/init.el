@@ -60,6 +60,8 @@
 (global-set-key (kbd "C-*") 'highlight-symbol-next)
 (global-set-key (kbd "C-#") 'highlight-symbol-prev)
 
+(setq browse-url-browser-function #'browse-url-chromium)
+
 (setq
   spacemacs-theme-org-bold nil
   spacemacs-theme-org-height nil)

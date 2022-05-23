@@ -198,7 +198,6 @@ let
       scrot
       signal-desktop
       sxiv
-      ungoogled-chromium
       Watch
       wire-desktop
       xsel

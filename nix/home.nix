@@ -159,6 +159,40 @@ in
           };
         };
 
+        chromium = rec {
+          enable = true;
+          package = pkgs.ungoogled-chromium;
+          # https://github.com/nix-community/home-manager/issues/2216
+          extensions =
+            let
+              createChromiumExtensionFor = browserVersion: { id, sha256, version }:
+                {
+                  inherit id;
+                  crxPath = builtins.fetchurl {
+                    url = "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${browserVersion}&x=id%3D${id}%26installsource%3Dondemand%26uc";
+                    name = "${id}.crx";
+                    inherit sha256;
+                  };
+                  inherit version;
+                };
+              createChromiumExtension = createChromiumExtensionFor (lib.versions.major package.version);
+            in
+            [
+              (createChromiumExtension {
+                # ublock origin
+                id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
+                version = "1.42.4";
+                sha256 = "sha256:187350i172xivgp4p9n2awx6pjs3m667v32v1dh5sm2pfkdn7d8g";
+              })
+              (createChromiumExtension {
+                # vimium
+                id = "dbepggeogbaibhgnhhndojpepiihcmeb";
+                version = "1.67";
+                sha256 = "sha256:097axwrhn8g26kp25w86x71khaqcw3nb0ras9ndwqvdw3bpgkcd8";
+              })
+            ];
+        };
+
         vscode = {
           enable = true;
 
@@ -263,6 +297,7 @@ in
 
         sessionVariables = {
           MOZ_ENABLE_WAYLAND = 1;
+          BROWSER = "chromium";
         };
       };
 
