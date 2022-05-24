@@ -2,20 +2,36 @@
 
 if ! which setxkbmap >/dev/null 2>&1
 then
-	echo "setxbmap not installed" >&2
-	exit 1
+    echo "setxbmap not installed" >&2
+    exit 1
 fi
 
 layout=`setxkbmap -query | awk '/^layout/ { print $2 }'`
 variant=`setxkbmap -query | awk '/^variant/ { print $2 }'`
 
 case ${variant:-$layout} in
-	colemak) setxkbmap -layout ara -variant mac ;;
-	us)	setxkbmap -layout us -variant colemak
-		xmodmap ~/.Xmodmap
-		;;
-	*)	setxkbmap -layout us
-                xmodmap -e 'remove Lock = Caps_Lock'
-		xmodmap ~/.Xmodmap
-		;;
+    us)
+        newLayout=colemak
+        ;;
+    colemak)
+        newLayout=arabic
+        ;;
+
+    *)
+        newLayout=us
+        ;;
+esac
+
+case ${1:-$newLayout} in
+    colemak)
+	setxkbmap -layout us -variant colemak
+        xmodmap ~/.Xmodmap
+        ;;
+    arabic)
+        setxkbmap -layout ara -variant mac ;;
+    *)
+        setxkbmap -layout us
+        xmodmap -e 'remove Lock = Caps_Lock'
+        xmodmap ~/.Xmodmap
+        ;;
 esac

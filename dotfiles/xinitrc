@@ -6,7 +6,8 @@ export BROWSER=chromium
 xautolock -cornerdelay 1 -cornerredelay 5 -time 1 -locker 'slock' -corners 0-00 &
 xrdb ~/.Xresources
 [ -f ~/local/Xresources ] && xrdb -merge ~/local/Xresources
-xmodmap ~/.Xmodmap
+# TODO observe strange behaviour with modifier
+# rotatekb colemak
 numlockx
 [ -f ~/.fehbg ] && sh ~/.fehbg
 amixer set Master mute

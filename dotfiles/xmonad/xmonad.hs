@@ -51,7 +51,7 @@ myConfig =
         smartBorders . avoidStruts $ Tall 1 (1 / 300) (3 / 4) ||| Full ||| Grid,
       normalBorderColor = "#cccccc",
       focusedBorderColor = "#cd8b00",
-      startupHook = setWMName "LG3D",
+      startupHook = myStartupHook,
       focusFollowsMouse = False
     }
 
@@ -88,3 +88,7 @@ myKeys =
     ((myModMask, xK_g), safeSpawnProg "games"),
     ((myModMask, xK_Arabic_sheen), safeSpawnProg "rotatekb")
   ]
+
+myStartupHook = do
+  startupHook def
+  setWMName "LG3D"
