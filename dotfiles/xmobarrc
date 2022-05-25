@@ -37,11 +37,12 @@ Config
           , "Charged"
           ]
           50
-      , Run Alsa "default" "Master" []
+      , Run Alsa "default" "Master" ["-t", "Vol: <volume>%<status>", "--", "--on", "", "--off", " [off]"]
+      , Run Alsa "default" "Capture" ["-t", "Mic: <volume>%<status>", "--", "--on", "", "--off", " [off]"]
       , Run DynNetwork [] 50
       ]
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-      "%StdinReader% }{ %battery% | %alsa:default:Master% |  %cpu% | %memory% | %dynnetwork% || <fc=#073642>%date%</fc>"
+      "%StdinReader% }{ %battery% | %alsa:default:Master% %alsa:default:Capture% |  %cpu% | %memory% | %dynnetwork% || <fc=#073642>%date%</fc>"
   }
