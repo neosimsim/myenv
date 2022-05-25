@@ -38,9 +38,10 @@ Config
           ]
           50
       , Run Alsa "default" "Master" []
+      , Run DynNetwork [] 50
       ]
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-      "%StdinReader% }{ %battery% | %alsa:default:Master% |  %cpu% | %memory% || <fc=#073642>%date%</fc>"
+      "%StdinReader% }{ %battery% | %alsa:default:Master% |  %cpu% | %memory% | %dynnetwork% || <fc=#073642>%date%</fc>"
   }
