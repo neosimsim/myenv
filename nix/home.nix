@@ -79,7 +79,6 @@ in
         "lib/plumbing".source = ../dotfiles/plumbing;
       };
 
-
       xdg.configFile = configFiles [
         "alacritty/alacritty.yml"
       ];
@@ -229,20 +228,42 @@ in
     })
 
     (lib.mkIf config.myenv.useXServer {
-      home.file = dotfiles [
-        "xinitrc"
-        "xmobarrc"
-        "Xmodmap"
-        "Xresources"
-        "xsession"
-      ];
+      home = {
+        file = dotfiles [
+          "xinitrc"
+          "Xmodmap"
+          "Xresources"
+          "xsession"
+        ];
+      };
+
+      xdg.configFile =
+        configFiles [
+          "xmobar/xmobar.hs"
+        ] // {
+          "xmobar/xmobar".source =
+            let
+              ghc = pkgs.haskellPackages.ghcWithPackages (p: with p; [ xmobar ]);
+
+            in
+            pkgs.runCommand "xmobar-compile"
+              {
+                buildInputs = [ ghc ];
+                ghcFlags = "--make -i -ilib -fforce-recomp -main-is main -v0 -threaded -rtsopts -with-rtsopts -V0";
+              } ''
+              # compiles flags copied from
+              # https://hackage.haskell.org/package/xmobar-0.43/docs/src/Xmobar.App.Compile.html#recompile
+              ghc -o $out ${config.xdg.configFile."xmobar/xmobar.hs".source} $ghcFlags
+            '';
+        };
 
       xsession.windowManager.xmonad = {
         enable = true;
         config = ../dotfiles/xmonad/xmonad.hs;
         enableContribAndExtras = true;
       };
-    })
+    }
+    )
 
     (lib.mkIf config.myenv.useSway {
       wayland.windowManager.sway = {

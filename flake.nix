@@ -190,6 +190,8 @@
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
 
             ${checkPresent} $homeFiles/.config/git/config
+            ${checkPresent} $homeFiles/.config/xmobar/xmobar.hs
+            ${checkPresent} $homeFiles/.config/xmobar/xmobar
             ${checkPresent} $homeFiles/.Xresources
             ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
             ${checkPresent} $homeFiles/lib/plumbing

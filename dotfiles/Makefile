@@ -9,7 +9,6 @@ DOTFILES_CORE= \
 
 DOTFILES_GUI= \
 	xinitrc \
-	xmobarrc \
 	Xmodmap \
 	xmonad/build \
 	xmonad/xmonad.hs \
@@ -29,6 +28,7 @@ CONFIGFILES_CORE= \
 
 CONFIGFILES_GUI= \
 	alacritty/alacritty.yml \
+	xmobar/xmobar.hs \
 
 DOTFILES=$(DOTFILES_CORE) $(DOTFILES_GUI)
 CONFIGFILES=$(CONFIGFILES_CORE) $(CONFIGFILES_GUI)
