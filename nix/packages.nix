@@ -237,37 +237,9 @@ let
       xkill
       xmodmap
       ;
-
-    # Using the ALSA plugin of xmobar e.g. by adding
-    #
-    #   'Run Alsa "default" "Master" []'
-    #
-    # to $HOME/.xmobarrc does not work reporting the
-    #
-    #   ALSA lib dlmisc.c:338:(snd_dlobj_cache_get0) Cannot open shared library
-    #     libasound_module_ctl_pulse.so (libasound_module_ctl_pulse.so:
-    #     libasound_module_ctl_pulse.so: cannot open shared object file: No such
-    #     file or directory)
-    #
-    # see https://github.com/NixOS/nixpkgs/issues/6860.
-    #
-    # As a workaround for this linking issues create a wrapper script
-    # adding alsa-plugin to LD_LIBRARY_PATH before running xmobar.
-    xmobar =
-      let myXmobar = haskellPackages.xmobar.overrideAttrs (oldAttrs: rec {
-        configureflags = [
-          "-f with_utf8"
-          "-f with_xft"
-          "-f with_alsa"
-          "-f with_inotify"
-          "-f -with_weather"
-        ];
-      });
-      in
-      writeShellScriptBin "xmobar" ''
-        export LD_LIBRARY_PATH=${alsaPlugins}/lib/alsa-lib
-        exec ${myXmobar}/bin/xmobar
-      '';
+    inherit (pkgs.haskellPackages)
+      xmobar
+      ;
   } // lib.optionalAttrs useSway {
     inherit (pkgs)
       swaylock
