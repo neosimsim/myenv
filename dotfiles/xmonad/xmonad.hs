@@ -74,6 +74,7 @@ myKeys =
     ((myModMask .|. shiftMask, xK_Up), windows W.swapUp), -- %! Swap the focused window with the previous window
     ((myModMask, xK_Left), sendMessage Shrink), -- %! Shrink the master area
     ((myModMask, xK_Right), sendMessage Expand), -- %! Expand the master area
+    ((myModMask, xK_q), spawn "if type xmonad; then xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi"), -- foo Restart xmonad same as default key binding but no recompile. Home Manager recompiles already.
     ((myModMask, xK_BackSpace), focusUrgent),
     ((myModMask .|. shiftMask, xK_p), safeSpawnProg "dpass"),
     ((myModMask .|. shiftMask, xK_l), safeSpawnProg "xlock"),
