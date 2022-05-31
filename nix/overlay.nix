@@ -91,7 +91,7 @@ inputs: final: prev: {
 
     src = inputs.gosec;
 
-    vendorSha256 = "sha256-wBm9g4Qx9scgHs3Z4iEAMryO30kxpn7Zsx1OzPFD/58=";
+    vendorSha256 = "sha256-i45v7M6MJPxf09ERamNyc/xzRTDJELxKQBxmdY6A3Ek=";
 
     buildPhase = ''
       go install github.com/securego/gosec/v2/cmd/gosec
