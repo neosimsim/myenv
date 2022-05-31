@@ -190,7 +190,8 @@ Examples:
 (defun my-text-mode-hook ()
   (mixed-pitch-mode t)
   (setq indicate-empty-lines t)
-  (setq show-trailing-whitespace t))
+  (setq show-trailing-whitespace t)
+  (setq truncate-lines nil)) ;; Force line wrapping. I prefer this over visual-line-mode
 (add-hook 'text-mode-hook #'my-text-mode-hook)
 
 (defvar formatter "sed 's/[[:blank:]]*$//'"
