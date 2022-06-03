@@ -187,6 +187,7 @@ let
       alacritty
       editinacme
       klavaro
+      ma
       meld
       mplayer
       signal-desktop
@@ -197,31 +198,6 @@ let
     inherit (pkgs.xfce)
       thunar
       ;
-
-    ma = stdenv.mkDerivation rec {
-      pname = "ma";
-      version = "11_2019-03-16";
-      src = fetchTarball {
-        url = "http://www.call-with-current-continuation.org/ma/ma.tar.gz";
-        sha256 = "0g0lqijkwg5p0586spli2jd1yh0im0ma4fnhkf8mizhyrsj7ga2s";
-      };
-      cmds = [
-        "awd"
-        "B"
-        "ma"
-        "ma-eval"
-        "plumb"
-        "pty"
-        "win"
-      ];
-
-      buildInputs = [ tk ];
-      buildPhase = "./build";
-      installPhase = ''
-        mkdir -p $out/bin
-        cp ${lib.concatStringsSep " " cmds} $out/bin
-      '';
-    };
   } // lib.optionalAttrs useXServer {
     inherit (pkgs)
       brightnessctl
