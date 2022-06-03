@@ -178,13 +178,13 @@ in
             in
             [
               (createChromiumExtension {
-                # ublock origin
+                # https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
                 id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
                 version = "1.42.4";
                 sha256 = "sha256:187350i172xivgp4p9n2awx6pjs3m667v32v1dh5sm2pfkdn7d8g";
               })
               (createChromiumExtension {
-                # vimium
+                # https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb
                 id = "dbepggeogbaibhgnhhndojpepiihcmeb";
                 version = "1.67";
                 sha256 = "sha256:097axwrhn8g26kp25w86x71khaqcw3nb0ras9ndwqvdw3bpgkcd8";
