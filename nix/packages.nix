@@ -182,24 +182,15 @@ let
       stylish-haskell
       ;
   } // lib.optionalAttrs enableGui {
-
     inherit (pkgs)
       acmego
       alacritty
-      brightnessctl
-      dmenu
       editinacme
-      feh
       klavaro
       meld
       mplayer
-      numlockx
-      rxvt-unicode
-      scrot
       signal-desktop
-      sxiv
       Watch
-      xsel
       zathura
       ;
 
@@ -232,6 +223,17 @@ let
       '';
     };
   } // lib.optionalAttrs useXServer {
+    inherit (pkgs)
+      brightnessctl
+      dmenu
+      feh
+      numlockx
+      rxvt-unicode
+      scrot
+      sxiv
+      xsel
+      ;
+
     inherit (pkgs.xorg)
       xkill
       xmodmap
@@ -241,6 +243,7 @@ let
       ;
   } // lib.optionalAttrs useSway {
     inherit (pkgs)
+      brightnessctl
       swaylock
       swayidle
       wl-clipboard
