@@ -28,7 +28,6 @@ fi
 ec -n
 
 signal-desktop &
-wire-desktop &
 
 [ -f ~/local/xinitrc ] && . ~/local/xinitrc
 

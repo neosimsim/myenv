@@ -199,7 +199,6 @@ let
       signal-desktop
       sxiv
       Watch
-      wire-desktop
       xsel
       zathura
       ;
