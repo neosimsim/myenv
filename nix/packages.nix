@@ -104,6 +104,7 @@ let
         mixed-pitch
         avy
         buffer-move
+        osm
         vimgolf
 
         haskell-mode
