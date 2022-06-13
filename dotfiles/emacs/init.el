@@ -106,12 +106,13 @@ with multi package cabal projects or mix umbrella projects."
 (combined stdout and stderr). The region is only replaced when the
 shell command exits 0, otherwise the commands output (combined
 stdout and stderr) is displayed in *Shell Command Output*."
-  (setq exit-status (call-shell-region start end cmd nil "*Shell Command Output*"))
-  (if (equal 0 exit-status)
+  (let ((buffer (get-buffer-create (format "*Pipe Shell Region Output: %s*" cmd))))
+    (with-current-buffer buffer (delete-region (point-min) (point-max)))
+    (if (equal 0 (call-shell-region start end cmd nil buffer))
       (progn (delete-region start end)
-             (insert-buffer-substring "*Shell Command Output*")
-             (kill-buffer "*Shell Command Output*"))
-    (display-buffer "*Shell Command Output*")))
+             (insert-buffer-substring buffer)
+             (kill-buffer buffer))
+      (display-buffer buffer))))
 
 (defun x (regex fn)
   "Like plan9 sam x
