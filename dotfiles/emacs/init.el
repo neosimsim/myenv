@@ -109,8 +109,11 @@ stdout and stderr) is displayed in *Shell Command Output*."
   (let ((buffer (get-buffer-create (format "*Pipe Shell Region Output: %s*" cmd))))
     (with-current-buffer buffer (delete-region (point-min) (point-max)))
     (if (equal 0 (call-shell-region start end cmd nil buffer))
-      (progn (delete-region start end)
-             (insert-buffer-substring buffer)
+      (progn (unless (string=
+                      (buffer-substring-no-properties start end)
+                      (with-current-buffer buffer (buffer-string)))
+               (delete-region start end)
+               (insert-buffer-substring buffer))
              (kill-buffer buffer))
       (display-buffer buffer))))
 
