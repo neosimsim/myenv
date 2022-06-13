@@ -111,46 +111,6 @@
 
       overlays.default = import ./nix/overlay.nix inputs;
 
-      nixosConfigurations = {
-        withoutGui = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ({ ... }: {
-              boot.isContainer = true;
-              users.users.neosimsim.isNormalUser = true;
-              system.stateVersion = "22.05";
-            })
-            self.nixosModules.default
-          ];
-        };
-
-        withXServer = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ({ ... }: {
-              boot.isContainer = true;
-              services.xserver.enable = true;
-              users.users.neosimsim.isNormalUser = true;
-              system.stateVersion = "22.05";
-            })
-            self.nixosModules.default
-          ];
-        };
-
-        withSway = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ({ ... }: {
-              boot.isContainer = true;
-              programs.sway.enable = true;
-              users.users.neosimsim.isNormalUser = true;
-              system.stateVersion = "22.05";
-            })
-            self.nixosModules.default
-          ];
-        };
-      };
-
       checks.x86_64-linux =
         let
           pkgs = import nixpkgs {
@@ -168,6 +128,43 @@
               exit 1
             fi
           '';
+          withoutGui = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ({ ... }: {
+                boot.isContainer = true;
+                users.users.neosimsim.isNormalUser = true;
+                system.stateVersion = "22.05";
+              })
+              self.nixosModules.default
+            ];
+          };
+
+          withXServer = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ({ ... }: {
+                boot.isContainer = true;
+                services.xserver.enable = true;
+                users.users.neosimsim.isNormalUser = true;
+                system.stateVersion = "22.05";
+              })
+              self.nixosModules.default
+            ];
+          };
+
+          withSway = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ({ ... }: {
+                boot.isContainer = true;
+                programs.sway.enable = true;
+                users.users.neosimsim.isNormalUser = true;
+                system.stateVersion = "22.05";
+              })
+              self.nixosModules.default
+            ];
+          };
         in
         {
           packagesWithoutGui = self.packages.x86_64-linux.packagesWithoutGui;
@@ -178,8 +175,8 @@
 
           nixosWithXServer = pkgs.runCommand "test-myenv-with-xserver"
             {
-              nixRoot = self.nixosConfigurations.withXServer.config.system.build.toplevel;
-              homeFiles = self.nixosConfigurations.withXServer.config.home-manager.users.neosimsim.home-files;
+              nixRoot = withXServer.config.system.build.toplevel;
+              homeFiles = withXServer.config.home-manager.users.neosimsim.home-files;
             } ''
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
@@ -201,8 +198,8 @@
 
           nixosWithSway = pkgs.runCommand "test-myenv-with-sway"
             {
-              nixRoot = self.nixosConfigurations.withSway.config.system.build.toplevel;
-              homeFiles = self.nixosConfigurations.withSway.config.home-manager.users.neosimsim.home-files;
+              nixRoot = withSway.config.system.build.toplevel;
+              homeFiles = withSway.config.home-manager.users.neosimsim.home-files;
             } ''
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
@@ -223,8 +220,8 @@
 
           nixosWithoutGui = pkgs.runCommand "test-myenv-without-gui"
             {
-              nixRoot = self.nixosConfigurations.withoutGui.config.system.build.toplevel;
-              homeFiles = self.nixosConfigurations.withoutGui.config.home-manager.users.neosimsim.home-files;
+              nixRoot = withoutGui.config.system.build.toplevel;
+              homeFiles = withoutGui.config.home-manager.users.neosimsim.home-files;
             } ''
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
             ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
