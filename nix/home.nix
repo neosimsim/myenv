@@ -180,7 +180,7 @@ in
               (createChromiumExtension {
                 # https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
                 id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
-                version = "1.42.4";
+                version = "1.43.0";
                 sha256 = "sha256:187350i172xivgp4p9n2awx6pjs3m667v32v1dh5sm2pfkdn7d8g";
               })
               (createChromiumExtension {
