@@ -39,11 +39,11 @@
     "goTools": {
       "flake": false,
       "locked": {
-        "lastModified": 1656162824,
-        "narHash": "sha256-yZD29hZQrjIAM4Zu4WxNhpqV3hcvd932/u5jGZpkOUw=",
+        "lastModified": 1657904191,
+        "narHash": "sha256-0+0kfJmIs5O2NbNZFsH2txSEHSUnmqFHiKgaCMwq4yI=",
         "owner": "golang",
         "repo": "tools",
-        "rev": "10494c735e6ba5ec3a5eed252fc61a116a21a31d",
+        "rev": "ce6ce766265714553035d328a9be4f313c63e5fd",
         "type": "github"
       },
       "original": {
@@ -55,11 +55,11 @@
     "gosec": {
       "flake": false,
       "locked": {
-        "lastModified": 1657082809,
-        "narHash": "sha256-jutxsPEu+3mlq2uOKzor3Dscw6h1dIEWPrBvnWk4sHE=",
+        "lastModified": 1658154054,
+        "narHash": "sha256-3N7Iz4tF6zrYQ++4cvyd8bi96SvavE9NieM3ldA7A+g=",
         "owner": "securego",
         "repo": "gosec",
-        "rev": "9a25f4ed2db086d1ad7e21a258ba6d695d22e593",
+        "rev": "0212c83699de8f57058399c07463a3c1bdebf0a1",
         "type": "github"
       },
       "original": {
@@ -139,11 +139,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1656920981,
-        "narHash": "sha256-PgujI04XN1nUolsGzVqEAEUUfohpJTo9ul/vw2sV/lo=",
+        "lastModified": 1658151286,
+        "narHash": "sha256-v8DKnzKIqTxc7m2R4NuNMioSqPJV1Y3z4Jk4WbM2bxE=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "46f5a2cc4af5171e4342aa62b9a6688fc5edd02a",
+        "rev": "070bf0c2b4a599cf55e2cfff07bd81353bb09cec",
         "type": "github"
       },
       "original": {
