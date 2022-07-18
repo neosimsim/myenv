@@ -55,11 +55,11 @@
     "gosec": {
       "flake": false,
       "locked": {
-        "lastModified": 1655989093,
-        "narHash": "sha256-XzoFuTeBJp+DBzEOBryikIOy7J2c/Kr5fivFUWihS4g=",
+        "lastModified": 1657082809,
+        "narHash": "sha256-jutxsPEu+3mlq2uOKzor3Dscw6h1dIEWPrBvnWk4sHE=",
         "owner": "securego",
         "repo": "gosec",
-        "rev": "b0f3e78e07d26ff0156a493fb8232f0de5b8ce15",
+        "rev": "9a25f4ed2db086d1ad7e21a258ba6d695d22e593",
         "type": "github"
       },
       "original": {
