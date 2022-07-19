@@ -105,6 +105,29 @@
         "type": "github"
       }
     },
+    "hookmark": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1658270049,
+        "narHash": "sha256-XIawIwd7rH7W6NHOK9WYZ6SosTLO9FB/vQcdQErMNJw=",
+        "owner": "neosimsim",
+        "repo": "hookmark",
+        "rev": "cbd0f9c4bb3c1edd5bc69b8475bca4524d5491c1",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "neosimsim",
+        "repo": "hookmark",
+        "type": "gitlab"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1658015103,
@@ -175,6 +198,7 @@
         "goTools": "goTools",
         "gosec": "gosec",
         "home-manager": "home-manager",
+        "hookmark": "hookmark",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "passage": "passage",

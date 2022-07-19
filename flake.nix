@@ -37,6 +37,14 @@
       url = "github:FiloSottile/passage";
       flake = false;
     };
+
+    hookmark = {
+      url = "gitlab:neosimsim/hookmark";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs =
@@ -47,6 +55,7 @@
     , goTools
     , home-manager
     , nixpkgs
+    , hookmark
     , nur
     , passage
     , plan9fansGo
