@@ -83,22 +83,6 @@
         "type": "github"
       }
     },
-    "hconv": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1608724054,
-        "narHash": "sha256-WGHeEPtM09rpKOsPeBvbFqnfmIoG8Hf6DKgHHIdCn4c=",
-        "owner": "neosimsim",
-        "repo": "hconv",
-        "rev": "05b254dc4e2c9258f7d9a4721847376a001b99de",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "neosimsim",
-        "repo": "hconv",
-        "type": "gitlab"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -119,22 +103,6 @@
         "ref": "fish-extra-outputs-to-install-completions",
         "repo": "home-manager",
         "type": "github"
-      }
-    },
-    "hookmark": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1616424792,
-        "narHash": "sha256-rx6Tb3j0S/essLVtqEcr07JWcwakEkjDL1IA5CEFGto=",
-        "owner": "neosimsim",
-        "repo": "hookmark",
-        "rev": "2e9e69dc4b12aaf8af50a2b5c053030501c0562c",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "neosimsim",
-        "repo": "hookmark",
-        "type": "gitlab"
       }
     },
     "nixpkgs": {
@@ -206,9 +174,7 @@
         "flake-utils": "flake-utils_2",
         "goTools": "goTools",
         "gosec": "gosec",
-        "hconv": "hconv",
         "home-manager": "home-manager",
-        "hookmark": "hookmark",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "passage": "passage",

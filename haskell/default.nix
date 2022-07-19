@@ -6,7 +6,7 @@ let
 in
 hsPkgs.override {
   overrides = final: prev: {
-    scripts = (prev.callCabal2nix "scripts" ./. { }).overrideAttrs (oldAttrs: {
+    scripts = (prev.callPackage ./cabal.nix { }).overrideAttrs (oldAttrs: {
       checkInputs = with prev; [ cabal-fmt ormolu ];
       checkPhase = ''
         ${oldAttrs.checkPhase}
@@ -25,4 +25,3 @@ hsPkgs.override {
     });
   };
 }
-

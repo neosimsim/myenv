@@ -2,13 +2,13 @@ inputs: final: prev: {
 
   haskellPackages = with prev;
     (haskellPackages.override {
-      overrides = haskell.lib.packageSourceOverrides {
-        inherit (inputs)
-          hconv
-          hookmark
-          ;
-
-        neosimsim-shell = ../tools/shell;
+      overrides = final: prev: {
+        # Using callCabal2nix, which is used by packageSourceOverrides,
+        # breaks `nix show` and `nix check`.
+        # https://nixos.wiki/wiki/Import_From_Derivation#IFD_and_Haskell
+        hconv = final.callPackage ./hconv.nix { };
+        hookmark = final.callPackage ./hookmark.nix { };
+        neosimsim-shell = final.callPackage ../tools/shell { };
       };
     });
 

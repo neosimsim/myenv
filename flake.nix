@@ -18,16 +18,6 @@
 
     nur.url = "github:nix-community/NUR";
 
-    hconv = {
-      url = "gitlab:neosimsim/hconv";
-      flake = false;
-    };
-
-    hookmark = {
-      url = "gitlab:neosimsim/hookmark";
-      flake = false;
-    };
-
     plan9fansGo = {
       url = "github:9fans/go";
       flake = false;
@@ -55,9 +45,7 @@
     , flake-utils
     , gosec
     , goTools
-    , hconv
     , home-manager
-    , hookmark
     , nixpkgs
     , nur
     , passage
