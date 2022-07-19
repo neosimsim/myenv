@@ -38,10 +38,17 @@ in
 
   config = mkIf config.myenv.enable (lib.mkMerge [
     {
-      home = {
-        stateVersion = "22.05";
+      nix = {
+        package = pkgs.nix;
+        settings.experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+      };
 
+      home = {
         packages = [
+          # TODO split packages, because now I have multiple places with system 'ifs'.
           (with config.myenv; import ./packages.nix { inherit pkgs enableGui useXServer useSway; })
         ];
 
@@ -72,6 +79,8 @@ in
           source "${../dotfiles/fish/config.fish}"
         '';
       };
+
+      targets.darwin.search = "DuckDuckGo";
     }
 
     (lib.mkIf config.myenv.enableGui {
@@ -85,7 +94,7 @@ in
 
       programs = {
         firefox = {
-          enable = true;
+          enable = !pkgs.stdenv.isDarwin;
 
           package =
             let
@@ -159,7 +168,7 @@ in
         };
 
         chromium = rec {
-          enable = true;
+          enable = !pkgs.stdenv.isDarwin;
           package = pkgs.ungoogled-chromium;
           # https://github.com/nix-community/home-manager/issues/2216
           extensions =

@@ -9,6 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-utils.url = "github:numtide/flake-utils";
+
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,6 +52,7 @@
   outputs =
     { self
     , emacs-overlay
+    , flake-utils
     , gosec
     , goTools
     , hconv
@@ -60,26 +63,30 @@
     , passage
     , plan9fansGo
     }@inputs:
-    let pkgs = import nixpkgs {
-      system = "x86_64-linux";
-      overlays = [
-        self.overlays.default
-        emacs-overlay.overlay
-      ];
-    };
-    in
-    {
-      packages.x86_64-linux = {
-        packagesWithoutGui = import ./nix/packages.nix { inherit pkgs; enableGui = false; };
-        packagesWithGui = import ./nix/packages.nix { inherit pkgs; enableGui = true; };
-        packagesWithXServer = import ./nix/packages.nix { inherit pkgs; useXServer = true; };
-        packagesWithSway = import ./nix/packages.nix { inherit pkgs; useSway = true; };
-      };
+    flake-utils.lib.eachDefaultSystem
+      (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            self.overlays.default
+            emacs-overlay.overlay
+          ];
+        };
+      in
+      {
+        packages = {
+          packagesWithoutGui = import ./nix/packages.nix { inherit pkgs; enableGui = false; };
+          packagesWithGui = import ./nix/packages.nix { inherit pkgs; enableGui = true; };
+          packagesWithXServer = import ./nix/packages.nix { inherit pkgs; useXServer = true; };
+          packagesWithSway = import ./nix/packages.nix { inherit pkgs; useSway = true; };
+        };
 
-      devShells.x86_64-linux.neosimsim-shell = pkgs.haskellPackages.shellFor {
-        packages = p: with p; [ neosimsim-shell ];
-      };
+        devShells.neosimsim-shell = pkgs.haskellPackages.shellFor {
+          packages = p: with p; [ neosimsim-shell ];
+        };
 
+      }) // {
       nixosModules.default = { config, ... }: {
 
         imports = [
@@ -99,6 +106,8 @@
           users.neosimsim = { ... }: {
             imports = [ (import ./nix/home.nix) ];
 
+            home.stateVersion = "22.05";
+
             myenv = {
               enable = true;
               useXServer = config.services.xserver.enable;
@@ -107,6 +116,32 @@
           };
         };
 
+      };
+
+      homeConfigurations.macbook = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+
+        modules = [
+          ./nix/home.nix
+
+          ({ pkgs, ... }: {
+            nixpkgs.overlays = [
+              self.overlays.default
+              nur.overlay
+            ];
+
+            home = {
+              stateVersion = "22.05";
+              username = "neosimsim";
+              homeDirectory = "/Users/neosimsim";
+            };
+
+            myenv = {
+              enable = true;
+              enableGui = true;
+            };
+          })
+        ];
       };
 
       overlays.default = import ./nix/overlay.nix inputs;

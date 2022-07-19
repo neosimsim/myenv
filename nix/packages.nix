@@ -63,7 +63,7 @@ let
       go
       goimports
       gosec
-      haskell-language-server
+      #      haskell-language-server
       htop
       isync
       jq
@@ -79,7 +79,7 @@ let
       unzip
       ;
 
-    agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
+    # agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
 
     fd = mkCommandAlias fd "fd" "--color never";
 
@@ -88,7 +88,13 @@ let
     emacs =
       let
         # use emacs Pure GTK to make use of Wayland scaling
-        emacs_ = with super; if enableGui then pkgs.emacsPgtk else emacs-nox;
+        emacs_ =
+          with super;
+          if pkgs.stdenv.isDarwin
+          then pkgs.emacs
+          else if enableGui
+          then pkgs.emacsPgtk
+          else emacs-nox;
       in
       (emacsPackagesFor emacs_).withPackages (epkgs: with epkgs; [
         myEmacsConfig
@@ -187,17 +193,15 @@ let
       acmego
       alacritty
       editinacme
-      klavaro
       ma
       meld
       mplayer
-      signal-desktop
       Watch
       zathura
       ;
-
-    inherit (pkgs.xfce)
-      thunar
+  } // lib.optionalAttrs (enableGui && pkgs.stdenv.isLinux) {
+    inherit (pkgs)
+      klavaro
       ;
   } // lib.optionalAttrs useXServer {
     inherit (pkgs)
@@ -207,6 +211,7 @@ let
       numlockx
       rxvt-unicode
       scrot
+      signal-desktop
       sxiv
       xsel
       ;
@@ -215,6 +220,11 @@ let
       xkill
       xmodmap
       ;
+
+    inherit (pkgs.xfce)
+      thunar
+      ;
+
     inherit (pkgs.haskellPackages)
       xmobar
       ;
