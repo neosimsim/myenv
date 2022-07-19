@@ -36,7 +36,7 @@ let
 
     goScripts = import ../golang { inherit pkgs; };
 
-    haskellScripts = (import ../haskell { inherit pkgs; }).scripts;
+#    haskellScripts = (import ../haskell { inherit pkgs; }).scripts;
 
     cabalShell = pkgs.writeShellScriptBin "cabal-shell" ''
       nix-shell ${./cabal-shell.nix} --command $SHELL
@@ -136,7 +136,7 @@ let
       # complain about missing zlib.h.
       zlib
 
-      neosimsim-shell
+      #neosimsim-shell
 
       # Quality of life libraries for ghci
       aeson
@@ -180,10 +180,10 @@ let
       cabal2nix
       cabal-fmt
       cabal-install
-      hconv
+      #hconv
       hindent
       hlint
-      hookmark
+      #hookmark
       ormolu
       pandoc
       stylish-haskell
