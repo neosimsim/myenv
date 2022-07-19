@@ -79,9 +79,11 @@ in
           source "${../dotfiles/fish/config.fish}"
         '';
       };
-
-      targets.darwin.search = "DuckDuckGo";
     }
+
+    (lib.mkIf pkgs.stdenv.isDarwin {
+      targets.darwin.search = "DuckDuckGo";
+    })
 
     (lib.mkIf config.myenv.enableGui {
       home.file = {
