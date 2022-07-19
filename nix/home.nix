@@ -192,7 +192,7 @@ in
                 # https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
                 id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
                 version = "1.43.0";
-                sha256 = "sha256:187350i172xivgp4p9n2awx6pjs3m667v32v1dh5sm2pfkdn7d8g";
+                sha256 = "sha256:0izlm20b0bpjr98rw63c42zb04ky1mclg0da2xmj0kw3qichnpvg";
               })
               (createChromiumExtension {
                 # https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb
