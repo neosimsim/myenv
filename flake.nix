@@ -72,6 +72,14 @@
             devShells.neosimsim-shell = pkgs.haskellPackages.shellFor {
               packages = p: with p; [ neosimsim-shell ];
             };
+
+            checks = {
+              packagesWithoutGui = self.packages.x86_64-linux.packagesWithoutGui;
+              packagesWithGui = self.packages.x86_64-linux.packagesWithGui;
+
+              # disabled packages
+              ma = self.packages.x86_64-linux.packagesWithGui.ma;
+            };
           });
     in
     nixpkgs.lib.recursiveUpdate genericOutputs
@@ -213,12 +221,6 @@
             };
           in
           {
-            packagesWithoutGui = self.packages.x86_64-linux.packagesWithoutGui;
-            packagesWithGui = self.packages.x86_64-linux.packagesWithGui;
-
-            # disabled packages
-            ma = self.packages.x86_64-linux.packagesWithGui.ma;
-
             nixosWithXServer = pkgs.runCommand "test-myenv-with-xserver"
               {
                 nixRoot = withXServer.config.system.build.toplevel;
