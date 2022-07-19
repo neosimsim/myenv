@@ -202,39 +202,6 @@ in
               })
             ];
         };
-
-        vscode = {
-          enable = true;
-
-          package = pkgs.vscodium;
-
-          extensions =
-            let
-              marketplaceExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-                {
-                  name = "rust";
-                  publisher = "rust-lang";
-                  version = "0.7.8";
-                  sha256 = "sha256-Y33agSNMVmaVCQdYd5mzwjiK5JTZTtzTkmSGTQrSNg0=";
-                }
-              ];
-            in
-            with pkgs.vscode-extensions; [
-              haskell.haskell
-              justusadam.language-haskell
-              jnoortheen.nix-ide
-              elixir-lsp.vscode-elixir-ls
-              dbaeumer.vscode-eslint
-            ] ++ marketplaceExtensions;
-
-          userSettings = {
-            "workbench.colorTheme" = "Default Light+";
-            "nix.enableLanguageServer" = true;
-            "terminal.integrated.env.linux" = {
-              "EDITOR" = "codium -w";
-            };
-          };
-        };
       };
     })
 
