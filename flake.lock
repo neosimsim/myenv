@@ -88,14 +88,15 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "utils": "utils"
       },
       "locked": {
-        "lastModified": 1652681030,
-        "narHash": "sha256-QhKhC4DXzHps4mln8sa7OyZE88pJcukEVMfGursZtKo=",
+        "lastModified": 1658244068,
+        "narHash": "sha256-Z40BxKtmF+dWoKrYohMvrac8Xwt0MSjnQS31Pu3SynU=",
         "owner": "neosimsim",
         "repo": "home-manager",
-        "rev": "ee349241a6a89e3ee96903d541ed5ad979f5650f",
+        "rev": "893ba62702f25e677390fb5658c16a951f7a9a1d",
         "type": "github"
       },
       "original": {
@@ -196,6 +197,21 @@
         "nur": "nur",
         "passage": "passage",
         "plan9fansGo": "plan9fansGo"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1653893745,
+        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     }
   },
