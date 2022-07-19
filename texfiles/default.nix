@@ -12,10 +12,12 @@ stdenv.mkDerivation {
   ];
 
   # https://github.com/NixOS/nixpkgs/issues/24485
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [
-    dejavu_fonts
-    freefont_ttf
-  ]; };
+  FONTCONFIG_FILE = makeFontsConf {
+    fontDirectories = [
+      dejavu_fonts
+      freefont_ttf
+    ];
+  };
 
   buildInputs = [
     (texlive.combine {
@@ -24,7 +26,7 @@ stdenv.mkDerivation {
         xetex
         unicode-math
         xcolor
-        pgf # tikz
+        pgf# tikz
         blindtext
         etoolbox
         hyphenat
@@ -34,7 +36,7 @@ stdenv.mkDerivation {
         newfloat
         lipsum
         float
-      ;
+        ;
     })
   ];
 
