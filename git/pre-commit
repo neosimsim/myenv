@@ -18,5 +18,5 @@ set -v
 
 nix flake check
 nixpkgs-fmt --check $(find -name '*.nix')
-nix shell .#packagesWithoutGui.emacs --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
-nix shell .#packagesWithGui.emacs --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
+nix shell .#packagesWithoutGui --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
+nix shell .#packagesWithGui --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
