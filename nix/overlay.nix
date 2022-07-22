@@ -8,7 +8,7 @@ inputs: final: prev: {
         # https://nixos.wiki/wiki/Import_From_Derivation#IFD_and_Haskell
         hconv = finalHs.callPackage ./hconv.nix { };
         neosimsim-shell = finalHs.callPackage ../tools/shell { };
-        hookmark = (inputs.hookmark.overlays.default final prev).haskellPackages.hookmark ;
+        hookmark = (inputs.hookmark.overlays.default final prev).haskellPackages.hookmark;
       };
     });
 

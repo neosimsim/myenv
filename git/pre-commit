@@ -17,6 +17,6 @@ fi
 set -v
 
 nix flake check
-nixpkgs-fmt --check $(find -name '*.nix')
+nixpkgs-fmt --check $(find -name '*.nix' | grep -vE '(cabal|hconv)\.nix')
 nix shell .#packagesWithoutGui --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
 nix shell .#packagesWithGui --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
