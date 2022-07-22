@@ -79,7 +79,7 @@ let
       unzip
       ;
 
-    # agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
+    agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
 
     fd = mkCommandAlias fd "fd" "--color never";
 
