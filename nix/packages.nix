@@ -91,7 +91,7 @@ let
         emacs_ =
           with super;
           if pkgs.stdenv.isDarwin
-          then pkgs.emacs
+          then pkgs.emacsGit
           else if enableGui
           then pkgs.emacsPgtk
           else emacs-nox;

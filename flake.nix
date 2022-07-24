@@ -156,6 +156,7 @@
               nixpkgs.overlays = [
                 self.overlays.default
                 nur.overlay
+                emacs-overlay.overlay
               ];
 
               home = {
