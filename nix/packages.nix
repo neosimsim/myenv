@@ -53,11 +53,11 @@ let
 
     inherit (pkgs)
       age
-      binutils
       dhall
       dhall-json
       entr
       fzf
+      gcc
       git-lfs
       gnumake
       go
