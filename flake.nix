@@ -152,7 +152,7 @@
           modules = [
             ./nix/home.nix
 
-            ({ pkgs, ... }: {
+            ({ pkgs, config, ... }: {
               nixpkgs.overlays = [
                 self.overlays.default
                 nur.overlay
@@ -163,6 +163,19 @@
                 stateVersion = "22.05";
                 username = "neosimsim";
                 homeDirectory = "/Users/neosimsim";
+
+                # Link manually until Home Manager enables it again
+                # https://github.com/nix-community/home-manager/blob/db00b39a9abec04245486a01b236b8d9734c9ad0/modules/targets/darwin/linkapps.nix
+                # https://github.com/nix-community/home-manager/issues/1341#issuecomment-687286866
+                file."Applications/Home Manager Apps".source =
+                  let
+                    apps = pkgs.buildEnv {
+                      name = "home-manager-applications";
+                      paths = config.home.packages;
+                      pathsToLink = "/Applications";
+                    };
+                  in
+                  "${apps}/Applications";
               };
 
               myenv = {

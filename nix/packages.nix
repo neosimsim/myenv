@@ -244,6 +244,7 @@ pkgs.buildEnv {
   name = "my-packages";
   paths = pkgs.lib.attrValues (builtins.removeAttrs packageSet [ "ma" ]);
   pathsToLink = [
+    "/Applications"
     "/bin"
     "/etc"
     "/share/doc"
