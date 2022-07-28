@@ -71,7 +71,7 @@ inputs: final: prev: {
 
     src = inputs.goTools;
 
-    vendorSha256 = "sha256-D23VUaYAf66pfXKpfm8coMgPXTbMs3MJzzHBukXStyc=";
+    vendorSha256 = "sha256-vnXMBx0iaXYawmLf/iAncjkkKRP+34GoMFRddjPWlJc=";
 
     proxyVendor = true;
 
@@ -92,7 +92,7 @@ inputs: final: prev: {
     src = inputs.gosec;
 
     #vendorSha256 = final.lib.fakeHash;
-    vendorSha256 = "sha256-+IgjUIpgcVdGVqCbIufc5Hhy2RlewyoS2T7FWz+wi2c=";
+    vendorSha256 = "sha256-sxlymgPjfduVvR6Iq1lj3FMY5XXzmezdWF0JoQctPzM=";
 
     buildPhase = ''
       go install github.com/securego/gosec/v2/cmd/gosec
