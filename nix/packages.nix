@@ -63,7 +63,6 @@ let
       go
       goimports
       gosec
-      #      haskell-language-server
       htop
       isync
       jq
@@ -198,6 +197,10 @@ let
       mplayer
       Watch
       zathura
+      ;
+  } // lib.optionalAttrs (pkgs.stdenv.isLinux) {
+    inherit (pkgs)
+      haskell-language-server
       ;
   } // lib.optionalAttrs (enableGui && pkgs.stdenv.isLinux) {
     inherit (pkgs)
