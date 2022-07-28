@@ -51,38 +51,6 @@
         "type": "github"
       }
     },
-    "goTools": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1658950131,
-        "narHash": "sha256-lu6/UzIq7a6ObyqbJRMUhIrSvfavLprCM+GiQxrSPLE=",
-        "owner": "golang",
-        "repo": "tools",
-        "rev": "e02e98a0378f7ab2dc934b10d293d532b9d90e9b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "golang",
-        "repo": "tools",
-        "type": "github"
-      }
-    },
-    "gosec": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1658999400,
-        "narHash": "sha256-D4bFIDlAb6ziEpuFrkGeY3yZ47UHm/PHWqhL20w53r0=",
-        "owner": "securego",
-        "repo": "gosec",
-        "rev": "845483e0b14f61c542cba21f89c2040829b07484",
-        "type": "github"
-      },
-      "original": {
-        "owner": "securego",
-        "repo": "gosec",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -159,22 +127,6 @@
         "type": "github"
       }
     },
-    "passage": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1651407102,
-        "narHash": "sha256-6FPyv4MJrDbXbhHk7dxUiZ/kfIwC5hwikZ3+mShHVO0=",
-        "owner": "FiloSottile",
-        "repo": "passage",
-        "rev": "1262d308f09db9b243513a428ab4b8fb1c30d31d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "FiloSottile",
-        "repo": "passage",
-        "type": "github"
-      }
-    },
     "plan9fansGo": {
       "flake": false,
       "locked": {
@@ -195,13 +147,10 @@
       "inputs": {
         "emacs-overlay": "emacs-overlay",
         "flake-utils": "flake-utils_2",
-        "goTools": "goTools",
-        "gosec": "gosec",
         "home-manager": "home-manager",
         "hookmark": "hookmark",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
-        "passage": "passage",
         "plan9fansGo": "plan9fansGo"
       }
     },

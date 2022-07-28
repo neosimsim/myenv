@@ -61,7 +61,7 @@ let
       git-lfs
       gnumake
       go
-      goimports
+      gotools
       gosec
       htop
       isync

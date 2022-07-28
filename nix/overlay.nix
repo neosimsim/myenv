@@ -66,63 +66,12 @@ inputs: final: prev: {
     };
   };
 
-  goimports = final.buildGoModule {
-    name = "goimports";
-
-    src = inputs.goTools;
-
-    vendorSha256 = "sha256-vnXMBx0iaXYawmLf/iAncjkkKRP+34GoMFRddjPWlJc=";
-
-    proxyVendor = true;
-
-    buildPhase = ''
-      go install golang.org/x/tools/cmd/goimports
-    '';
-
-    meta = with inputs.nixpkgs.lib; {
-      homepage = "https://pkg.go.dev/golang.org/x/tools/cmd/goimports";
-      license = licenses.bsd3;
-      platforms = platforms.linux ++ platforms.darwin;
-    };
-  };
-
-  gosec = final.buildGoModule {
-    name = "gosec";
-
-    src = inputs.gosec;
-
-    #vendorSha256 = final.lib.fakeHash;
-    vendorSha256 = "sha256-sxlymgPjfduVvR6Iq1lj3FMY5XXzmezdWF0JoQctPzM=";
-
-    buildPhase = ''
-      go install github.com/securego/gosec/v2/cmd/gosec
-    '';
-
-    meta = with inputs.nixpkgs.lib; {
-      homepage = "https://github.com/securego/gosec";
-      license = licenses.apsl20;
-      platforms = platforms.linux ++ platforms.darwin;
-    };
-  };
-
-  passage = final.stdenv.mkDerivation {
-    name = "passage";
-    src = inputs.passage;
-
-    buildPhase = ''true'';
-
-    nativeBuildInputs = with final; [ makeWrapper installShellFiles ];
-    installPhase = ''
-      make DESTDIR= PREFIX=$out install
-
-      wrapProgram $out/bin/passage --prefix PATH : ${with final; lib.makeBinPath [ age tree xclip ]}
-
-      installShellCompletion --cmd passage \
-        --bash src/completion/pass.bash-completion \
-        --fish src/completion/pass.fish-completion \
-        --zsh src/completion/pass.zsh-completion
-    '';
-  };
+  gotools = prev.gotools.overrideAttrs (oldAttrs: {
+    excludedPackages = oldAttrs.excludedPackages ++ [
+      # conflict with my scripts bundle
+      "bundle"
+    ];
+  });
 
   ma = final.stdenv.mkDerivation rec {
     pname = "ma";

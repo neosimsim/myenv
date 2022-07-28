@@ -23,21 +23,6 @@
       flake = false;
     };
 
-    goTools = {
-      url = "github:golang/tools";
-      flake = false;
-    };
-
-    gosec = {
-      url = "github:securego/gosec";
-      flake = false;
-    };
-
-    passage = {
-      url = "github:FiloSottile/passage";
-      flake = false;
-    };
-
     hookmark = {
       url = "gitlab:neosimsim/hookmark";
       inputs = {
@@ -51,13 +36,10 @@
     { self
     , emacs-overlay
     , flake-utils
-    , gosec
-    , goTools
     , home-manager
     , nixpkgs
     , hookmark
     , nur
-    , passage
     , plan9fansGo
     }@inputs:
     let
