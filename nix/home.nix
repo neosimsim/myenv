@@ -240,8 +240,7 @@ in
         config = ../dotfiles/xmonad/xmonad.hs;
         enableContribAndExtras = true;
       };
-    }
-    )
+    })
 
     (lib.mkIf config.myenv.useSway {
       wayland.windowManager.sway = {
