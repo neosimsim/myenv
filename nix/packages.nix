@@ -94,7 +94,7 @@ let
           then pkgs.emacsGit
           else if enableGui
           then pkgs.emacsPgtk
-          else emacs-nox;
+          else emacsGit-nox;
       in
       (emacsPackagesFor emacs_).withPackages (epkgs: with epkgs; [
         myEmacsConfig
