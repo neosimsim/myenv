@@ -87,14 +87,14 @@ let
 
     emacs =
       let
-        # use emacs Pure GTK to make use of Wayland scaling
         emacs_ =
-          with super;
-          if pkgs.stdenv.isDarwin
-          then pkgs.emacsGit
-          else if enableGui
-          then pkgs.emacsPgtk
-          else emacsGit-nox;
+          if stdenv.isDarwin
+          then emacsGit
+          else
+            if enableGui
+            # use emacs Pure GTK to make use of Wayland scaling
+            then emacsPgtk
+            else emacsGit-nox;
       in
       (emacsPackagesFor emacs_).withPackages (epkgs: with epkgs; [
         myEmacsConfig
