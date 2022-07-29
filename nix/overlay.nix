@@ -12,6 +12,25 @@ inputs: final: prev: {
       };
     });
 
+  scripts = import ../scripts { pkgs = prev; };
+
+  goScripts = import ../golang { pkgs = prev; };
+
+  haskellScripts = (import ../haskell { pkgs = prev; }).scripts;
+
+  cabalShell = prev.writeShellScriptBin "cabal-shell" ''
+    nix-shell ${./cabal-shell.nix} --command $SHELL
+  '';
+
+  texlive-full =
+    let
+      texfiles.pkgs = [ (import ../texfiles { pkgs = prev; }) ];
+    in
+    prev.texlive.combine {
+      inherit (prev.texlive) scheme-full;
+      inherit texfiles;
+    };
+
   editinacme = final.buildGoModule {
     name = "editinacme";
 

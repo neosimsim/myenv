@@ -10,6 +10,50 @@ let
     source = ../dotfiles + "/${name}";
   });
 
+  agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
+
+  aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
+
+  git = pkgs.git.override {
+    guiSupport = config.myenv.enableGui;
+  };
+
+  ghc = pkgs.haskellPackages.ghc.withHoogle (p: with p; [
+    # Preinstall zlib to help cabal. Otherwise builds will
+    # complain about missing zlib.h.
+    zlib
+
+    neosimsim-shell
+
+    # Quality of life libraries for ghci
+    aeson
+    containers
+    extra
+    filelock
+    filepath
+    flow
+    lens
+    lens-aeson
+    pidfile
+    optparse-applicative
+    typed-process
+    QuickCheck
+    raw-strings-qq
+    regex-tdfa
+    string-interpolate
+    wreq
+
+    # Preinstall common used lib to speed up nix builds.
+    bifunctors
+    concurrency
+    dejafu
+    hspec
+    markdown-unlit
+    profunctors
+    safe
+    semigroupoids
+  ]);
+
 in
 {
   options.myenv = {
@@ -47,10 +91,60 @@ in
       };
 
       home = {
-        packages = [
-          # TODO split packages, because now I have multiple places with system 'ifs'.
-          (with config.myenv; import ./packages.nix { inherit pkgs enableGui useXServer useSway; })
-        ];
+        packages = with pkgs; [
+          agda
+          age
+          aspell
+          cabalShell
+          dhall
+          dhall-json
+          entr
+          fd
+          fzf
+          gcc
+          ghc
+          git
+          git-lfs
+          gnumake
+          go
+          goScripts
+          gosec
+          gotools
+          haskellScripts
+          htop
+          isync
+          jq
+          libarchive
+          nixpkgs-fmt
+          nix-prefetch-scripts
+          passage
+          plan9port
+          ripgrep
+          rnix-lsp
+          scripts
+          texlive-full
+          tmux
+          typespeed
+          unzip
+        ] ++ (with elmPackages; [
+          elm
+          elm-format
+          elm-language-server
+          elm-review
+          elm-test
+        ]) ++ (with haskellPackages; map haskell.lib.justStaticExecutables [
+          apply-refact
+          cabal2nix
+          cabal-fmt
+          cabal-install
+          hconv
+          hindent
+          hlint
+          hookmark
+          ormolu
+          pandoc
+          stylish-haskell
+        ]);
 
         file =
           {
@@ -73,21 +167,84 @@ in
         "git/ignore"
       ];
 
-      programs.fish = {
-        enable = true;
-        shellInit = ''
-          source "${../dotfiles/fish/config.fish}"
-        '';
+      programs = {
+        fish = {
+          enable = true;
+          shellInit = ''
+            source "${../dotfiles/fish/config.fish}"
+          '';
+        };
+
+        emacs = {
+          enable = true;
+          package = with pkgs;
+            if stdenv.isDarwin
+            then emacsGit
+            else
+              if config.myenv.enableGui
+              # use emacs Pure GTK to make use of Wayland scaling
+              then emacsPgtk
+              else emacsGit-nox;
+
+          extraConfig = builtins.readFile ../dotfiles/emacs/init.el;
+          extraPackages = epkgs: with epkgs; [
+            spacemacs-theme
+            kaolin-themes
+            ivy
+            counsel
+            amx
+            highlight-symbol
+            magit
+            htmlize
+            mixed-pitch
+            avy
+            buffer-move
+            osm
+            vimgolf
+
+            haskell-mode
+            nix-mode
+            elm-mode
+            elixir-mode
+            rust-mode
+            elisp-format
+
+            lsp-mode
+            lsp-ui
+            flycheck
+            company
+            lsp-haskell
+          ];
+        };
       };
     }
+
+    (lib.mkIf pkgs.stdenv.isLinux {
+      home.packages = with pkgs; [
+        haskell-language-server
+      ];
+    })
 
     (lib.mkIf pkgs.stdenv.isDarwin {
       targets.darwin.search = "DuckDuckGo";
     })
 
     (lib.mkIf config.myenv.enableGui {
-      home.file = {
-        "lib/plumbing".source = ../dotfiles/plumbing;
+      home = {
+        file = {
+          "lib/plumbing".source = ../dotfiles/plumbing;
+        };
+        packages = with pkgs; [
+          acmego
+          editinacme
+          meld
+          Watch
+        ] ++ lib.optionals pkgs.stdenv.isLinux [
+          alacritty
+          klavaro
+          mplayer
+          zathura
+        ];
       };
 
       xdg.configFile = configFiles [
@@ -96,7 +253,7 @@ in
 
       programs = {
         firefox = {
-          enable = !pkgs.stdenv.isDarwin;
+          enable = pkgs.stdenv.isLinux;
 
           package =
             let
@@ -170,7 +327,7 @@ in
         };
 
         chromium = rec {
-          enable = !pkgs.stdenv.isDarwin;
+          enable = pkgs.stdenv.isLinux;
           package = pkgs.ungoogled-chromium;
           # https://github.com/nix-community/home-manager/issues/2216
           extensions =
@@ -213,6 +370,25 @@ in
           "Xresources"
           "xsession"
         ];
+
+        packages = with pkgs; [
+          brightnessctl
+          dmenu
+          feh
+          numlockx
+          rxvt-unicode
+          scrot
+          signal-desktop
+          sxiv
+          xsel
+        ] ++ (with pkgs.xorg; [
+          xkill
+          xmodmap
+        ]) ++ (with pkgs.xfce; [
+          thunar
+        ]) ++ (with pkgs.haskellPackages; [
+          xmobar
+        ]);
       };
 
       xdg.configFile =
@@ -304,6 +480,13 @@ in
           sway-contrib.grimshot
           # waybar icons
           font-awesome
+          brightnessctl
+          swaylock
+          swayidle
+          wl-clipboard
+          mako
+          wofi
+          pulseaudio
         ];
 
         sessionVariables = {

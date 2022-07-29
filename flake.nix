@@ -55,47 +55,28 @@
             };
           in
           {
-            packages = {
-              packagesWithoutGui = import ./nix/packages.nix { inherit pkgs; enableGui = false; };
-              packagesWithGui = import ./nix/packages.nix { inherit pkgs; enableGui = true; };
-            };
-
             devShells.neosimsim-shell = pkgs.haskellPackages.shellFor {
               packages = p: with p; [ neosimsim-shell ];
             };
 
             checks = {
-              packagesWithoutGui = self.packages.x86_64-linux.packagesWithoutGui;
-              packagesWithGui = self.packages.x86_64-linux.packagesWithGui;
-
-              # disabled packages
-              ma = self.packages.x86_64-linux.packagesWithGui.ma;
+              # packages I added in overlay but not in home.packages:
+              ma = pkgs.ma;
             };
           });
     in
     nixpkgs.lib.recursiveUpdate genericOutputs
       {
-        packages.x86_64-linux =
-          let
-            system = "x86_64-linux";
-            pkgs = import nixpkgs {
-              inherit system;
-              overlays = [
-                self.overlays.default
-                emacs-overlay.overlay
-              ];
-            };
-          in
-          {
-            packagesWithXServer = import ./nix/packages.nix {
-              inherit pkgs;
-              useXServer = true;
-            };
-            packagesWithSway = import ./nix/packages.nix {
-              inherit pkgs;
-              useSway = true;
-            };
+        packages = {
+          x86_64-linux = {
+            pathWithGui = self.nixosConfigurations.withXServer.config.home-manager.users.neosimsim.home.path;
+            pathWithoutGui = self.nixosConfigurations.withoutGui.config.home-manager.users.neosimsim.home.path;
           };
+          aarch-darwin = {
+            pathWithGui = self.homeConfigurations.macbook.config.home.path;
+            pathWithoutGui = self.homeConfigurations.macbookWithoutGui.config.home.path;
+          };
+        };
 
         nixosModules.default = { config, ... }: {
 
@@ -125,50 +106,119 @@
               };
             };
           };
-
         };
 
-        homeConfigurations.macbook = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+        nixosConfigurations = {
 
-          modules = [
-            ./nix/home.nix
+          withoutGui = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ({ ... }: {
+                boot.isContainer = true;
+                users.users.neosimsim.isNormalUser = true;
+                system.stateVersion = "22.05";
+              })
+              self.nixosModules.default
+            ];
+          };
 
-            ({ pkgs, config, ... }: {
-              nixpkgs.overlays = [
-                self.overlays.default
-                nur.overlay
-                emacs-overlay.overlay
-              ];
+          withXServer = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ({ ... }: {
+                boot.isContainer = true;
+                services.xserver.enable = true;
+                users.users.neosimsim.isNormalUser = true;
+                system.stateVersion = "22.05";
+              })
+              self.nixosModules.default
+            ];
+          };
 
-              home = {
-                stateVersion = "22.05";
-                username = "neosimsim";
-                homeDirectory = "/Users/neosimsim";
+          withSway = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ({ ... }: {
+                boot.isContainer = true;
+                programs.sway.enable = true;
+                users.users.neosimsim.isNormalUser = true;
+                system.stateVersion = "22.05";
+              })
+              self.nixosModules.default
+            ];
+          };
+        };
 
-                # Link manually until Home Manager enables it again
-                # https://github.com/nix-community/home-manager/blob/db00b39a9abec04245486a01b236b8d9734c9ad0/modules/targets/darwin/linkapps.nix
-                # https://github.com/nix-community/home-manager/issues/1341#issuecomment-687286866
-                file."Applications/Home Manager Apps".source =
-                  let
-                    apps = pkgs.buildEnv {
-                      name = "home-manager-applications";
-                      paths = config.home.packages;
-                      pathsToLink = "/Applications";
-                    };
-                  in
-                  "${apps}/Applications";
-              };
+        homeConfigurations = {
+          macbook = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
-              myenv = {
-                enable = true;
-                enableGui = true;
-              };
-            })
-          ];
+            modules = [
+              ./nix/home.nix
+
+              ({ pkgs, config, ... }: {
+                nixpkgs.overlays = [
+                  self.overlays.default
+                  emacs-overlay.overlay
+                ];
+
+                home = {
+                  stateVersion = "22.05";
+                  username = "neosimsim";
+                  homeDirectory = "/Users/neosimsim";
+
+                  # Link manually until Home Manager enables it again
+                  # https://github.com/nix-community/home-manager/blob/db00b39a9abec04245486a01b236b8d9734c9ad0/modules/targets/darwin/linkapps.nix
+                  # https://github.com/nix-community/home-manager/issues/1341#issuecomment-687286866
+                  file."Applications/Home Manager Apps".source =
+                    let
+                      apps = pkgs.buildEnv {
+                        name = "home-manager-applications";
+                        paths = config.home.packages;
+                        pathsToLink = "/Applications";
+                      };
+                    in
+                    "${apps}/Applications";
+                };
+
+                myenv = {
+                  enable = true;
+                  enableGui = true;
+                };
+              })
+            ];
+          };
+
+          macbookWithoutGui = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+
+            modules = [
+              ./nix/home.nix
+
+              ({ pkgs, config, ... }: {
+                nixpkgs.overlays = [
+                  self.overlays.default
+                  emacs-overlay.overlay
+                ];
+
+                home = {
+                  stateVersion = "22.05";
+                  username = "neosimsim";
+                  homeDirectory = "/Users/neosimsim";
+                };
+
+                myenv = {
+                  enable = true;
+                  enableGui = false;
+                };
+              })
+            ];
+          };
         };
 
         overlays.default = import ./nix/overlay.nix inputs;
+
+        checks.aarch64-darwin.macbook = self.homeConfigurations.macbook.config.home.path;
 
         checks.x86_64-linux =
           let
@@ -187,49 +237,12 @@
                 exit 1
               fi
             '';
-            withoutGui = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              modules = [
-                ({ ... }: {
-                  boot.isContainer = true;
-                  users.users.neosimsim.isNormalUser = true;
-                  system.stateVersion = "22.05";
-                })
-                self.nixosModules.default
-              ];
-            };
-
-            withXServer = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              modules = [
-                ({ ... }: {
-                  boot.isContainer = true;
-                  services.xserver.enable = true;
-                  users.users.neosimsim.isNormalUser = true;
-                  system.stateVersion = "22.05";
-                })
-                self.nixosModules.default
-              ];
-            };
-
-            withSway = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              modules = [
-                ({ ... }: {
-                  boot.isContainer = true;
-                  programs.sway.enable = true;
-                  users.users.neosimsim.isNormalUser = true;
-                  system.stateVersion = "22.05";
-                })
-                self.nixosModules.default
-              ];
-            };
           in
           {
             nixosWithXServer = pkgs.runCommand "test-myenv-with-xserver"
               {
-                nixRoot = withXServer.config.system.build.toplevel;
-                homeFiles = withXServer.config.home-manager.users.neosimsim.home-files;
+                nixRoot = self.nixosConfigurations.withXServer.config.system.build.toplevel;
+                homeFiles = self.nixosConfigurations.withXServer.config.home-manager.users.neosimsim.home-files;
               } ''
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
@@ -251,8 +264,8 @@
 
             nixosWithSway = pkgs.runCommand "test-myenv-with-sway"
               {
-                nixRoot = withSway.config.system.build.toplevel;
-                homeFiles = withSway.config.home-manager.users.neosimsim.home-files;
+                nixRoot = self.nixosConfigurations.withSway.config.system.build.toplevel;
+                homeFiles = self.nixosConfigurations.withSway.config.home-manager.users.neosimsim.home-files;
               } ''
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
@@ -273,8 +286,8 @@
 
             nixosWithoutGui = pkgs.runCommand "test-myenv-without-gui"
               {
-                nixRoot = withoutGui.config.system.build.toplevel;
-                homeFiles = withoutGui.config.home-manager.users.neosimsim.home-files;
+                nixRoot = self.nixosConfigurations.withoutGui.config.system.build.toplevel;
+                homeFiles = self.nixosConfigurations.withoutGui.config.home-manager.users.neosimsim.home-files;
               } ''
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
