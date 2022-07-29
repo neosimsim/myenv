@@ -177,12 +177,12 @@ in
         emacs = {
           enable = true;
           package = with pkgs;
-            if stdenv.isDarwin
-            then emacsGit
+            if config.myenv.useSway
+            # use emacs Pure GTK to make use of Wayland scaling
+            then emacsPgtk
             else
               if config.myenv.enableGui
-              # use emacs Pure GTK to make use of Wayland scaling
-              then emacsPgtk
+              then emacsGit
               else emacsGit-nox;
 
           extraConfig = builtins.readFile ../dotfiles/emacs/init.el;
