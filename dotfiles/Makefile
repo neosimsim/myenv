@@ -1,7 +1,6 @@
 .POSIX:
 
 DOTFILES_CORE= \
-	cabal/config \
 	ghci \
 	mkshrc \
 	profile \

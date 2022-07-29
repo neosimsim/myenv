@@ -154,7 +154,6 @@ in
             '';
           }
           // dotfiles [
-            "cabal/config"
             "ghci"
             "mkshrc"
             "tmux.conf"
