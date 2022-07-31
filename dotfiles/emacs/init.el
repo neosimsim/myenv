@@ -297,10 +297,3 @@ Examples:
 (setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-doc-show-with-mouse nil)
 (setq lsp-ui-sideline-show-code-actions t)
-
-(load-file (let ((coding-system-for-read 'utf-8))
-             (shell-command-to-string "agda-mode locate")))
-(add-to-list 'auto-mode-alist '("\\.lagda.md\\'" . agda2-mode))
-(defun agda-setup ()
-  (setq agda2-highlight-level 'none))
-(add-hook 'agda2-mode-hook 'agda-setup)

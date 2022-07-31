@@ -1,10 +1,8 @@
-tests/hello-agda
 scripts/shell.nix
 
 dist-newstyle/
 MAlonzo/
 
-*.agdai
 *.aux
 *.log
 *.lst

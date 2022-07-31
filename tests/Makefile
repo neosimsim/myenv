@@ -1,7 +1,6 @@
 test: test-core
 
 TESTS= \
-	agda \
 	noesc \
 	uniq-paths \
 	fix-ex-string \
@@ -18,10 +17,6 @@ test-gui: \
 noesc fix-ex-string:
 	$@ < $@_test_in | diff $@_test_out -
 
-agda:
-	agda --library standard-library -i . -c hello-agda.agda
-	./hello-agda
-
 xmonad:
 	xmonad --recompile
 
@@ -30,6 +25,3 @@ uniq-paths:
 	! echo $$MANPATH | sed "s/:/\n/g" | sort | uniq -d | grep .
 
 clean:
-	rm -f hello-agda *.agdai
-	rm -rf MAlonzo
-

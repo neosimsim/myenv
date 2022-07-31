@@ -10,8 +10,6 @@ let
     source = ../dotfiles + "/${name}";
   });
 
-  agda = pkgs.agda.withPackages (p: [ p.standard-library ]);
-
   aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
 
   git = pkgs.git.override {
@@ -92,7 +90,6 @@ in
 
       home = {
         packages = with pkgs; [
-          agda
           age
           aspell
           cabalShell
