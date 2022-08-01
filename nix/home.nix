@@ -143,18 +143,30 @@ in
           stylish-haskell
         ]);
 
-        file =
-          {
-            ".profile".text = ''
-              . "${../dotfiles/profile}"
-              . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
-            '';
-          }
-          // dotfiles [
-            "ghci"
-            "mkshrc"
-            "tmux.conf"
-          ];
+        sessionVariables = {
+          EDITOR = "emacsclient -ca  ''";
+          VISUAL = "$EDITOR";
+          FCEDIT = "$EDITOR";
+          CDPATH = ".:$HOME:$HOME/src";
+          GOOS = "linux";
+          GOARCH = "amd64";
+          GOBIN = "$HOME/bin";
+          FZF_DEFAULT_COMMAND = "fd --type file --follow --hidden --exclude .git";
+          FZF_CTRL_T_COMMAND = "$FZF_DEFAULT_COMMAND";
+        };
+
+        # don't use sessionPath because I want to prefix PATH
+        sessionVariablesExtra = ''
+          PATH=$HOME/bin:$PATH
+          PATH=$HOME/bin/aliases:$PATH
+          export PATH
+        '';
+
+        file = dotfiles [
+          "ghci"
+          "mkshrc"
+          "tmux.conf"
+        ];
       };
 
       xdg.configFile = configFiles [
@@ -167,7 +179,7 @@ in
         fish = {
           enable = true;
           shellInit = ''
-            source "${../dotfiles/fish/config.fish}"
+            set -U fish_greeting
           '';
         };
 
@@ -361,11 +373,13 @@ in
     (lib.mkIf config.myenv.useXServer {
       home = {
         file = dotfiles [
-          "xinitrc"
           "Xmodmap"
-          "Xresources"
-          "xsession"
         ];
+
+        sessionVariables = {
+          EDITOR = "emacsclient -a ''";
+          BROWSER = "chromium";
+        };
 
         packages = with pkgs; [
           brightnessctl
@@ -385,6 +399,60 @@ in
         ]) ++ (with pkgs.haskellPackages; [
           xmobar
         ]);
+      };
+
+      xsession = {
+        enable = true;
+        initExtra = ''
+          xautolock -cornerdelay 1 -cornerredelay 5 -time 1 -locker 'slock' -corners 0-00 &
+
+          # TODO observe strange behaviour with modifier
+          # rotatekb colemak
+          numlockx
+          [ -f ~/.fehbg ] && sh ~/.fehbg
+          amixer set Master mute
+          amixer -c 0 set Headphone unmute
+          amixer -c 0 set Headphone 70
+
+          # plan9port
+          if which 9 >/dev/null; then
+            export NAMESPACE=$HOME/9p
+            # export EDITOR="9 editinacme"
+            export tabstop=4
+            # font for sam, 9term (not acme)
+            export font=/mnt/font/DejaVuSansMono/18a/font
+            # a &
+            9 plumber
+          fi
+
+          ec -n
+
+          signal-desktop &
+        '';
+      };
+
+      xresources.properties = {
+        "Xft.autohint" = 0;
+        "Xft.lcdfilter" = "lcddefault";
+        "Xft.hintstyle" = "hintslight";
+        "Xft.hinting" = 1;
+        "Xft.antialias" = 1;
+        "Xft.rgba" = "rgb";
+
+        "URxvt.font" = "xft=DejaVuSans Mono=size=14";
+        "URxvt.scrollBar" = "False";
+        "URxvt.perl-ext-common" = "default,font-size,color-themes";
+
+        "URxvt.keysym.C-plus" = "font-size=increase";
+        "URxvt.keysym.C-minus" = "font-size=decrease";
+        "URxvt.keysym.C-equal" = "font-size=reset";
+        "URxvt.keysym.C-slash" = "font-size=show";
+
+        "URxvt.keysym.M-C-n" = "perl=color-themes=next";
+        "URxvt.keysym.M-C-p" = "perl=color-themes=prev";
+        "URxvt.color-themes.autosave" = 1;
+        "URxvt.keysym.M-C-l" = "perl=color-themes=load-state";
+        "URxvt.keysym.M-C-s" = "perl=color-themes=save-state";
       };
 
       xdg.configFile =
@@ -492,6 +560,14 @@ in
       };
 
     })
+
+    (lib.mkIf pkgs.stdenv.isOpenBSD {
+      # workaround for haskell, due to w^x on OpenBSD
+      home.shellAliases = {
+        cabal = "env TMPDIR=/usr/local/cabal/build/ cabal";
+      };
+    })
+
   ]);
 
 }

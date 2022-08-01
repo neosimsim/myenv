@@ -7,12 +7,9 @@ DOTFILES_CORE= \
 	tmux.conf \
 
 DOTFILES_GUI= \
-	xinitrc \
 	Xmodmap \
 	xmonad/build \
 	xmonad/xmonad.hs \
-	Xresources \
-	xsession \
 
 # Don't call this or use XDG_CONFIG_HOME on purpose.
 # Setting/Using XDG_CONFIG_HOME causes more pain than use.
@@ -65,8 +62,6 @@ reload-core:
 	! tmux list-s >/dev/null 2>&1 || tmux source $(HOME)/.tmux.conf
 
 reload-gui: reload-core
-	[ -z "$$DISPLAY" ] || xrdb $(HOME)/.Xresources
-	[ -z "$$DISPLAY" ] || ! [ -f $(HOME)/local/Xresources ] || xrdb -merge $(HOME)/local/Xresources
 	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/lib/plumbing || true
 	[ -z "$$DISPLAY" ] || xmonad --recompile
 	[ -z "$$DISPLAY" ] || xmonad --restart
