@@ -7,7 +7,6 @@ import XMonad.Hooks.Rescreen (addRandrChangeHook)
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (..), focusUrgent, withUrgencyHook)
 import XMonad.Layout.Fullscreen
-import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeys)
@@ -43,12 +42,10 @@ myConfig =
             className =? "Wire" --> doShift "9",
             className =? "discord" --> doShift "9",
             className =? "Slack" --> doShift "9",
-            className =? "pavucontrol" <||> className =? "Pavucontrol"
-              --> doCenterFloat,
             className =? "Microsoft Teams - Preview" --> doShift "5"
           ],
       layoutHook =
-        smartBorders . avoidStruts $ Tall 1 (1 / 300) (3 / 4) ||| Full ||| Grid,
+        smartBorders . avoidStruts $ Tall 1 (1 / 8) (1 / 2) ||| Full,
       normalBorderColor = "#cccccc",
       focusedBorderColor = "#cd8b00",
       startupHook = myStartupHook,

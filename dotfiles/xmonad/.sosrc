@@ -1,4 +1,0 @@
-- pattern: .*\.hs$
-  commands:
-  - ghc -fno-code -freverse-errors -Wall -Wno-missing-signatures -Werror xmonad.hs
-  - hlint \0
