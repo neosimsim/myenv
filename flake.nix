@@ -18,6 +18,14 @@
 
     nur.url = "github:nix-community/NUR";
 
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
     plan9fansGo = {
       url = "github:9fans/go";
       flake = false;
@@ -41,6 +49,7 @@
     , hookmark
     , nur
     , plan9fansGo
+    , plasma-manager
     }@inputs:
     let
       genericOutputs = with flake-utils.lib; eachSystem [ system.x86_64-linux system.aarch64-darwin ]
@@ -95,7 +104,10 @@
             useUserPackages = true;
 
             users.neosimsim = { ... }: {
-              imports = [ (import ./nix/home.nix) ];
+              imports = [
+                plasma-manager.homeManagerModules.plasma-manager
+                (import ./nix/home.nix)
+              ];
 
               home.stateVersion = "22.05";
 
@@ -154,6 +166,7 @@
             pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
             modules = [
+              plasma-manager.homeManagerModules.plasma-manager
               ./nix/home.nix
 
               ({ pkgs, config, ... }: {
@@ -193,6 +206,7 @@
             pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
             modules = [
+              plasma-manager.homeManagerModules.plasma-manager
               ./nix/home.nix
 
               ({ pkgs, config, ... }: {
@@ -247,7 +261,7 @@
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+              ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/sway
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt

@@ -476,9 +476,17 @@ in
         };
 
       xsession.windowManager.xmonad = {
-        enable = true;
+        enable = false;
         config = ../dotfiles/xmonad/xmonad.hs;
         enableContribAndExtras = true;
+      };
+
+      programs.plasma = {
+        enable = true;
+        files = {
+          "kwinrc"."Desktops"."Number" = 4;
+          "plasma-localerc"."Formats"."LC_TIME" = "en_DE.UTF-8";
+        };
       };
     })
 

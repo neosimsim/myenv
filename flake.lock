@@ -143,6 +143,29 @@
         "type": "github"
       }
     },
+    "plasma-manager": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1658449875,
+        "narHash": "sha256-jkbs4+zAsRvR6Twk3vSRMPJnb9bbCvy1zWA7Wj63Y7w=",
+        "owner": "pjones",
+        "repo": "plasma-manager",
+        "rev": "59598c34df8430dc4c31925530bccaacc16a5944",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pjones",
+        "repo": "plasma-manager",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "emacs-overlay": "emacs-overlay",
@@ -151,7 +174,8 @@
         "hookmark": "hookmark",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
-        "plan9fansGo": "plan9fansGo"
+        "plan9fansGo": "plan9fansGo",
+        "plasma-manager": "plasma-manager"
       }
     },
     "utils": {
