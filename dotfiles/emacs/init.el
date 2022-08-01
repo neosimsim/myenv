@@ -97,7 +97,7 @@ https://www.emacswiki.org/emacs/ShellMode#h5o-9
 However, this can be used to (cd) to the proper directory when working
 with multi package cabal projects or mix umbrella projects."
   (interactive)
-  (start-process "dtt" nil "dtt" (thing-at-point 'filename 'no-properties)))
+  (start-process "dtt" nil "dtt" (thing-at-point 'symbol 'no-properties)))
 
 (global-set-key [C-M-mouse-3] 'dtt)
 
@@ -222,6 +222,11 @@ Examples:
   (local-set-key (kbd "C-x M-f") #'elixir-format)
   (modify-syntax-entry ?& "." elixir-mode-syntax-table))
 (add-hook 'elixir-mode-hook #'elixir-setup)
+
+(defun term-setup ()
+  (modify-syntax-entry ?: "_" term-mode-syntax-table)
+  (modify-syntax-entry ?. "_" term-mode-syntax-table))
+(add-hook 'term-mode-hook #'term-setup)
 
 (defun copy-buffer-name ()
   (interactive)
