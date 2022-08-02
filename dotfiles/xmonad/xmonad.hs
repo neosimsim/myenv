@@ -1,19 +1,27 @@
+import Distribution.SPDX (LicenseId (FSFAP))
 import Graphics.X11.ExtraTypes
 import XMonad
+import XMonad.Actions.WindowGo (raise)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import XMonad.Hooks.Rescreen (addRandrChangeHook)
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (..), focusUrgent, withUrgencyHook)
+import XMonad.Layout.Decoration (Theme (windowTitleAddons))
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
+import XMonad.Prompt (XPConfig (height, searchPredicate, sorter, autoComplete), XPrompt, showXPrompt)
+import XMonad.Prompt.AppLauncher (mkXPrompt)
+import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
+import XMonad.Prompt.RunOrRaise (runOrRaisePrompt)
+import XMonad.StackSet (allWindows)
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.Run (safeSpawn, safeSpawnProg)
 
 main :: IO ()
-main = do
+main =
   xmonad
     =<< ( myStatusBar
             . withUrgencyHook NoUrgencyHook
@@ -87,9 +95,33 @@ myKeys =
     ((0, xK_Print), safeSpawnProg "scrot"),
     ((myModMask, xK_a), safeSpawnProg "rotatekb"),
     ((myModMask, xK_g), safeSpawnProg "games"),
-    ((myModMask, xK_Arabic_sheen), safeSpawnProg "rotatekb")
+    ((myModMask, xK_Arabic_sheen), safeSpawnProg "rotatekb"),
+    ((myModMask, xK_w), focusApplicationPromp)
   ]
 
 myStartupHook = do
   startupHook def
   setWMName "LG3D"
+
+data FocusApplicationPrompt = FAP
+
+instance XPrompt FocusApplicationPrompt where
+  showXPrompt FAP = "Focus Window: "
+
+focusApplicationPromp :: X ()
+focusApplicationPromp = do
+  titles <- windowTitles
+  let xpConfig =
+        def
+          { height = 30,
+            searchPredicate = fuzzyMatch,
+            sorter = fuzzySort
+          }
+
+  mkXPrompt FAP xpConfig (const $ return titles) (\title' -> raise (title =? title'))
+
+windowTitles :: X [String]
+windowTitles = mapM (runQuery title) =<< windows'
+
+windows' :: X [Window]
+windows' = withWindowSet (return . allWindows)
