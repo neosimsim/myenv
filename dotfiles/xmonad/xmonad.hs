@@ -1,16 +1,86 @@
-import Distribution.SPDX (LicenseId (FSFAP))
+{-# LANGUAGE ImportQualifiedPost #-}
+{-# OPTIONS_GHC -Weverything -Werror #-}
+{-# OPTIONS_GHC -Wno-implicit-prelude #-}
+{-# OPTIONS_GHC -Wno-missing-safe-haskell-mode #-}
+{-# OPTIONS_GHC -Wno-missing-signatures #-}
+{-# OPTIONS_GHC -Wno-monomorphism-restriction #-}
+{-# OPTIONS_GHC -Wno-unsafe #-}
+
 import Graphics.X11.ExtraTypes
+  ( xF86XK_AudioLowerVolume,
+    xF86XK_AudioMute,
+    xF86XK_AudioRaiseVolume,
+    xF86XK_MonBrightnessDown,
+    xF86XK_MonBrightnessUp,
+    xK_Arabic_sheen,
+  )
 import XMonad
+  ( Default (def),
+    Full (Full),
+    KeyMask,
+    KeySym,
+    Resize (Expand, Shrink),
+    Tall (Tall),
+    Window,
+    X,
+    XConfig
+      ( XConfig,
+        borderWidth,
+        focusFollowsMouse,
+        focusedBorderColor,
+        layoutHook,
+        manageHook,
+        modMask,
+        normalBorderColor,
+        startupHook,
+        terminal
+      ),
+    className,
+    composeAll,
+    doFloat,
+    doShift,
+    mod4Mask,
+    runQuery,
+    sendMessage,
+    shiftMask,
+    spawn,
+    stringProperty,
+    title,
+    windows,
+    withWindowSet,
+    xK_BackSpace,
+    xK_Down,
+    xK_Left,
+    xK_Print,
+    xK_Right,
+    xK_Up,
+    xK_a,
+    xK_b,
+    xK_g,
+    xK_l,
+    xK_p,
+    xK_q,
+    xK_w,
+    xmonad,
+    (-->),
+    (.|.),
+    (=?),
+    (|||),
+  )
 import XMonad.Actions.WindowGo (raise)
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers (doCenterFloat)
+  ( PP (ppCurrent, ppTitle, ppUrgent),
+    shorten,
+    statusBar,
+    wrap,
+    xmobarPP,
+  )
+import XMonad.Hooks.ManageDocks (avoidStruts, docks)
 import XMonad.Hooks.Rescreen (addRandrChangeHook)
-import XMonad.Hooks.SetWMName
-import XMonad.Hooks.UrgencyHook (NoUrgencyHook (..), focusUrgent, withUrgencyHook)
-import XMonad.Layout.Decoration (Theme (windowTitleAddons))
-import XMonad.Layout.Fullscreen
-import XMonad.Layout.NoBorders
+import XMonad.Hooks.SetWMName (setWMName)
+import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), focusUrgent, withUrgencyHook)
+import XMonad.Layout.Fullscreen (fullscreenSupport)
+import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Prompt
   ( XPConfig
       ( autoComplete,
@@ -24,9 +94,7 @@ import XMonad.Prompt
     mkXPrompt,
   )
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
-import XMonad.Prompt.RunOrRaise (runOrRaisePrompt)
-import XMonad.StackSet (allWindows)
-import qualified XMonad.StackSet as W
+import XMonad.StackSet qualified as W
 import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.Run (safeSpawn, safeSpawnProg)
 
@@ -133,4 +201,4 @@ focusApplicationPrompt = do
   mkXPrompt FAP xpConfig (mkComplFunFromList' xpConfig titles) (\title' -> raise (title =? title'))
 
 windows' :: X [Window]
-windows' = withWindowSet (return . allWindows)
+windows' = withWindowSet (return . W.allWindows)
