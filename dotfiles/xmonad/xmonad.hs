@@ -11,8 +11,18 @@ import XMonad.Hooks.UrgencyHook (NoUrgencyHook (..), focusUrgent, withUrgencyHoo
 import XMonad.Layout.Decoration (Theme (windowTitleAddons))
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
-import XMonad.Prompt (XPConfig (height, searchPredicate, sorter, autoComplete), XPrompt, showXPrompt)
-import XMonad.Prompt.AppLauncher (mkXPrompt)
+import XMonad.Prompt
+  ( XPConfig
+      ( autoComplete,
+        height,
+        maxComplColumns,
+        searchPredicate,
+        sorter
+      ),
+    XPrompt (showXPrompt),
+    mkComplFunFromList',
+    mkXPrompt,
+  )
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.RunOrRaise (runOrRaisePrompt)
 import XMonad.StackSet (allWindows)
@@ -96,7 +106,7 @@ myKeys =
     ((myModMask, xK_a), safeSpawnProg "rotatekb"),
     ((myModMask, xK_g), safeSpawnProg "games"),
     ((myModMask, xK_Arabic_sheen), safeSpawnProg "rotatekb"),
-    ((myModMask, xK_w), focusApplicationPromp)
+    ((myModMask, xK_w), focusApplicationPrompt)
   ]
 
 myStartupHook = do
@@ -108,20 +118,19 @@ data FocusApplicationPrompt = FAP
 instance XPrompt FocusApplicationPrompt where
   showXPrompt FAP = "Focus Window: "
 
-focusApplicationPromp :: X ()
-focusApplicationPromp = do
-  titles <- windowTitles
+focusApplicationPrompt :: X ()
+focusApplicationPrompt = do
+  titles <- mapM (runQuery title) =<< windows'
   let xpConfig =
         def
           { height = 30,
+            maxComplColumns = Just 1,
             searchPredicate = fuzzyMatch,
-            sorter = fuzzySort
+            sorter = fuzzySort,
+            autoComplete = Just 2
           }
 
-  mkXPrompt FAP xpConfig (const $ return titles) (\title' -> raise (title =? title'))
-
-windowTitles :: X [String]
-windowTitles = mapM (runQuery title) =<< windows'
+  mkXPrompt FAP xpConfig (mkComplFunFromList' xpConfig titles) (\title' -> raise (title =? title'))
 
 windows' :: X [Window]
 windows' = withWindowSet (return . allWindows)
