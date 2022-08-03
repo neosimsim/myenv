@@ -55,8 +55,10 @@
             };
           in
           {
-            devShells.neosimsim-shell = pkgs.haskellPackages.shellFor {
-              packages = p: with p; [ neosimsim-shell ];
+            devShells = {
+              neosimsim-shell = pkgs.haskellPackages.shellFor {
+                packages = p: with p; [ neosimsim-shell ];
+              };
             };
 
             checks = {
