@@ -59,6 +59,15 @@
               neosimsim-shell = pkgs.haskellPackages.shellFor {
                 packages = p: with p; [ neosimsim-shell ];
               };
+
+              xmonad = pkgs.mkShell {
+                packages = [
+                  (pkgs.haskellPackages.ghcWithPackages (p: with p;[
+                    xmonad
+                    xmonad-contrib
+                  ]))
+                ];
+              };
             };
 
             checks = {
