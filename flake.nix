@@ -119,6 +119,7 @@
           };
         };
 
+        # NixOS configurations for testing
         nixosConfigurations = {
 
           withoutGui = nixpkgs.lib.nixosSystem {
