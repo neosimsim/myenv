@@ -129,7 +129,7 @@ in
           elm-language-server
           elm-review
           elm-test
-        ]) ++ (with haskellPackages; map haskell.lib.justStaticExecutables [
+        ]) ++ (with haskellPackages; [
           apply-refact
           cabal2nix
           cabal-fmt
