@@ -180,6 +180,8 @@
                   homeDirectory = "/Users/neosimsim";
                 };
 
+                programs.home-manager.enable = true;
+
                 myenv = {
                   enable = true;
                   enableGui = true;
