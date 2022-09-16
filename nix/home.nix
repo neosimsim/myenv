@@ -264,6 +264,7 @@ in
           alacritty
           klavaro
           mplayer
+          superTux
           zathura
         ];
       };
