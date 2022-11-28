@@ -81,7 +81,9 @@ in
   config = mkIf config.myenv.enable (lib.mkMerge [
     {
       nix = {
-        package = pkgs.nix;
+        # The HomeManager NixOS module sets nix.package, so we override to use
+        # the same configuration for NixOS and non-NixOS.
+        package = lib.mkForce pkgs.nix;
         settings.experimental-features = [
           "nix-command"
           "flakes"
