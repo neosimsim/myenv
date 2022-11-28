@@ -117,6 +117,10 @@ stdout and stderr) is displayed in *Shell Command Output*."
              (kill-buffer buffer))
       (display-buffer buffer))))
 
+(defun track ()
+  (interactive)
+  (find-file (substring (shell-command-to-string "date +'~/doc/tracking/%Y-%m'") 0 -1)))
+
 (defun x (regex fn)
   "Like plan9 sam x
 
