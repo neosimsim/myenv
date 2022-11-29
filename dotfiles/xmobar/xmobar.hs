@@ -3,10 +3,10 @@ import Xmobar
 config :: Config
 config =
   defaultConfig
-    { font = "xft:Free Sans:pixelsize=26:antialias=true:autohint=true",
+    { font = "Free Sans 18",
       bgColor = "#fdf6e3",
       fgColor = "#073642",
-      position = TopW L 100,
+      position = TopSize L 100 30,
       commands =
         [ Run $
             Cpu
