@@ -215,6 +215,7 @@ in
             haskell-mode
             nix-mode
             elm-mode
+            erlang
             elixir-mode
             rust-mode
             elisp-format
