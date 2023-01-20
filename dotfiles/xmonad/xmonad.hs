@@ -181,6 +181,7 @@ myStartupHook = do
   startupHook def
   setWMName "LG3D"
 
+type FocusApplicationPrompt :: *
 data FocusApplicationPrompt = FAP
 
 instance XPrompt FocusApplicationPrompt where
