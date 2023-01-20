@@ -6,6 +6,7 @@
 {-# OPTIONS_GHC -Wno-monomorphism-restriction #-}
 {-# OPTIONS_GHC -Wno-unsafe #-}
 
+import Data.Kind (Type)
 import Graphics.X11.ExtraTypes
   ( xF86XK_AudioLowerVolume,
     xF86XK_AudioMute,
@@ -181,7 +182,7 @@ myStartupHook = do
   startupHook def
   setWMName "LG3D"
 
-type FocusApplicationPrompt :: *
+type FocusApplicationPrompt :: Type
 data FocusApplicationPrompt = FAP
 
 instance XPrompt FocusApplicationPrompt where
