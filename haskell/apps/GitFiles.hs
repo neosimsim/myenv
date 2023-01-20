@@ -69,6 +69,9 @@ main :: IO ()
 main =
   getContents
     >>= ( \x ->
-            lines x & fmap readModification & foo & fmap somethingToLine
+            lines x
+              & fmap readModification
+              & foo
+              & fmap somethingToLine
               & mapM_ putStrLn
         )
