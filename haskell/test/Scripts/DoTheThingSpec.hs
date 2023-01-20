@@ -169,11 +169,13 @@ spec = do
 
   describe "parse . inspect" $ do
     it "is the identity" $
-      property $ \r -> parseResourceIdentifier (inspect r) `shouldBe` r
+      property $
+        \r -> parseResourceIdentifier (inspect r) `shouldBe` r
 
   describe "doTheThingCommand" $ do
     it "behaves like doTheThingForResourceIdentifier on parseResourceIdentifier" $
-      property $ \config r -> doTheThingCommand config (inspect r) `shouldBe` doTheThingForResourceIdentifier config (parseResourceIdentifier (inspect r))
+      property $
+        \config r -> doTheThingCommand config (inspect r) `shouldBe` doTheThingForResourceIdentifier config (parseResourceIdentifier (inspect r))
 
 arbNonEmptyText :: Gen T.Text
 arbNonEmptyText =
