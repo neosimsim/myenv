@@ -83,7 +83,7 @@
             pathWithGui = self.nixosConfigurations.withXServer.config.home-manager.users.neosimsim.home.path;
             pathWithoutGui = self.nixosConfigurations.withoutGui.config.home-manager.users.neosimsim.home.path;
           };
-          aarch-darwin = {
+          aarch64-darwin = {
             pathWithGui = self.homeConfigurations.macbook.config.home.path;
             pathWithoutGui = self.homeConfigurations.macbookWithoutGui.config.home.path;
           };
