@@ -82,6 +82,13 @@
           x86_64-linux = {
             pathWithGui = self.nixosConfigurations.withXServer.config.home-manager.users.neosimsim.home.path;
             pathWithoutGui = self.nixosConfigurations.withoutGui.config.home-manager.users.neosimsim.home.path;
+
+            emacs = with (import nixpkgs { system = "x86_64-linux"; }).lib;
+              lists.findFirst
+                (x: strings.hasPrefix "emacs" x.name)
+                (builtins.throw "no emacs found")
+                self.nixosConfigurations.withXServer.config.home-manager.users.neosimsim.home.packages;
+
           };
           aarch64-darwin = {
             pathWithGui = self.homeConfigurations.macbook.config.home.path;
