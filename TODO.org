@@ -1,0 +1,23 @@
+* Wait for fix in org (ox.el)
+Currently opening emacs prints the warning
+
+#+begin_example
+Warning (comp): org-loaddefs.el.gz:2108:2: Warning: autoload `org-export-to-buffer' docstring has wrong usage of unescaped single quotes (use \=' or different quoting such as `...')
+#+end_example
+
+This is fixed in [[https://git.savannah.gnu.org/cgit/emacs/org-mode.git/commit/?id=65ca7bc6a7e847c9c8e34c7a7138a86b438d0438][65ca7bc6a7e847c9c8e34c7a7138a86b438d0438]]
+
+So I need to update =emacs-overlay= when
+
+#+begin_src shell
+nix eval --impure --raw --expr '
+let
+  emacs-overlay = (builtins.getFlake "github:nix-community/emacs-overlay");
+  emacs = emacs-overlay.packages.x86_64-linux.emacsGit;
+in
+"${emacs.pkgs.org.version} > 9.6.1"
+'
+#+end_src
+
+#+RESULTS:
+: 9.6.1 > 9.6.1
