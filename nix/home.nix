@@ -214,6 +214,7 @@ in
 
             haskell-mode
             nix-mode
+            fish-mode
             elm-mode
             erlang
             elixir-mode
