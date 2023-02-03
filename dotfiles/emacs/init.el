@@ -223,6 +223,10 @@ Examples:
   (setq formatter "cabal-fmt"))
 (add-hook 'haskell-cabal-mode-hook #'cabal-setup)
 
+(defun fish-setup ()
+  (local-set-key (kbd "C-x M-f") #'fish_indent))
+(add-hook 'fish-mode-hook #'fish-setup)
+
 (defun elixir-setup ()
   (local-set-key (kbd "C-x M-f") #'elixir-format)
   (modify-syntax-entry ?& "." elixir-mode-syntax-table))
