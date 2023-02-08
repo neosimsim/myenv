@@ -83,11 +83,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1675843364,
-        "narHash": "sha256-Pk+UuSn2XaMm+Qd3Ci+sEzcx33i5pq/qdFQAgGdUMeg=",
+        "lastModified": 1675890959,
+        "narHash": "sha256-/W0lXwvmQZ9tGmHXoRx/g0RELYwkj4CXo9hylAtegGM=",
         "owner": "neosimsim",
         "repo": "hookmark",
-        "rev": "78c634d5cfa28dbd1971158b491a11adcacbb53e",
+        "rev": "c4eb4efa2261bcda3fd8c37131bf0bebc7438323",
         "type": "gitlab"
       },
       "original": {
