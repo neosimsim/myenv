@@ -216,7 +216,7 @@ Examples:
 (global-set-key (kbd "C-x M-f") #'format-buffer)
 
 (defun haskell-setup ()
-  (setq formatter "ormolu"))
+  (setq formatter "ormolu --no-cabal"))
 (add-hook 'haskell-mode-hook #'haskell-setup)
 
 (defun cabal-setup ()

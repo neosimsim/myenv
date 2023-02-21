@@ -225,6 +225,7 @@ in
             lsp-ui
             flycheck
             company
+            yasnippet
             lsp-haskell
           ];
         };
