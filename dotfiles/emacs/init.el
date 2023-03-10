@@ -284,6 +284,9 @@ Examples:
 
 (global-set-key (kbd "C-c C-.") 'company-complete)
 
+;; https://github.com/emacs-lsp/lsp-mode/issues/2913
+(yas-global-mode)
+
 ;; set prefix before lsp-mode has been loaded
 ;; https://github.com/emacs-lsp/lsp-mode/issues/1672
 (setq lsp-keymap-prefix "C-.")
