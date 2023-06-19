@@ -496,7 +496,7 @@ in
         };
 
       xsession.windowManager.xmonad = {
-        enable = true;
+        enable = false; # I fell like trying KDE plasma for a while
         config = ../dotfiles/xmonad/xmonad.hs;
         enableContribAndExtras = true;
       };
