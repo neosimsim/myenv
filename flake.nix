@@ -256,7 +256,7 @@
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+              ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/sway
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
