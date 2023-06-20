@@ -503,7 +503,7 @@ in
       };
 
       gtk = {
-        enable = true;
+        enable = false; # KDE handles GTK settings
         iconTheme = {
           name = "breeze";
         };
