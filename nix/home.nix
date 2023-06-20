@@ -146,7 +146,6 @@ in
         ]);
 
         sessionVariables = {
-          EDITOR = "emacsclient -ca  ''";
           VISUAL = "$EDITOR";
           FCEDIT = "$EDITOR";
           CDPATH = ".:$HOME:$HOME/src";
@@ -155,7 +154,9 @@ in
           GOBIN = "$HOME/bin";
           FZF_DEFAULT_COMMAND = "fd --type file --follow --hidden --exclude .git";
           FZF_CTRL_T_COMMAND = "$FZF_DEFAULT_COMMAND";
-        };
+        } // (lib.optionalAttrs (! config.myenv.useXServer) {
+          EDITOR = "emacsclient -ca  ''";
+        });
 
         # don't use sessionPath because I want to prefix PATH
         sessionVariablesExtra = ''
@@ -190,11 +191,11 @@ in
           package = with pkgs;
             if config.myenv.useSway
             # use emacs Pure GTK to make use of Wayland scaling
-            then emacsPgtk
+            then emacs-pgtk
             else
               if config.myenv.enableGui
-              then emacsGit
-              else emacsGit-nox;
+              then emacs-git
+              else emacs-git-nox;
 
           extraConfig = builtins.readFile ../dotfiles/emacs/init.el;
           extraPackages = epkgs: with epkgs; [
@@ -312,11 +313,6 @@ in
               };
             };
 
-          extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-            ublock-origin
-            vimium
-          ];
-
           # We need a profile because extensions listed here will only
           # be available in Firefox profiles managed by Home Manager.
           # https://github.com/nix-community/home-manager/blob/e39a9d0103e3b2e42059c986a8c633824b96c193/modules/programs/firefox.nix
@@ -350,6 +346,11 @@ in
                 "toolkit.telemetry.unifiedIsOptIn" = false;
                 "toolkit.telemetry.updatePing.enabled" = false;
               };
+
+              extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+                ublock-origin
+                vimium
+              ];
             };
           };
         };

@@ -86,7 +86,7 @@ inputs: final: prev: {
   };
 
   gotools = prev.gotools.overrideAttrs (oldAttrs: {
-    excludedPackages = oldAttrs.excludedPackages ++ [
+    excludedPackages = [
       # conflict with my scripts bundle
       "bundle"
     ];
