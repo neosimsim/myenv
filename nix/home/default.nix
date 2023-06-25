@@ -155,7 +155,7 @@ in
           GOBIN = "$HOME/bin";
           FZF_DEFAULT_COMMAND = "fd --type file --follow --hidden --exclude .git";
           FZF_CTRL_T_COMMAND = "$FZF_DEFAULT_COMMAND";
-        } // (lib.optionalAttrs (! config.myenv.useXServer) {
+        } // (lib.optionalAttrs (! config.myenv.enableGui) {
           EDITOR = "emacsclient -ca  ''";
         });
 
@@ -260,6 +260,10 @@ in
 
     (lib.mkIf config.myenv.enableGui {
       home = {
+        sessionVariables = {
+          EDITOR = "emacsclient -a ''";
+          BROWSER = "chromium";
+        };
         file = {
           "lib/plumbing".source = ../../dotfiles/plumbing;
         };
@@ -283,18 +287,11 @@ in
     })
 
     (lib.mkIf config.myenv.useXServer {
-      home = {
-        sessionVariables = {
-          EDITOR = "emacsclient -a ''";
-          BROWSER = "chromium";
-        };
-
-        packages = with pkgs; [
-          signal-desktop
-          sxiv
-          xsel
-        ];
-      };
+      home.packages = with pkgs; [
+        signal-desktop
+        sxiv
+        xsel
+      ];
 
       xresources.properties = {
         "Xft.autohint" = 0;
