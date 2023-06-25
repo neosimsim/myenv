@@ -65,16 +65,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1687210534,
-        "narHash": "sha256-dL+6yiHN2EhAfleqlonxImbT7UJ0zX1AATTlTI48PxM=",
-        "owner": "neosimsim",
+        "lastModified": 1687647343,
+        "narHash": "sha256-1/o/i9KEFOBdlF9Cs04kBcqDFbYMt6W4SMqGa+QnnaI=",
+        "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9c2aebdab90af1f6ede181d747804a08f0845bd2",
+        "rev": "0ee5ab611dc1fbb5180bd7d88d2aeb7841a4d179",
         "type": "github"
       },
       "original": {
-        "owner": "neosimsim",
-        "ref": "fish-extra-outputs-to-install-completions",
+        "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
       }
