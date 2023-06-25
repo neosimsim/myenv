@@ -254,8 +254,14 @@
                 exit 1
               fi
             '';
+            checkPresentDir = pkgs.writeShellScript "checkPresent" ''
+              if ! [ -d $1 ]; then
+                echo missing $1 >&2
+                exit 1
+              fi
+            '';
             checkMissing = pkgs.writeShellScript "checkMissing" ''
-              if [ -f $1 ]; then
+              if [ -e $1 ]; then
                 echo unexpected $1 >&2
                 exit 1
               fi
@@ -270,17 +276,19 @@
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
+              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
+              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/chromium
+              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/sway
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
 
               ${checkPresent} $homeFiles/.config/git/config
-              ${checkMissing} $homeFiles/.config/xmobar/xmobar.hs
-              ${checkMissing} $homeFiles/.config/xmobar/xmobar
               ${checkPresent} $homeFiles/.Xresources
               ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
+              ${checkPresentDir} $homeFiles/.config/chromium
               ${checkPresent} $homeFiles/lib/plumbing
+              ${checkMissing} $homeFiles/.config/xmobar/xmobar.hs
+              ${checkMissing} $homeFiles/.config/xmobar/xmobar
 
               echo successful >$out
             '';
@@ -290,20 +298,13 @@
                 nixRoot = self.nixosConfigurations.withXmonad.config.system.build.toplevel;
                 homeFiles = self.nixosConfigurations.withXmonad.config.home-manager.users.neosimsim.home-files;
               } ''
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/sway
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
 
-              ${checkPresent} $homeFiles/.config/git/config
               ${checkPresent} $homeFiles/.config/xmobar/xmobar.hs
               ${checkPresent} $homeFiles/.config/xmobar/xmobar
               ${checkPresent} $homeFiles/.Xresources
-              ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
-              ${checkPresent} $homeFiles/lib/plumbing
+              ${checkPresent} $homeFiles/.Xmodmap
 
               echo successful >$out
             '';
@@ -318,7 +319,6 @@
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/sway
-              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
 
               ${checkPresent} $homeFiles/.config/git/config
@@ -339,10 +339,13 @@
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
+              ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/chromium
 
               ${checkPresent} $homeFiles/.config/git/config
               ${checkMissing} $homeFiles/.Xresources
               ${checkMissing} $homeFiles/.config/sway/config
+              ${checkMissing} $homeFiles/.mozilla/firefox/default/user.js
+              ${checkMissing} $homeFiles/.config/chromium
 
               echo successful >$out
             '';
