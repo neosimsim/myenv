@@ -2,12 +2,12 @@
 let
 
   dotfiles = files: genAttrs files (name: {
-    source = ../dotfiles + "/${name}";
+    source = ../../dotfiles + "/${name}";
     target = ".${name}";
   });
 
   configFiles = files: genAttrs files (name: {
-    source = ../dotfiles + "/${name}";
+    source = ../../dotfiles + "/${name}";
   });
 
   aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
@@ -77,6 +77,9 @@ in
     };
   };
 
+  imports = [
+    ./xmonad.nix
+  ];
 
   config = mkIf config.myenv.enable (lib.mkMerge [
     {
@@ -197,7 +200,7 @@ in
               then emacs-git
               else emacs-git-nox;
 
-          extraConfig = builtins.readFile ../dotfiles/emacs/init.el;
+          extraConfig = builtins.readFile ../../dotfiles/emacs/init.el;
           extraPackages = epkgs: with epkgs; [
             spacemacs-theme
             kaolin-themes
@@ -260,7 +263,7 @@ in
     (lib.mkIf config.myenv.enableGui {
       home = {
         file = {
-          "lib/plumbing".source = ../dotfiles/plumbing;
+          "lib/plumbing".source = ../../dotfiles/plumbing;
         };
         packages = with pkgs; [
           acmego
@@ -393,63 +396,16 @@ in
 
     (lib.mkIf config.myenv.useXServer {
       home = {
-        file = dotfiles [
-          "Xmodmap"
-        ];
-
         sessionVariables = {
           EDITOR = "emacsclient -a ''";
           BROWSER = "chromium";
         };
 
         packages = with pkgs; [
-          brightnessctl
-          dmenu
-          feh
-          numlockx
-          rxvt-unicode
-          scrot
           signal-desktop
           sxiv
           xsel
-        ] ++ (with pkgs.xorg; [
-          xkill
-          xmodmap
-        ]) ++ (with pkgs.xfce; [
-          thunar
-        ]) ++ (with pkgs.haskellPackages; [
-          xmobar
-        ]);
-      };
-
-      xsession = {
-        enable = true;
-        initExtra = ''
-          xautolock -cornerdelay 1 -cornerredelay 5 -time 1 -locker 'slock' -corners 0-00 &
-
-          # TODO observe strange behaviour with modifier
-          # rotatekb colemak
-          numlockx
-          [ -f ~/.fehbg ] && sh ~/.fehbg
-          amixer set Master mute
-          amixer -c 0 set Headphone unmute
-          amixer -c 0 set Headphone 70
-
-          # plan9port
-          if which 9 >/dev/null; then
-            export NAMESPACE=$HOME/9p
-            # export EDITOR="9 editinacme"
-            export tabstop=4
-            # font for sam, 9term (not acme)
-            export font=/mnt/font/DejaVuSansMono/18a/font
-            # a &
-            9 plumber
-          fi
-
-          ec -n
-
-          signal-desktop &
-        '';
+        ];
       };
 
       xresources.properties = {
@@ -476,71 +432,6 @@ in
         "URxvt.keysym.M-C-s" = "perl=color-themes=save-state";
       };
 
-      xdg.configFile =
-        configFiles [
-          "xmobar/xmobar.hs"
-        ] // {
-          "xmobar/xmobar".source =
-            let
-              ghc = pkgs.haskellPackages.ghcWithPackages (p: with p; [ xmobar ]);
-
-            in
-            pkgs.runCommand "xmobar-compile"
-              {
-                buildInputs = [ ghc ];
-                ghcFlags = "--make -i -ilib -fforce-recomp -main-is main -v0 -threaded -rtsopts -with-rtsopts -V0";
-              } ''
-              # compiles flags copied from
-              # https://hackage.haskell.org/package/xmobar-0.43/docs/src/Xmobar.App.Compile.html#recompile
-              ghc -o $out ${config.xdg.configFile."xmobar/xmobar.hs".source} $ghcFlags
-            '';
-        };
-
-      xsession.windowManager.xmonad = {
-        enable = false; # I fell like trying KDE plasma for a while
-        config = ../dotfiles/xmonad/xmonad.hs;
-        enableContribAndExtras = true;
-      };
-
-      gtk = {
-        enable = false; # KDE handles GTK settings
-        iconTheme = {
-          name = "breeze";
-        };
-        cursorTheme = {
-          name = "breeze_cursors";
-        };
-        font = {
-          name = "Noto Sans";
-          size = 10;
-        };
-        gtk2.extraConfig = ''
-          gtk-enable-animations=1
-          gtk-primary-button-warps-slider=0
-          gtk-toolbar-style=3
-          gtk-menu-images=1
-          gtk-button-images=1
-          gtk-cursor-theme-size=24
-        '';
-        gtk3.extraConfig = {
-          gtk-application-prefer-dark-theme = false;
-          gtk-button-images = true;
-          gtk-cursor-theme-size = 24;
-          gtk-decoration-layout = "icon:minimize,maximize,close";
-          gtk-enable-animations = true;
-          gtk-menu-images = true;
-          gtk-modules = "colorreload-gtk-module";
-          gtk-primary-button-warps-slider = false;
-          gtk-toolbar-style = 3;
-        };
-        gtk4.extraConfig = {
-          gtk-application-prefer-dark-theme = false;
-          gtk-cursor-theme-size = 24;
-          gtk-decoration-layout = "icon:minimize,maximize,close";
-          gtk-enable-animations = true;
-          gtk-primary-button-warps-slider = false;
-        };
-      };
     })
 
     (lib.mkIf config.myenv.useSway {

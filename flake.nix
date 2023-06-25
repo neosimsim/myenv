@@ -114,7 +114,7 @@
             useUserPackages = true;
 
             users.neosimsim = { ... }: {
-              imports = [ (import ./nix/home.nix) ];
+              imports = [ (import ./nix/home) ];
 
               home.stateVersion = "22.05";
 
@@ -155,6 +155,20 @@
             ];
           };
 
+          withXmonad = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ({ ... }: {
+                boot.isContainer = true;
+                services.xserver.enable = true;
+                users.users.neosimsim.isNormalUser = true;
+                system.stateVersion = "22.05";
+                home-manager.users.neosimsim.myenv.useXmonad = true;
+              })
+              self.nixosModules.default
+            ];
+          };
+
           withSway = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
@@ -174,7 +188,7 @@
             pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
             modules = [
-              ./nix/home.nix
+              ./nix/home
 
               ({ pkgs, config, ... }: {
                 nixpkgs.overlays = [
@@ -202,7 +216,7 @@
             pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
             modules = [
-              ./nix/home.nix
+              ./nix/home
 
               ({ pkgs, config, ... }: {
                 nixpkgs.overlays = [
@@ -257,6 +271,29 @@
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
+              ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/sway
+              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
+              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
+
+              ${checkPresent} $homeFiles/.config/git/config
+              ${checkMissing} $homeFiles/.config/xmobar/xmobar.hs
+              ${checkMissing} $homeFiles/.config/xmobar/xmobar
+              ${checkPresent} $homeFiles/.Xresources
+              ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
+              ${checkPresent} $homeFiles/lib/plumbing
+
+              echo successful >$out
+            '';
+
+            nixosWithXmonad = pkgs.runCommand "test-myenv-with-xserver"
+              {
+                nixRoot = self.nixosConfigurations.withXmonad.config.system.build.toplevel;
+                homeFiles = self.nixosConfigurations.withXmonad.config.home-manager.users.neosimsim.home-files;
+              } ''
+              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/emacs
+              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/fm
+              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/do-the-thing
+              ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/xmonad
               ${checkMissing} $nixRoot/etc/profiles/per-user/neosimsim/bin/sway
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/firefox
               ${checkPresent} $nixRoot/etc/profiles/per-user/neosimsim/bin/Afmt
