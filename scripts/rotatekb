@@ -32,6 +32,8 @@ case ${1:-$newLayout} in
     *)
         setxkbmap -layout us
         xmodmap -e 'remove Lock = Caps_Lock'
+        # map CapsLock to Escape
+        xmodmap -e 'keycode 66 = Escape'
         xmodmap ~/.Xmodmap
         ;;
 esac

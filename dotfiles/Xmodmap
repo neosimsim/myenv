@@ -1,10 +1,4 @@
-! map CapsLock to Escape
-keycode 66 = Escape
-
 ! Assuming colemak variant,
-! when using default variant you may want to uncommtent the next line.
-!remove Lock = Caps_Lock
-
 ! Modifications to https://colemak.com/Multilingual
 
 ! [‚] / [„] instead of [ü] / [Ü]
@@ -16,13 +10,13 @@ keysym semicolon = semicolon colon semicolon colon leftsinglequotemark leftdoubl
 keysym q = q Q q Q U0308
 
 ! © instead of ç (use AltGr+[,] [c])
-keysym c = c C c C copyright
+keysym c = c C c C copyright copyright
 
-! additional degree
+! additioal ° after Dead Diaeresis
 keysym d = d D d D dead_diaeresis degree
 
-! additional Narrow No-Break Space before Narrow No-Break Space
-keysym space = space space space space U202F nobreakspace
+! additional Narrow No-Break Space after No-Break Space
+keysym space = space space space space nobreakspace U202F
 
-! additional ellipsis
+! additional Ellipsis after Dead Abovedot
 keysym period = period greater period greater dead_abovedot ellipsis
