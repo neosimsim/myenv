@@ -13,7 +13,7 @@ let
   aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
 
   git = pkgs.git.override {
-    guiSupport = config.myenv.enableGui;
+    guiSupport = config.myenv.enableGuiTools;
   };
 
   ghc = pkgs.haskellPackages.ghc.withHoogle (p: with p; [
@@ -61,19 +61,20 @@ in
       default = false;
     };
 
-    useXServer = mkOption {
+    manageXsession = mkOption {
       type = types.bool;
       default = false;
     };
 
-    enableGui = mkOption {
+    enableGuiTools = mkOption {
       type = types.bool;
-      default = with config.myenv; useXServer || useSway;
+      default = with config.myenv; manageXsession || manageSway || managePlasma5;
     };
   };
 
   imports = [
     ./xmonad.nix
+    ./plasma.nix
     ./sway.nix
     ./chromium.nix
     ./firefox.nix
@@ -155,7 +156,7 @@ in
           GOBIN = "$HOME/bin";
           FZF_DEFAULT_COMMAND = "fd --type file --follow --hidden --exclude .git";
           FZF_CTRL_T_COMMAND = "$FZF_DEFAULT_COMMAND";
-        } // (lib.optionalAttrs (! config.myenv.enableGui) {
+        } // (lib.optionalAttrs (! config.myenv.enableGuiTools) {
           EDITOR = "emacsclient -ca  ''";
         });
 
@@ -190,11 +191,11 @@ in
         emacs = {
           enable = true;
           package = with pkgs;
-            if config.myenv.useSway
+            if config.myenv.manageSway
             # use emacs Pure GTK to make use of Wayland scaling
             then emacs-pgtk
             else
-              if config.myenv.enableGui
+              if config.myenv.enableGuiTools
               then emacs-git
               else emacs-git-nox;
 
@@ -258,7 +259,7 @@ in
         "${apps}/Applications";
     })
 
-    (lib.mkIf config.myenv.enableGui {
+    (lib.mkIf config.myenv.enableGuiTools {
       home = {
         sessionVariables = {
           EDITOR = "emacsclient -a ''";
@@ -286,7 +287,7 @@ in
       ];
     })
 
-    (lib.mkIf config.myenv.useXServer {
+    (lib.mkIf config.myenv.manageXsession {
       home.packages = with pkgs; [
         signal-desktop
         sxiv

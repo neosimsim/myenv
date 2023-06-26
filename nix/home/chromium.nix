@@ -2,7 +2,7 @@
 {
   programs.chromium = rec {
     enable =
-      config.myenv.enableGui
+      config.myenv.enableGuiTools
       && pkgs.stdenv.isLinux;
 
     package = pkgs.ungoogled-chromium;

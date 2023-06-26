@@ -13,13 +13,13 @@ let
 in
 {
   options = {
-    myenv.useXmonad = mkOption {
+    myenv.manageXmonad = mkOption {
       type = types.bool;
       default = false;
     };
   };
 
-  config = mkIf config.myenv.useXmonad {
+  config = mkIf config.myenv.manageXmonad {
     xsession = {
       enable = true;
       initExtra = ''

@@ -1,13 +1,13 @@
 { pkgs, config, lib, ... }: with lib;
 {
   options.myenv = {
-    useSway = mkOption {
+    manageSway = mkOption {
       type = types.bool;
       default = false;
     };
   };
 
-  config = mkIf config.myenv.useSway {
+  config = mkIf config.myenv.manageSway {
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true;

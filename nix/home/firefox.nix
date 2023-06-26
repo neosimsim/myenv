@@ -2,13 +2,13 @@
 {
   programs.firefox = {
     enable =
-      config.myenv.enableGui
+      config.myenv.enableGuiTools
       && pkgs.stdenv.isLinux;
 
     package =
       let
         firefoxPkg =
-          if config.myenv.useSway
+          if config.myenv.manageSway
           then pkgs.firefox-esr-wayland
           else pkgs.firefox-esr;
       in

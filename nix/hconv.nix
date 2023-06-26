@@ -1,4 +1,9 @@
-{ mkDerivation, base, fetchgit, lib, optparse-applicative, text
+{ mkDerivation
+, base
+, fetchgit
+, lib
+, optparse-applicative
+, text
 , unicode-transforms
 }:
 mkDerivation {
@@ -13,7 +18,10 @@ mkDerivation {
   isLibrary = false;
   isExecutable = true;
   executableHaskellDepends = [
-    base optparse-applicative text unicode-transforms
+    base
+    optparse-applicative
+    text
+    unicode-transforms
   ];
   description = "cli tool to normalize unicode input";
   license = lib.licenses.bsd3;

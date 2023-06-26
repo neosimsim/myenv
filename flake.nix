@@ -16,6 +16,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
     nur.url = "github:nix-community/NUR";
 
     plan9fansGo = {
@@ -41,6 +49,7 @@
     , hookmark
     , nur
     , plan9fansGo
+    , plasma-manager
     }@inputs:
     let
       genericOutputs = with flake-utils.lib; eachSystem [ system.x86_64-linux system.aarch64-darwin ]
@@ -114,14 +123,18 @@
             useUserPackages = true;
 
             users.neosimsim = { ... }: {
-              imports = [ (import ./nix/home) ];
+              imports = [
+                plasma-manager.homeManagerModules.plasma-manager
+                (import ./nix/home)
+              ];
 
               home.stateVersion = "22.05";
 
               myenv = {
                 enable = true;
-                useXServer = config.services.xserver.enable;
-                useSway = config.programs.sway.enable;
+                manageXsession = config.services.xserver.enable;
+                manageSway = config.programs.sway.enable;
+                managePlasma5 = config.services.xserver.desktopManager.plasma5.enable;
               };
             };
           };
@@ -163,7 +176,7 @@
                 services.xserver.enable = true;
                 users.users.neosimsim.isNormalUser = true;
                 system.stateVersion = "22.05";
-                home-manager.users.neosimsim.myenv.useXmonad = true;
+                home-manager.users.neosimsim.myenv.manageXmonad = true;
               })
               self.nixosModules.default
             ];
@@ -188,6 +201,7 @@
             pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
             modules = [
+              plasma-manager.homeManagerModules.plasma-manager
               ./nix/home
 
               ({ pkgs, config, ... }: {
@@ -206,7 +220,7 @@
 
                 myenv = {
                   enable = true;
-                  enableGui = true;
+                  enableGuiTools = true;
                 };
               })
             ];
@@ -216,6 +230,7 @@
             pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
             modules = [
+              plasma-manager.homeManagerModules.plasma-manager
               ./nix/home
 
               ({ pkgs, config, ... }: {
@@ -232,7 +247,7 @@
 
                 myenv = {
                   enable = true;
-                  enableGui = false;
+                  enableGuiTools = false;
                 };
               })
             ];
