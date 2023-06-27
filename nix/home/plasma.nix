@@ -10,15 +10,12 @@
   };
 
   config = mkIf config.myenv.managePlasma5 {
-    # Disable kwallet popups for chromium
-    # https://superuser.com/questions/994551/disable-kwallet-popups-from-chrome
-    home.sessionVariables.CHROMIUM_FLAGS = "--password-store=basic";
-
     programs.plasma = {
       enable = true;
 
       files = {
         "baloofilerc"."General"."only basic indexing" = true;
+        "kwalletrc"."Wallet"."Enabled" = false;
         "kwinrc"."Desktops"."Number" = 4;
       };
 
