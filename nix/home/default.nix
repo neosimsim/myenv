@@ -217,6 +217,7 @@ in
 
             haskell-mode
             nix-mode
+            json-mode
             fish-mode
             dhall-mode
             elm-mode
