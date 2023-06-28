@@ -10,6 +10,11 @@
   };
 
   config = mkIf config.myenv.managePlasma5 {
+    home.sessionVariables = {
+      PLASMA_USE_QT_SCALING = 1;
+    };
+
+
     programs.plasma = {
       enable = true;
 
