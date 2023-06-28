@@ -8,6 +8,8 @@
 (setq kill-whole-line t)
 (setq-default cursor-type 'bar)
 (setq set-mark-command-repeat-pop t)
+;; start in fullscreen
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (when (fboundp #'tool-bar-mode)
   (tool-bar-mode 0))
 (menu-bar-mode 0)
