@@ -68,10 +68,12 @@ in
       };
 
       packages = with pkgs; [
+        alsaUtils
         brightnessctl
         dmenu
         feh
         numlockx
+        pavucontrol
         rxvt-unicode
       ] ++ (with pkgs.xorg; [
         xkill
