@@ -10,6 +10,8 @@
 (setq set-mark-command-repeat-pop t)
 ;; start in fullscreen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; don't leave emtpy boarders when maximixed on e.g. KDE
+(setq frame-resize-pixelwise t)
 (when (fboundp #'tool-bar-mode)
   (tool-bar-mode 0))
 (menu-bar-mode 0)
