@@ -16,7 +16,8 @@ fi
 
 set -v
 
-nix flake check
+# firefox addons from nur require --allow-import-from-derivation
+nix --allow-import-from-derivation flake check
 nixpkgs-fmt --check $(find . -name '*.nix' | grep -vE '(cabal|hconv)\.nix')
-nix shell .#pathWithoutGui --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
-nix shell .#pathWithGui --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
+nix shell .#noX.pkgs.emacs-git-with-packages --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
+nix shell .#withPlasma5.pkgs.emacs-git-with-packages --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el

@@ -61,14 +61,9 @@ in
       default = false;
     };
 
-    manageXsession = mkOption {
-      type = types.bool;
-      default = false;
-    };
-
     enableGuiTools = mkOption {
       type = types.bool;
-      default = with config.myenv; manageXsession || manageSway || managePlasma5;
+      default = with config.myenv; manageSway || managePlasma5;
     };
   };
 
@@ -278,7 +273,9 @@ in
           alacritty
           klavaro
           mplayer
+          signal-desktop
           superTux
+          xsel
           zathura
         ];
       };
@@ -288,12 +285,7 @@ in
       ];
     })
 
-    (lib.mkIf config.myenv.manageXsession {
-      home.packages = with pkgs; [
-        signal-desktop
-        sxiv
-        xsel
-      ];
+    (lib.mkIf (pkgs.stdenv.isLinux && config.myenv.enableGuiTools) {
 
       home.sessionVariables = {
         XDG_DESKTOP_DIR = "$HOME";
@@ -306,7 +298,7 @@ in
         XDG_VIDEOS_DIR = "$HOME/Videos";
       };
 
-      xresources.properties = {
+      xresources.properties = lib.optionalAttrs (! config.myenv.manageSway) {
         "Xft.autohint" = 0;
         "Xft.lcdfilter" = "lcddefault";
         "Xft.hintstyle" = "hintslight";

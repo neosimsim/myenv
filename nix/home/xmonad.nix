@@ -75,6 +75,7 @@ in
         numlockx
         pavucontrol
         rxvt-unicode
+        sxiv
       ] ++ (with pkgs.xorg; [
         xkill
         xmodmap
