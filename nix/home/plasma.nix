@@ -3,13 +3,13 @@
 { config, lib, pkgs, ... }: with lib;
 {
   options = {
-    myenv.managePlasma5 = mkOption {
+    myenv.managePlasma = mkOption {
       type = types.bool;
       default = false;
     };
   };
 
-  config = mkIf config.myenv.managePlasma5 {
+  config = mkIf config.myenv.managePlasma {
     home.sessionVariables = {
       PLASMA_USE_QT_SCALING = 1;
     };

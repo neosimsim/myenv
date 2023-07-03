@@ -59,7 +59,7 @@ in
 
     enableGuiTools = mkOption {
       type = types.bool;
-      default = with config.myenv; manageSway || managePlasma5;
+      default = with config.myenv; manageSway || managePlasma;
     };
   };
 

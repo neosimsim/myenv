@@ -20,4 +20,4 @@ set -v
 nix --allow-import-from-derivation flake check
 nixpkgs-fmt --check $(find . -name '*.nix' | grep -vE '(cabal|hconv)\.nix')
 nix shell .#noX.pkgs.emacs-git-with-packages --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
-nix shell .#withPlasma5.pkgs.emacs-git-with-packages --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el
+nix shell .#withPlasma.pkgs.emacs-git-with-packages --command emacs --batch --eval "(package-activate-all)" -l dotfiles/emacs/init.el

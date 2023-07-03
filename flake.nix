@@ -72,10 +72,10 @@
 
       testOptions = {
         x86_64-linux = {
-          withPlasma5 = {
+          withPlasma = {
             enable = true;
             enableGuiTools = true;
-            managePlasma5 = true;
+            managePlasma = true;
           };
           withXMonad = {
             enable = true;
@@ -200,9 +200,9 @@
             '';
           in
           {
-            checkWithPlasma5 = pkgs.runCommand "test-myenv-with-plasma5"
+            checkWithPlasma = pkgs.runCommand "test-myenv-with-plasma5"
               rec {
-                path = self.packages.x86_64-linux.withPlasma5;
+                path = self.packages.x86_64-linux.withPlasma;
                 homeFiles = path.home-files;
               } ''
               ${checkPresent} $path/bin/emacs
@@ -312,7 +312,7 @@
               enable = true;
               enableGuiTools = config.services.xserver.enable;
               manageSway = config.programs.sway.enable;
-              managePlasma5 = config.services.xserver.desktopManager.plasma5.enable;
+              managePlasma = config.services.xserver.desktopManager.plasma5.enable;
             };
           };
         };
