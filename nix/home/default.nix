@@ -12,10 +12,6 @@ let
 
   aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
 
-  git = pkgs.git.override {
-    guiSupport = config.myenv.enableGuiTools;
-  };
-
   ghc = pkgs.haskellPackages.ghc.withHoogle (p: with p; [
     # Preinstall zlib to help cabal. Otherwise builds will
     # complain about missing zlib.h.
@@ -99,7 +95,6 @@ in
           fzf
           gcc
           ghc
-          git
           git-lfs
           gnumake
           go
@@ -171,7 +166,6 @@ in
 
       xdg.configFile = configFiles [
         "git/attributes"
-        "git/config"
         "git/ignore"
       ];
 
@@ -181,6 +175,16 @@ in
           shellInit = ''
             set -U fish_greeting
           '';
+        };
+
+        git = {
+          enable = true;
+          package = pkgs.git.override {
+            guiSupport = config.myenv.enableGuiTools;
+          };
+          includes = [
+            { path = ../../dotfiles/git/config; }
+          ];
         };
 
         emacs = {

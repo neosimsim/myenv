@@ -36,10 +36,7 @@
 	dropped-stash = ! git fsck --no-reflog | awk '/dangling commit/ {print $3}' # | while read i; do git log -1 --date iso --pretty=format:"%cd %H%n" $i; done | sort | awk '{print $2}'
 [commit]
 	cleanup = scissors
-[diff]
-	tool = vimdiff
 [merge]
-	tool = vimdiff
 	conflictStyle = diff3
 [gui]
 	fontui = -family \"Liberation Sans\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0

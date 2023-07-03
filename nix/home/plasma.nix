@@ -1,6 +1,6 @@
 # To find out configurations use:
 # nix run github:pjones/plasma-manager
-{ config, lib, ... }: with lib;
+{ config, lib, pkgs, ... }: with lib;
 {
   options = {
     myenv.managePlasma5 = mkOption {
@@ -14,6 +14,14 @@
       PLASMA_USE_QT_SCALING = 1;
     };
 
+    home.packages = with pkgs; [
+      kompare
+    ];
+
+    programs.git.extraConfig = {
+      diff.tool = "kompare";
+      merge.tool = "kompare";
+    };
 
     programs.plasma = {
       enable = true;
