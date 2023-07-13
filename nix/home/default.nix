@@ -227,6 +227,7 @@ in
             json-mode
             fish-mode
             elpy
+            pylint
             dhall-mode
             elm-mode
             erlang
