@@ -138,10 +138,7 @@ in
         ]) ++ (with python3Packages; [
           # tools for emacs' elpy
           flake8
-
-          # python formatter
-          autopep8
-          yapf
+          pylint
           black
         ]);
 

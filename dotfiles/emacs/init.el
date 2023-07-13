@@ -241,6 +241,13 @@ Examples:
   (modify-syntax-entry ?. "_" term-mode-syntax-table))
 (add-hook 'term-mode-hook #'term-setup)
 
+(defun python-setup ()
+  (elpy-enable)
+  (local-set-key (kbd "C-x M-f") #'elpy-format-code))
+(add-hook 'python-mode-hook #'python-setup)
+
+
+
 (defun copy-buffer-name ()
   (interactive)
   (kill-new (if (buffer-file-name)
