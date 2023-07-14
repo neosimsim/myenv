@@ -138,8 +138,9 @@ in
         ]) ++ (with python3Packages; [
           # tools for emacs' elpy
           flake8
-          pylint
+
           black
+          pylint
         ]);
 
         sessionVariables = {
@@ -225,6 +226,7 @@ in
             fish-mode
             elpy
             pylint
+            isortify
             dhall-mode
             elm-mode
             erlang
