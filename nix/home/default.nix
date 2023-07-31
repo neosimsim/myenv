@@ -232,6 +232,8 @@ in
             erlang
             elixir-mode
             rust-mode
+            rustic
+            rust-playground
             elisp-format
 
             lsp-mode
@@ -240,6 +242,9 @@ in
             company
             yasnippet
             lsp-haskell
+
+            # have a look into
+            shackle # recommended in https://robert.kra.hn/posts/rust-emacs-setup/#additional-packages
           ];
         };
       };
