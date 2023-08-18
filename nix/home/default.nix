@@ -216,6 +216,7 @@ in
             htmlize
             mixed-pitch
             avy
+            move-text
             buffer-move
             osm
             vimgolf

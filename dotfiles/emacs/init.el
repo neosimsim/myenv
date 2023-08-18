@@ -194,6 +194,9 @@ Examples:
   (pipe-shell-region "uni" start end))
 (global-set-key (kbd "C-c C-u") #'apply-uni-region)
 
+(require 'move-text)
+(move-text-default-bindings)
+
 (defun my-prog-mode-hook ()
   (setq indicate-empty-lines t)
   (setq show-trailing-whitespace t)
