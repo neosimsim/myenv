@@ -232,6 +232,7 @@ in
             elm-mode
             erlang
             elixir-mode
+            alchemist
             rust-mode
             rustic
             rust-playground
