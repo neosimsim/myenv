@@ -32,6 +32,7 @@
         "kwalletrc"."Wallet"."Enabled" = true;
         "kwinrc"."Desktops"."Number" = 4;
         "kcminputrc"."Mouse"."XLbInptAccelProfileFlat" = true;
+        "kcminputrc"."Mouse"."XLbInptPointerAcceleration" = "-0.4";
       };
 
       shortcuts = {
