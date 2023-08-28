@@ -316,11 +316,13 @@ Examples:
 (setq lsp-elixir-dialyzer-enabled nil)
 (setq lsp-elixir-server-command '("elixir-ls"))
 ;; https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
-(with-eval-after-load 'lsp-mode (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
+(with-eval-after-load 'lsp-mode
+                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]deps\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.rebar3?\\'")
                       (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'")
-                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\MAlonzo\\'"))
+                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]ces/data\\'")
+                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]MAlonzo\\'"))
 
 ;; explicitly require lsp-ui to address the face
 (require 'lsp-ui)
