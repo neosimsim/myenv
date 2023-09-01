@@ -236,6 +236,7 @@ Examples:
 
 (defun elixir-setup ()
   (local-set-key (kbd "C-x M-f") #'elixir-format)
+  (lsp-deferred)
   (modify-syntax-entry ?& "." elixir-mode-syntax-table))
 (add-hook 'elixir-mode-hook #'elixir-setup)
 
