@@ -27,7 +27,7 @@
     programs.plasma = {
       enable = true;
 
-      files = {
+      configFile = {
         "baloofilerc"."General"."only basic indexing" = true;
         "kwalletrc"."Wallet"."Enabled" = true;
         "kwinrc"."Desktops"."Number" = 4;

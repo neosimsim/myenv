@@ -62,7 +62,7 @@ optionsParser =
       )
     <*> some' (argument str (metavar "SHELL_CMD..."))
 
-some' :: Alternative f => f a -> f (List.NonEmpty a)
+some' :: (Alternative f) => f a -> f (List.NonEmpty a)
 some' v = liftA2 (:|) v (many v)
 
 parseOptions :: IO Options
@@ -77,7 +77,7 @@ withSizedLists ::
   forall a r.
   [[a]] ->
   ( forall n.
-    KnownNat n =>
+    (KnownNat n) =>
     [Vector n a] ->
     r
   ) ->
