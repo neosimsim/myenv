@@ -5,34 +5,27 @@
       config.myenv.enableGuiTools
       && pkgs.stdenv.isLinux;
 
-    package =
-      let
-        firefoxPkg =
-          if config.myenv.manageSway
-          then pkgs.firefox-esr-wayland
-          else pkgs.firefox-esr;
-      in
-      firefoxPkg.override {
-        extraPolicies = {
-          SearchEngines = {
-            Default = "DuckDuckGo";
-            Add = [
-              {
-                Name = "Hoogle";
-                URLTemplate = "https://hoogle.haskell.org/?hoogle={searchTerms}";
-                Alias = "hoogle";
-                IconURL = "https://hoogle.haskell.org/favicon.png";
-              }
-              {
-                Name = "Hackage";
-                URLTemplate = "https://hackage.haskell.org/packages/search?terms={searchTerms}";
-                Alias = "hackage";
-                IconURL = "https://hackage.haskell.org/static/favicon.png";
-              }
-            ];
-          };
+    package = pkgs.firefox-esr.override {
+      extraPolicies = {
+        SearchEngines = {
+          Default = "DuckDuckGo";
+          Add = [
+            {
+              Name = "Hoogle";
+              URLTemplate = "https://hoogle.haskell.org/?hoogle={searchTerms}";
+              Alias = "hoogle";
+              IconURL = "https://hoogle.haskell.org/favicon.png";
+            }
+            {
+              Name = "Hackage";
+              URLTemplate = "https://hackage.haskell.org/packages/search?terms={searchTerms}";
+              Alias = "hackage";
+              IconURL = "https://hackage.haskell.org/static/favicon.png";
+            }
+          ];
         };
       };
+    };
 
     # We need a profile because extensions listed here will only
     # be available in Firefox profiles managed by Home Manager.
