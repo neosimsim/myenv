@@ -76,6 +76,7 @@
             enable = true;
             enableGuiTools = true;
             managePlasma = true;
+            ghc.enable = true;
           };
           withXMonad = {
             enable = true;
@@ -211,12 +212,15 @@
               ${checkPresent} $path/bin/firefox
               ${checkPresent} $path/bin/chromium
               ${checkPresent} $path/bin/Afmt
+              ${checkPresent} $path/bin/ghc
+              ${checkPresent} $path/bin/haskell-language-server-wrapper
               ${checkMissing} $path/bin/xmonad
               ${checkMissing} $path/bin/sway
 
               ${checkPresent} $homeFiles/.config/git/config
               ${checkPresent} $homeFiles/.Xresources
               ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
+              ${checkPresent} $homeFiles/.ghci
               ${checkPresentDir} $homeFiles/.config/chromium
               ${checkPresent} $homeFiles/lib/plumbing
               ${checkMissing} $homeFiles/.config/xmobar/xmobar.hs
@@ -272,6 +276,7 @@
               ${checkMissing} $path/bin/xmonad
               ${checkMissing} $path/bin/firefox
               ${checkMissing} $path/bin/chromium
+              ${checkMissing} $path/bin/ghc
 
               ${checkPresent} $homeFiles/.config/git/config
               ${checkMissing} $homeFiles/.Xresources

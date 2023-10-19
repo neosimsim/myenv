@@ -12,42 +12,6 @@ let
 
   aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
 
-  ghc = pkgs.haskellPackages.ghc.withHoogle (p: with p; [
-    # Preinstall zlib to help cabal. Otherwise builds will
-    # complain about missing zlib.h.
-    zlib
-
-    neosimsim-shell
-
-    # Quality of life libraries for ghci
-    aeson
-    containers
-    extra
-    filelock
-    filepath
-    flow
-    lens
-    lens-aeson
-    pidfile
-    optparse-applicative
-    typed-process
-    QuickCheck
-    raw-strings-qq
-    regex-tdfa
-    string-interpolate
-    wreq
-
-    # Preinstall common used lib to speed up nix builds.
-    bifunctors
-    concurrency
-    dejafu
-    hspec
-    markdown-unlit
-    profunctors
-    safe
-    semigroupoids
-  ]);
-
 in
 {
   options.myenv = {
@@ -69,6 +33,7 @@ in
     ./sway.nix
     ./chromium.nix
     ./firefox.nix
+    ./ghc.nix
   ];
 
   config = mkIf config.myenv.enable (lib.mkMerge [
@@ -94,7 +59,6 @@ in
           fd
           fzf
           gcc
-          ghc
           git-lfs
           gnumake
           go
@@ -124,17 +88,9 @@ in
           elm-review
           elm-test
         ]) ++ (with haskellPackages; [
-          apply-refact
-          cabal2nix
-          cabal-fmt
-          cabal-install
           hconv
-          hindent
-          hlint
           hookmark
-          ormolu
           pandoc
-          stylish-haskell
         ]) ++ (with python3Packages; [
           # tools for emacs' elpy
           flake8
@@ -164,7 +120,6 @@ in
         '';
 
         file = dotfiles [
-          "ghci"
           "mkshrc"
           "tmux.conf"
         ];
@@ -252,12 +207,6 @@ in
       };
     }
 
-    (lib.mkIf pkgs.stdenv.isLinux {
-      home.packages = with pkgs; [
-        haskell-language-server
-      ];
-    })
-
     (lib.mkIf pkgs.stdenv.isDarwin {
       targets.darwin.search = "DuckDuckGo";
 
@@ -343,13 +292,5 @@ in
       };
 
     })
-
-    (lib.mkIf pkgs.stdenv.isOpenBSD {
-      # workaround for haskell, due to w^x on OpenBSD
-      home.shellAliases = {
-        cabal = "env TMPDIR=/usr/local/cabal/build/ cabal";
-      };
-    })
-
   ]);
 }
