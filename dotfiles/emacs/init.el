@@ -244,6 +244,7 @@ Examples:
   (modify-syntax-entry ?: "_" term-mode-syntax-table)
   (modify-syntax-entry ?. "_" term-mode-syntax-table))
 (add-hook 'term-mode-hook #'term-setup)
+(setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
 
 (defun python-setup ()
   (elpy-enable)
