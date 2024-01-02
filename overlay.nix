@@ -15,6 +15,8 @@ inputs: final: prev: {
 
   utils-go = import ./pkgs/utils-go { pkgs = prev; };
 
+  utils-rust = prev.callPackage ./pkgs/utils-rust { };
+
   utils-haskell = (import ./pkgs/utils-haskell { pkgs = prev; }).scripts;
 
   cabal-shell = prev.callPackage ./pkgs/cabal-shell { };
