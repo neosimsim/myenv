@@ -13,7 +13,6 @@ BIN = \
 	cabal-init \
 	cmnt \
 	codespell \
-	dtt \
 	ec \
 	ec-set-path \
 	fext \

@@ -127,7 +127,7 @@
                 } ''
                 ${checkPresent} $path/bin/emacs
                 ${checkPresent} $path/bin/fm
-                ${checkPresent} $path/bin/do-the-thing
+                ${checkPresent} $path/bin/dtt
                 ${checkPresent} $path/bin/firefox-esr
                 ${checkPresent} $path/bin/chromium
                 ${checkPresent} $path/bin/Afmt
@@ -152,7 +152,7 @@
                 } ''
                 ${checkPresent} $path/bin/emacs
                 ${checkPresent} $path/bin/fm
-                ${checkPresent} $path/bin/do-the-thing
+                ${checkPresent} $path/bin/dtt
                 ${checkPresent} $path/bin/firefox-esr
                 ${checkPresent} $path/bin/chromium
                 ${checkPresent} $path/bin/Afmt
@@ -177,7 +177,7 @@
                   homeFiles = path.home-files;
                 } ''
                 ${checkPresent} $path/bin/fm
-                ${checkPresent} $path/bin/do-the-thing
+                ${checkPresent} $path/bin/dtt
                 ${checkMissing} $path/bin/firefox-esr
                 ${checkMissing} $path/bin/chromium
                 ${checkMissing} $path/bin/ghc

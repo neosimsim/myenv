@@ -77,8 +77,8 @@ in
         typespeed
         unzip
         utils-go
-        utils-haskell
         utils-scripts
+        utils-rust
       ] ++ (with haskellPackages; [
         hconv
         hookmark

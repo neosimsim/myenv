@@ -2,4 +2,4 @@
 
 set -e
 
-fzf | xargs do-the-thing | sh
+fzf | xargs dtt
