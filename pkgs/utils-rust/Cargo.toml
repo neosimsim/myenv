@@ -1,0 +1,13 @@
+[package]
+name = "myenv"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "uni"
+
+[[bin]]
+name = "dtt"
+path = "src/bin/do-the-thing.rs"
+
+[dependencies]
