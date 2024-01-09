@@ -36,7 +36,7 @@ inputs: final: prev: {
 
     src = inputs.plan9fansGo;
 
-    vendorSha256 = "sha256-qwoYzbfyek/472x24srND/9qX2UsiKzJleLV7cFDVsY=";
+    vendorHash = "sha256-qwoYzbfyek/472x24srND/9qX2UsiKzJleLV7cFDVsY=";
 
     buildPhase = ''
       go install 9fans.net/go/acme/editinacme
@@ -54,7 +54,7 @@ inputs: final: prev: {
 
     src = inputs.plan9fansGo;
 
-    vendorSha256 = "sha256-qwoYzbfyek/472x24srND/9qX2UsiKzJleLV7cFDVsY=";
+    vendorHash = "sha256-qwoYzbfyek/472x24srND/9qX2UsiKzJleLV7cFDVsY=";
 
     buildPhase = ''
       go install 9fans.net/go/acme/acmego
@@ -72,7 +72,7 @@ inputs: final: prev: {
 
     src = inputs.plan9fansGo;
 
-    vendorSha256 = "sha256-qwoYzbfyek/472x24srND/9qX2UsiKzJleLV7cFDVsY=";
+    vendorHash = "sha256-qwoYzbfyek/472x24srND/9qX2UsiKzJleLV7cFDVsY=";
 
     buildPhase = ''
       go install 9fans.net/go/acme/Watch
