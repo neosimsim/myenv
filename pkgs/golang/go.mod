@@ -1,4 +1,4 @@
-module gitlab.com/neosimsim/myenv/go
+module gitlab.com/neosimsim/myenv/pkgs/golang
 
 go 1.16
 

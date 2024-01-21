@@ -190,7 +190,7 @@
 
               modules = [
                 plasma-manager.homeManagerModules.plasma-manager
-                ./nix/home
+                ./home
 
                 ({ pkgs, config, ... }: {
                   nixpkgs.overlays = [
@@ -261,7 +261,7 @@
             users.neosimsim = { ... }: {
               imports = [
                 plasma-manager.homeManagerModules.plasma-manager
-                ./nix/home
+                ./home
               ];
 
               home.stateVersion = "22.05";
@@ -282,7 +282,7 @@
 
             modules = [
               plasma-manager.homeManagerModules.plasma-manager
-              ./nix/home
+              ./home
 
               ({ pkgs, config, ... }: {
                 nixpkgs.overlays = [
@@ -307,7 +307,7 @@
           };
         };
 
-        overlays.default = import ./nix/overlay.nix inputs;
+        overlays.default = import ./overlay.nix inputs;
       }
     );
 }

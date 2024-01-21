@@ -6,24 +6,22 @@ inputs: final: prev: {
         # Using callCabal2nix, which is used by packageSourceOverrides,
         # breaks `nix show` and `nix check`.
         # https://nixos.wiki/wiki/Import_From_Derivation#IFD_and_Haskell
-        hconv = finalHs.callPackage ./hconv.nix { };
+        hconv = finalHs.callPackage ./pkgs/hconv.nix { };
         hookmark = (inputs.hookmark.overlays.default final prev).haskellPackages.hookmark;
       };
     });
 
-  scripts = import ../scripts { pkgs = prev; };
+  scripts = import ./pkgs/scripts { pkgs = prev; };
 
-  goScripts = import ../golang { pkgs = prev; };
+  goScripts = import ./pkgs/golang { pkgs = prev; };
 
-  haskellScripts = (import ../haskell { pkgs = prev; }).scripts;
+  haskellScripts = (import ./pkgs/haskell { pkgs = prev; }).scripts;
 
-  cabalShell = prev.writeShellScriptBin "cabal-shell" ''
-    nix-shell ${./cabal-shell.nix} --command $SHELL
-  '';
+  cabalShell = prev.callPackage ./pkgs/cabal-shell { };
 
   texlive-full =
     let
-      texfiles.pkgs = [ (import ../texfiles { pkgs = prev; }) ];
+      texfiles.pkgs = [ (import ./pkgs/texfiles { pkgs = prev; }) ];
     in
     prev.texlive.combine {
       inherit (prev.texlive) scheme-full;
