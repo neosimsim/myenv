@@ -1,17 +1,6 @@
 { pkgs, config, lib, ... }: with lib;
 let
-
-  dotfiles = files: genAttrs files (name: {
-    source = ../../dotfiles + "/${name}";
-    target = ".${name}";
-  });
-
-  configFiles = files: genAttrs files (name: {
-    source = ../../dotfiles + "/${name}";
-  });
-
   aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
-
 in
 {
   options.myenv = {
@@ -28,6 +17,8 @@ in
   };
 
   imports = [
+    ./emacs
+    ./git
     ./plasma.nix
     ./sway.nix
     ./chromium.nix
@@ -118,90 +109,48 @@ in
           export PATH
         '';
 
-        file = dotfiles [
-          "tmux.conf"
-        ];
+        file.".tmux.conf".text = ''
+          set -g base-index 1
+          set -g pane-base-index 1
+          set -g mouse off
+          set -g status-position top
+          set -g status-interval 1
+          set -g escape-time 0
+          set -g default-terminal "tmux-256color"
+
+          set -g word-separator ""
+
+          bind-key -T copy-mode    C-o                 if-shell -F "#{?selection_present,0,1}" "send-keys -X select-word" \; run-shell 'tmux-run-selection-with dtt'
+
+          bind-key -T copy-mode-vi    P                 send-keys -X copy-selection-and-cancel \; paste-buffer
+          # pass the word under cursor to `dtt`
+          bind-key -T copy-mode-vi    p                 if-shell -F "#{?selection_present,0,1}" "send-keys -X select-word" \; run-shell 'tmux-run-selection-with dtt'
+          bind-key -T copy-mode-vi    C-Space           send-keys -X select-word
+
+          # don't copy selection on MouseDragEnd1Pane, we want to be more flexible
+          unbind-key -T copy-mode-vi  MouseDragEnd1Pane
+          bind-key -T root            DoubleClick1Pane  copy-mode -M \; send-keys -X select-word
+
+          bind-key -T copy-mode-vi    MouseUp2Pane      send-keys -X copy-selection-and-cancel
+
+          # drag right mouse button to pass selection to dtt(1)
+          unbind-key -T root          MouseDown3Pane
+          bind-key -T root            MouseDrag3Pane    if-shell -Ft = "#{mouse_any_flag}" "if -Ft= \"#{pane_in_mode}\" \"copy-mode -M\" \"send-keys -M\"" "copy-mode -M"
+          bind-key -T copy-mode-vi    MouseDrag3Pane    send-keys -X begin-selection
+          bind-key -T copy-mode-vi    MouseDragEnd3Pane send-keys -X copy-pipe-and-cancel "xargs tmux split-window -c #{pane_current_path} dtt"
+
+          # click right mouse button to pass word under cursos to dtt(1)
+          bind-key -T root            MouseUp3Pane      copy-mode -M \; send-keys -X select-word \; run-shell 'tmux-run-selection-with dtt'
+
+          bind-key -T root            MouseDown3Status  choose-tree -Zw
+        '';
       };
 
-      xdg.configFile = configFiles [
-        "git/attributes"
-        "git/ignore"
-      ];
-
-      programs = {
-        fish = {
-          enable = true;
-          shellInit = ''
-            set -U fish_greeting
-          '';
-        };
-
-        git = {
-          enable = true;
-          package = pkgs.git.override {
-            guiSupport = config.myenv.enableGuiTools;
-          };
-          includes = [
-            { path = ../../dotfiles/git/config; }
-          ];
-        };
-
-        emacs = {
-          enable = true;
-          package = with pkgs;
-            if config.myenv.manageSway
-            # use emacs Pure GTK to make use of Wayland scaling
-            then emacs-pgtk
-            else
-              if config.myenv.enableGuiTools
-              then emacs-git
-              else emacs-git-nox;
-
-          extraConfig = builtins.readFile ../../dotfiles/emacs/init.el;
-          extraPackages = epkgs: with epkgs; [
-            spacemacs-theme
-            kaolin-themes
-            ivy
-            counsel
-            amx
-            highlight-symbol
-            magit
-            htmlize
-            mixed-pitch
-            avy
-            move-text
-            buffer-move
-            osm
-            vimgolf
-
-            haskell-mode
-            nix-mode
-            json-mode
-            fish-mode
-            elpy
-            pylint
-            isortify
-            dhall-mode
-            elm-mode
-            erlang
-            elixir-mode
-            alchemist
-            rust-mode
-            rustic
-            rust-playground
-            elisp-format
-
-            lsp-mode
-            lsp-ui
-            flycheck
-            company
-            yasnippet
-            lsp-haskell
-
-            # have a look into
-            shackle # recommended in https://robert.kra.hn/posts/rust-emacs-setup/#additional-packages
-          ];
-        };
+      programs.fish = {
+        enable = true;
+        shellInit = ''
+          set -U fish_greeting
+        '';
       };
     }
 
@@ -229,7 +178,7 @@ in
           BROWSER = "chromium";
         };
         file = {
-          "lib/plumbing".source = ../../dotfiles/plumbing;
+          "lib/plumbing".source = ./plumbing;
         };
         packages = with pkgs; [
           acmego
@@ -247,9 +196,48 @@ in
         ];
       };
 
-      xdg.configFile = configFiles [
-        "alacritty/alacritty.yml"
-      ];
+      xdg.configFile."alacritty/alacritty.yml".text = ''
+        env:
+          TERM: xterm-256color
+
+        cursor:
+          style:
+            shape: Beam
+
+        font:
+          normal:
+            family: DejaVuSans Mono
+          size: 12.0
+
+        # adapted from https://github.com/rajasegar/alacritty-themes/blob/2caad0a3598137a12fb4583298d715e5971fb134/themes/3024.light.yml
+        colors:
+          name: 3024 (light)
+          author: Chris Kempson
+          primary:
+            background: "#f7f7f7"
+            foreground: "#4a4543"
+          cursor:
+            text: "#f7f7f7"
+            cursor: "#4a4543"
+          normal:
+            black: "#090300"
+            red: "#db2d20"
+            green: "#01a252"
+            yellow: "#e8ba04"
+            blue: "#01a0e4"
+            magenta: "#a16a94"
+            cyan: "#7bb4c6"
+            white: "#a5a2a2"
+          bright:
+            black: "#5c5855"
+            red: "#db2d20"
+            green: "#01a252"
+            yellow: "#fded02"
+            blue: "#01a0e4"
+            magenta: "#a16a94"
+            cyan: "#b5e4f4"
+            white: "#f7f7f7"
+      '';
     })
 
     (lib.mkIf (pkgs.stdenv.isLinux && config.myenv.enableGuiTools) {
