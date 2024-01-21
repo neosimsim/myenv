@@ -5,8 +5,6 @@ let
     # complain about missing zlib.h.
     zlib
 
-    neosimsim-shell
-
     # Quality of life libraries for ghci
     aeson
     containers
@@ -104,9 +102,6 @@ in
 
       -- flow
       import Flow
-
-      -- neosimsim-shell
-      import Shell
 
       :def hoogle \s -> return $ ":! hoogle search -l --count=15 ̈" <> s <> "̈"
       :def! doc \s -> return $ ":! hoogle search -l --info ̈" <> s <> "̈"

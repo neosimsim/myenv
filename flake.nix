@@ -109,12 +109,6 @@
         };
       in
       {
-        devShells = {
-          neosimsim-shell = pkgs.haskellPackages.shellFor {
-            packages = p: with p; [ neosimsim-shell ];
-          };
-        };
-
         packages = nixpkgs.lib.mapAttrs
           (name: myenv:
             let

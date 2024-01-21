@@ -3,14 +3,12 @@
 install: install-core
 
 install-gui: install-core
-	$(MAKE) -C tools install-gui
 
 install-core:
 	$(MAKE) -C scripts install
 	$(MAKE) -C texfiles install
 	cd golang && go install ./...
 	cd haskell && cabal update && cabal install
-	$(MAKE) -C tools install
 
 uninstall:
 	$(MAKE) -C texfiles uninstall
