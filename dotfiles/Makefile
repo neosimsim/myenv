@@ -2,7 +2,6 @@
 
 DOTFILES_CORE= \
 	ghci \
-	mkshrc \
 	profile \
 	tmux.conf \
 

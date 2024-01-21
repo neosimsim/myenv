@@ -120,7 +120,6 @@ in
         '';
 
         file = dotfiles [
-          "mkshrc"
           "tmux.conf"
         ];
       };
