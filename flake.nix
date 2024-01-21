@@ -70,31 +70,6 @@
         })
         list);
 
-      testOptions = {
-        x86_64-linux = {
-          withPlasma = {
-            enable = true;
-            enableGuiTools = true;
-            managePlasma = true;
-            ghc.enable = true;
-          };
-          withSway = {
-            enable = true;
-            enableGuiTools = true;
-            manageSway = true;
-          };
-          noX = {
-            enable = true;
-          };
-        };
-        aarch64-darwin = {
-          default = {
-            enable = true;
-            enableGuiTools = true;
-          };
-        };
-      };
-
     in
 
     with flake-utils.lib; eachSystem [ system.x86_64-linux system.aarch64-darwin ]
@@ -109,46 +84,6 @@
         };
       in
       {
-        packages = nixpkgs.lib.mapAttrs
-          (name: myenv:
-            let
-              homeConfig = home-manager.lib.homeManagerConfiguration {
-                pkgs = nixpkgs.legacyPackages.${system};
-
-                modules = [
-                  plasma-manager.homeManagerModules.plasma-manager
-                  ./nix/home
-
-                  ({ pkgs, config, ... }: {
-                    nixpkgs.overlays = [
-                      self.overlays.default
-                      nur.overlay
-                      emacs-overlay.overlay
-                    ];
-
-                    home = {
-                      stateVersion = "22.05";
-                      username = "neosimsim";
-                      homeDirectory = "/home/neosimsim";
-                    };
-
-                    programs.home-manager.enable = true;
-
-                    inherit myenv;
-
-                  })
-                ];
-              };
-            in
-            with homeConfig.config;
-            home.path // {
-              inherit home-files;
-
-              pkgs = setByName home.packages;
-            }
-          )
-          testOptions.${system};
-
         checks = self.packages.${system} //
           (with nixpkgs.lib; mapAttrs'
             (name: pkgs: nameValuePair ("${name}-home-files") (pkgs.home-files))
@@ -157,7 +92,6 @@
           ma = pkgs.ma;
         } // nixpkgs.lib.optionalAttrs (system == flake-utils.lib.system.x86_64-linux) (
           let
-
             pkgs = import nixpkgs {
               system = "x86_64-linux";
             };
@@ -247,72 +181,133 @@
             '';
           }
         );
-      }) // {
-      nixosModules.default = { config, ... }: {
+      }) // (
+      let
+        homePackage = system: myenv:
+          let
+            homeConfig = home-manager.lib.homeManagerConfiguration {
+              pkgs = nixpkgs.legacyPackages.${system};
 
-        imports = [
-          home-manager.nixosModules.home-manager
-        ];
+              modules = [
+                plasma-manager.homeManagerModules.plasma-manager
+                ./nix/home
 
-        nixpkgs.overlays = [
-          self.overlays.default
-          nur.overlay
-          emacs-overlay.overlay
-        ];
+                ({ pkgs, config, ... }: {
+                  nixpkgs.overlays = [
+                    self.overlays.default
+                    nur.overlay
+                    emacs-overlay.overlay
+                  ];
 
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
+                  home = {
+                    stateVersion = "22.05";
+                    username = "neosimsim";
+                    homeDirectory = "/home/neosimsim";
+                  };
 
-          users.neosimsim = { ... }: {
-            imports = [
-              plasma-manager.homeManagerModules.plasma-manager
-              ./nix/home
-            ];
+                  programs.home-manager.enable = true;
 
-            home.stateVersion = "22.05";
+                  inherit myenv;
 
-            myenv = {
-              enable = true;
-              enableGuiTools = config.services.xserver.enable;
-              manageSway = config.programs.sway.enable;
-              managePlasma = config.services.xserver.desktopManager.plasma5.enable;
+                })
+              ];
             };
+          in
+          homeConfig.config.home.path // {
+            inherit (homeConfig.config) home-files;
+
+            pkgs = setByName homeConfig.config.home.packages;
           };
+      in
+      {
+        packages.x86_64-linux.withPlasma = homePackage "x86_64-linux" {
+          enable = true;
+          enableGuiTools = true;
+          managePlasma = true;
+          ghc.enable = true;
         };
-      };
 
-      homeConfigurations = {
-        macbook = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+        packages.x86_64-linux.withSway = homePackage "x86_64-linux" {
+          enable = true;
+          enableGuiTools = true;
+          manageSway = true;
+        };
 
-          modules = [
-            plasma-manager.homeManagerModules.plasma-manager
-            ./nix/home
+        packages.x86_64-linux.noX = homePackage "x86_64-linux" {
+          enable = true;
+        };
 
-            ({ pkgs, config, ... }: {
-              nixpkgs.overlays = [
-                self.overlays.default
-                emacs-overlay.overlay
+        packages.aarch64-darwin.default = homePackage "aarch64-darwin" {
+          enable = true;
+          enableGuiTools = true;
+        };
+
+        nixosModules.default = { config, ... }: {
+
+          imports = [
+            home-manager.nixosModules.home-manager
+          ];
+
+          nixpkgs.overlays = [
+            self.overlays.default
+            nur.overlay
+            emacs-overlay.overlay
+          ];
+
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+
+            users.neosimsim = { ... }: {
+              imports = [
+                plasma-manager.homeManagerModules.plasma-manager
+                ./nix/home
               ];
 
-              home = {
-                stateVersion = "22.05";
-                username = "neosimsim";
-                homeDirectory = "/Users/neosimsim";
-              };
-
-              programs.home-manager.enable = true;
+              home.stateVersion = "22.05";
 
               myenv = {
                 enable = true;
-                enableGuiTools = true;
+                enableGuiTools = config.services.xserver.enable;
+                manageSway = config.programs.sway.enable;
+                managePlasma = config.services.xserver.desktopManager.plasma5.enable;
               };
-            })
-          ];
+            };
+          };
         };
-      };
 
-      overlays.default = import ./nix/overlay.nix inputs;
-    };
+        homeConfigurations = {
+          macbook = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+
+            modules = [
+              plasma-manager.homeManagerModules.plasma-manager
+              ./nix/home
+
+              ({ pkgs, config, ... }: {
+                nixpkgs.overlays = [
+                  self.overlays.default
+                  emacs-overlay.overlay
+                ];
+
+                home = {
+                  stateVersion = "22.05";
+                  username = "neosimsim";
+                  homeDirectory = "/Users/neosimsim";
+                };
+
+                programs.home-manager.enable = true;
+
+                myenv = {
+                  enable = true;
+                  enableGuiTools = true;
+                };
+              })
+            ];
+          };
+        };
+
+        overlays.default = import ./nix/overlay.nix inputs;
+      }
+    );
 }
