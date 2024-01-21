@@ -1,5 +1,9 @@
 # NeoSimSim Env
 
+When you want to inspect dotfile you can run, e.g.
+
+    nix build .#withPlasma.home-files
+
 # Customizations
 You can specify workstation specific settings in $HOME/local/profile, e. g.
 
