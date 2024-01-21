@@ -28,7 +28,6 @@ in
   };
 
   imports = [
-    ./xmonad.nix
     ./plasma.nix
     ./sway.nix
     ./chromium.nix

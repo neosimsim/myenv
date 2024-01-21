@@ -7,8 +7,6 @@ DOTFILES_CORE= \
 
 DOTFILES_GUI= \
 	Xmodmap \
-	xmonad/build \
-	xmonad/xmonad.hs \
 
 # Don't call this or use XDG_CONFIG_HOME on purpose.
 # Setting/Using XDG_CONFIG_HOME causes more pain than use.
@@ -22,8 +20,7 @@ CONFIGFILES_CORE= \
 	git/ignore \
 
 CONFIGFILES_GUI= \
-	alacritty/alacritty.yml \
-	xmobar/xmobar.hs \
+	alacritty/alacritty.yml
 
 DOTFILES=$(DOTFILES_CORE) $(DOTFILES_GUI)
 CONFIGFILES=$(CONFIGFILES_CORE) $(CONFIGFILES_GUI)
@@ -62,8 +59,6 @@ reload-core:
 
 reload-gui: reload-core
 	[ -z "$$DISPLAY" ] || 9 9p write plumb/rules <$(HOME)/lib/plumbing || true
-	[ -z "$$DISPLAY" ] || xmonad --recompile
-	[ -z "$$DISPLAY" ] || xmonad --restart
 
 phony: missing-file
 

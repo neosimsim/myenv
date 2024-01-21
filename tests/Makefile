@@ -11,14 +11,10 @@ test-core: $(TESTS)
 
 test-gui: \
 	test-core \
-	xmonad
 	which Afmt
 
 noesc fix-ex-string:
 	$@ < $@_test_in | diff $@_test_out -
-
-xmonad:
-	xmonad --recompile
 
 uniq-paths:
 	! echo $$PATH | sed "s/:/\n/g" | sort | uniq -d | grep .

@@ -78,11 +78,6 @@
             managePlasma = true;
             ghc.enable = true;
           };
-          withXMonad = {
-            enable = true;
-            enableGuiTools = true;
-            manageXmonad = true;
-          };
           withSway = {
             enable = true;
             enableGuiTools = true;
@@ -117,15 +112,6 @@
         devShells = {
           neosimsim-shell = pkgs.haskellPackages.shellFor {
             packages = p: with p; [ neosimsim-shell ];
-          };
-
-          xmonad = pkgs.mkShell {
-            packages = [
-              (pkgs.haskellPackages.ghcWithPackages (p: with p;[
-                xmonad
-                xmonad-contrib
-              ]))
-            ];
           };
         };
 
@@ -214,7 +200,6 @@
               ${checkPresent} $path/bin/Afmt
               ${checkPresent} $path/bin/ghc
               ${checkPresent} $path/bin/haskell-language-server-wrapper
-              ${checkMissing} $path/bin/xmonad
               ${checkMissing} $path/bin/sway
 
               ${checkPresent} $homeFiles/.config/git/config
@@ -223,24 +208,6 @@
               ${checkPresent} $homeFiles/.ghci
               ${checkPresentDir} $homeFiles/.config/chromium
               ${checkPresent} $homeFiles/lib/plumbing
-              ${checkMissing} $homeFiles/.config/xmobar/xmobar.hs
-              ${checkMissing} $homeFiles/.config/xmobar/xmobar
-
-              echo successful >$out
-            '';
-
-            checkWithXmonad = pkgs.runCommand "test-myenv-with-xmonad"
-              rec {
-                path = self.packages.x86_64-linux.withXMonad;
-                homeFiles = path.home-files;
-              } ''
-              ${checkPresent} $path/bin/xmonad
-              ${checkMissing} $path/bin/sway
-
-              ${checkPresent} $homeFiles/.config/xmobar/xmobar.hs
-              ${checkPresent} $homeFiles/.config/xmobar/xmobar
-              ${checkPresent} $homeFiles/.Xresources
-              ${checkPresent} $homeFiles/.Xmodmap
 
               echo successful >$out
             '';
@@ -253,7 +220,6 @@
               ${checkPresent} $path/bin/emacs
               ${checkPresent} $path/bin/fm
               ${checkPresent} $path/bin/do-the-thing
-              ${checkMissing} $path/bin/xmonad
               ${checkPresent} $path/bin/sway
               ${checkPresent} $path/bin/Afmt
 
@@ -273,7 +239,6 @@
               } ''
               ${checkPresent} $path/bin/fm
               ${checkPresent} $path/bin/do-the-thing
-              ${checkMissing} $path/bin/xmonad
               ${checkMissing} $path/bin/firefox
               ${checkMissing} $path/bin/chromium
               ${checkMissing} $path/bin/ghc
