@@ -11,13 +11,13 @@ inputs: final: prev: {
       };
     });
 
-  scripts = import ./pkgs/scripts { pkgs = prev; };
+  utils-scripts = import ./pkgs/utils-scripts { pkgs = prev; };
 
-  goScripts = import ./pkgs/golang { pkgs = prev; };
+  utils-go = import ./pkgs/utils-go { pkgs = prev; };
 
-  haskellScripts = (import ./pkgs/haskell { pkgs = prev; }).scripts;
+  utils-haskell = (import ./pkgs/utils-haskell { pkgs = prev; }).scripts;
 
-  cabalShell = prev.callPackage ./pkgs/cabal-shell { };
+  cabal-shell = prev.callPackage ./pkgs/cabal-shell { };
 
   texlive-full =
     let

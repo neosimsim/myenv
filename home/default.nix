@@ -42,7 +42,7 @@ in
         packages = with pkgs; [
           age
           aspell
-          cabalShell
+          cabal-shell
           dhall
           dhall-json
           entr
@@ -52,10 +52,8 @@ in
           git-lfs
           gnumake
           go
-          goScripts
           gosec
           gotools
-          haskellScripts
           htop
           isync
           jq
@@ -66,11 +64,13 @@ in
           plan9port
           ripgrep
           rnix-lsp
-          scripts
           texlive-full
           tmux
           typespeed
           unzip
+          utils-go
+          utils-haskell
+          utils-scripts
         ] ++ (with elmPackages; [
           elm
           elm-format

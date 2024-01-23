@@ -1,6 +1,6 @@
 { pkgs }:
 pkgs.stdenv.mkDerivation {
-  name = "posix-scripts";
+  name = "utils";
   src = ./.;
   buildPhase = "true";
   buildInputs = [ pkgs.makeWrapper ];

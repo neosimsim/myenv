@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { } }:
 pkgs.buildGoModule {
-  name = "go-scripts";
+  name = "utils";
   CGO_ENABLED = "0";
 
   src = ./.;
