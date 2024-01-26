@@ -34,6 +34,8 @@
         "kcminputrc"."Keyboard"."NumLock" = 0;
         "kcminputrc"."Mouse"."XLbInptAccelProfileFlat" = true;
         "kcminputrc"."Mouse"."XLbInptPointerAcceleration" = "-0.4";
+        "klaunchrc"."BusyCursorSettings"."Bouncing" = false;
+        "klaunchrc"."FeedbackStyle"."BusyCursor" = false;
       };
 
       shortcuts = {
