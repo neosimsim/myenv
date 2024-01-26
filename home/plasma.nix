@@ -30,7 +30,7 @@
       configFile = {
         "baloofilerc"."General"."only basic indexing" = true;
         "kwalletrc"."Wallet"."Enabled" = true;
-        "kwinrc"."Desktops"."Number" = 4;
+        "kwinrc"."Desktops"."Number" = 0;
         "kcminputrc"."Keyboard"."NumLock" = 0;
         "kcminputrc"."Mouse"."XLbInptAccelProfileFlat" = true;
         "kcminputrc"."Mouse"."XLbInptPointerAcceleration" = "-0.4";
@@ -40,8 +40,6 @@
 
       shortcuts = {
         "kwin"."Window No Border" = "Meta+B";
-        "kwin"."Switch to Next Desktop" = "Meta+Ctrl+Right";
-        "kwin"."Switch to Previous Desktop" = "Meta+Ctrl+Left";
       };
     };
   };
