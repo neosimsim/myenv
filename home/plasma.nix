@@ -30,7 +30,7 @@
       configFile = {
         "baloofilerc"."General"."only basic indexing" = true;
         "kwalletrc"."Wallet"."Enabled" = true;
-        "kwinrc"."Desktops"."Number" = 0;
+        "kwinrc"."Desktops"."Number" = 1;
         "kcminputrc"."Keyboard"."NumLock" = 0;
         "kcminputrc"."Mouse"."XLbInptAccelProfileFlat" = true;
         "kcminputrc"."Mouse"."XLbInptPointerAcceleration" = "-0.4";
