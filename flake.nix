@@ -79,7 +79,7 @@
           inherit system;
           overlays = [
             self.overlays.default
-            emacs-overlay.overlay
+            emacs-overlay.overlays.default
           ];
         };
       in
