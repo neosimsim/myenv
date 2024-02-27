@@ -123,7 +123,7 @@
               ${checkPresent} $path/bin/emacs
               ${checkPresent} $path/bin/fm
               ${checkPresent} $path/bin/do-the-thing
-              ${checkPresent} $path/bin/firefox
+              ${checkPresent} $path/bin/firefox-esr
               ${checkPresent} $path/bin/chromium
               ${checkPresent} $path/bin/Afmt
               ${checkPresent} $path/bin/ghc
@@ -167,7 +167,7 @@
               } ''
               ${checkPresent} $path/bin/fm
               ${checkPresent} $path/bin/do-the-thing
-              ${checkMissing} $path/bin/firefox
+              ${checkMissing} $path/bin/firefox-esr
               ${checkMissing} $path/bin/chromium
               ${checkMissing} $path/bin/ghc
 
