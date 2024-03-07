@@ -85,6 +85,10 @@
 
 (light-theme)
 
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls"))))
+
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
 ;; hide doas prompt
@@ -241,7 +245,6 @@ Examples:
 
 (defun elixir-setup ()
   (local-set-key (kbd "C-x M-f") #'elixir-format)
-  (lsp-deferred)
   (modify-syntax-entry ?& "." elixir-mode-syntax-table))
 (add-hook 'elixir-mode-hook #'elixir-setup)
 
@@ -259,6 +262,7 @@ Examples:
 (defun rust-setup ()
   (setq formatter "rustfmt"))
 (add-hook 'rust-mode-hook #'rust-setup)
+(setq rustic-lsp-client 'eglot)
 
 (require 'nix-mode)
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
@@ -285,52 +289,3 @@ Examples:
 (global-set-key (kbd "<C-S-right>")  'buf-move-right)
 
 (require 'elisp-format)
-
-;; flycheck will be enabled by lsp-mode
-(require 'flycheck)
-;; display the error list at the bottom side of the frame
-(add-to-list 'display-buffer-alist `(,(rx bos "*Flycheck errors*" eos)
-                                     (display-buffer-reuse-window display-buffer-in-side-window)
-                                     (side            . bottom)
-                                     (reusable-frames . visible)
-                                     (window-height   . 0.33)))
-
-(global-set-key (kbd "C-c C-.") 'company-complete)
-
-;; https://github.com/emacs-lsp/lsp-mode/issues/2913
-(yas-global-mode)
-
-;; set prefix before lsp-mode has been loaded
-;; https://github.com/emacs-lsp/lsp-mode/issues/1672
-(setq lsp-keymap-prefix "C-.")
-(require 'lsp-mode)
-
-(setq lsp-eldoc-render-all t)
-(setq lsp-modeline-code-actions-segments '(icon count name))
-
-;; lsp-mode tweaks https://emacs-lsp.github.io/lsp-mode/page/performance/
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-(setq lsp-idle-delay 0.500)
-
-;; lsp-mode settings https://emacs-lsp.github.io/lsp-mode/page/settings/mode/
-(setq lsp-lens-enable t)
-(setq lsp-haskell-formatting-provider "ormolu")
-(setq lsp-elixir-dialyzer-enabled nil)
-(setq lsp-elixir-server-command '("elixir-ls"))
-
-;; https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
-(with-eval-after-load 'lsp-mode
-                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'")
-                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]deps\\'")
-                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.rebar3?\\'")
-                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cargo\\'")
-                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]ces/data\\'")
-                      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]MAlonzo\\'"))
-
-;; explicitly require lsp-ui to address the face
-(require 'lsp-ui)
-(setq lsp-ui-doc-enable nil)
-(setq lsp-ui-doc-show-with-cursor nil)
-(setq lsp-ui-doc-show-with-mouse nil)
-(setq lsp-ui-sideline-show-code-actions t)

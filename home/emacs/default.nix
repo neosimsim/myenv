@@ -44,12 +44,8 @@
       rust-playground
       elisp-format
 
-      lsp-mode
-      lsp-ui
-      flycheck
       company
       yasnippet
-      lsp-haskell
 
       # have a look into
       shackle # recommended in https://robert.kra.hn/posts/rust-emacs-setup/#additional-packages
