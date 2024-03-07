@@ -19,7 +19,6 @@
   (scroll-bar-mode 0))
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq-default indent-tabs-mode nil)
-(setq vc-handled-backends ())
 (global-font-lock-mode t)
 (column-number-mode t)
 (show-paren-mode 1)
