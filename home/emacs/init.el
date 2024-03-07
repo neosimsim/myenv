@@ -193,6 +193,12 @@ Examples:
   (pipe-shell-region "uni" start end))
 (global-set-key (kbd "C-c C-u") #'apply-uni-region)
 
+(defun copy-buffer-name ()
+  (interactive)
+  (kill-new (if (buffer-file-name)
+                (buffer-file-name)
+                (buffer-name))))
+
 (require 'move-text)
 (move-text-default-bindings)
 
@@ -249,14 +255,6 @@ Examples:
   (elpy-enable)
   (local-set-key (kbd "C-x M-f") #'elpy-format-code))
 (add-hook 'python-mode-hook #'python-setup)
-
-
-
-(defun copy-buffer-name ()
-  (interactive)
-  (kill-new (if (buffer-file-name)
-                (buffer-file-name)
-                (buffer-name))))
 
 (defun rust-setup ()
   (setq formatter "rustfmt"))
