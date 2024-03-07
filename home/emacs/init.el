@@ -85,6 +85,27 @@
 
 (light-theme)
 
+;; https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
+(defcustom project-root-markers
+  '("Cargo.lock" "mix.lock" ".git")
+  "File or directories that indicate the root of a project."
+  :type '(repeat string)
+  :group 'project)
+
+(defun project-root-p (path)
+   ""
+   (catch 'found
+     (dolist  (marker project-root-markers)
+       (when (file-exists-p (concat path marker))
+         (throw 'found marker)))))
+
+(defun project-find-root (path)
+   "Serach up for project root"
+   (when-let ((root (locate-dominating-file path #'project-root-p)))
+     (cons 'transient (expand-file-name root))))
+
+(add-to-list 'project-find-functions #'project-find-root)
+
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
                '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls"))))
