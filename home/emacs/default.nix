@@ -2,7 +2,7 @@
   programs.emacs = {
     enable = true;
     package = with pkgs;
-      if config.myenv.manageSway
+      if config.myenv.useWayland
       # use emacs Pure GTK to make use of Wayland scaling
       then emacs-pgtk
       else

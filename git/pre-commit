@@ -20,3 +20,4 @@ nix flake check
 nixpkgs-fmt --check $(find . -name '*.nix' | grep -vE '(cabal|hconv)\.nix')
 nix shell .#noX.pkgs.emacs-git-with-packages --command emacs --batch --eval "(package-activate-all)" -l home/emacs/init.el
 nix shell .#withPlasma.pkgs.emacs-git-with-packages --command emacs --batch --eval "(package-activate-all)" -l home/emacs/init.el
+nix shell .#withPlasmaWayland.pkgs.emacs-pgtk-with-packages --command emacs --batch --eval "(package-activate-all)" -l home/emacs/init.el

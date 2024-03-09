@@ -8,6 +8,8 @@
   };
 
   config = mkIf config.myenv.manageSway {
+    myenv.useWayland = true;
+
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true;

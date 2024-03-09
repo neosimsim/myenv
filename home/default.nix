@@ -12,7 +12,12 @@ in
 
     enableGuiTools = mkOption {
       type = types.bool;
-      default = with config.myenv; manageSway || managePlasma;
+      default = with config.myenv; useWayland || managePlasma;
+    };
+
+    useWayland = mkOption {
+      type = types.bool;
+      default = false;
     };
   };
 
@@ -253,7 +258,7 @@ in
         XDG_VIDEOS_DIR = "$HOME/Videos";
       };
 
-      xresources.properties = lib.optionalAttrs (! config.myenv.manageSway) {
+      xresources.properties = lib.optionalAttrs (! config.myenv.useWayland) {
         "Xft.autohint" = 0;
         "Xft.lcdfilter" = "lcddefault";
         "Xft.hintstyle" = "hintslight";
