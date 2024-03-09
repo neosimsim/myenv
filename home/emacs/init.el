@@ -25,7 +25,7 @@
 ;; auto-indent without realign current line
 (electric-indent-mode 0)
 ;; rebind RET because electric-indent-mode is disabled
-(global-set-key (kbd "RET") #'newline-and-indent)
+(keymap-global-set "RET" #'newline-and-indent)
 
 (when (fboundp #'set-fontset-font)
   (set-fontset-font t '(#x1f000 . #x1faff)
@@ -53,16 +53,16 @@
 
 (setq counsel-rg-base-command (append counsel-rg-base-command '("--hidden" "--glob" "!.git")))
 
-(global-set-key (kbd "C-c C-r") #'ivy-resume)
-(global-set-key (kbd "C-c g") #'counsel-git)
-(global-set-key (kbd "C-c k") #'counsel-rg)
+(keymap-global-set "C-c C-r" #'ivy-resume)
+(keymap-global-set "C-c g" #'counsel-git)
+(keymap-global-set "C-c k" #'counsel-rg)
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(keymap-global-set "C-x C-b" 'ibuffer)
 
-(global-set-key (kbd "C-:") 'avy-goto-char)
-(global-set-key (kbd "C-*") 'highlight-symbol-next)
-(global-set-key (kbd "C-#") 'highlight-symbol-prev)
+(keymap-global-set "C-:" 'avy-goto-char)
+(keymap-global-set "C-*" 'highlight-symbol-next)
+(keymap-global-set "C-#" 'highlight-symbol-prev)
 
 (setq browse-url-browser-function #'browse-url-chromium)
 
@@ -216,7 +216,7 @@ Examples:
   "Apply shell command uni on region."
   (interactive "r")
   (pipe-shell-region "uni" start end))
-(global-set-key (kbd "C-c C-u") #'apply-uni-region)
+(keymap-global-set "C-c C-u" #'apply-uni-region)
 
 (defun copy-buffer-name ()
   (interactive)
@@ -250,7 +250,7 @@ Examples:
         (prev-point-max (point-max)))
     (pipe-shell-region formatter (point-min) (point-max))
     (goto-char (+ p (- (point-max) prev-point-max)))))
-(global-set-key (kbd "C-x M-f") #'format-buffer)
+(keymap-global-set "C-x M-f" #'format-buffer)
 
 (defun haskell-setup ()
   (setq formatter "ormolu --no-cabal"))
@@ -304,9 +304,9 @@ Examples:
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (require 'buffer-move)
-(global-set-key (kbd "<C-S-up>")     'buf-move-up)
-(global-set-key (kbd "<C-S-down>")   'buf-move-down)
-(global-set-key (kbd "<C-S-left>")   'buf-move-left)
-(global-set-key (kbd "<C-S-right>")  'buf-move-right)
+(keymap-global-set "C-S-<up>"     'buf-move-up)
+(keymap-global-set "C-S-<down>"   'buf-move-down)
+(keymap-global-set "C-S-<left>"   'buf-move-left)
+(keymap-global-set "C-S-<right>"  'buf-move-right)
 
 (require 'elisp-format)
