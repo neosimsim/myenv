@@ -24,10 +24,7 @@
 
   (when (fboundp #'set-fontset-font)
     (set-fontset-font t '(#x1f000 . #x1faff)
-                      (font-spec :family "Noto Color Emoji")))
-
-  ;; auto-indent without realign current line
-  (electric-indent-mode 0))
+                      (font-spec :family "Noto Color Emoji"))))
 
 (use-package files
   :custom
@@ -39,11 +36,7 @@
   (kill-whole-line t "Also delete new-line")
   (indent-tabs-mode -1)
   (set-mark-command-repeat-pop t)
-  (column-number-mode t "Also show column of point in info bar")
-
-  ;; rebind RET because electric-indent-mode is disabled
-  :bind ("RET" . #'newline-and-indent))
-
+  (column-number-mode t "Also show column of point in info bar"))
 
 (use-package ivy
   :config
