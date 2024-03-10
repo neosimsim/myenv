@@ -1,74 +1,111 @@
 (setenv "EDITOR" "emacsclient")
 (setenv "PAGER" "cat")
 
-(setopt ring-bell-function #'ignore)
-(setopt create-lockfiles nil)
-(setopt auto-save-default nil)
-(setopt make-backup-files nil)
-(setopt kill-whole-line t)
-(setopt cursor-type 'bar)
-(setopt set-mark-command-repeat-pop t)
-;; start in fullscreen
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-;; don't leave emtpy boarders when maximixed on e.g. KDE
-(setopt frame-resize-pixelwise t)
-(when (fboundp #'tool-bar-mode)
-  (tool-bar-mode 0))
-(menu-bar-mode 0)
-(when (fboundp #'scroll-bar-mode)
-  (scroll-bar-mode 0))
-(add-hook 'before-save-hook #'delete-trailing-whitespace)
-(indent-tabs-mode -1)
-(global-font-lock-mode t)
-(column-number-mode t)
-(show-paren-mode 1)
-;; auto-indent without realign current line
-(electric-indent-mode 0)
-;; rebind RET because electric-indent-mode is disabled
-(keymap-global-set "RET" #'newline-and-indent)
+(use-package emacs
+  :custom
+  (ring-bell-function #'ignore)
+  (create-lockfiles nil)
+  (cursor-type 'bar)
 
-(when (fboundp #'set-fontset-font)
-  (set-fontset-font t '(#x1f000 . #x1faff)
-    (font-spec :family "Noto Color Emoji")))
+  :hook
+  ('before-save . #'delete-trailing-whitespace)
 
-(ivy-mode t)
-(counsel-mode t)
-(amx-mode)
-(setopt
-   ivy-use-virtual-buffers t
-   ivy-count-format "(%d/%d) "
-   ivy-format-functions-alist
-     '((counsel-compile-env . counsel-compile-env--format-hint)
-       (counsel-kmacro . counsel--kmacro-format-function)
-       (counsel-colors-web . counsel--colors-web-format-function)
-       (counsel-colors-emacs . counsel--colors-emacs-format-function)
-       (counsel-evil-registers . counsel--yank-pop-format-function)
-       (counsel-yank-pop . counsel--yank-pop-format-function)
-       (counsel-git-log . counsel--git-log-format-function)
-       (counsel-faces . counsel--faces-format-function)
-       (swiper-isearch . swiper-isearch-format-function)
-       (swiper-all . swiper--all-format-function)
-       (swiper-multi . swiper--all-format-function)
-       (t . ivy-format-function-arrow)))
+  :config
+  (show-paren-mode 1)
 
-(setopt counsel-rg-base-command (append counsel-rg-base-command '("--hidden" "--glob" "!.git")))
+  (menu-bar-mode 0)
+  (when (display-graphic-p)
+    (tool-bar-mode 0)
+    (scroll-bar-mode 0)
+    ;; start in fullscreen
+    (add-to-list 'default-frame-alist '(fullscreen . maximized))
+    ;; don't leave empty boarders when maximixed on e.g. KDE
+    (setopt frame-resize-pixelwise t))
 
-(keymap-global-set "C-c C-r" #'ivy-resume)
-(keymap-global-set "C-c g" #'counsel-git)
-(keymap-global-set "C-c k" #'counsel-rg)
+  (when (fboundp #'set-fontset-font)
+    (set-fontset-font t '(#x1f000 . #x1faff)
+                      (font-spec :family "Noto Color Emoji")))
+
+  ;; auto-indent without realign current line
+  (electric-indent-mode 0))
+
+(use-package files
+  :custom
+  (auto-save-default nil)
+  (make-backup-files nil))
+
+(use-package simple
+  :custom
+  (kill-whole-line t "Also delete new-line")
+  (indent-tabs-mode -1)
+  (set-mark-command-repeat-pop t)
+  (column-number-mode t "Also show column of point in info bar")
+
+  ;; rebind RET because electric-indent-mode is disabled
+  :bind ("RET" . #'newline-and-indent))
+
+
+(use-package ivy
+  :config
+  (ivy-mode t)
+
+  :custom
+  (ivy-use-virtual-buffers t)
+  (ivy-count-format "(%d/%d) ")
+  (ivy-format-functions-alist
+   '((counsel-compile-env . counsel-compile-env--format-hint)
+     (counsel-kmacro . counsel--kmacro-format-function)
+     (counsel-colors-web . counsel--colors-web-format-function)
+     (counsel-colors-emacs . counsel--colors-emacs-format-function)
+     (counsel-evil-registers . counsel--yank-pop-format-function)
+     (counsel-yank-pop . counsel--yank-pop-format-function)
+     (counsel-git-log . counsel--git-log-format-function)
+     (counsel-faces . counsel--faces-format-function)
+     (swiper-isearch . swiper-isearch-format-function)
+     (swiper-all . swiper--all-format-function)
+     (swiper-multi . swiper--all-format-function)
+     (t . ivy-format-function-arrow)))
+
+  :bind (("C-c C-r" . #'ivy-resume)))
+
+(use-package counsel
+  :config
+  (counsel-mode t)
+
+  :custom
+  (counsel-rg-base-command '("rg" "--max-columns" "240" "--with-filename" "--no-heading"
+			     "--line-number" "--color" "never" "%s" "--hidden" "--glob" "!.git"))
+
+  :bind (("C-c g" . #'counsel-git)
+         ("C-c k" . #'counsel-rg)))
+
+(use-package amx
+  :config
+  (amx-mode 1))
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
-(keymap-global-set "C-x C-b" 'ibuffer)
+(use-package ibuffer
+  :bind ("C-x C-b" . #'ibuffer))
 
-(keymap-global-set "C-:" 'avy-goto-char)
-(keymap-global-set "C-*" 'highlight-symbol-next)
-(keymap-global-set "C-#" 'highlight-symbol-prev)
+(use-package avy
+  :bind ("C-:" . #'ay-goto-char))
 
-(setopt browse-url-browser-function #'browse-url-chromium)
+(use-package highlight-symbol
+  :bind (("C-*" . #'highlight-symbol-next)
+	 ("C-#" . #'highlight-symbol-prev)))
 
-(setopt
-  spacemacs-theme-org-bold nil
-  spacemacs-theme-org-height nil)
+(use-package browse-url
+  :custom
+  (browse-url-browser-function #'browse-url-chromium))
+
+(use-package ediff
+  :custom
+  (ediff-window-setup-function #'ediff-setup-windows-plain))
+
+(use-package spacemacs-theme
+  :custom
+  (spacemacs-theme-org-bold nil)
+  (spacemacs-theme-org-height nil))
 
 (defun only-theme (theme)
   (dolist (theme (custom-available-themes))
@@ -106,16 +143,15 @@
 
 (add-to-list 'project-find-functions #'project-find-root)
 
-(with-eval-after-load 'eglot
+(use-package eglot
+  :config
   (add-to-list 'eglot-server-programs
                '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls"))))
 
-;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
-(require 'comint)
-;; hide doas prompt
-(setopt comint-password-prompt-regexp
-        (concat comint-password-prompt-regexp
-              "\\|password: \\'"))
+(use-package comint
+  :custom
+  ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
+  (comint-password-prompt-regexp (concat comint-password-prompt-regexp "\\|password: \\'") "hide doas prompt"))
 
 (defun dtt ()
   "Run `dtt` with file at point.
@@ -224,8 +260,9 @@ Examples:
                 (buffer-file-name)
                 (buffer-name))))
 
-(require 'move-text)
-(move-text-default-bindings)
+(use-package move-text
+  :config
+  (move-text-default-bindings))
 
 (defun my-prog-mode-hook ()
   (setq indicate-empty-lines t)
@@ -283,10 +320,14 @@ Examples:
 (defun rust-setup ()
   (setq formatter "rustfmt"))
 (add-hook 'rust-mode-hook #'rust-setup)
-(setopt rustic-lsp-client 'eglot)
 
-(require 'nix-mode)
-(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
+(use-package rustic
+  :custom
+  (rustic-lsp-client #'eglot))
+
+(use-package nix-mode
+  :mode "\\.nix\\'")
+
 (defun nix-setup ()
   (setq formatter "nixpkgs-fmt"))
 (add-hook 'nix-mode-hook #'nix-setup)
@@ -301,12 +342,10 @@ Examples:
   '((emacs-lisp . t)
     (shell . t)))
 
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(use-package buffer-move
+  :bind (("C-S-<up>"    . 'buf-move-up)
+	 ("C-S-<down>"  . 'buf-move-down)
+	 ("C-S-<left>"  . 'buf-move-left)
+	 ("C-S-<right>" . 'buf-move-right)))
 
-(require 'buffer-move)
-(keymap-global-set "C-S-<up>"     'buf-move-up)
-(keymap-global-set "C-S-<down>"   'buf-move-down)
-(keymap-global-set "C-S-<left>"   'buf-move-left)
-(keymap-global-set "C-S-<right>"  'buf-move-right)
-
-(require 'elisp-format)
+(use-package elisp-format)
