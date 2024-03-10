@@ -34,7 +34,6 @@
 (use-package simple
   :custom
   (kill-whole-line t "Also delete new-line")
-  (indent-tabs-mode -1)
   (set-mark-command-repeat-pop t)
   (column-number-mode t "Also show column of point in info bar"))
 
