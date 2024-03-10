@@ -1,24 +1,24 @@
 (setenv "EDITOR" "emacsclient")
 (setenv "PAGER" "cat")
 
-(setq ring-bell-function #'ignore)
-(setq create-lockfiles nil)
-(setq auto-save-default nil)
-(setq make-backup-files nil)
-(setq kill-whole-line t)
-(setq-default cursor-type 'bar)
-(setq set-mark-command-repeat-pop t)
+(setopt ring-bell-function #'ignore)
+(setopt create-lockfiles nil)
+(setopt auto-save-default nil)
+(setopt make-backup-files nil)
+(setopt kill-whole-line t)
+(setopt cursor-type 'bar)
+(setopt set-mark-command-repeat-pop t)
 ;; start in fullscreen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; don't leave emtpy boarders when maximixed on e.g. KDE
-(setq frame-resize-pixelwise t)
+(setopt frame-resize-pixelwise t)
 (when (fboundp #'tool-bar-mode)
   (tool-bar-mode 0))
 (menu-bar-mode 0)
 (when (fboundp #'scroll-bar-mode)
   (scroll-bar-mode 0))
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
-(setq-default indent-tabs-mode nil)
+(indent-tabs-mode -1)
 (global-font-lock-mode t)
 (column-number-mode t)
 (show-paren-mode 1)
@@ -34,7 +34,7 @@
 (ivy-mode t)
 (counsel-mode t)
 (amx-mode)
-(setq
+(setopt
    ivy-use-virtual-buffers t
    ivy-count-format "(%d/%d) "
    ivy-format-functions-alist
@@ -51,7 +51,7 @@
        (swiper-multi . swiper--all-format-function)
        (t . ivy-format-function-arrow)))
 
-(setq counsel-rg-base-command (append counsel-rg-base-command '("--hidden" "--glob" "!.git")))
+(setopt counsel-rg-base-command (append counsel-rg-base-command '("--hidden" "--glob" "!.git")))
 
 (keymap-global-set "C-c C-r" #'ivy-resume)
 (keymap-global-set "C-c g" #'counsel-git)
@@ -64,9 +64,9 @@
 (keymap-global-set "C-*" 'highlight-symbol-next)
 (keymap-global-set "C-#" 'highlight-symbol-prev)
 
-(setq browse-url-browser-function #'browse-url-chromium)
+(setopt browse-url-browser-function #'browse-url-chromium)
 
-(setq
+(setopt
   spacemacs-theme-org-bold nil
   spacemacs-theme-org-height nil)
 
@@ -113,8 +113,8 @@
 ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
 (require 'comint)
 ;; hide doas prompt
-(setq comint-password-prompt-regexp
-      (concat comint-password-prompt-regexp
+(setopt comint-password-prompt-regexp
+        (concat comint-password-prompt-regexp
               "\\|password: \\'"))
 
 (defun dtt ()
@@ -283,7 +283,7 @@ Examples:
 (defun rust-setup ()
   (setq formatter "rustfmt"))
 (add-hook 'rust-mode-hook #'rust-setup)
-(setq rustic-lsp-client 'eglot)
+(setopt rustic-lsp-client 'eglot)
 
 (require 'nix-mode)
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
