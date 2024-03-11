@@ -6,6 +6,8 @@
   (ring-bell-function #'ignore)
   (create-lockfiles nil)
   (cursor-type 'bar)
+  (frame-resize-pixelwise t "Don't leave empty boarders when maximixed on e.g. KDE")
+  (default-frame-alist '((fullscreen . maximized)) "Start in fullscreen")
 
   :hook
   ('before-save . #'delete-trailing-whitespace)
@@ -14,13 +16,13 @@
   (show-paren-mode 1)
 
   (menu-bar-mode 0)
-  (when (display-graphic-p)
-    (tool-bar-mode 0)
-    (scroll-bar-mode 0)
-    ;; start in fullscreen
-    (add-to-list 'default-frame-alist '(fullscreen . maximized))
-    ;; don't leave empty boarders when maximixed on e.g. KDE
-    (setopt frame-resize-pixelwise t))
+
+  ;; GUI specifics:
+  ;; Note that (display-graphic-p) does not work in case of emacs-server
+  (when (fboundp #'tool-bar-mode)
+    (tool-bar-mode 0))
+  (when (fboundp #'scroll-bar-mode)
+    (scroll-bar-mode 0))
 
   (when (fboundp #'set-fontset-font)
     (set-fontset-font t '(#x1f000 . #x1faff)
