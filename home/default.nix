@@ -65,12 +65,12 @@ in
           isync
           jq
           libarchive
+          nil
           nixpkgs-fmt
           nix-prefetch-scripts
           passage
           plan9port
           ripgrep
-          rnix-lsp
           texlive-full
           tmux
           typespeed
