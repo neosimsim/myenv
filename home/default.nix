@@ -161,19 +161,6 @@ in
 
     (lib.mkIf pkgs.stdenv.isDarwin {
       targets.darwin.search = "DuckDuckGo";
-
-      # Link manually until Home Manager enables it again
-      # https://github.com/nix-community/home-manager/blob/db00b39a9abec04245486a01b236b8d9734c9ad0/modules/targets/darwin/linkapps.nix
-      # https://github.com/nix-community/home-manager/issues/1341#issuecomment-687286866
-      home.file."Applications/Home Manager Apps".source =
-        let
-          apps = pkgs.buildEnv {
-            name = "home-manager-applications";
-            paths = config.home.packages;
-            pathsToLink = "/Applications";
-          };
-        in
-        "${apps}/Applications";
     })
 
     (lib.mkIf config.myenv.enableGuiTools {
