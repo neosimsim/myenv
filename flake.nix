@@ -183,6 +183,14 @@
         );
       }) // (
       let
+        mkHomePackage = homeConfig:
+
+          homeConfig.config.home.path // {
+            inherit (homeConfig.config) home-files;
+
+            pkgs = setByName homeConfig.config.home.packages;
+          };
+
         homePackage = system: myenv:
           let
             homeConfig = home-manager.lib.homeManagerConfiguration {
@@ -213,11 +221,7 @@
               ];
             };
           in
-          homeConfig.config.home.path // {
-            inherit (homeConfig.config) home-files;
-
-            pkgs = setByName homeConfig.config.home.packages;
-          };
+          mkHomePackage homeConfig;
       in
       {
         packages.x86_64-linux.withPlasma = homePackage "x86_64-linux" {
@@ -245,10 +249,7 @@
           enable = true;
         };
 
-        packages.aarch64-darwin.default = homePackage "aarch64-darwin" {
-          enable = true;
-          enableGuiTools = true;
-        };
+        packages.aarch64-darwin.default = mkHomePackage self.homeConfigurations.macbook;
 
         nixosModules.default = { config, ... }: {
 
