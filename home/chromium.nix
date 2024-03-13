@@ -1,10 +1,6 @@
 { pkgs, config, lib, ... }: with lib;
 {
   programs.chromium = rec {
-    enable =
-      config.myenv.enableGuiTools
-      && pkgs.stdenv.isLinux;
-
     package = pkgs.ungoogled-chromium;
     # https://github.com/nix-community/home-manager/issues/2216
     extensions =

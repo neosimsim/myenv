@@ -123,6 +123,7 @@
               ${checkPresent} $path/bin/firefox-esr
               ${checkPresent} $path/bin/chromium
               ${checkPresent} $path/bin/Afmt
+              ${checkPresent} $path/bin/mplayer
               ${checkPresent} $path/bin/ghc
               ${checkPresent} $path/bin/haskell-language-server-wrapper
               ${checkMissing} $path/bin/sway
@@ -300,13 +301,6 @@
                   stateVersion = "22.05";
                   username = "neosimsim";
                   homeDirectory = "/Users/neosimsim";
-                };
-
-                programs.home-manager.enable = true;
-
-                myenv = {
-                  enable = true;
-                  enableGuiTools = true;
                 };
               })
             ];
