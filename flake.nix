@@ -87,14 +87,8 @@
         checks = self.packages.${system} //
           (with nixpkgs.lib; mapAttrs'
             (name: pkgs: nameValuePair ("${name}-home-files") (pkgs.home-files))
-            self.packages.${system}) // {
-          # packages I added in overlay but not in home.packages:
-          ma = pkgs.ma;
-        } // nixpkgs.lib.optionalAttrs (system == flake-utils.lib.system.x86_64-linux) (
+            self.packages.${system}) // nixpkgs.lib.optionalAttrs (system == flake-utils.lib.system.x86_64-linux) (
           let
-            pkgs = import nixpkgs {
-              system = "x86_64-linux";
-            };
             checkPresent = pkgs.writeShellScript "checkPresent" ''
               if ! [ -f $1 ]; then
                 echo missing $1 >&2
@@ -115,6 +109,9 @@
             '';
           in
           {
+            # packages I added in overlay but not in home.packages:
+            ma = pkgs.ma;
+
             checkWithPlasma = pkgs.runCommand "test-myenv-with-plasma5"
               rec {
                 path = self.packages.x86_64-linux.withPlasma;
