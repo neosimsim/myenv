@@ -74,7 +74,6 @@
         brightnessctl
         swaylock
         swayidle
-        wl-clipboard
         mako
         wofi
         pulseaudio

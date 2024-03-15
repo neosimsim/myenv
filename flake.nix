@@ -112,7 +112,7 @@
             # packages I added in overlay but not in home.packages:
             ma = pkgs.ma;
 
-            checkWithPlasma = pkgs.runCommand "test-myenv-with-plasma5"
+            checkWithPlasma = pkgs.runCommand "test-myenv-with-plasma"
               rec {
                 path = self.packages.x86_64-linux.withPlasma;
                 homeFiles = path.home-files;
@@ -138,6 +138,33 @@
               echo successful >$out
             '';
 
+            checkWithPlasmaWayland = pkgs.runCommand "test-myenv-with-plasma-wayland"
+              rec {
+                path = self.packages.x86_64-linux.withPlasmaWayland;
+                homeFiles = path.home-files;
+              } ''
+              ${checkPresent} $path/bin/emacs
+              ${checkPresent} $path/bin/fm
+              ${checkPresent} $path/bin/do-the-thing
+              ${checkPresent} $path/bin/firefox-esr
+              ${checkPresent} $path/bin/chromium
+              ${checkPresent} $path/bin/Afmt
+              ${checkPresent} $path/bin/mplayer
+              ${checkPresent} $path/bin/ghc
+              ${checkPresent} $path/bin/wl-copy
+              ${checkPresent} $path/bin/haskell-language-server-wrapper
+              ${checkMissing} $path/bin/sway
+
+              ${checkPresent} $homeFiles/.config/git/config
+              ${checkMissing} $homeFiles/.Xresources
+              ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
+              ${checkPresent} $homeFiles/.ghci
+              ${checkPresentDir} $homeFiles/.config/chromium
+              ${checkPresent} $homeFiles/lib/plumbing
+
+              echo successful >$out
+            '';
+
             checkWithSway = pkgs.runCommand "test-myenv-with-sway"
               rec {
                 path = self.packages.x86_64-linux.withSway;
@@ -148,6 +175,7 @@
               ${checkPresent} $path/bin/do-the-thing
               ${checkPresent} $path/bin/sway
               ${checkPresent} $path/bin/Afmt
+              ${checkPresent} $path/bin/wl-copy
 
               ${checkPresent} $homeFiles/.config/git/config
               ${checkPresent} $homeFiles/.config/sway/config

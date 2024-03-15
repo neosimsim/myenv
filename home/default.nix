@@ -14,23 +14,19 @@ in
       type = types.bool;
       default = with config.myenv; useWayland || managePlasma;
     };
-
-    useWayland = mkOption {
-      type = types.bool;
-      default = false;
-    };
   };
 
   imports = [
-    ./linux.nix
+    ./chromium.nix
     ./darwin.nix
     ./emacs
-    ./git
-    ./plasma.nix
-    ./sway.nix
-    ./chromium.nix
     ./firefox.nix
     ./ghc.nix
+    ./git
+    ./linux.nix
+    ./plasma.nix
+    ./sway.nix
+    ./wayland.nix
   ];
 
   config = mkIf config.myenv.enable (lib.mkMerge [
