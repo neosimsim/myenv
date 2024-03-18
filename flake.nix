@@ -283,20 +283,20 @@
             home-manager.nixosModules.home-manager
           ];
 
-          nixpkgs.overlays = [
-            self.overlays.default
-            nur.overlay
-            emacs-overlay.overlay
-          ];
-
           home-manager = {
-            useGlobalPkgs = true;
+            useGlobalPkgs = false;
             useUserPackages = true;
 
             users.neosimsim = { ... }: {
               imports = [
                 plasma-manager.homeManagerModules.plasma-manager
                 ./home
+              ];
+
+              nixpkgs.overlays = [
+                self.overlays.default
+                nur.overlay
+                emacs-overlay.overlay
               ];
 
               home.stateVersion = "22.05";
