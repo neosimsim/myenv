@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    eglot-x = {
+      url = "github:nemethf/eglot-x";
+      flake = false;
+    };
+
     plasma-manager = {
       url = "github:pjones/plasma-manager";
       inputs = {
@@ -43,6 +48,7 @@
   outputs =
     { self
     , emacs-overlay
+    , eglot-x
     , flake-utils
     , home-manager
     , nixpkgs
@@ -222,8 +228,9 @@
             homeConfig = home-manager.lib.homeManagerConfiguration {
               pkgs = nixpkgs.legacyPackages.${system};
 
+              extraSpecialArgs = { inherit inputs; };
+
               modules = [
-                plasma-manager.homeManagerModules.plasma-manager
                 ./home
 
                 ({ pkgs, config, ... }: {
@@ -286,10 +293,10 @@
           home-manager = {
             useGlobalPkgs = false;
             useUserPackages = true;
+            extraSpecialArgs = { inherit inputs; };
 
             users.neosimsim = { ... }: {
               imports = [
-                plasma-manager.homeManagerModules.plasma-manager
                 ./home
               ];
 
@@ -315,8 +322,9 @@
           macbook = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
+            extraSpecialArgs = { inherit inputs; };
+
             modules = [
-              plasma-manager.homeManagerModules.plasma-manager
               ./home
 
               ({ pkgs, config, ... }: {

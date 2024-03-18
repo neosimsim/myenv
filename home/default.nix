@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }: with lib;
+{ pkgs, config, lib, inputs, ... }: with lib;
 let
   aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
 in
@@ -17,6 +17,8 @@ in
   };
 
   imports = [
+    inputs.plasma-manager.homeManagerModules.plasma-manager
+
     ./chromium.nix
     ./darwin.nix
     ./emacs

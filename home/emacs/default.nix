@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, inputs, ... }: {
   programs.emacs = {
     enable = true;
     package = with pkgs;
@@ -9,6 +9,10 @@
         if config.myenv.enableGuiTools
         then emacs-git
         else emacs-git-nox;
+
+    overrides = ethis: eprev: {
+      eglot-x = ethis.callPackage ./eglot-x.nix { inherit (inputs) eglot-x; };
+    };
 
     extraConfig = builtins.readFile ./init.el;
     extraPackages = epkgs: with epkgs; [
@@ -27,6 +31,7 @@
       osm
       vimgolf
 
+      eglot-x
       haskell-mode
       nix-mode
       json-mode

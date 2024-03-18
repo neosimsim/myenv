@@ -142,6 +142,11 @@
   (add-to-list 'eglot-server-programs
                '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls"))))
 
+(use-package eglot-x
+  :after (eglot)
+  :config
+  (eglot-x-setup))
+
 (use-package comint
   :custom
   ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell

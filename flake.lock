@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "eglot-x": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710500535,
+        "narHash": "sha256-wqmPaczWsdqCP5utKpgwNLQMUvmctt4YQ2RlaHFlzzA=",
+        "owner": "nemethf",
+        "repo": "eglot-x",
+        "rev": "347bcfc81d935d9c93235e69a7ceb21950a728d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nemethf",
+        "repo": "eglot-x",
+        "type": "github"
+      }
+    },
     "emacs-overlay": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -189,6 +205,7 @@
     },
     "root": {
       "inputs": {
+        "eglot-x": "eglot-x",
         "emacs-overlay": "emacs-overlay",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
