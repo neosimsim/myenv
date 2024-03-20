@@ -87,7 +87,7 @@
   :bind ("C-x C-b" . #'ibuffer))
 
 (use-package avy
-  :bind ("C-:" . #'ay-goto-char))
+  :bind ("C-:" . #'avy-goto-char))
 
 (use-package highlight-symbol
   :bind (("C-*" . #'highlight-symbol-next)
