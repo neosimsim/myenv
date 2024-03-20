@@ -39,6 +39,11 @@
   (set-mark-command-repeat-pop t)
   (column-number-mode t "Also show column of point in info bar"))
 
+(use-package magit
+  :custom
+  (magit-blame-echo-style 'show-lines
+			  "Show commit info before chunks. The default value 'lines just shows an empty line"))
+
 (use-package ivy
   :config
   (ivy-mode t)
