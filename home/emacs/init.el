@@ -142,11 +142,14 @@
 
 (add-to-list 'project-find-functions #'project-find-root)
 
+(defun my-eglot-managed-mode-hook ()
+  (eglot-inlay-hints-mode -1))
+
 (use-package eglot
   :config
   (add-to-list 'eglot-server-programs
                '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
-  (eglot-inlay-hints-mode -1))
+  (add-hook 'eglot-managed-mode-hook #'my-eglot-managed-mode-hook))
 
 (use-package eglot-x
   :after (eglot)
