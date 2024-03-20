@@ -145,7 +145,8 @@
 (use-package eglot
   :config
   (add-to-list 'eglot-server-programs
-               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls"))))
+               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
+  (eglot-inlay-hints-mode -1))
 
 (use-package eglot-x
   :after (eglot)
