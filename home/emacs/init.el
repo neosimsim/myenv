@@ -346,9 +346,9 @@ Examples:
 
 (setq org-html-checkbox-type 'unicode)
 (org-babel-do-load-languages
-  'org-babel-load-languages
-  '((emacs-lisp . t)
-    (shell . t)))
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (shell . t)))
 
 (use-package buffer-move
   :bind (("C-S-<up>"    . 'buf-move-up)
