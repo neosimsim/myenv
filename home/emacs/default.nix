@@ -31,6 +31,7 @@
       buffer-move
       osm
       vimgolf
+      nov
 
       eglot-x
       haskell-mode
