@@ -16,6 +16,7 @@
 
     extraConfig = builtins.readFile ./init.el;
     extraPackages = epkgs: with epkgs; [
+      treesit-grammars.with-all-grammars
       spacemacs-theme
       kaolin-themes
       ivy
@@ -42,7 +43,7 @@
       dhall-mode
       elm-mode
       erlang
-      elixir-mode
+      elixir-ts-mode
       alchemist
       rust-mode
       rustic

@@ -31,7 +31,9 @@
 (use-package files
   :custom
   (auto-save-default nil)
-  (make-backup-files nil))
+  (make-backup-files nil)
+  (major-mode-remap-alist
+	'((elixir-mode . elixir-ts-mode))))
 
 (use-package simple
   :custom
@@ -308,6 +310,13 @@ Examples:
 (defun fish-setup ()
   (local-set-key (kbd "C-x M-f") #'fish_indent))
 (add-hook 'fish-mode-hook #'fish-setup)
+
+(use-package elixir-ts-mode
+  :custom-face
+  (elixir-ts-atom ((t (:inherit font-lock-builtin-face))))
+  (elixir-ts-keyword-key ((t (:inherit font-lock-builtin-face))))
+  (elixir-ts-comment-doc-attribute ((t (:inherit elixir-ts-attribute))))
+  (elixir-ts-comment-doc-identifier ((t (:inherit elixir-ts-attribute)))))
 
 (defun elixir-setup ()
   (local-set-key (kbd "C-x M-f") #'elixir-format)
