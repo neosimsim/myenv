@@ -36,7 +36,9 @@
       eglot-x
       haskell-mode
       nix-mode
+      nix-ts-mode
       json-mode
+      jq-ts-mode
       fish-mode
       elpy
       pylint
@@ -50,6 +52,7 @@
       rustic
       rust-playground
       elisp-format
+      awk-ts-mode
 
       company
       yasnippet
