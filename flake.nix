@@ -282,7 +282,7 @@
           enable = true;
         };
 
-        packages.aarch64-darwin.default = mkHomePackage self.homeConfigurations.macbook;
+        packages.aarch64-darwin.default = mkHomePackage self.homeConfigurations.neosimsim;
 
         nixosModules.default = { config, ... }: {
 
@@ -319,7 +319,7 @@
         };
 
         homeConfigurations = {
-          macbook = home-manager.lib.homeManagerConfiguration {
+          neosimsim = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
             extraSpecialArgs = { inherit inputs; };
