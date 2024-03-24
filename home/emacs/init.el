@@ -95,10 +95,6 @@
   :bind (("C-*" . #'highlight-symbol-next)
 	 ("C-#" . #'highlight-symbol-prev)))
 
-(use-package browse-url
-  :custom
-  (browse-url-browser-function #'browse-url-chromium))
-
 (use-package ediff
   :custom
   (ediff-window-setup-function #'ediff-setup-windows-plain))
