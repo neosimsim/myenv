@@ -41,6 +41,11 @@
   (set-mark-command-repeat-pop t)
   (column-number-mode t "Also show column of point in info bar"))
 
+(use-package org
+  :bind (("C-c C-x C-o" . #'org-clock-out)
+	 ("C-c C-x C-j" . #'org-clock-goto)
+	 ("C-c C-x C-x" . #'org-clock-in-last)))
+
 (use-package magit
   :custom
   (magit-blame-echo-style 'show-lines
