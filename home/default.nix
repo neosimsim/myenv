@@ -48,6 +48,7 @@ in
           age
           aspell
           cabal-shell
+          rustup
           clisp
           dhall
           dhall-json
