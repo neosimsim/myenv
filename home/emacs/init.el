@@ -41,6 +41,11 @@
   (set-mark-command-repeat-pop t)
   (column-number-mode t "Also show column of point in info bar"))
 
+(use-package flymake
+  :bind (:map flymake-mode-map
+	      ("M-g M-n" . #'flymake-goto-next-error)
+	      ("M-g M-p" . #'flymake-goto-prev-error)))
+
 (use-package org
   :bind (("C-c C-x C-o" . #'org-clock-out)
 	 ("C-c C-x C-j" . #'org-clock-goto)
