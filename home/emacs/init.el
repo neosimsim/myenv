@@ -133,14 +133,14 @@
   :group 'project)
 
 (defun project-root-p (path)
-   ""
+   "Check if PATH is a project root."
    (catch 'found
      (dolist  (marker project-root-markers)
        (when (file-exists-p (concat path marker))
          (throw 'found marker)))))
 
 (defun project-find-root (path)
-   "Serach up for project root"
+   "Search up from PATH for project root."
    (when-let ((root (locate-dominating-file path #'project-root-p)))
      (cons 'transient (expand-file-name root))))
 
@@ -179,8 +179,10 @@ with multi package cabal projects or mix umbrella projects."
 (global-set-key [C-M-mouse-3] 'dtt)
 
 (defun pipe-shell-region (cmd start end)
-  "Pipe region to shell command and replace region with the output
-(combined stdout and stderr). The region is only replaced when the
+  "Pipe buffer from START to END through CMD.
+
+Region to shell command and replace region with the output,
+combined stdout and stderr.  The region is only replaced when the
 shell command exits 0, otherwise the commands output (combined
 stdout and stderr) is displayed in *Shell Command Output*."
   (let ((buffer (get-buffer-create (format "*Pipe Shell Region Output: %s*" cmd))))
@@ -199,7 +201,7 @@ stdout and stderr) is displayed in *Shell Command Output*."
   (find-file (substring (shell-command-to-string "date +'~/doc/tracking/%Y-%m'") 0 -1)))
 
 (defun x (regex fn)
-  "Like plan9 sam x
+  "Like plan9 sam x: x/REGEX/ FN.
 
 Loops over each mach on regex, set point to start of the
 match and applies start and end of the match to fn.
@@ -213,7 +215,7 @@ Examples:
   (lambda (start end)
     (insert-char ?E)))
 
-(x \"vim\" #'delete-region)
+(x \"vim\" delete-region)
 "
   (let ((pos (if mark-active
                  (min (point) (mark))
@@ -239,7 +241,9 @@ Examples:
     (&optional
      start
      end)
-  "Sends the range to the current tmux pane followed by Enter"
+  "Sends the range to the current tmux pane followed by Enter.
+
+When region is active send from START to END."
   (interactive "r")
   (call-process "tmux" nil nil nil "send-keys"
                 (buffer-substring-no-properties
@@ -261,7 +265,9 @@ Examples:
     (&optional
      start
      end)
-  "Apply shell command uni on region."
+  "Apply shell command uni on region.
+
+When region is active apply from START to END."
   (interactive "r")
   (pipe-shell-region "uni" start end))
 (keymap-global-set "C-c C-u" #'apply-uni-region)
@@ -289,28 +295,28 @@ Examples:
   (setq truncate-lines nil)) ;; Force line wrapping. I prefer this over visual-line-mode
 (add-hook 'text-mode-hook #'my-text-mode-hook)
 
-(defvar formatter "sed 's/[[:blank:]]*$//'"
+(defvar myenv-formatter "sed 's/[[:blank:]]*$//'"
   "Commands used by format-buffer")
-(make-variable-buffer-local 'formatter)
+(make-variable-buffer-local 'myenv-formatter)
 (defun format-buffer ()
-  "Format the current buffer using the shell command stored in formatter."
+  "Format the current buffer using the shell command stored in myenv-formatter."
   (interactive)
   (let ((p (point))
         (prev-point-max (point-max)))
-    (pipe-shell-region formatter (point-min) (point-max))
+    (pipe-shell-region myenv-formatter (point-min) (point-max))
     (goto-char (+ p (- (point-max) prev-point-max)))))
 (keymap-global-set "C-x M-f" #'format-buffer)
 
 (defun haskell-setup ()
-  (setq formatter "ormolu --no-cabal"))
+  (setq myenv-formatter "ormolu --no-cabal"))
 (add-hook 'haskell-mode-hook #'haskell-setup)
 
 (defun cabal-setup ()
-  (setq formatter "cabal-fmt"))
+  (setq myenv-formatter "cabal-fmt"))
 (add-hook 'haskell-cabal-mode-hook #'cabal-setup)
 
 (defun fish-setup ()
-  (local-set-key (kbd "C-x M-f") #'fish_indent))
+  (setq myenv-formatter "fish_indent"))
 (add-hook 'fish-mode-hook #'fish-setup)
 
 (use-package elixir-ts-mode
@@ -320,10 +326,12 @@ Examples:
   (elixir-ts-comment-doc-attribute ((t (:inherit elixir-ts-attribute))))
   (elixir-ts-comment-doc-identifier ((t (:inherit elixir-ts-attribute)))))
 
-(defun elixir-setup ()
-  (local-set-key (kbd "C-x M-f") #'elixir-format)
-  (modify-syntax-entry ?& "." elixir-mode-syntax-table))
-(add-hook 'elixir-mode-hook #'elixir-setup)
+(use-package elixir-mode
+  :config
+  (defun elixir-setup ()
+    (local-set-key (kbd "C-x M-f") #'elixir-format)
+    (modify-syntax-entry ?& "." elixir-mode-syntax-table))
+  (add-hook 'elixir-mode-hook #'elixir-setup))
 
 (defun term-setup ()
   (modify-syntax-entry ?: "_" term-mode-syntax-table)
@@ -331,13 +339,15 @@ Examples:
 (add-hook 'term-mode-hook #'term-setup)
 (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
 
-(defun python-setup ()
-  (elpy-enable)
-  (local-set-key (kbd "C-x M-f") #'elpy-format-code))
-(add-hook 'python-mode-hook #'python-setup)
+(use-package elpy
+  :config
+  (defun python-setup ()
+    (elpy-enable)
+    (local-set-key (kbd "C-x M-f") #'elpy-format-code))
+  (add-hook 'python-mode-hook #'python-setup))
 
 (defun rust-setup ()
-  (setq formatter "rustfmt"))
+  (setq myenv-formatter "rustfmt"))
 (add-hook 'rust-mode-hook #'rust-setup)
 
 (use-package rustic
@@ -348,7 +358,7 @@ Examples:
   :mode "\\.nix\\'")
 
 (defun nix-setup ()
-  (setq formatter "nixpkgs-fmt"))
+  (setq myenv-formatter "nixpkgs-fmt"))
 (add-hook 'nix-mode-hook #'nix-setup)
 
 (defun my-Info-mode-hook ()
