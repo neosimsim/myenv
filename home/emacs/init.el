@@ -56,6 +56,7 @@
   (ivy-mode t)
 
   :custom
+  (ivy-extra-directories ())
   (ivy-use-virtual-buffers t)
   (ivy-count-format "(%d/%d) ")
   (ivy-format-functions-alist
