@@ -10,7 +10,7 @@
   (default-frame-alist '((fullscreen . maximized)) "Start in fullscreen")
 
   :hook
-  ('before-save . #'delete-trailing-whitespace)
+  ('before-save . delete-trailing-whitespace)
 
   :config
   (show-paren-mode 1)
@@ -33,7 +33,7 @@
   (auto-save-default nil)
   (make-backup-files nil)
   (major-mode-remap-alist
-	'((elixir-mode . elixir-ts-mode))))
+   '((elixir-mode . elixir-ts-mode))))
 
 (use-package simple
   :custom
@@ -43,20 +43,25 @@
 
 (use-package flymake
   :bind (:map flymake-mode-map
-	      ("M-g M-n" . #'flymake-goto-next-error)
-	      ("M-g M-p" . #'flymake-goto-prev-error)))
+	      ("M-g M-n" . flymake-goto-next-error)
+	      ("M-g M-p" . flymake-goto-prev-error)))
 
 (use-package org
-  :bind (("C-c C-x C-o" . #'org-clock-out)
-	 ("C-c C-x C-j" . #'org-clock-goto)
-	 ("C-c C-x C-x" . #'org-clock-in-last)))
+  :bind (("C-c C-x C-o" . org-clock-out)
+	 ("C-c C-x C-j" . org-clock-goto)
+	 ("C-c C-x C-x" . org-clock-in-last)))
 
 (use-package magit
   :custom
   (magit-blame-echo-style 'show-lines
 			  "Show commit info before chunks. The default value 'lines just shows an empty line"))
 
+;; Ensure magit-extras for `magit-project-status'.
+(use-package magit-extras
+  :after (:any project magit))
+
 (use-package ivy
+  :demand t
   :config
   (ivy-mode t)
 
@@ -78,9 +83,10 @@
      (swiper-multi . swiper--all-format-function)
      (t . ivy-format-function-arrow)))
 
-  :bind (("C-c C-r" . #'ivy-resume)))
+  :bind (("C-c C-r" . ivy-resume)))
 
 (use-package counsel
+  :demand t
   :config
   (counsel-mode t)
 
@@ -88,8 +94,8 @@
   (counsel-rg-base-command '("rg" "--max-columns" "240" "--with-filename" "--no-heading"
 			     "--line-number" "--color" "never" "%s" "--hidden" "--glob" "!.git"))
 
-  :bind (("C-c g" . #'counsel-git)
-         ("C-c k" . #'counsel-rg)))
+  :bind (("C-c g" . counsel-git)
+         ("C-c k" . counsel-rg)))
 
 (use-package amx
   :config
@@ -97,14 +103,14 @@
 
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
 (use-package ibuffer
-  :bind ("C-x C-b" . #'ibuffer))
+  :bind ("C-x C-b" . ibuffer))
 
 (use-package avy
-  :bind ("C-:" . #'avy-goto-char))
+  :bind ("C-:" . avy-goto-char))
 
 (use-package highlight-symbol
-  :bind (("C-*" . #'highlight-symbol-next)
-	 ("C-#" . #'highlight-symbol-prev)))
+  :bind (("C-*" . highlight-symbol-next)
+	 ("C-#" . highlight-symbol-prev)))
 
 (use-package ediff
   :custom
@@ -113,64 +119,68 @@
 (use-package spacemacs-theme
   :custom
   (spacemacs-theme-org-bold nil)
-  (spacemacs-theme-org-height nil))
+  (spacemacs-theme-org-height nil)
 
-(defun only-theme (theme)
-  (dolist (theme (custom-available-themes))
-    (disable-theme theme))
+  :config
+  (defun only-theme (theme)
+    (dolist (theme (custom-available-themes))
+      (disable-theme theme))
     (load-theme theme 'no-confirm))
 
-(defun light-theme ()
-  (interactive)
-  (only-theme 'spacemacs-light))
+  (defun light-theme ()
+    (interactive)
+    (only-theme 'spacemacs-light))
 
-(defun dark-theme ()
-  (interactive)
-  (only-theme 'spacemacs-dark))
+  (defun dark-theme ()
+    (interactive)
+    (only-theme 'spacemacs-dark))
 
-(light-theme)
+  (light-theme))
 
-;; https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
-(defcustom project-root-markers
-  '("Cargo.lock" "mix.lock" ".git")
-  "File or directories that indicate the root of a project.
+(use-package project
+  :defer t
+  :config
+  ;; https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
+  (defcustom project-root-markers
+    '("Cargo.lock" "mix.lock" ".git")
+    "File or directories that indicate the root of a project.
 
 Sometimes a git repo consist of multiple projects, this function looks
 for special files and directories marking such project."
-  :type '(repeat string)
-  :group 'project)
+    :type '(repeat string)
+    :group 'project)
 
-(defun project-root-p (path)
-  "Check if PATH is a project root."
-  (catch 'found
-    (dolist  (marker project-root-markers)
-      (when (file-exists-p (concat path marker))
-        (throw 'found marker)))))
+  (defun project-root-p (path)
+    "Check if PATH is a project root."
+    (catch 'found
+      (dolist  (marker project-root-markers)
+	(when (file-exists-p (concat path marker))
+          (throw 'found marker)))))
 
-(defun project-find-root (path)
-  "Search up from PATH for project root.
+  (defun project-find-root (path)
+    "Search up from PATH for project root.
 
 This functions takes into account that a sub-folder of a git repo might
 be a sub-project root. In that case the sub-folder is returned as root
 but if under version control, it is still marked as such, so that the
 correct implementation for `project-files' is used and files ignored by
 version controller are excluded."
-  (when-let ((root (locate-dominating-file path #'project-root-p)))
-    (if (project-try-vc root)
-	(list 'vc 'Git (expand-file-name root))
-      (cons 'transient (expand-file-name root)))))
+    (when-let ((root (locate-dominating-file path #'project-root-p)))
+      (if (project-try-vc root)
+	  (list 'vc 'Git (expand-file-name root))
+	(cons 'transient (expand-file-name root)))))
 
-
-(add-to-list 'project-find-functions #'project-find-root)
-
-(defun my-eglot-managed-mode-hook ()
-  (eglot-inlay-hints-mode -1))
+  (add-to-list 'project-find-functions #'project-find-root))
 
 (use-package eglot
+  :defer t
   :config
+  (defun my-eglot-managed-mode-hook ()
+    (eglot-inlay-hints-mode -1))
+  (add-hook 'eglot-managed-mode-hook #'my-eglot-managed-mode-hook)
+
   (add-to-list 'eglot-server-programs
-               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
-  (add-hook 'eglot-managed-mode-hook #'my-eglot-managed-mode-hook))
+               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls"))))
 
 (use-package eglot-x
   :after (eglot)
@@ -178,6 +188,7 @@ version controller are excluded."
   (eglot-x-setup))
 
 (use-package comint
+  :defer t
   :custom
   ;; https://emacs.stackexchange.com/questions/21116/how-to-prevent-emacs-from-showing-passphrase-in-m-x-shell
   (comint-password-prompt-regexp (concat comint-password-prompt-regexp "\\|password: \\'") "hide doas prompt"))
@@ -205,12 +216,12 @@ stdout and stderr) is displayed in *Shell Command Output*."
   (let ((buffer (get-buffer-create (format "*Pipe Shell Region Output: %s*" cmd))))
     (with-current-buffer buffer (delete-region (point-min) (point-max)))
     (if (equal 0 (call-shell-region start end cmd nil buffer))
-      (progn (unless (string=
-                      (buffer-substring-no-properties start end)
-                      (with-current-buffer buffer (buffer-string)))
-               (delete-region start end)
-               (insert-buffer-substring buffer))
-             (kill-buffer buffer))
+	(progn (unless (string=
+			(buffer-substring-no-properties start end)
+			(with-current-buffer buffer (buffer-string)))
+		 (delete-region start end)
+		 (insert-buffer-substring buffer))
+               (kill-buffer buffer))
       (display-buffer buffer))))
 
 (defun track ()
@@ -236,10 +247,10 @@ Examples:
 "
   (let ((pos (if mark-active
                  (min (point) (mark))
-                 (point-min)))
+               (point-min)))
         (region-end (if mark-active
-                 (max (point) (mark))
-                 (point-max))))
+			(max (point) (mark))
+                      (point-max))))
     (while (> region-end (string-match regex (buffer-string) pos))
       (setq pos (match-end 0))
       (goto-char (+ 1 (match-beginning 0)))
@@ -293,30 +304,35 @@ When region is active apply from START to END."
   (interactive)
   (kill-new (if (buffer-file-name)
                 (buffer-file-name)
-                (buffer-name))))
+              (buffer-name))))
 
 (use-package move-text
   :config
   (move-text-default-bindings))
 
-(defun my-prog-mode-hook ()
-  (setq indicate-empty-lines t)
-  (setq show-trailing-whitespace t)
-  (display-line-numbers-mode t))
-(add-hook 'prog-mode-hook #'my-prog-mode-hook)
+(use-package prog-mode
+  :defer t
+  :config
+  (defun my-prog-mode-hook ()
+    (setq indicate-empty-lines t)
+    (setq show-trailing-whitespace t)
+    (display-line-numbers-mode t))
+  (add-hook 'prog-mode-hook #'my-prog-mode-hook))
 
-(defun my-text-mode-hook ()
-  (mixed-pitch-mode t)
-  (setq indicate-empty-lines t)
-  (setq show-trailing-whitespace t)
-  (setq truncate-lines nil)) ;; Force line wrapping. I prefer this over visual-line-mode
-(add-hook 'text-mode-hook #'my-text-mode-hook)
+(use-package text-mode
+  :defer t
+  :config
+  (defun my-text-mode-hook ()
+    (mixed-pitch-mode t)
+    (setq indicate-empty-lines t)
+    (setq show-trailing-whitespace t))
+  (add-hook 'text-mode-hook #'my-text-mode-hook))
 
 (defvar myenv-formatter "sed 's/[[:blank:]]*$//'"
   "Commands used by format-buffer")
 (make-variable-buffer-local 'myenv-formatter)
 (defun format-buffer ()
-  "Format the current buffer using the shell command stored in myenv-formatter."
+  "Format the current buffer using the shell command stored in `myenv-formatter'."
   (interactive)
   (let ((p (point))
         (prev-point-max (point-max)))
@@ -324,17 +340,26 @@ When region is active apply from START to END."
     (goto-char (+ p (- (point-max) prev-point-max)))))
 (keymap-global-set "C-x M-f" #'format-buffer)
 
-(defun haskell-setup ()
-  (setq myenv-formatter "ormolu --no-cabal"))
-(add-hook 'haskell-mode-hook #'haskell-setup)
+(use-package haskell-mode
+  :defer t
+  :config
+  (defun haskell-setup ()
+    (setq myenv-formatter "ormolu --no-cabal"))
+  (add-hook 'haskell-mode-hook #'haskell-setup))
 
-(defun cabal-setup ()
-  (setq myenv-formatter "cabal-fmt"))
-(add-hook 'haskell-cabal-mode-hook #'cabal-setup)
+(use-package haskell-cabal
+  :defer t
+  :config
+  (defun cabal-setup ()
+    (setq myenv-formatter "cabal-fmt"))
+  (add-hook 'haskell-cabal-mode-hook #'cabal-setup))
 
-(defun fish-setup ()
-  (setq myenv-formatter "fish_indent"))
-(add-hook 'fish-mode-hook #'fish-setup)
+(use-package fish-mode
+  :defer t
+  :config
+  (defun fish-setup ()
+    (setq myenv-formatter "fish_indent"))
+  (add-hook 'fish-mode-hook #'fish-setup))
 
 (use-package elixir-ts-mode
   :custom-face
@@ -344,57 +369,78 @@ When region is active apply from START to END."
   (elixir-ts-comment-doc-identifier ((t (:inherit elixir-ts-attribute)))))
 
 (use-package elixir-mode
+  :defer t
   :config
   (defun elixir-setup ()
     (local-set-key (kbd "C-x M-f") #'elixir-format)
     (modify-syntax-entry ?& "." elixir-mode-syntax-table))
   (add-hook 'elixir-mode-hook #'elixir-setup))
 
-(defun term-setup ()
-  (modify-syntax-entry ?: "_" term-mode-syntax-table)
-  (modify-syntax-entry ?. "_" term-mode-syntax-table))
-(add-hook 'term-mode-hook #'term-setup)
-(setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
+(use-package term
+  :defer
+  :config
+  (defun term-setup ()
+    (modify-syntax-entry ?: "_" term-mode-syntax-table)
+    (modify-syntax-entry ?. "_" term-mode-syntax-table))
+  (add-hook 'term-mode-hook #'term-setup)
+  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
 (use-package elpy
+  :defer t
   :config
   (defun python-setup ()
     (elpy-enable)
     (local-set-key (kbd "C-x M-f") #'elpy-format-code))
   (add-hook 'python-mode-hook #'python-setup))
 
-(defun rust-setup ()
-  (setq myenv-formatter "rustfmt"))
-(add-hook 'rust-mode-hook #'rust-setup)
+(use-package rust-mode
+  :defer t
+  :config
+  (defun rust-setup ()
+    (setq myenv-formatter "rustfmt"))
+  (add-hook 'rust-mode-hook #'rust-setup))
 
 (use-package rustic
+  :defer t
   :custom
   (rustic-lsp-client #'eglot))
 
 (use-package nix-mode
-  :mode "\\.nix\\'")
+  :mode "\\.nix\\'"
 
-(defun nix-setup ()
-  (setq myenv-formatter "nixpkgs-fmt"))
-(add-hook 'nix-mode-hook #'nix-setup)
+  :config
+  (defun nix-setup ()
+    (setq myenv-formatter "nixpkgs-fmt"))
+  (add-hook 'nix-mode-hook #'nix-setup))
 
-(defun my-Info-mode-hook ()
-  (mixed-pitch-mode t))
-(add-hook 'Info-mode-hook #'my-Info-mode-hook)
+(use-package info
+  :defer t
+  :config
+  (defun my-Info-mode-hook ()
+    (mixed-pitch-mode t))
+  (add-hook 'Info-mode-hook #'my-Info-mode-hook))
 
-(setq org-html-checkbox-type 'unicode)
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (shell . t)))
+(use-package org
+  :defer t
+  :config
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (shell . t))))
+
+(use-package ox-html
+  :defer t
+  :custom
+  (org-html-checkbox-type 'unicode))
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode))
 
 (use-package buffer-move
-  :bind (("C-S-<up>"    . 'buf-move-up)
-	 ("C-S-<down>"  . 'buf-move-down)
-	 ("C-S-<left>"  . 'buf-move-left)
-	 ("C-S-<right>" . 'buf-move-right)))
+  :bind (("C-S-<up>"    . buf-move-up)
+	 ("C-S-<down>"  . buf-move-down)
+	 ("C-S-<left>"  . buf-move-left)
+	 ("C-S-<right>" . buf-move-right)))
 
 (use-package elisp-format)
