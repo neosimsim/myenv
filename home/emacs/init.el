@@ -41,6 +41,17 @@
   (set-mark-command-repeat-pop t)
   (column-number-mode t "Also show column of point in info bar"))
 
+(use-package em-term
+  :defer t
+  :config
+  (add-to-list 'eshell-visual-subcommands '("git" . ("log" "diff" "show")))
+  (add-to-list 'eshell-visual-options '("git" . ("--help" "--paginate")))
+
+  (add-to-list 'eshell-visual-subcommands '("nix" . ("build" "shell")))
+  (add-to-list 'eshell-visual-options '("nix" . ("--help")))
+
+  (add-to-list 'eshell-visual-commands "home-manager"))
+
 (use-package flymake
   :bind (:map flymake-mode-map
 	      ("M-g M-n" . flymake-goto-next-error)
