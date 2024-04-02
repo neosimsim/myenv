@@ -21,14 +21,14 @@
         (createChromiumExtension {
           # https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
           id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
-          version = "1.43.0";
-          sha256 = "sha256:0izlm20b0bpjr98rw63c42zb04ky1mclg0da2xmj0kw3qichnpvg";
+          version = "1.57.0";
+          sha256 = "sha256:0fsygwn7rff79405fr96j89i9fx7w8dl3ix9045ymgm0mf3747pd";
         })
         (createChromiumExtension {
           # https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb
           id = "dbepggeogbaibhgnhhndojpepiihcmeb";
-          version = "1.67";
-          sha256 = "sha256:097axwrhn8g26kp25w86x71khaqcw3nb0ras9ndwqvdw3bpgkcd8";
+          version = "2.1.2";
+          sha256 = "sha256:0m8xski05w2r8igj675sxrlkzxlrl59j3a7m0r6c8pwcvka0r88d";
         })
       ];
   };
