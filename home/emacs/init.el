@@ -153,7 +153,7 @@
   :config
   ;; https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
   (defcustom project-root-markers
-    '("Cargo.lock" "mix.lock" ".git")
+    '(".git" "Cargo.lock" "mix.lock")
     "File or directories that indicate the root of a project.
 
 Sometimes a git repo consist of multiple projects, this function looks
