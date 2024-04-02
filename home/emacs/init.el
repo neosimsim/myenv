@@ -151,7 +151,7 @@
 (use-package project
   :defer t
   :config
-  ;; https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
+  ;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
   (defcustom project-root-markers
     '(".git" "Cargo.lock" "mix.lock")
     "File or directories that indicate the root of a project.
@@ -163,10 +163,7 @@ for special files and directories marking such project."
 
   (defun project-root-p (path)
     "Check if PATH is a project root."
-    (catch 'found
-      (dolist  (marker project-root-markers)
-	(when (file-exists-p (concat path marker))
-          (throw 'found marker)))))
+    (seq-find (lambda (marker) (file-exists-p (concat path marker))) project-root-markers))
 
   (defun project-find-root (path)
     "Search up from PATH for project root.
