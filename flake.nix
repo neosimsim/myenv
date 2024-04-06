@@ -307,6 +307,9 @@
                   username = "neosimsim";
                   homeDirectory = "/Users/neosimsim";
                 };
+
+                myenv.enable = true;
+                myenv.enableGuiTools = true;
               })
             ];
           };

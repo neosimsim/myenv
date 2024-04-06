@@ -13,7 +13,4 @@
   '';
 
   targets.darwin.search = "DuckDuckGo";
-
-  myenv.enable = true;
-  myenv.enableGuiTools = true;
 }
