@@ -132,7 +132,6 @@
               ${checkPresent} $path/bin/mplayer
               ${checkPresent} $path/bin/ghc
               ${checkPresent} $path/bin/haskell-language-server-wrapper
-              ${checkMissing} $path/bin/sway
 
               ${checkPresent} $homeFiles/.config/git/config
               ${checkPresent} $homeFiles/.Xresources
@@ -159,34 +158,12 @@
               ${checkPresent} $path/bin/ghc
               ${checkPresent} $path/bin/wl-copy
               ${checkPresent} $path/bin/haskell-language-server-wrapper
-              ${checkMissing} $path/bin/sway
 
               ${checkPresent} $homeFiles/.config/git/config
               ${checkMissing} $homeFiles/.Xresources
               ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
               ${checkPresent} $homeFiles/.ghci
               ${checkPresentDir} $homeFiles/.config/chromium
-              ${checkPresent} $homeFiles/lib/plumbing
-
-              echo successful >$out
-            '';
-
-            checkWithSway = pkgs.runCommand "test-myenv-with-sway"
-              rec {
-                path = self.packages.x86_64-linux.withSway;
-                homeFiles = path.home-files;
-              } ''
-              ${checkPresent} $path/bin/emacs
-              ${checkPresent} $path/bin/fm
-              ${checkPresent} $path/bin/do-the-thing
-              ${checkPresent} $path/bin/sway
-              ${checkPresent} $path/bin/Afmt
-              ${checkPresent} $path/bin/wl-copy
-
-              ${checkPresent} $homeFiles/.config/git/config
-              ${checkPresent} $homeFiles/.config/sway/config
-              ${checkMissing} $homeFiles/.Xresources
-              ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
               ${checkPresent} $homeFiles/lib/plumbing
 
               echo successful >$out
@@ -205,7 +182,6 @@
 
               ${checkPresent} $homeFiles/.config/git/config
               ${checkMissing} $homeFiles/.Xresources
-              ${checkMissing} $homeFiles/.config/sway/config
               ${checkMissing} $homeFiles/.mozilla/firefox/default/user.js
               ${checkMissing} $homeFiles/.config/chromium
 
@@ -272,12 +248,6 @@
           ghc.enable = true;
         };
 
-        packages.x86_64-linux.withSway = homePackage "x86_64-linux" {
-          enable = true;
-          enableGuiTools = true;
-          manageSway = true;
-        };
-
         packages.x86_64-linux.noX = homePackage "x86_64-linux" {
           enable = true;
         };
@@ -311,7 +281,6 @@
               myenv = {
                 enable = true;
                 enableGuiTools = config.services.xserver.enable;
-                manageSway = config.programs.sway.enable;
                 managePlasma = config.services.xserver.desktopManager.plasma5.enable;
               };
             };

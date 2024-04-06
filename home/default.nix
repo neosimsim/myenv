@@ -27,7 +27,6 @@ in
     ./git
     ./linux.nix
     ./plasma.nix
-    ./sway.nix
     ./wayland.nix
   ];
 
