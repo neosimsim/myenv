@@ -1,4 +1,5 @@
-{ pkgs, lib, config, ... }: lib.mkIf pkgs.stdenv.isDarwin {
+{ pkgs, lib, config, ... }:
+lib.mkIf pkgs.stdenv.isDarwin {
 
   home.packages = with pkgs; [
     # Add nix to ensure it matches this flake and so it's added to emacs PATH.
@@ -6,6 +7,7 @@
   ];
 
   programs.home-manager.enable = true;
+
   programs.emacs.extraConfig = ''
     (setq explicit-shell-file-name "${config.programs.fish.package}/bin/fish")
     (setenv "PATH" (concat "${config.home.profileDirectory}/bin:" (getenv "PATH")))

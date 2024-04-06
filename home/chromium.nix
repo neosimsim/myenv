@@ -1,6 +1,11 @@
-{ pkgs, config, lib, ... }: with lib;
+{ pkgs, config, lib, ... }:
 {
   programs.chromium = rec {
+    enable =
+      pkgs.stdenv.isLinux
+      && config.myenv.enable
+      && config.myenv.guiSupport;
+
     package = pkgs.ungoogled-chromium;
     # https://github.com/nix-community/home-manager/issues/2216
     extensions =

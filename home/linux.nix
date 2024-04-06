@@ -1,8 +1,5 @@
-{ pkgs, lib, config, ... }: lib.mkIf pkgs.stdenv.isLinux {
-
-  programs.firefox.enable = config.myenv.guiSupport;
-  programs.chromium.enable = config.myenv.guiSupport;
-
+{ pkgs, lib, config, ... }:
+lib.mkIf pkgs.stdenv.isLinux {
   home.packages = with pkgs; lib.optionals config.myenv.guiSupport [
     alacritty
     klavaro

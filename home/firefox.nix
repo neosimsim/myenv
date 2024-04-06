@@ -1,6 +1,11 @@
-{ pkgs, lib, ... }: with lib;
+{ pkgs, lib, config, ... }: with lib;
 {
   programs.firefox = {
+    enable =
+      pkgs.stdenv.isLinux
+      && config.myenv.enable
+      && config.myenv.guiSupport;
+
     package = pkgs.firefox-esr.override {
       extraPolicies = {
         SearchEngines = {
