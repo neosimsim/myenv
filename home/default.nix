@@ -10,7 +10,7 @@ in
       default = false;
     };
 
-    enableGuiTools = mkOption {
+    guiSupport = mkOption {
       type = types.bool;
       default = with config.myenv; useWayland || managePlasma;
     };
@@ -104,7 +104,7 @@ in
           GOBIN = "$HOME/bin";
           FZF_DEFAULT_COMMAND = "fd --type file --follow --hidden --exclude .git";
           FZF_CTRL_T_COMMAND = "$FZF_DEFAULT_COMMAND";
-        } // (lib.optionalAttrs (! config.myenv.enableGuiTools) {
+        } // (lib.optionalAttrs (! config.myenv.guiSupport) {
           EDITOR = "emacsclient -ca  ''";
         });
 
@@ -160,7 +160,7 @@ in
       };
     }
 
-    (lib.mkIf config.myenv.enableGuiTools {
+    (lib.mkIf config.myenv.guiSupport {
       home = {
         sessionVariables = {
           EDITOR = "emacsclient -a ''";

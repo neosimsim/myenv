@@ -6,7 +6,7 @@
       # use emacs Pure GTK to make use of Wayland scaling
       then emacs-pgtk
       else
-        if config.myenv.enableGuiTools
+        if config.myenv.guiSupport
         then emacs-git
         else emacs-git-nox;
 

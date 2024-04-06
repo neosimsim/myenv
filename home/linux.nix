@@ -1,9 +1,9 @@
 { pkgs, lib, config, ... }: lib.mkIf pkgs.stdenv.isLinux {
 
-  programs.firefox.enable = config.myenv.enableGuiTools;
-  programs.chromium.enable = config.myenv.enableGuiTools;
+  programs.firefox.enable = config.myenv.guiSupport;
+  programs.chromium.enable = config.myenv.guiSupport;
 
-  home.packages = with pkgs; lib.optionals config.myenv.enableGuiTools [
+  home.packages = with pkgs; lib.optionals config.myenv.guiSupport [
     alacritty
     klavaro
     mplayer
@@ -13,7 +13,7 @@
     zathura
   ];
 
-  home.sessionVariables = lib.optionalAttrs config.myenv.enableGuiTools {
+  home.sessionVariables = lib.optionalAttrs config.myenv.guiSupport {
     XDG_DESKTOP_DIR = "$HOME";
     XDG_DOCUMENTS_DIR = "$HOME/doc";
     XDG_DOWNLOAD_DIR = "$HOME/Downloads";
@@ -24,7 +24,7 @@
     XDG_VIDEOS_DIR = "$HOME/Videos";
   };
 
-  xresources.properties = lib.optionalAttrs (config.myenv.enableGuiTools && !config.myenv.useWayland) {
+  xresources.properties = lib.optionalAttrs (config.myenv.guiSupport && !config.myenv.useWayland) {
     "Xft.autohint" = 0;
     "Xft.lcdfilter" = "lcddefault";
     "Xft.hintstyle" = "hintslight";

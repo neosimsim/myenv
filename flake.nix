@@ -235,14 +235,14 @@
       {
         packages.x86_64-linux.withPlasma = homePackage "x86_64-linux" {
           enable = true;
-          enableGuiTools = true;
+          guiSupport = true;
           managePlasma = true;
           ghc.enable = true;
         };
 
         packages.x86_64-linux.withPlasmaWayland = homePackage "x86_64-linux" {
           enable = true;
-          enableGuiTools = true;
+          guiSupport = true;
           managePlasma = true;
           useWayland = true;
           ghc.enable = true;
@@ -280,7 +280,7 @@
 
               myenv = {
                 enable = true;
-                enableGuiTools = config.services.xserver.enable;
+                guiSupport = config.services.xserver.enable;
                 managePlasma = config.services.xserver.desktopManager.plasma5.enable;
               };
             };
@@ -309,7 +309,7 @@
                 };
 
                 myenv.enable = true;
-                myenv.enableGuiTools = true;
+                myenv.guiSupport = true;
               })
             ];
           };

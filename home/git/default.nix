@@ -2,7 +2,7 @@
   programs.git = {
     enable = true;
     package =
-      if config.myenv.enableGuiTools
+      if config.myenv.guiSupport
       then pkgs.gitFull
       else pkgs.git;
     attributes = [
