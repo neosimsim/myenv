@@ -1,5 +1,3 @@
-# To find out configurations use:
-# nix run github:pjones/plasma-manager
 { config, lib, pkgs, ... }: with lib;
 {
   options = {
@@ -24,6 +22,8 @@
       merge.tool = "kompare";
     };
 
+    # To find out configurations use:
+    # nix run github:pjones/plasma-manager
     programs.plasma = {
       enable = true;
 
