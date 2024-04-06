@@ -8,6 +8,8 @@
   };
 
   config = mkIf config.myenv.managePlasma {
+    myenv.guiSupport = true;
+
     home.sessionVariables = {
       PLASMA_USE_QT_SCALING = 1;
     };

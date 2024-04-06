@@ -235,14 +235,12 @@
       {
         packages.x86_64-linux.withPlasma = homePackage "x86_64-linux" {
           enable = true;
-          guiSupport = true;
           managePlasma = true;
           ghc.enable = true;
         };
 
         packages.x86_64-linux.withPlasmaWayland = homePackage "x86_64-linux" {
           enable = true;
-          guiSupport = true;
           managePlasma = true;
           useWayland = true;
           ghc.enable = true;
