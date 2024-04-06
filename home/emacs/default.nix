@@ -1,6 +1,6 @@
 { pkgs, config, inputs, ... }: {
   programs.emacs = {
-    enable = true;
+    enable = config.myenv.enable;
     package = with pkgs;
       if config.myenv.useWayland
       # use emacs Pure GTK to make use of Wayland scaling
