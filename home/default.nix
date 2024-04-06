@@ -111,7 +111,6 @@ in
         # don't use sessionPath because I want to prefix PATH
         sessionVariablesExtra = ''
           PATH=$HOME/bin:$PATH
-          PATH=$HOME/bin/aliases:$PATH
           export PATH
         '';
 
