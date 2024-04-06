@@ -36,13 +36,13 @@ let
 in
 {
   options = {
-    myenv.ghc.enable = mkOption {
+    myenv.manageGhc = mkOption {
       type = types.bool;
       default = false;
     };
   };
 
-  config = mkIf config.myenv.ghc.enable {
+  config = mkIf config.myenv.manageGhc {
     home.packages = [
       ghc
     ] ++ (with pkgs; [

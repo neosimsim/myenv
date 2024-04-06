@@ -21,7 +21,7 @@ lib.mkIf (pkgs.stdenv.isLinux && config.myenv.enable) {
     XDG_VIDEOS_DIR = "$HOME/Videos";
   };
 
-  xresources.properties = lib.optionalAttrs (config.myenv.guiSupport && !config.myenv.useWayland) {
+  xresources.properties = lib.optionalAttrs (config.myenv.guiSupport && !config.myenv.manageWayland) {
     "Xft.autohint" = 0;
     "Xft.lcdfilter" = "lcddefault";
     "Xft.hintstyle" = "hintslight";

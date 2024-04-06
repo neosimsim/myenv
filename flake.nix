@@ -236,14 +236,14 @@
         packages.x86_64-linux.withPlasma = homePackage "x86_64-linux" {
           enable = true;
           managePlasma = true;
-          ghc.enable = true;
+          manageGhc = true;
         };
 
         packages.x86_64-linux.withPlasmaWayland = homePackage "x86_64-linux" {
           enable = true;
           managePlasma = true;
-          useWayland = true;
-          ghc.enable = true;
+          manageWayland = true;
+          manageGhc = true;
         };
 
         packages.x86_64-linux.noX = homePackage "x86_64-linux" {

@@ -3,7 +3,7 @@
   options.myenv = {
     guiSupport = lib.mkOption {
       type = lib.types.bool;
-      default = with config.myenv; useWayland || managePlasma;
+      default = with config.myenv; manageWayland || managePlasma;
     };
   };
 
