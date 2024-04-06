@@ -1,9 +1,10 @@
 { pkgs, config, ... }: {
   programs.git = {
     enable = true;
-    package = pkgs.git.override {
-      guiSupport = config.myenv.enableGuiTools;
-    };
+    package =
+      if config.myenv.enableGuiTools
+      then pkgs.gitFull
+      else pkgs.git;
     attributes = [
       "*.gz diff=compressed"
       "*.bz2 diff=compressed"
