@@ -83,10 +83,6 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [
-            self.overlays.default
-            emacs-overlay.overlays.default
-          ];
         };
       in
       {
@@ -115,9 +111,6 @@
             '';
           in
           {
-            # packages I added in overlay but not in home.packages:
-            ma = pkgs.ma;
-
             checkWithPlasma = pkgs.runCommand "test-myenv-with-plasma"
               rec {
                 path = self.packages.x86_64-linux.withPlasma;
