@@ -203,12 +203,6 @@
                 ./home
 
                 ({ pkgs, config, ... }: {
-                  nixpkgs.overlays = [
-                    self.overlays.default
-                    nur.overlay
-                    emacs-overlay.overlay
-                  ];
-
                   home = {
                     stateVersion = "22.05";
                     username = "neosimsim";
@@ -261,12 +255,6 @@
                 ./home
               ];
 
-              nixpkgs.overlays = [
-                self.overlays.default
-                nur.overlay
-                emacs-overlay.overlay
-              ];
-
               home.stateVersion = "22.05";
 
               myenv = {
@@ -288,11 +276,6 @@
               ./home
 
               ({ pkgs, config, ... }: {
-                nixpkgs.overlays = [
-                  self.overlays.default
-                  emacs-overlay.overlay
-                ];
-
                 home = {
                   stateVersion = "22.05";
                   username = "neosimsim";

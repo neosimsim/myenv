@@ -38,6 +38,12 @@ in
       ];
     };
 
+    nixpkgs.overlays = with inputs; [
+      self.overlays.default
+      emacs-overlay.overlay
+      nur.overlay
+    ];
+
     home = {
       packages = with pkgs; [
         age
