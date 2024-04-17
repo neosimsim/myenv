@@ -6,6 +6,7 @@ lib.mkIf (pkgs.stdenv.isLinux && config.myenv.enable) {
     mplayer
     signal-desktop
     superTux
+    texlive-full
     xsel
     zathura
   ];

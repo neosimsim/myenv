@@ -72,7 +72,6 @@ in
         passage
         plan9port
         ripgrep
-        texlive-full
         typespeed
         unzip
         utils-go
