@@ -1,37 +1,9 @@
 { pkgs, config, lib, ... }: with lib;
 let
-  ghc = pkgs.haskellPackages.ghc.withHoogle (p: with p; [
+  ghc = pkgs.haskellPackages.ghc.withPackages (p: with p; [
     # Preinstall zlib to help cabal. Otherwise builds will
     # complain about missing zlib.h.
     zlib
-
-    # Quality of life libraries for ghci
-    aeson
-    containers
-    extra
-    filelock
-    filepath
-    flow
-    lens
-    lens-aeson
-    pidfile
-    optparse-applicative
-    typed-process
-    QuickCheck
-    raw-strings-qq
-    regex-tdfa
-    string-interpolate
-    wreq
-
-    # Preinstall common used lib to speed up nix builds.
-    bifunctors
-    concurrency
-    dejafu
-    hspec
-    markdown-unlit
-    profunctors
-    safe
-    semigroupoids
   ]);
 in
 {
