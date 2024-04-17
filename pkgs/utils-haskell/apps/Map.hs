@@ -9,7 +9,7 @@ module Main
   )
 where
 
-import Control.Applicative (Alternative, liftA2, many)
+import Control.Applicative (Alternative, many)
 import qualified Data.ByteString.Lazy.UTF8 as BL (toString)
 import Data.Finite (Finite, packFinite)
 import Data.List.NonEmpty as List (NonEmpty ((:|)))
