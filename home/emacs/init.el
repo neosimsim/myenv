@@ -60,7 +60,21 @@
 (use-package org
   :bind (("C-c C-x C-o" . org-clock-out)
 	 ("C-c C-x C-j" . org-clock-goto)
-	 ("C-c C-x C-x" . org-clock-in-last)))
+	 ("C-c C-x C-x" . org-clock-in-last))
+
+  :custom
+  (org-modules '(ol-doi
+		 ol-w3m
+		 ol-bbdb
+		 ol-bibtex
+		 ol-docview
+		 ol-gnus
+		 org-habit
+		 ol-info
+		 ol-irc
+		 ol-mhe
+		 ol-rmail
+		 ol-eww)))
 
 (use-package magit
   :custom
