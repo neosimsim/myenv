@@ -17,6 +17,9 @@
 
   (menu-bar-mode 0)
 
+  ;; Enforce US time locale to ensure compatibilisy of Org Mode timestamps with Plain Org.
+  (setq system-time-locale "en_US.UTF-8")
+
   ;; GUI specifics:
   ;; Note that (display-graphic-p) does not work in case of emacs-server
   (when (fboundp #'tool-bar-mode)
@@ -60,7 +63,8 @@
 (use-package org
   :bind (("C-c C-x C-o" . org-clock-out)
 	 ("C-c C-x C-j" . org-clock-goto)
-	 ("C-c C-x C-x" . org-clock-in-last))
+	 ("C-c C-x C-x" . org-clock-in-last)
+	 ([remap org-set-tags-command] . counsel-org-tag))
 
   :custom
   (org-modules '(ol-doi
@@ -74,7 +78,25 @@
 		 ol-irc
 		 ol-mhe
 		 ol-rmail
-		 ol-eww)))
+		 ol-eww))
+
+  (org-todo-keywords
+   '((sequence "TODO(t)" "NEXT(n!/!)" "|" "DONE(d!/!)")))
+
+  (org-agenda-start-with-log-mode t)
+  (org-log-done t)
+  (org-log-into-drawer t)
+
+  (org-agenda-custom-commands '(("d" "Dashboard"
+				 ((agenda "")
+				  (alltodo "")))
+
+
+				("n" "Next Tasks" todo "NEXT"
+				 ((org-agenda-overriding-header "Next Tasks")))
+
+				("w" "Work TODOs" tags-todo "work"
+				 ((org-agenda-overriding-header "Work TODOs"))))))
 
 (use-package magit
   :custom
