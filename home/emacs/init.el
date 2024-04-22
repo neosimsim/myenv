@@ -6,7 +6,7 @@
   (ring-bell-function #'ignore)
   (create-lockfiles nil)
   (cursor-type 'bar)
-  (frame-resize-pixelwise t "Don't leave empty boarders when maximixed on e.g. KDE")
+  (frame-resize-pixelwise t "Don't leave empty boarders when maximized on e.g. KDE")
   (default-frame-alist '((fullscreen . maximized)) "Start in fullscreen")
 
   :hook
@@ -17,7 +17,7 @@
 
   (menu-bar-mode 0)
 
-  ;; Enforce US time locale to ensure compatibilisy of Org Mode timestamps with Plain Org.
+  ;; Enforce US time locale to ensure compatibility of Org Mode timestamps with Plain Org.
   (setq system-time-locale "en_US.UTF-8")
 
   ;; GUI specifics:
