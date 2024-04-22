@@ -98,6 +98,13 @@
 				("w" "Work TODOs" tags-todo "work"
 				 ((org-agenda-overriding-header "Work TODOs"))))))
 
+(use-package git-commit
+  :defer t
+  :config
+  (defun my-git-commit-mode-hook ()
+    (flyspell-mode))
+  (add-hook 'git-commit-mode-hook #'my-git-commit-mode-hook))
+
 (use-package magit
   :custom
   (magit-blame-echo-style 'show-lines
