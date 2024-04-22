@@ -169,18 +169,15 @@
   (spacemacs-theme-org-height nil)
 
   :config
-  (defun only-theme (theme)
-    (dolist (theme (custom-available-themes))
-      (disable-theme theme))
-    (load-theme theme 'no-confirm))
-
   (defun light-theme ()
     (interactive)
-    (only-theme 'spacemacs-light))
+    (load-theme 'spacemacs-light t)
+    (disable-theme 'spacemacs-dark))
 
   (defun dark-theme ()
     (interactive)
-    (only-theme 'spacemacs-dark))
+    (load-theme 'spacemacs-dark t)
+    (disable-theme 'spacemacs-light))
 
   (light-theme))
 
