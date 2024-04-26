@@ -69,6 +69,7 @@ in
         nil
         nixpkgs-fmt
         nix-prefetch-scripts
+        pandoc
         passage
         plan9port
         ripgrep
@@ -86,7 +87,6 @@ in
       ]) ++ (with haskellPackages; [
         hconv
         hookmark
-        pandoc
       ]) ++ (with python3Packages; [
         # tools for emacs' elpy
         flake8
