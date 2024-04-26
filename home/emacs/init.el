@@ -96,7 +96,13 @@
 				 ((org-agenda-overriding-header "Next Tasks")))
 
 				("w" "Work TODOs" tags-todo "work"
-				 ((org-agenda-overriding-header "Work TODOs"))))))
+				 ((org-agenda-overriding-header "Work TODOs")))))
+
+  (org-capture-templates '(("t" "Task" entry (file "~/notes/todo.org")
+			    "" :empty-lines 1)
+			   ("o" "Offenen Fragen" entry (clock)
+			    "" :empty-lines 1))))
+
 
 (use-package git-commit
   :defer t
