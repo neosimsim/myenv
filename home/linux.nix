@@ -2,6 +2,7 @@
 lib.mkIf (pkgs.stdenv.isLinux && config.myenv.enable) {
   home.packages = with pkgs; lib.optionals config.myenv.guiSupport [
     alacritty
+    gnugo
     klavaro
     mplayer
     signal-desktop

@@ -17,6 +17,7 @@
     home.packages = with pkgs; [
       kalendar
       kompare
+      kigo
     ];
 
     programs.git.extraConfig = {
