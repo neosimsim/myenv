@@ -49,6 +49,7 @@ in
         age
         aspell
         cabal-shell
+        cargo-outdated
         rustup
         clisp
         dhall
