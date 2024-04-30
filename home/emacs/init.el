@@ -63,10 +63,13 @@
 	      ("M-g M-p" . flymake-goto-prev-error)))
 
 (use-package org
-  :bind (("C-c C-x C-o" . org-clock-out)
-	 ("C-c C-x C-j" . org-clock-goto)
-	 ("C-c C-x C-x" . org-clock-in-last)
-	 ([remap org-set-tags-command] . counsel-org-tag))
+  :bind (("C-c a" . org-agenda)
+         ("C-c c" . org-capture)
+         ("C-c l" . org-store-link)
+         ("C-c C-x C-o" . org-clock-out)
+         ("C-c C-x C-j" . org-clock-goto)
+         ("C-c C-x C-x" . org-clock-in-last)
+         ([remap org-set-tags-command] . counsel-org-tag))
 
   :custom
   (org-modules '(ol-doi
