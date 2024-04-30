@@ -70,14 +70,14 @@
 
   :custom
   (org-modules '(ol-doi
-		 ol-w3m
-		 ol-bbdb
-		 ol-bibtex
-		 ol-docview
-		 ol-gnus
-		 org-habit
-		 ol-info
-		 ol-irc
+                 ol-w3m
+                 ol-bbdb
+                 ol-bibtex
+                 ol-docview
+                 ol-gnus
+                 org-habit
+                 ol-info
+                 ol-irc
 		 ol-mhe
 		 ol-rmail
 		 ol-eww))
@@ -405,6 +405,13 @@ When region is active apply from START to END."
     (pipe-shell-region myenv-formatter (point-min) (point-max))
     (goto-char (+ p (- (point-max) prev-point-max)))))
 (keymap-global-set "C-x M-f" #'format-buffer)
+
+(use-package elisp-mode
+  :defer t
+  :config
+  (defun elisp-setup ()
+    (indent-tabs-mode)
+  (add-hook 'elisp-mode-hook #'elisp-setup)))
 
 (use-package haskell-mode
   :defer t
