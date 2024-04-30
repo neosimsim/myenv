@@ -103,8 +103,18 @@
   (org-capture-templates '(("t" "Task" entry (file "~/notes/todo.org")
 			    "" :empty-lines 1)
 			   ("o" "Offenen Fragen" entry (clock)
-			    "" :empty-lines 1))))
+			    "" :empty-lines 1)))
+			    
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (shell . t))))
 
+(use-package ox-html
+  :defer t
+  :custom
+  (org-html-checkbox-type 'unicode))
 
 (use-package git-commit
   :defer t
@@ -477,20 +487,6 @@ When region is active apply from START to END."
   (defun my-Info-mode-hook ()
     (mixed-pitch-mode t))
   (add-hook 'Info-mode-hook #'my-Info-mode-hook))
-
-(use-package org
-  :defer t
-  :config
-
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (shell . t))))
-
-(use-package ox-html
-  :defer t
-  :custom
-  (org-html-checkbox-type 'unicode))
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode))
