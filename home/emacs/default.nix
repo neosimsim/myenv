@@ -30,6 +30,7 @@
       move-text
       buffer-move
       osm
+      org-cliplink
       nov
 
       eglot-x

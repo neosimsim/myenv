@@ -94,25 +94,35 @@
 
   (org-agenda-custom-commands '(("d" "Dashboard"
 				 ((agenda "")
-				  (alltodo "")))
-
+				  (todo "NEXT"
+					((org-agenda-overriding-header "Next Tasks")))
+				  (alltodo ""
+					   ((org-agenda-overriding-header "Add TODOs")))))
 
 				("n" "Next Tasks" todo "NEXT"
 				 ((org-agenda-overriding-header "Next Tasks")))
 
 				("w" "Work TODOs" tags-todo "work"
 				 ((org-agenda-overriding-header "Work TODOs")))))
-
-  (org-capture-templates '(("t" "Task" entry (file "~/notes/todo.org")
-			    "" :empty-lines 1)
-			   ("o" "Offenen Fragen" entry (clock)
-			    "" :empty-lines 1)))
-			    
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
      (shell . t))))
+
+(use-package org-capture
+  :defer t
+  :custom
+  (org-capture-templates '(("t" "Task" entry (file "~/notes/todo.org")
+			    "" :empty-lines 1)
+
+			   ("o" "Offenen Fragen" entry (clock)
+			    "" :empty-lines 1)
+
+			   ("b" "Bookmark link from clipboard" entry (file "~/notes/links.org")
+			    "* %(org-cliplink-capture)"
+			    :immediate-finish t
+			    :jump-to-captured t))))
 
 (use-package ox-html
   :defer t
