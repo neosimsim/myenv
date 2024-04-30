@@ -448,11 +448,17 @@ When region is active apply from START to END."
   (add-hook 'fish-mode-hook #'fish-setup))
 
 (use-package elixir-ts-mode
+  :defer t
   :custom-face
   (elixir-ts-atom ((t (:inherit font-lock-builtin-face))))
   (elixir-ts-keyword-key ((t (:inherit font-lock-builtin-face))))
   (elixir-ts-comment-doc-attribute ((t (:inherit elixir-ts-attribute))))
-  (elixir-ts-comment-doc-identifier ((t (:inherit elixir-ts-attribute)))))
+  (elixir-ts-comment-doc-identifier ((t (:inherit elixir-ts-attribute))))
+
+  :config
+  (defun elixir-setup ()
+    (local-set-key (kbd "C-x M-f") #'elixir-format))
+  (add-hook 'elixir-ts-mode-hook #'elixir-setup))
 
 (use-package elixir-mode
   :defer t
