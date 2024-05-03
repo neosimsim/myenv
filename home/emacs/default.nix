@@ -58,7 +58,6 @@
       yasnippet
 
       vimgolf
-      gnugo
 
       # have a look into
       shackle # recommended in https://robert.kra.hn/posts/rust-emacs-setup/#additional-packages
