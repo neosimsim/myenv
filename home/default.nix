@@ -79,13 +79,7 @@ in
         utils-go
         utils-haskell
         utils-scripts
-      ] ++ (with elmPackages; [
-        elm
-        elm-format
-        elm-language-server
-        elm-review
-        elm-test
-      ]) ++ (with haskellPackages; [
+      ] ++ (with haskellPackages; [
         hconv
         hookmark
       ]) ++ (with python3Packages; [
