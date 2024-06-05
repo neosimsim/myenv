@@ -168,7 +168,9 @@
      (swiper-multi . swiper--all-format-function)
      (t . ivy-format-function-arrow)))
 
-  :bind (("C-c C-r" . ivy-resume)))
+  :bind (("C-c C-r" . ivy-resume)
+	 :map ivy-mode-map
+	 ("C-<return>" . ivy-immediate-done)))
 
 (use-package counsel
   :demand t
