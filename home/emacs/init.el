@@ -263,7 +263,10 @@ version controller are excluded."
   (add-hook 'eglot-managed-mode-hook #'my-eglot-managed-mode-hook)
 
   (add-to-list 'eglot-server-programs
-               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls"))))
+               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
+
+  :bind (:map eglot-mode-map
+	      ("C-x M-f" . eglot-format-buffer)))
 
 (use-package eglot-x
   :after (eglot)
