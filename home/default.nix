@@ -88,6 +88,8 @@ in
 
         black
         pylint
+      ]) ++ (with nodePackages; [
+        typescript-language-server
       ]);
 
       sessionVariables = {

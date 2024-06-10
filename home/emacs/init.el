@@ -38,7 +38,9 @@
   (auto-save-default nil)
   (make-backup-files nil)
   (major-mode-remap-alist
-   '((elixir-mode . elixir-ts-mode))))
+   '((elixir-mode . elixir-ts-mode)
+     (js-mode . js-ts-mode)
+     (typescript-mode . typescrips-ts-mode))))
 
 (use-package simple
   :custom
@@ -508,6 +510,9 @@ When region is active apply from START to END."
   (defun nix-setup ()
     (setq myenv-formatter "nixpkgs-fmt"))
   (add-hook 'nix-mode-hook #'nix-setup))
+
+(use-package typescript-ts-mode
+  :mode "\\.ts\\'")
 
 (use-package info
   :defer t

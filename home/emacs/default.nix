@@ -38,6 +38,7 @@
       nix-mode
       nix-ts-mode
       json-mode
+      typescript-mode
       jq-ts-mode
       fish-mode
       elpy
