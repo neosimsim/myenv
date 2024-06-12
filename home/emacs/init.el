@@ -39,6 +39,7 @@
   (make-backup-files nil)
   (major-mode-remap-alist
    '((elixir-mode . elixir-ts-mode)
+     (json-mode . json-ts-mode)
      (js-mode . js-ts-mode)
      (typescript-mode . typescrips-ts-mode))))
 
@@ -266,7 +267,10 @@ version controller are excluded."
                '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
 
   :bind (:map eglot-mode-map
-	      ("C-x M-f" . eglot-format-buffer)))
+	      ("C-x M-f" . eglot-format-buffer))
+  :hook ((js-ts-mode . eglot-ensure)
+	 (tsx-ts-mode . eglot-ensure)
+	 (typescript-ts-mode . eglot-ensure)))
 
 (use-package eglot-x
   :after (eglot)
@@ -515,7 +519,27 @@ When region is active apply from START to END."
   (add-hook 'nix-mode-hook #'nix-setup))
 
 (use-package typescript-ts-mode
-  :mode "\\.ts\\'")
+  :mode "\\.ts\\'"
+  :config
+  (defun typescript-ts-setup ()
+    (setq tab-width 2)
+    (indent-tabs-mode -1))
+  (add-hook 'typescript-ts-mode-hook #'typescript-ts-setup))
+
+(use-package js-ts-mode
+  :mode "\\.js\\'"
+  :config
+  (defun js-ts-setup ()
+    (setq tab-width 2)
+    (indent-tabs-mode -1))
+  (add-hook 'js-ts-mode-hook #'js-ts-setup))
+
+(use-package json-ts-mode
+  :config
+  (defun json-ts-setup ()
+    (setq tab-width 2)
+    (indent-tabs-mode -1))
+  (add-hook 'json-ts-mode-hook #'json-ts-setup))
 
 (use-package info
   :defer t
