@@ -82,12 +82,6 @@ in
       ] ++ (with haskellPackages; [
         hconv
         hookmark
-      ]) ++ (with python3Packages; [
-        # tools for emacs' elpy
-        flake8
-
-        black
-        pylint
       ]) ++ (with nodePackages; [
         typescript-language-server
       ]);

@@ -489,16 +489,6 @@ When region is active apply from START to END."
   (add-hook 'term-mode-hook #'term-setup)
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
-(use-package elpy
-  ;; currently fails to install with nix, because of
-  ;; Error: Wrong type argument: arrayp, ...
-  :disabled t
-  :defer t
-  :config
-  (defun python-setup ()
-    (elpy-enable)
-    (local-set-key (kbd "C-x M-f") #'elpy-format-code)))
-
 (use-package rust-mode
   :defer t
   :config
