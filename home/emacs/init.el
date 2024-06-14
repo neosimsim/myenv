@@ -39,6 +39,7 @@
   (make-backup-files nil)
   (major-mode-remap-alist
    '((elixir-mode . elixir-ts-mode)
+     (python-mode . python-ts-mode)
      (json-mode . json-ts-mode)
      (js-mode . js-ts-mode)
      (typescript-mode . typescrips-ts-mode))))
