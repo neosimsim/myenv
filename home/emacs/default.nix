@@ -16,6 +16,7 @@
 
     extraConfig = builtins.readFile ./init.el;
     extraPackages = epkgs: with epkgs; [
+      # (sort-lines nil (string-match "^" (buffer-string) (point)) (string-match "^$" (buffer-string) (point)))
       alchemist
       amx
       avy
