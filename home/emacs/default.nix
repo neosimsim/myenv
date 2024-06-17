@@ -44,6 +44,7 @@
       nov
       org-cliplink
       osm
+      poetry
       pylint
       rust-mode
       rust-playground
