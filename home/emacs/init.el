@@ -531,3 +531,9 @@ When region is active apply from START to END."
 	 ("C-S-<right>" . buf-move-right)))
 
 (use-package elisp-format)
+
+(use-package python
+  :config
+  (defun my-python-mode-hook ()
+    (setq  project-root-markers '(".git" "pyproject.toml")))
+  (add-hook 'python-ts-mode-hook #'my-python-mode-hook))
