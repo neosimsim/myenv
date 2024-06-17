@@ -31,7 +31,7 @@
 
   (when (fboundp #'set-fontset-font)
     (set-fontset-font t '(#x1f000 . #x1faff)
-                      (font-spec :family "Noto Color Emoji"))))
+		      (font-spec :family "Noto Color Emoji"))))
 
 (use-package files
   :custom
@@ -68,23 +68,23 @@
 
 (use-package org
   :bind (("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
-         ("C-c l" . org-store-link)
-         ("C-c C-x C-o" . org-clock-out)
-         ("C-c C-x C-j" . org-clock-goto)
-         ("C-c C-x C-x" . org-clock-in-last)
-         ([remap org-set-tags-command] . counsel-org-tag))
+	 ("C-c c" . org-capture)
+	 ("C-c l" . org-store-link)
+	 ("C-c C-x C-o" . org-clock-out)
+	 ("C-c C-x C-j" . org-clock-goto)
+	 ("C-c C-x C-x" . org-clock-in-last)
+	 ([remap org-set-tags-command] . counsel-org-tag))
 
   :custom
   (org-modules '(ol-doi
-                 ol-w3m
-                 ol-bbdb
-                 ol-bibtex
-                 ol-docview
-                 ol-gnus
-                 org-habit
-                 ol-info
-                 ol-irc
+		 ol-w3m
+		 ol-bbdb
+		 ol-bibtex
+		 ol-docview
+		 ol-gnus
+		 org-habit
+		 ol-info
+		 ol-irc
 		 ol-mhe
 		 ol-rmail
 		 ol-eww))
@@ -186,7 +186,7 @@
 			     "--line-number" "--color" "never" "%s" "--hidden" "--glob" "!.git"))
 
   :bind (("C-c g" . counsel-git)
-         ("C-c k" . counsel-rg)))
+	 ("C-c k" . counsel-rg)))
 
 (use-package amx
   :config
@@ -265,7 +265,7 @@ version controller are excluded."
   (add-hook 'eglot-managed-mode-hook #'my-eglot-managed-mode-hook)
 
   (add-to-list 'eglot-server-programs
-               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
+	       '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
 
   :bind (:map eglot-mode-map
 	      ("C-x M-f" . eglot-format-buffer))
@@ -312,7 +312,7 @@ stdout and stderr) is displayed in *Shell Command Output*."
 			(with-current-buffer buffer (buffer-string)))
 		 (delete-region start end)
 		 (insert-buffer-substring buffer))
-               (kill-buffer buffer))
+	       (kill-buffer buffer))
       (display-buffer buffer))))
 
 (defun track ()
@@ -337,11 +337,11 @@ Examples:
 (x \"vim\" delete-region)
 "
   (let ((pos (if mark-active
-                 (min (point) (mark))
-               (point-min)))
-        (region-end (if mark-active
+		 (min (point) (mark))
+	       (point-min)))
+	(region-end (if mark-active
 			(max (point) (mark))
-                      (point-max))))
+		      (point-max))))
     (while (> region-end (string-match regex (buffer-string) pos))
       (setq pos (match-end 0))
       (goto-char (+ 1 (match-beginning 0)))
@@ -351,10 +351,10 @@ Examples:
   "Sends filename to plumber"
   (interactive)
   (call-process "9" nil nil nil
-                "plumb"
-                "-d" "edit"
-                "-a" (concat "addr=#" (number-to-string (- (point) 1)))
-                (buffer-file-name)))
+		"plumb"
+		"-d" "edit"
+		"-a" (concat "addr=#" (number-to-string (- (point) 1)))
+		(buffer-file-name)))
 
 (defun send-to-tmux-region
     (&optional
@@ -365,10 +365,10 @@ Examples:
 When region is active send from START to END."
   (interactive "r")
   (call-process "tmux" nil nil nil "send-keys"
-                (buffer-substring-no-properties
-                 start
-                 end)
-                "Enter"))
+		(buffer-substring-no-properties
+		 start
+		 end)
+		"Enter"))
 (defalias 'tm #'send-to-tmux-region)
 
 (defun tmux-git ()
@@ -394,8 +394,8 @@ When region is active apply from START to END."
 (defun copy-buffer-name ()
   (interactive)
   (kill-new (if (buffer-file-name)
-                (buffer-file-name)
-              (buffer-name))))
+		(buffer-file-name)
+	      (buffer-name))))
 
 (use-package move-text
   :config
@@ -426,7 +426,7 @@ When region is active apply from START to END."
   "Format the current buffer using the shell command stored in `myenv-formatter'."
   (interactive)
   (let ((p (point))
-        (prev-point-max (point-max)))
+	(prev-point-max (point-max)))
     (pipe-shell-region myenv-formatter (point-min) (point-max))
     (goto-char (+ p (- (point-max) prev-point-max)))))
 (keymap-global-set "C-x M-f" #'format-buffer)
@@ -434,9 +434,14 @@ When region is active apply from START to END."
 (use-package elisp-mode
   :defer t
   :config
-  (defun elisp-setup ()
-    (indent-tabs-mode)
-  (add-hook 'elisp-mode-hook #'elisp-setup)))
+
+  (defun my-emacs-lisp-on-save-hook()
+    (tabify (point-min) (point-max)))
+
+  (defun my-emacs-lisp-mode-hook()
+    (add-hook 'before-save-hook #'my-emacs-lisp-on-save-hook nil t))
+
+  (add-hook 'emacs-lisp-mode-hook #'my-emacs-lisp-mode-hook))
 
 (use-package haskell-mode
   :defer t
@@ -543,9 +548,9 @@ When region is active apply from START to END."
   :mode ("\\.epub\\'" . nov-mode))
 
 (use-package buffer-move
-  :bind (("C-S-<up>"    . buf-move-up)
-	 ("C-S-<down>"  . buf-move-down)
-	 ("C-S-<left>"  . buf-move-left)
+  :bind (("C-S-<up>"	. buf-move-up)
+	 ("C-S-<down>"	. buf-move-down)
+	 ("C-S-<left>"	. buf-move-left)
 	 ("C-S-<right>" . buf-move-right)))
 
 (use-package elisp-format)
