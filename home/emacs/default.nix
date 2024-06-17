@@ -16,49 +16,46 @@
 
     extraConfig = builtins.readFile ./init.el;
     extraPackages = epkgs: with epkgs; [
-      treesit-grammars.with-all-grammars
-      spacemacs-theme
-      kaolin-themes
-      ivy
-      counsel
+      alchemist
       amx
-      highlight-symbol
-      magit
-      htmlize
-      mixed-pitch
       avy
-      move-text
+      awk-ts-mode
       buffer-move
-      osm
-      org-cliplink
-      nov
-
+      company
+      counsel
+      dhall-mode
       eglot-x
+      elisp-format
+      elixir-ts-mode
+      elm-mode
+      elpy
+      erlang
+      fish-mode
       haskell-mode
+      highlight-symbol
+      htmlize
+      isortify
+      ivy
+      jq-ts-mode
+      json-mode
+      kaolin-themes
+      magit
+      mixed-pitch
+      move-text
       nix-mode
       nix-ts-mode
-      json-mode
-      typescript-mode
-      jq-ts-mode
-      fish-mode
-      elpy
+      nov
+      org-cliplink
+      osm
       pylint
-      isortify
-      dhall-mode
-      elm-mode
-      erlang
-      elixir-ts-mode
-      alchemist
       rust-mode
-      rustic
       rust-playground
-      elisp-format
-      awk-ts-mode
-
-      company
-      yasnippet
-
+      rustic
+      spacemacs-theme
+      treesit-grammars.with-all-grammars
+      typescript-mode
       vimgolf
+      yasnippet
 
       # have a look into
       shackle # recommended in https://robert.kra.hn/posts/rust-emacs-setup/#additional-packages
