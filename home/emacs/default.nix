@@ -25,10 +25,8 @@
       counsel
       dhall-mode
       eglot-x
-      elisp-format
       elixir-ts-mode
       elm-mode
-      elpy
       erlang
       fish-mode
       haskell-mode
@@ -36,9 +34,7 @@
       htmlize
       isortify
       ivy
-      jq-ts-mode
       json-mode
-      kaolin-themes
       magit
       mixed-pitch
       move-text
@@ -54,7 +50,6 @@
       spacemacs-theme
       treesit-grammars.with-all-grammars
       typescript-mode
-      vimgolf
       yasnippet
 
       # have a look into

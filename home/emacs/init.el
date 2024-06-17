@@ -530,8 +530,6 @@ When region is active apply from START to END."
 	 ("C-S-<left>"	. buf-move-left)
 	 ("C-S-<right>" . buf-move-right)))
 
-(use-package elisp-format)
-
 (use-package python
   :config
   (defun my-python-mode-hook ()
