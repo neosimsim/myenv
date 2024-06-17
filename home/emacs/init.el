@@ -39,10 +39,7 @@
   (make-backup-files nil)
   (major-mode-remap-alist
    '((elixir-mode . elixir-ts-mode)
-     (python-mode . python-ts-mode)
-     (json-mode . json-ts-mode)
-     (js-mode . js-ts-mode)
-     (typescript-mode . typescrips-ts-mode))))
+     (python-mode . python-ts-mode))))
 
 (use-package simple
   :custom
@@ -230,7 +227,7 @@
   :config
   ;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
   (defcustom project-root-markers
-    '(".git" "Cargo.lock" "mix.lock" "tsconfig.json")
+    '(".git" "Cargo.lock" "mix.lock")
     "File or directories that indicate the root of a project.
 
 Sometimes a git repo consist of multiple projects, this function looks
@@ -268,10 +265,7 @@ version controller are excluded."
 	       '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
 
   :bind (:map eglot-mode-map
-	      ("C-x M-f" . eglot-format-buffer))
-  :hook ((js-ts-mode . eglot-ensure)
-	 (tsx-ts-mode . eglot-ensure)
-	 (typescript-ts-mode . eglot-ensure)))
+	      ("C-x M-f" . eglot-format-buffer)))
 
 (use-package eglot-x
   :after (eglot)
@@ -513,29 +507,6 @@ When region is active apply from START to END."
   (defun nix-setup ()
     (setq myenv-formatter "nixpkgs-fmt"))
   (add-hook 'nix-mode-hook #'nix-setup))
-
-(use-package typescript-ts-mode
-  :mode "\\.ts\\'"
-  :config
-  (defun typescript-ts-setup ()
-    (setq tab-width 2)
-    (indent-tabs-mode -1))
-  (add-hook 'typescript-ts-mode-hook #'typescript-ts-setup))
-
-(use-package js-ts-mode
-  :mode "\\.js\\'"
-  :config
-  (defun js-ts-setup ()
-    (setq tab-width 2)
-    (indent-tabs-mode -1))
-  (add-hook 'js-ts-mode-hook #'js-ts-setup))
-
-(use-package json-ts-mode
-  :config
-  (defun json-ts-setup ()
-    (setq tab-width 2)
-    (indent-tabs-mode -1))
-  (add-hook 'json-ts-mode-hook #'json-ts-setup))
 
 (use-package info
   :defer t
