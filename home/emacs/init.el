@@ -227,13 +227,15 @@
   :config
   ;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
   (defcustom project-root-markers
-    '(".git" "Cargo.lock" "mix.lock")
+    '(".git")
     "File or directories that indicate the root of a project.
 
 Sometimes a git repo consist of multiple projects, this function looks
 for special files and directories marking such project."
     :type '(repeat string)
     :group 'project)
+
+  (make-variable-buffer-local 'project-root-markers)
 
   (defun project-root-p (path)
     "Check if PATH is a project root."
@@ -468,7 +470,9 @@ When region is active apply from START to END."
 
   :config
   (defun elixir-setup ()
+    (setq  project-root-markers '(".git" "mix.lock"))
     (local-set-key (kbd "C-x M-f") #'elixir-format))
+
   (add-hook 'elixir-ts-mode-hook #'elixir-setup))
 
 (use-package elixir-mode
@@ -492,7 +496,9 @@ When region is active apply from START to END."
   :defer t
   :config
   (defun rust-setup ()
+    (setq  project-root-markers '(".git" "Cargo.lock"))
     (setq myenv-formatter "rustfmt"))
+
   (add-hook 'rust-mode-hook #'rust-setup))
 
 (use-package rustic
