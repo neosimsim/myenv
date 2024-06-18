@@ -425,7 +425,7 @@ When region is active apply from START to END."
 	(prev-point-max (point-max)))
     (pipe-shell-region myenv-formatter (point-min) (point-max))
     (goto-char (+ p (- (point-max) prev-point-max)))))
-(keymap-global-set "C-x M-f" #'format-buffer)
+(bind-key "C-x M-f" #'format-buffer)
 
 (use-package elisp-mode
   :defer t
