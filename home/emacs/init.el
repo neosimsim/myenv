@@ -267,7 +267,7 @@ version controller are excluded."
 	       '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
 
   :bind (:map eglot-mode-map
-	      ("C-x M-f" . eglot-format-buffer)))
+	      ([remap format-buffer] . eglat-format-buffer)))
 
 (use-package eglot-x
   :after (eglot)
@@ -468,10 +468,12 @@ When region is active apply from START to END."
   (elixir-ts-comment-doc-attribute ((t (:inherit elixir-ts-attribute))))
   (elixir-ts-comment-doc-identifier ((t (:inherit elixir-ts-attribute))))
 
+  :bind (:map elixir-ts-mode-map
+	      ([remap format-buffer] . elixir-format))
+
   :config
   (defun elixir-setup ()
-    (setq  project-root-markers '(".git" "mix.lock"))
-    (local-set-key (kbd "C-x M-f") #'elixir-format))
+    (setq  project-root-markers '(".git" "mix.lock")))
 
   (add-hook 'elixir-ts-mode-hook #'elixir-setup))
 
