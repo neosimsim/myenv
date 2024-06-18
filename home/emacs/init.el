@@ -475,14 +475,6 @@ When region is active apply from START to END."
 
   (add-hook 'elixir-ts-mode-hook #'elixir-setup))
 
-(use-package elixir-mode
-  :defer t
-  :config
-  (defun elixir-setup ()
-    (local-set-key (kbd "C-x M-f") #'elixir-format)
-    (modify-syntax-entry ?& "." elixir-mode-syntax-table))
-  (add-hook 'elixir-mode-hook #'elixir-setup))
-
 (use-package term
   :defer t
   :config
