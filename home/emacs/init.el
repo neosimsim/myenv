@@ -267,7 +267,7 @@ version controller are excluded."
 	       '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
 
   :bind (:map eglot-mode-map
-	      ([remap format-buffer] . eglat-format-buffer)))
+	      ([remap format-buffer] . eglot-format-buffer)))
 
 (use-package eglot-x
   :after (eglot)
