@@ -185,6 +185,10 @@
   :bind (("C-c g" . counsel-git)
 	 ("C-c k" . counsel-rg)))
 
+(use-package swiper
+  :bind
+  ("C-S-s" . swiper))
+
 (use-package amx
   :config
   (amx-mode 1))
