@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # https://github.com/arcticicestudio/nord-emacs/issues/59
-emacsclient -e '(light-theme)' -c -a '' "$@"
+emacsclient -e '(color-theme-sanityinc-tomorrow-day)' -c -a '' "$@"

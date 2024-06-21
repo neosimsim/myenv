@@ -209,6 +209,7 @@
   (ediff-window-setup-function #'ediff-setup-windows-plain))
 
 (use-package spacemacs-theme
+  :disabled
   :custom
   (spacemacs-theme-org-bold nil)
   (spacemacs-theme-org-height nil)
@@ -225,6 +226,10 @@
     (disable-theme 'spacemacs-light))
 
   (light-theme))
+
+(use-package color-theme-sanityinc-tomorrow
+  :config
+  (color-theme-sanityinc-tomorrow-day))
 
 (use-package project
   :defer t

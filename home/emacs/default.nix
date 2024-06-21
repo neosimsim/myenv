@@ -38,6 +38,8 @@
       json-mode
       magit
       mixed-pitch
+      monokai-theme
+      color-theme-sanityinc-tomorrow
       move-text
       nix-mode
       nix-ts-mode
