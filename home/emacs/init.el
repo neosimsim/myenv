@@ -228,8 +228,13 @@
   (light-theme))
 
 (use-package color-theme-sanityinc-tomorrow
+  :disabled
   :config
   (color-theme-sanityinc-tomorrow-day))
+
+(use-package leuven-theme
+  :config
+  (load-theme 'leuven t))
 
 (use-package project
   :defer t

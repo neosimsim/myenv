@@ -22,6 +22,7 @@
       avy
       awk-ts-mode
       buffer-move
+      color-theme-sanityinc-tomorrow
       company
       counsel
       dhall-mode
@@ -36,10 +37,11 @@
       isortify
       ivy
       json-mode
+      leuven-theme
       magit
+      material-theme
       mixed-pitch
       monokai-theme
-      color-theme-sanityinc-tomorrow
       move-text
       nix-mode
       nix-ts-mode
