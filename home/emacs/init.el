@@ -543,3 +543,7 @@ When region is active apply from START to END."
   (defun my-python-mode-hook ()
     (setq  project-root-markers '(".git" "pyproject.toml")))
   (add-hook 'python-ts-mode-hook #'my-python-mode-hook))
+
+(use-package vc-hooks
+  :custom
+  (vc-display-status nil))
