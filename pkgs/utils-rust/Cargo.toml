@@ -11,3 +11,4 @@ name = "dtt"
 path = "src/bin/do-the-thing.rs"
 
 [dependencies]
+pretty_assertions = "1.4.0"
