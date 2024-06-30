@@ -12,3 +12,4 @@ path = "src/bin/do-the-thing.rs"
 
 [dependencies]
 pretty_assertions = "1.4.0"
+regex = "1.10.5"
