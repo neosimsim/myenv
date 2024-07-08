@@ -16,6 +16,7 @@
 
   :config
   (show-paren-mode 1)
+  (global-display-line-numbers-mode)
 
   (menu-bar-mode 0)
 
@@ -417,8 +418,7 @@ When region is active apply from START to END."
   :config
   (defun my-prog-mode-hook ()
     (setq indicate-empty-lines t)
-    (setq show-trailing-whitespace t)
-    (display-line-numbers-mode t))
+    (setq show-trailing-whitespace t))
   (add-hook 'prog-mode-hook #'my-prog-mode-hook))
 
 (use-package text-mode
