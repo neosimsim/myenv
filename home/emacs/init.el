@@ -548,3 +548,5 @@ When region is active apply from START to END."
 (use-package vc-hooks
   :custom
   (vc-display-status nil))
+
+(use-package yaml-ts-mode)
