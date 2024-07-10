@@ -36,7 +36,6 @@
       htmlize
       isortify
       ivy
-      json-mode
       leuven-theme
       magit
       material-theme
