@@ -42,7 +42,6 @@
       mixed-pitch
       monokai-theme
       move-text
-      nix-mode
       nix-ts-mode
       nov
       org-cliplink

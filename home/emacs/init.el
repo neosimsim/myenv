@@ -516,13 +516,13 @@ When region is active apply from START to END."
   :custom
   (rustic-lsp-client #'eglot))
 
-(use-package nix-mode
+(use-package nix-ts-mode
   :mode "\\.nix\\'"
 
   :config
   (defun nix-setup ()
     (setq myenv-formatter "nixpkgs-fmt"))
-  (add-hook 'nix-mode-hook #'nix-setup))
+  (add-hook 'nix-ts-mode-hook #'nix-setup))
 
 (use-package info
   :defer t
