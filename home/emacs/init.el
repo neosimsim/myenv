@@ -509,7 +509,11 @@ When region is active apply from START to END."
     (setq  project-root-markers '(".git" "Cargo.lock"))
     (setq myenv-formatter "rustfmt"))
 
-  (add-hook 'rust-mode-hook #'rust-setup))
+  (add-hook 'rust-mode-hook #'rust-setup)
+
+  :bind (:map rust-mode-map
+	      ([remap forward-paragraph] . rust-end-of-defun)
+	      ([remap backward-paragraph] . rust-beginning-of-defun)))
 
 (use-package rustic
   :defer t
