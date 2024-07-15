@@ -558,3 +558,7 @@ When region is active apply from START to END."
   (vc-display-status nil))
 
 (use-package yaml-ts-mode)
+
+(use-package company
+  :config
+  (global-company-mode))
