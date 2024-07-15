@@ -289,7 +289,6 @@ version controller are excluded."
 	      ([remap format-buffer] . eglot-format-buffer)))
 
 (use-package eglot-x
-  :disabled
   :after (eglot)
   :config
   (eglot-x-setup))
