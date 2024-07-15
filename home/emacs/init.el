@@ -236,7 +236,10 @@
 
 (use-package leuven-theme
   :config
-  (load-theme 'leuven t))
+  (load-theme 'leuven t)
+
+  :custom-face
+  (eglot-mode-line ((t (:inherit (mode-line-emphasis))))))
 
 (use-package project
   :defer t
