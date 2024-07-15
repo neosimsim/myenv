@@ -241,38 +241,38 @@
   :custom-face
   (eglot-mode-line ((t (:inherit (mode-line-emphasis))))))
 
-(use-package project
-  :defer t
-  :config
-  ;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
-  (defcustom project-root-markers
-    '(".git")
-    "File or directories that indicate the root of a project.
+;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
+(defcustom project-root-markers
+  '(".git")
+  "File or directories that indicate the root of a project.
 
 Sometimes a git repo consist of multiple projects, this function looks
 for special files and directories marking such project."
-    :type '(repeat string)
-    :group 'project)
+  :type '(repeat string)
+  :group 'project)
 
-  (make-variable-buffer-local 'project-root-markers)
+(make-variable-buffer-local 'project-root-markers)
 
-  (defun project-root-p (path)
-    "Check if PATH is a project root."
-    (seq-find (lambda (marker) (file-exists-p (concat path marker))) project-root-markers))
+(defun project-root-p (path)
+  "Check if PATH is a project root."
+  (seq-find (lambda (marker) (file-exists-p (concat path marker))) project-root-markers))
 
-  (defun project-find-root (path)
-    "Search up from PATH for project root.
+(defun project-find-root (path)
+  "Search up from PATH for project root.
 
 This functions takes into account that a sub-folder of a git repo might
 be a sub-project root. In that case the sub-folder is returned as root
 but if under version control, it is still marked as such, so that the
 correct implementation for `project-files' is used and files ignored by
 version controller are excluded."
-    (when-let ((root (locate-dominating-file path #'project-root-p)))
-      (if (project-try-vc root)
-	  (list 'vc 'Git (expand-file-name root))
-	(cons 'transient (expand-file-name root)))))
+  (when-let ((root (locate-dominating-file path #'project-root-p)))
+    (if (project-try-vc root)
+	(list 'vc 'Git (expand-file-name root))
+      (cons 'transient (expand-file-name root)))))
 
+(use-package project
+  :defer t
+  :config
   (add-to-list 'project-find-functions #'project-find-root))
 
 (use-package eglot
