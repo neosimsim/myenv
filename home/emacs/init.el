@@ -286,12 +286,19 @@ version controller are excluded."
 	       '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
 
   :bind (:map eglot-mode-map
-	      ([remap format-buffer] . eglot-format-buffer)))
+	      ([remap format-buffer] . eglot-format-buffer)
+	      ("C-c C-e a" . eglot-code-actions)
+	      ("C-c C-e i" . eglot-code-action-organize-imports)
+	      ("C-c C-e r" . eglot-rename)))
 
 (use-package eglot-x
   :after (eglot)
   :config
-  (eglot-x-setup))
+  (eglot-x-setup)
+
+  :bind (:map eglot-mode-map
+	      ("M-S-<up>" . eglot-x-move-item-up)
+	      ("M-S-<down>" . eglot-x-move-item-down)))
 
 (use-package comint
   :defer t
@@ -562,4 +569,5 @@ When region is active apply from START to END."
   :config
   (global-company-mode))
 
-(use-package yasnippet)
+(use-package yasnippet
+  :hook ((eglot-mode . yas-minor-mode)))
