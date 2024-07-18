@@ -285,6 +285,10 @@ version controller are excluded."
   (add-to-list 'eglot-server-programs
 	       '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
 
+  (add-to-list 'eglot-server-programs
+	       '((rust-ts-mode rust-mode rustic-mode) .
+		 ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
+
   :bind (:map eglot-mode-map
 	      ([remap format-buffer] . eglot-format-buffer)
 	      ("C-c C-e a" . eglot-code-actions)
