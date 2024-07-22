@@ -627,3 +627,5 @@ or when in a project.  (See `neosimsim-project-find-root')"
     (pcase (neosimsim-project-find-root ".")
       (`nil (fzf-find-file))
       (`(,_ ,_ ,p-root) (fzf-find-file-in-dir p-root)))))
+
+(bind-key "C-c C-c C-f" #'neosimsim-fzf)
