@@ -266,7 +266,7 @@ for special files and directories marking such project."
   "Search up from PATH for project root.
 
 This functions takes into account that a sub-folder of a git repo might
-be a sub-project root. In that case the sub-folder is returned as root
+be a sub-project root.	In that case the sub-folder is returned as root
 but if under version control, it is still marked as such, so that the
 correct implementation for `project-files' is used and files ignored by
 version controller are excluded."
@@ -357,16 +357,15 @@ Loops over each mach on regex, set point to start of the
 match and applies start and end of the match to fn.
 
 Examples:
-(x \"emacs\"
+\(x \"emacs\"
   (lambda (start end)
     (call-shell-region start end \"tr [e] [E]\" t (current-buffer))))
 
-(x \"macs\"
+\(x \"macs\"
   (lambda (start end)
     (insert-char ?E)))
 
-(x \"vim\" delete-region)
-"
+\(x \"vim\" delete-region)"
   (let ((pos (if mark-active
 		 (min (point) (mark))
 	       (point-min)))
@@ -379,7 +378,7 @@ Examples:
       (funcall fn (point) (+ 1 pos)))))
 
 (defun plumb-file ()
-  "Sends filename to plumber"
+  "Sends filename to plumber."
   (interactive)
   (call-process "9" nil nil nil
 		"plumb"
@@ -457,7 +456,7 @@ When region is active apply from START to END."
   (add-hook 'text-mode-hook #'my-text-mode-hook))
 
 (defvar myenv-formatter "sed 's/[[:blank:]]*$//'"
-  "Commands used by format-buffer")
+  "Command used by `format-buffer'.")
 (make-variable-buffer-local 'myenv-formatter)
 (defun format-buffer ()
   "Format the current buffer using the shell command stored in `myenv-formatter'."
@@ -588,10 +587,10 @@ When region is active apply from START to END."
   :hook ((eglot-mode . yas-minor-mode)))
 
 (defun neosimsim-fzf (&optional prompt-dir)
-  "Wrapper around `fzf-find-file'
+  "Wrapper around `fzf-find-file'.
 
-Calls `fzf-find-file' or `fzf-find-file-in-dir' depending present prefix
-or when in a project. (See `neosimsim-project-find-root')"
+Calls `fzf-find-file' or `fzf-find-file-in-dir' depending on PROMPT-DIR
+or when in a project.  (See `neosimsim-project-find-root')"
   (interactive "P")
   (if prompt-dir
       (fzf-find-file-in-dir)
