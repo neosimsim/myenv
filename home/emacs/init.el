@@ -577,9 +577,5 @@ When region is active apply from START to END."
 
 (use-package yaml-ts-mode)
 
-(use-package company
-  :config
-  (global-company-mode))
-
 (use-package yasnippet
   :hook ((eglot-mode . yas-minor-mode)))
