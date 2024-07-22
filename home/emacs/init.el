@@ -132,12 +132,14 @@
   :custom
   (org-html-checkbox-type 'unicode))
 
+(defun neosimsim-git-commit-mode-hook ()
+  (flyspell-mode))
+
 (use-package git-commit
   :defer t
   :config
-  (defun my-git-commit-mode-hook ()
-    (flyspell-mode))
-  (add-hook 'git-commit-mode-hook #'my-git-commit-mode-hook))
+
+  (add-hook 'git-commit-mode-hook #'neosimsim-git-commit-mode-hook))
 
 (use-package magit
   :custom
@@ -247,7 +249,7 @@
   (eglot-mode-line ((t (:inherit (mode-line-emphasis))))))
 
 ;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
-(defcustom neosimsim--project-root-markers
+(defcustom neosimsim-project-root-markers
   '(".git")
   "File or directories that indicate the root of a project.
 
@@ -256,11 +258,11 @@ for special files and directories marking such project."
   :type '(repeat string)
   :group 'project)
 
-(make-variable-buffer-local 'neosimsim--project-root-markers)
+(make-variable-buffer-local 'neosimsim-project-root-markers)
 
 (defun neosimsim--project-root-p (path)
   "Check if PATH is a project root."
-  (seq-find (lambda (marker) (file-exists-p (concat path marker))) neosimsim--project-root-markers))
+  (seq-find (lambda (marker) (file-exists-p (concat path marker))) neosimsim-project-root-markers))
 
 (defun neosimsim-project-find-root (path)
   "Search up from PATH for project root.
@@ -277,15 +279,20 @@ version controller are excluded."
 
 (use-package project
   :defer t
+  :functions
+  project-try-vc
+
   :config
   (add-to-list 'project-find-functions #'neosimsim-project-find-root))
 
+(defun neosimsim-eglot-managed-mode-hook ()
+  (eglot-inlay-hints-mode -1))
+
 (use-package eglot
   :defer t
+  :functions eglot-inlay-hints-mode
   :config
-  (defun my-eglot-managed-mode-hook ()
-    (eglot-inlay-hints-mode -1))
-  (add-hook 'eglot-managed-mode-hook #'my-eglot-managed-mode-hook)
+  (add-hook 'eglot-managed-mode-hook #'neosimsim-eglot-managed-mode-hook)
 
   (add-to-list 'eglot-server-programs
 	       '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
@@ -301,6 +308,9 @@ version controller are excluded."
 	      ("C-c C-e r" . eglot-rename)))
 
 (use-package eglot-x
+  :functions
+  eglot-x-setup
+
   :after (eglot)
   :config
   (eglot-x-setup)
@@ -428,32 +438,44 @@ When region is active apply from START to END."
 	      (buffer-name))))
 
 (use-package move-text
+  :functions
+  move-text-default-bindings
+
   :config
   (move-text-default-bindings))
 
-(use-package fzf)
+(use-package fzf
+  :functions
+  fzf-find-file-in-dir
+  fzf-find-file)
+
 (use-package rg)
+
+(defun neosimsim-prog-mode-hook ()
+  (setq indicate-empty-lines t)
+  (setq show-trailing-whitespace t))
 
 (use-package prog-mode
   :defer t
   :config
-  (defun my-prog-mode-hook ()
-    (setq indicate-empty-lines t)
-    (setq show-trailing-whitespace t))
-  (add-hook 'prog-mode-hook #'my-prog-mode-hook))
+  (add-hook 'prog-mode-hook #'neosimsim-prog-mode-hook))
 
 (use-package treesit
   :custom
   (treesit-font-lock-level 4))
 
+(defun neosimsim-text-mode-hook ()
+  (mixed-pitch-mode t)
+  (setq indicate-empty-lines t)
+  (setq show-trailing-whitespace t))
+
 (use-package text-mode
   :defer t
+  :functions
+  mixed-pitch-mode
+
   :config
-  (defun my-text-mode-hook ()
-    (mixed-pitch-mode t)
-    (setq indicate-empty-lines t)
-    (setq show-trailing-whitespace t))
-  (add-hook 'text-mode-hook #'my-text-mode-hook))
+  (add-hook 'text-mode-hook #'neosimsim-text-mode-hook))
 
 (defvar myenv-formatter "sed 's/[[:blank:]]*$//'"
   "Command used by `format-buffer'.")
@@ -467,38 +489,43 @@ When region is active apply from START to END."
     (goto-char (+ p (- (point-max) prev-point-max)))))
 (bind-key "C-x M-f" #'format-buffer)
 
+(defun neosimsim-emacs-lisp-on-save-hook()
+  (tabify (point-min) (point-max)))
+
+(defun neosimsim-emacs-lisp-mode-hook()
+  (add-hook 'before-save-hook #'neosimsim-emacs-lisp-on-save-hook nil t))
+
 (use-package elisp-mode
   :defer t
   :config
+  (add-hook 'emacs-lisp-mode-hook #'neosimsim-emacs-lisp-mode-hook))
 
-  (defun my-emacs-lisp-on-save-hook()
-    (tabify (point-min) (point-max)))
-
-  (defun my-emacs-lisp-mode-hook()
-    (add-hook 'before-save-hook #'my-emacs-lisp-on-save-hook nil t))
-
-  (add-hook 'emacs-lisp-mode-hook #'my-emacs-lisp-mode-hook))
+(defun haskell-setup ()
+  (setq myenv-formatter "ormolu --no-cabal"))
 
 (use-package haskell-mode
   :defer t
   :config
-  (defun haskell-setup ()
-    (setq myenv-formatter "ormolu --no-cabal"))
   (add-hook 'haskell-mode-hook #'haskell-setup))
+
+(defun cabal-setup ()
+  (setq myenv-formatter "cabal-fmt"))
 
 (use-package haskell-cabal
   :defer t
   :config
-  (defun cabal-setup ()
-    (setq myenv-formatter "cabal-fmt"))
   (add-hook 'haskell-cabal-mode-hook #'cabal-setup))
+
+(defun fish-setup ()
+  (setq myenv-formatter "fish_indent"))
 
 (use-package fish-mode
   :defer t
   :config
-  (defun fish-setup ()
-    (setq myenv-formatter "fish_indent"))
   (add-hook 'fish-mode-hook #'fish-setup))
+
+(defun elixir-setup ()
+  (setq neosimsim-project-root-markers '(".git" "mix.lock")))
 
 (use-package elixir-ts-mode
   :defer t
@@ -512,30 +539,31 @@ When region is active apply from START to END."
 	      ([remap format-buffer] . elixir-format))
 
   :config
-  (defun elixir-setup ()
-    (setq  project-root-markers '(".git" "mix.lock")))
-
   (add-hook 'elixir-ts-mode-hook #'elixir-setup))
+
+(defun term-setup ()
+  (modify-syntax-entry ?: "_" term-mode-syntax-table)
+  (modify-syntax-entry ?. "_" term-mode-syntax-table))
 
 (use-package term
   :defer t
   :config
-  (defun term-setup ()
-    (modify-syntax-entry ?: "_" term-mode-syntax-table)
-    (modify-syntax-entry ?. "_" term-mode-syntax-table))
   (add-hook 'term-mode-hook #'term-setup)
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
+(defun rust-setup ()
+  (setq neosimsim-project-root-markers '(".git" "Cargo.lock"))
+  (setq myenv-formatter "rustfmt"))
+
 (use-package rust-mode
   :defer t
+  :defines
+  rust-mode-map
+
   :custom
   (rust-mode-treesitter-derive t)
 
   :config
-  (defun rust-setup ()
-    (setq  project-root-markers '(".git" "Cargo.lock"))
-    (setq myenv-formatter "rustfmt"))
-
   (add-hook 'rust-mode-hook #'rust-setup)
 
   :bind (:map rust-mode-map
@@ -547,20 +575,21 @@ When region is active apply from START to END."
   :custom
   (rustic-lsp-client #'eglot))
 
+(defun nix-setup ()
+  (setq myenv-formatter "nixpkgs-fmt"))
+
 (use-package nix-ts-mode
   :mode "\\.nix\\'"
-
   :config
-  (defun nix-setup ()
-    (setq myenv-formatter "nixpkgs-fmt"))
   (add-hook 'nix-ts-mode-hook #'nix-setup))
+
+(defun neosimsim-Info-mode-hook ()
+  (mixed-pitch-mode t))
 
 (use-package info
   :defer t
   :config
-  (defun my-Info-mode-hook ()
-    (mixed-pitch-mode t))
-  (add-hook 'Info-mode-hook #'my-Info-mode-hook))
+  (add-hook 'Info-mode-hook #'neosimsim-Info-mode-hook))
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode))
@@ -571,11 +600,12 @@ When region is active apply from START to END."
 	 ("C-S-<left>"	. buf-move-left)
 	 ("C-S-<right>" . buf-move-right)))
 
+(defun neosimsim-python-mode-hook ()
+  (setq neosimsim-project-root-markers '(".git" "pyproject.toml")))
+
 (use-package python
   :config
-  (defun my-python-mode-hook ()
-    (setq  project-root-markers '(".git" "pyproject.toml")))
-  (add-hook 'python-ts-mode-hook #'my-python-mode-hook))
+  (add-hook 'python-ts-mode-hook #'neosimsim-python-mode-hook))
 
 (use-package vc-hooks
   :custom
