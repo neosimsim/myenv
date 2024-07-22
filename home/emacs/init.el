@@ -156,6 +156,7 @@
   :custom
   (ivy-extra-directories ())
   (ivy-use-virtual-buffers t)
+  (ivy-use-selectable-prompt t)
   (ivy-count-format "(%d/%d) ")
   (ivy-format-functions-alist
    '((counsel-compile-env . counsel-compile-env--format-hint)
