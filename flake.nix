@@ -21,6 +21,11 @@
       flake = false;
     };
 
+    combobulate = {
+      url = "github:mickeynp/combobulate";
+      flake = false;
+    };
+
     plasma-manager = {
       url = "github:pjones/plasma-manager";
       inputs = {
@@ -47,6 +52,7 @@
 
   outputs =
     { self
+    , combobulate
     , emacs-overlay
     , eglot-x
     , flake-utils

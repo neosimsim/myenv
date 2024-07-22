@@ -12,6 +12,12 @@
 
     overrides = ethis: eprev: {
       eglot-x = ethis.callPackage ./eglot-x.nix { inherit (inputs) eglot-x; };
+
+      combobulate = ethis.trivialBuild {
+        pname = "combobulate";
+        version = "0.0";
+        src = inputs.combobulate;
+      };
     };
 
     extraConfig = builtins.readFile ./init.el;
@@ -23,6 +29,7 @@
       awk-ts-mode
       buffer-move
       color-theme-sanityinc-tomorrow
+      combobulate
       company
       counsel
       dhall-mode

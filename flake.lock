@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "combobulate": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710175386,
+        "narHash": "sha256-rww0/6304xZWTFRo1BVcfSDdXOXtlgmfZOxAoOIjYsk=",
+        "owner": "mickeynp",
+        "repo": "combobulate",
+        "rev": "ee82c568ad639605518f62f82fae4bcc0dfdbb81",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mickeynp",
+        "repo": "combobulate",
+        "type": "github"
+      }
+    },
     "eglot-x": {
       "flake": false,
       "locked": {
@@ -205,6 +221,7 @@
     },
     "root": {
       "inputs": {
+        "combobulate": "combobulate",
         "eglot-x": "eglot-x",
         "emacs-overlay": "emacs-overlay",
         "flake-utils": "flake-utils_2",
