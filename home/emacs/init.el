@@ -558,7 +558,11 @@ When region is active apply from START to END."
 (use-package rust-mode
   :defer t
   :defines
+  rust-load-optional-libraries
   rust-mode-map
+
+  :init
+  (setq rust-load-optional-libraries t)
 
   :custom
   (rust-mode-treesitter-derive t)
