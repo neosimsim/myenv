@@ -432,6 +432,9 @@ When region is active apply from START to END."
   :config
   (move-text-default-bindings))
 
+(use-package fzf)
+(use-package rg)
+
 (use-package prog-mode
   :defer t
   :config

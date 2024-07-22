@@ -38,6 +38,7 @@
       elm-mode
       erlang
       fish-mode
+      fzf
       haskell-mode
       highlight-symbol
       htmlize
@@ -55,6 +56,7 @@
       osm
       poetry
       pylint
+      rg
       rust-mode
       rust-playground
       rustic
