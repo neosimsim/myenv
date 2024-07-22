@@ -149,6 +149,7 @@
   :after (:any project magit))
 
 (use-package ivy
+  :disabled
   :demand t
   :config
   (ivy-mode t)
@@ -177,6 +178,7 @@
 	 ("C-<return>" . ivy-immediate-done)))
 
 (use-package counsel
+  :disabled
   :demand t
   :config
   (counsel-mode t)
@@ -189,10 +191,12 @@
 	 ("C-c k" . counsel-rg)))
 
 (use-package swiper
+  :disabled
   :bind
   ("C-S-s" . swiper))
 
 (use-package amx
+  :disabled
   :config
   (amx-mode 1))
 
