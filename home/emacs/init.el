@@ -436,6 +436,10 @@ When region is active apply from START to END."
     (setq show-trailing-whitespace t))
   (add-hook 'prog-mode-hook #'my-prog-mode-hook))
 
+(use-package treesit
+  :custom
+  (treesit-font-lock-level 4))
+
 (use-package text-mode
   :defer t
   :config
