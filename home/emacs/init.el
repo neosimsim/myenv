@@ -586,3 +586,15 @@ When region is active apply from START to END."
 
 (use-package yasnippet
   :hook ((eglot-mode . yas-minor-mode)))
+
+(defun neosimsim-fzf (&optional prompt-dir)
+  "Wrapper around `fzf-find-file'
+
+Calls `fzf-find-file' or `fzf-find-file-in-dir' depending present prefix
+or when in a project. (See `neosimsim-project-find-root')"
+  (interactive "P")
+  (if prompt-dir
+      (fzf-find-file-in-dir)
+    (pcase (neosimsim-project-find-root ".")
+      (`nil (fzf-find-file))
+      (`(,_ ,_ ,p-root) (fzf-find-file-in-dir p-root)))))
