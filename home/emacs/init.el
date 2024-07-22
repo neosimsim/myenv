@@ -522,6 +522,9 @@ When region is active apply from START to END."
 
 (use-package rust-mode
   :defer t
+  :custom
+  (rust-mode-treesitter-derive t)
+
   :config
   (defun rust-setup ()
     (setq  project-root-markers '(".git" "Cargo.lock"))
