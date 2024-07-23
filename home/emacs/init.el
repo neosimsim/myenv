@@ -49,6 +49,10 @@
   (set-mark-command-repeat-pop t)
   (column-number-mode t "Also show column of point in info bar"))
 
+(use-package minibuffer
+  :custom
+  (completion-styles '(basic partial-completion flex emacs22)))
+
 (use-package em-term
   :defer t
   :config
