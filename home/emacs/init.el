@@ -32,7 +32,7 @@
 
   (when (fboundp #'set-fontset-font)
     (set-fontset-font t '(#x1f000 . #x1faff)
-		      (font-spec :family "Noto Color Emoji"))))
+                      (font-spec :family "Noto Color Emoji"))))
 
 (use-package files
   :custom
@@ -62,31 +62,31 @@
 
 (use-package flymake
   :bind (:map flymake-mode-map
-	      ("M-g M-n" . flymake-goto-next-error)
-	      ("M-g M-p" . flymake-goto-prev-error)))
+              ("M-g M-n" . flymake-goto-next-error)
+              ("M-g M-p" . flymake-goto-prev-error)))
 
 (use-package org
   :bind (("C-c a" . org-agenda)
-	 ("C-c c" . org-capture)
-	 ("C-c l" . org-store-link)
-	 ("C-c C-x C-o" . org-clock-out)
-	 ("C-c C-x C-j" . org-clock-goto)
-	 ("C-c C-x C-x" . org-clock-in-last)
-	 ([remap org-set-tags-command] . counsel-org-tag))
+         ("C-c c" . org-capture)
+         ("C-c l" . org-store-link)
+         ("C-c C-x C-o" . org-clock-out)
+         ("C-c C-x C-j" . org-clock-goto)
+         ("C-c C-x C-x" . org-clock-in-last)
+         ([remap org-set-tags-command] . counsel-org-tag))
 
   :custom
   (org-modules '(ol-doi
-		 ol-w3m
-		 ol-bbdb
-		 ol-bibtex
-		 ol-docview
-		 ol-gnus
-		 org-habit
-		 ol-info
-		 ol-irc
-		 ol-mhe
-		 ol-rmail
-		 ol-eww))
+                 ol-w3m
+                 ol-bbdb
+                 ol-bibtex
+                 ol-docview
+                 ol-gnus
+                 org-habit
+                 ol-info
+                 ol-irc
+                 ol-mhe
+                 ol-rmail
+                 ol-eww))
 
   (org-todo-keywords
    '((sequence "TODO(t)" "NEXT(n!/!)" "|" "DONE(d!/!)")))
@@ -96,17 +96,17 @@
   (org-log-into-drawer t)
 
   (org-agenda-custom-commands '(("d" "Dashboard"
-				 ((agenda "")
-				  (todo "NEXT"
-					((org-agenda-overriding-header "Next Tasks")))
-				  (alltodo ""
-					   ((org-agenda-overriding-header "Add TODOs")))))
+                                 ((agenda "")
+                                  (todo "NEXT"
+                                        ((org-agenda-overriding-header "Next Tasks")))
+                                  (alltodo ""
+                                           ((org-agenda-overriding-header "Add TODOs")))))
 
-				("n" "Next Tasks" todo "NEXT"
-				 ((org-agenda-overriding-header "Next Tasks")))
+                                ("n" "Next Tasks" todo "NEXT"
+                                 ((org-agenda-overriding-header "Next Tasks")))
 
-				("w" "Work TODOs" tags-todo "work"
-				 ((org-agenda-overriding-header "Work TODOs")))))
+                                ("w" "Work TODOs" tags-todo "work"
+                                 ((org-agenda-overriding-header "Work TODOs")))))
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -117,15 +117,15 @@
   :defer t
   :custom
   (org-capture-templates '(("t" "Task" entry (file "~/notes/todo.org")
-			    "" :empty-lines 1)
+                            "" :empty-lines 1)
 
-			   ("o" "Offenen Fragen" entry (clock)
-			    "" :empty-lines 1)
+                           ("o" "Offenen Fragen" entry (clock)
+                            "" :empty-lines 1)
 
-			   ("b" "Bookmark link from clipboard" entry (file "~/notes/links.org")
-			    "* %(org-cliplink-capture)"
-			    :immediate-finish t
-			    :jump-to-captured t))))
+                           ("b" "Bookmark link from clipboard" entry (file "~/notes/links.org")
+                            "* %(org-cliplink-capture)"
+                            :immediate-finish t
+                            :jump-to-captured t))))
 
 (use-package ox-html
   :defer t
@@ -144,7 +144,7 @@
 (use-package magit
   :custom
   (magit-blame-echo-style 'show-lines
-			  "Show commit info before chunks. The default value 'lines just shows an empty line"))
+                          "Show commit info before chunks. The default value 'lines just shows an empty line"))
 
 ;; Ensure magit-extras for `magit-project-status'.
 (use-package magit-extras
@@ -176,8 +176,8 @@
      (t . ivy-format-function-arrow)))
 
   :bind (("C-c C-r" . ivy-resume)
-	 :map ivy-mode-map
-	 ("C-<return>" . ivy-immediate-done)))
+         :map ivy-mode-map
+         ("C-<return>" . ivy-immediate-done)))
 
 (use-package counsel
   :disabled
@@ -187,10 +187,10 @@
 
   :custom
   (counsel-rg-base-command '("rg" "--max-columns" "240" "--with-filename" "--no-heading"
-			     "--line-number" "--color" "never" "%s" "--hidden" "--glob" "!.git"))
+                             "--line-number" "--color" "never" "%s" "--hidden" "--glob" "!.git"))
 
   :bind (("C-c g" . counsel-git)
-	 ("C-c k" . counsel-rg)))
+         ("C-c k" . counsel-rg)))
 
 (use-package swiper
   :disabled
@@ -211,7 +211,7 @@
 
 (use-package highlight-symbol
   :bind (("C-*" . highlight-symbol-next)
-	 ("C-#" . highlight-symbol-prev)))
+         ("C-#" . highlight-symbol-prev)))
 
 (use-package ediff
   :custom
@@ -268,13 +268,13 @@ for special files and directories marking such project."
   "Search up from PATH for project root.
 
 This functions takes into account that a sub-folder of a git repo might
-be a sub-project root.	In that case the sub-folder is returned as root
+be a sub-project root.  In that case the sub-folder is returned as root
 but if under version control, it is still marked as such, so that the
 correct implementation for `project-files' is used and files ignored by
 version controller are excluded."
   (when-let ((root (locate-dominating-file path #'neosimsim--project-root-p)))
     (if (project-try-vc root)
-	(list 'vc 'Git (expand-file-name root))
+        (list 'vc 'Git (expand-file-name root))
       (cons 'transient (expand-file-name root)))))
 
 (use-package project
@@ -295,17 +295,17 @@ version controller are excluded."
   (add-hook 'eglot-managed-mode-hook #'neosimsim-eglot-managed-mode-hook)
 
   (add-to-list 'eglot-server-programs
-	       '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
+               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
 
   (add-to-list 'eglot-server-programs
-	       '((rust-ts-mode rust-mode rustic-mode) .
-		 ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
+               '((rust-ts-mode rust-mode rustic-mode) .
+                 ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
 
   :bind (:map eglot-mode-map
-	      ([remap format-buffer] . eglot-format-buffer)
-	      ("C-c C-e a" . eglot-code-actions)
-	      ("C-c C-e i" . eglot-code-action-organize-imports)
-	      ("C-c C-e r" . eglot-rename)))
+              ([remap format-buffer] . eglot-format-buffer)
+              ("C-c C-e a" . eglot-code-actions)
+              ("C-c C-e i" . eglot-code-action-organize-imports)
+              ("C-c C-e r" . eglot-rename)))
 
 (use-package eglot-x
   :functions
@@ -316,8 +316,8 @@ version controller are excluded."
   (eglot-x-setup)
 
   :bind (:map eglot-mode-map
-	      ("M-S-<up>" . eglot-x-move-item-up)
-	      ("M-S-<down>" . eglot-x-move-item-down)))
+              ("M-S-<up>" . eglot-x-move-item-up)
+              ("M-S-<down>" . eglot-x-move-item-down)))
 
 (use-package comint
   :defer t
@@ -348,12 +348,12 @@ stdout and stderr) is displayed in *Shell Command Output*."
   (let ((buffer (get-buffer-create (format "*Pipe Shell Region Output: %s*" cmd))))
     (with-current-buffer buffer (delete-region (point-min) (point-max)))
     (if (equal 0 (call-shell-region start end cmd nil buffer))
-	(progn (unless (string=
-			(buffer-substring-no-properties start end)
-			(with-current-buffer buffer (buffer-string)))
-		 (delete-region start end)
-		 (insert-buffer-substring buffer))
-	       (kill-buffer buffer))
+        (progn (unless (string=
+                        (buffer-substring-no-properties start end)
+                        (with-current-buffer buffer (buffer-string)))
+                 (delete-region start end)
+                 (insert-buffer-substring buffer))
+               (kill-buffer buffer))
       (display-buffer buffer))))
 
 (defun track ()
@@ -377,11 +377,11 @@ Examples:
 
 \(x \"vim\" delete-region)"
   (let ((pos (if mark-active
-		 (min (point) (mark))
-	       (point-min)))
-	(region-end (if mark-active
-			(max (point) (mark))
-		      (point-max))))
+                 (min (point) (mark))
+               (point-min)))
+        (region-end (if mark-active
+                        (max (point) (mark))
+                      (point-max))))
     (while (> region-end (string-match regex (buffer-string) pos))
       (setq pos (match-end 0))
       (goto-char (+ 1 (match-beginning 0)))
@@ -391,10 +391,10 @@ Examples:
   "Sends filename to plumber."
   (interactive)
   (call-process "9" nil nil nil
-		"plumb"
-		"-d" "edit"
-		"-a" (concat "addr=#" (number-to-string (- (point) 1)))
-		(buffer-file-name)))
+                "plumb"
+                "-d" "edit"
+                "-a" (concat "addr=#" (number-to-string (- (point) 1)))
+                (buffer-file-name)))
 
 (defun send-to-tmux-region
     (&optional
@@ -405,10 +405,10 @@ Examples:
 When region is active send from START to END."
   (interactive "r")
   (call-process "tmux" nil nil nil "send-keys"
-		(buffer-substring-no-properties
-		 start
-		 end)
-		"Enter"))
+                (buffer-substring-no-properties
+                 start
+                 end)
+                "Enter"))
 (defalias 'tm #'send-to-tmux-region)
 
 (defun tmux-git ()
@@ -434,8 +434,8 @@ When region is active apply from START to END."
 (defun copy-buffer-name ()
   (interactive)
   (kill-new (if (buffer-file-name)
-		(buffer-file-name)
-	      (buffer-name))))
+                (buffer-file-name)
+              (buffer-name))))
 
 (use-package move-text
   :functions
@@ -484,16 +484,13 @@ When region is active apply from START to END."
   "Format the current buffer using the shell command stored in `myenv-formatter'."
   (interactive)
   (let ((p (point))
-	(prev-point-max (point-max)))
+        (prev-point-max (point-max)))
     (pipe-shell-region myenv-formatter (point-min) (point-max))
     (goto-char (+ p (- (point-max) prev-point-max)))))
 (bind-key "C-x M-f" #'format-buffer)
 
-(defun neosimsim-emacs-lisp-on-save-hook()
-  (tabify (point-min) (point-max)))
-
-(defun neosimsim-emacs-lisp-mode-hook()
-  (add-hook 'before-save-hook #'neosimsim-emacs-lisp-on-save-hook nil t))
+(defun neosimsim-emacs-lisp-mode-hook ()
+  (indent-tabs-mode -1))
 
 (use-package elisp-mode
   :defer t
@@ -536,7 +533,7 @@ When region is active apply from START to END."
   (elixir-ts-comment-doc-identifier ((t (:inherit elixir-ts-attribute))))
 
   :bind (:map elixir-ts-mode-map
-	      ([remap format-buffer] . elixir-format))
+              ([remap format-buffer] . elixir-format))
 
   :config
   (add-hook 'elixir-ts-mode-hook #'elixir-setup))
@@ -571,8 +568,8 @@ When region is active apply from START to END."
   (add-hook 'rust-mode-hook #'rust-setup)
 
   :bind (:map rust-mode-map
-	      ([remap forward-paragraph] . rust-end-of-defun)
-	      ([remap backward-paragraph] . rust-beginning-of-defun)))
+              ([remap forward-paragraph] . rust-end-of-defun)
+              ([remap backward-paragraph] . rust-beginning-of-defun)))
 
 (use-package rustic
   :defer t
@@ -599,10 +596,10 @@ When region is active apply from START to END."
   :mode ("\\.epub\\'" . nov-mode))
 
 (use-package buffer-move
-  :bind (("C-S-<up>"	. buf-move-up)
-	 ("C-S-<down>"	. buf-move-down)
-	 ("C-S-<left>"	. buf-move-left)
-	 ("C-S-<right>" . buf-move-right)))
+  :bind (("C-S-<up>"    . buf-move-up)
+         ("C-S-<down>"  . buf-move-down)
+         ("C-S-<left>"  . buf-move-left)
+         ("C-S-<right>" . buf-move-right)))
 
 (defun neosimsim-python-mode-hook ()
   (setq neosimsim-project-root-markers '(".git" "pyproject.toml")))
