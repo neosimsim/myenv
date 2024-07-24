@@ -299,7 +299,7 @@ version controller are excluded."
   (add-hook 'eglot-managed-mode-hook #'neosimsim-eglot-managed-mode-hook)
 
   (add-to-list 'eglot-server-programs
-               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("elixir-ls")))
+               '((elixir-mode elixir-ts-mode heex-ts-mode) . ("lexical")))
 
   (add-to-list 'eglot-server-programs
                '((rust-ts-mode rust-mode rustic-mode) .
