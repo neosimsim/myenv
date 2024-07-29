@@ -578,7 +578,11 @@ When region is active apply from START to END."
 (use-package rustic
   :defer t
   :custom
-  (rustic-lsp-client #'eglot))
+  (rustic-lsp-client #'eglot)
+
+  :config
+  ;; Workaround for https://github.com/brotzeit/rustic/issues/573
+  (setq rustic-compilation-panic '("thread '[^']+' panicked at \\([^\n]+\\):\\([0-9]+\\):\\([0-9]+\\)" 1 2 3)))
 
 (defun nix-setup ()
   (setq myenv-formatter "nixpkgs-fmt"))
