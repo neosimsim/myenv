@@ -54,8 +54,9 @@
   (completion-styles '(basic partial-completion flex emacs22)))
 
 (use-package custom
-  :custom
- (custom-file "~/.config/emacs-custom.el"))
+  :config
+  (setq custom-file "~/.config/emacs-custom.el")
+  (load custom-file))
 
 (use-package em-term
   :defer t
