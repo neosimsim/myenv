@@ -625,6 +625,10 @@ When region is active apply from START to END."
   :custom
   (vc-display-status nil))
 
+(use-package dhall-mode
+  :custom
+  (dhall-format-arguments '("--unicode")))
+
 (use-package yaml-ts-mode)
 
 (use-package yasnippet
