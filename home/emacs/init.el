@@ -64,7 +64,7 @@
   (add-to-list 'eshell-visual-subcommands '("git" . ("log" "diff" "show")))
   (add-to-list 'eshell-visual-options '("git" . ("--help" "--paginate")))
 
-  (add-to-list 'eshell-visual-subcommands '("nix" . ("build" "shell")))
+  (add-to-list 'eshell-visual-subcommands '("nix" . ("build" "shell" "flake")))
   (add-to-list 'eshell-visual-options '("nix" . ("--help")))
 
   (add-to-list 'eshell-visual-commands "home-manager"))
