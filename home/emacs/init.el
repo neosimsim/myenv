@@ -631,6 +631,13 @@ When region is active apply from START to END."
 
 (use-package yaml-ts-mode)
 
+(defun neosimsim-json-setup ()
+  (setq neosimsim-formatter "jq ."))
+
+(use-package json-ts-mode
+  :config
+  (add-hook 'json-ts-mode-hook #'neosimsim-json-setup))
+
 (use-package yasnippet
   :hook ((eglot-mode . yas-minor-mode)))
 
