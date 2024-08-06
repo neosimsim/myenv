@@ -486,15 +486,15 @@ When region is active apply from START to END."
   :config
   (add-hook 'text-mode-hook #'neosimsim-text-mode-hook))
 
-(defvar myenv-formatter "sed 's/[[:blank:]]*$//'"
+(defvar neosimsim-formatter "sed 's/[[:blank:]]*$//'"
   "Command used by `format-buffer'.")
-(make-variable-buffer-local 'myenv-formatter)
+(make-variable-buffer-local 'neosimsim-formatter)
 (defun format-buffer ()
-  "Format the current buffer using the shell command stored in `myenv-formatter'."
+  "Format the current buffer using the shell command stored in `neosimsim-formatter'."
   (interactive)
   (let ((p (point))
         (prev-point-max (point-max)))
-    (pipe-shell-region myenv-formatter (point-min) (point-max))
+    (pipe-shell-region neosimsim-formatter (point-min) (point-max))
     (goto-char (+ p (- (point-max) prev-point-max)))))
 (bind-key "C-x M-f" #'format-buffer)
 
@@ -507,7 +507,7 @@ When region is active apply from START to END."
   (add-hook 'emacs-lisp-mode-hook #'neosimsim-emacs-lisp-mode-hook))
 
 (defun haskell-setup ()
-  (setq myenv-formatter "ormolu --no-cabal"))
+  (setq neosimsim-formatter "ormolu --no-cabal"))
 
 (use-package haskell-mode
   :defer t
@@ -515,7 +515,7 @@ When region is active apply from START to END."
   (add-hook 'haskell-mode-hook #'haskell-setup))
 
 (defun cabal-setup ()
-  (setq myenv-formatter "cabal-fmt"))
+  (setq neosimsim-formatter "cabal-fmt"))
 
 (use-package haskell-cabal
   :defer t
@@ -523,7 +523,7 @@ When region is active apply from START to END."
   (add-hook 'haskell-cabal-mode-hook #'cabal-setup))
 
 (defun fish-setup ()
-  (setq myenv-formatter "fish_indent"))
+  (setq neosimsim-formatter "fish_indent"))
 
 (use-package fish-mode
   :defer t
@@ -559,7 +559,7 @@ When region is active apply from START to END."
 
 (defun rust-setup ()
   (setq neosimsim-project-root-markers '(".git" "Cargo.lock"))
-  (setq myenv-formatter "rustfmt"))
+  (setq neosimsim-formatter "rustfmt"))
 
 (use-package rust-mode
   :defer t
@@ -590,7 +590,7 @@ When region is active apply from START to END."
   (setq rustic-compilation-panic '("thread '[^']+' panicked at \\([^\n]+\\):\\([0-9]+\\):\\([0-9]+\\)" 1 2 3)))
 
 (defun nix-setup ()
-  (setq myenv-formatter "nixpkgs-fmt"))
+  (setq neosimsim-formatter "nixpkgs-fmt"))
 
 (use-package nix-ts-mode
   :mode "\\.nix\\'"
