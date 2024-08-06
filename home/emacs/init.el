@@ -51,7 +51,7 @@
 
 (use-package minibuffer
   :custom
-  (completion-styles '(basic partial-completion flex emacs22)))
+  (completion-styles '(basic partial-completion emacs22)))
 
 (use-package custom
   :config
