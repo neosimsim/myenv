@@ -1,18 +1,46 @@
+use clap::arg;
+use clap::command;
+use clap::Parser;
 use regex::Regex;
-use std::env;
 use std::env::current_dir;
 use std::env::var_os;
+use std::ffi::OsStr;
 use std::ffi::OsString;
 use std::os::unix::process::CommandExt;
 use std::process::Command;
+use std::str::Utf8Error;
 
-fn main() {
-    let address = env::args_os().nth(1).unwrap();
+fn main() -> Result<(), String> {
+    let cli = Cli::parse();
+
     let config = Config::from_env();
-    let error = parse_resource_identifier(address.to_str().unwrap())
-        .do_the_thing(config)
-        .exec();
-    panic!("{error}");
+    let command = &mut parse_resource_identifier(&cli.thing).do_the_thing(config);
+
+    if cli.dry_run {
+        let prog: &str = str_from_osstr(command.get_program())?;
+        let mut execution_segments = vec![prog];
+        for arg in command.get_args() {
+            execution_segments.push(str_from_osstr(arg)?);
+        }
+        let execution_line = execution_segments.join(" ");
+        println!("{execution_line}");
+        Ok(())
+    } else {
+        let error = command.exec();
+        panic!("{error}");
+    }
+}
+
+fn str_from_osstr(arg: &OsStr) -> Result<&str, String> {
+    arg.try_into().map_err(|err: Utf8Error| err.to_string())
+}
+
+#[derive(Parser)]
+#[command(version, about, long_about = None)]
+struct Cli {
+    thing: String,
+    #[arg(long)]
+    dry_run: bool,
 }
 
 macro_rules! vec_of_strings {
