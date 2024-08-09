@@ -654,3 +654,19 @@ or when in a project.  (See `neosimsim-project-find-root')"
       (`(,_ ,_ ,p-root) (fzf-find-file-in-dir p-root)))))
 
 (bind-key "C-c C-c C-f" #'neosimsim-fzf)
+
+(use-package ansi-color)
+
+(defun neosimsim-colorize-compilation-buffer ()
+  (ansi-color-apply-on-region compilation-filter-start (point)))
+
+(setq neosimsim-path-locus-regex "\\(\\([[:alnum:]/._]+\\):\\([[:digit:]]+\\)\\(:\\([[:digit:]]+\\)?\\)?\\)")
+
+(use-package compile
+  :config
+  (add-hook 'compilation-filter-hook #'neosimsim-colorize-compilation-buffer)
+
+  (add-to-list 'compilation-error-regexp-alist-alist
+               '(path-locus neosimsim-path-locus-regex 2 3 5 0 1))
+
+  (add-to-list 'compilation-error-regexp-alist 'path-locus))
