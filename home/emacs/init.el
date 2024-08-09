@@ -255,6 +255,7 @@
   (load-theme 'leuven t)
 
   :custom-face
+  (eshell-prompt ((t (:foreground "medium blue" :weight bold))))
   (eglot-mode-line ((t (:inherit (mode-line-emphasis))))))
 
 ;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
