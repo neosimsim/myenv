@@ -582,8 +582,8 @@ When region is active apply from START to END."
   (add-hook 'rust-mode-hook #'rust-setup)
 
   :bind (:map rust-mode-map
-              ([remap forward-paragraph] . rust-end-of-defun)
-              ([remap backward-paragraph] . rust-beginning-of-defun)))
+              ([remap forward-paragraph] . treesit-end-of-defun)
+              ([remap backward-paragraph] . treesit-beginning-of-defun)))
 
 (use-package rustic
   :defer t
