@@ -317,6 +317,10 @@ version controller are excluded."
               ("C-c C-e i" . eglot-code-action-organize-imports)
               ("C-c C-e r" . eglot-rename)))
 
+(use-package breadcrumb
+  :custom-face
+  (breadcrumb-project-leaf-face ((t (:inherit breadcrumb-project-crumbs-face)))))
+
 (use-package eglot-x
   :functions
   eglot-x-setup
