@@ -642,6 +642,11 @@ When region is active apply from START to END."
 (use-package yasnippet
   :hook ((eglot-mode . yas-minor-mode)))
 
+(use-package combobulate
+  :hook
+  json-ts-mode
+  yaml-ts-mode)
+
 (defun neosimsim-fzf (&optional prompt-dir)
   "Wrapper around `fzf-find-file'.
 
