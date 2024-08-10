@@ -579,11 +579,7 @@ When region is active apply from START to END."
   (rust-mode-treesitter-derive t)
 
   :config
-  (add-hook 'rust-mode-hook #'rust-setup)
-
-  :bind (:map rust-mode-map
-              ([remap forward-paragraph] . treesit-end-of-defun)
-              ([remap backward-paragraph] . treesit-beginning-of-defun)))
+  (add-hook 'rust-mode-hook #'rust-setup))
 
 (use-package rustic
   :defer t
