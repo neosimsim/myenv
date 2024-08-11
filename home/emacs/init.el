@@ -491,9 +491,9 @@ When region is active apply from START to END."
   :config
   (add-hook 'text-mode-hook #'neosimsim-text-mode-hook))
 
-(defvar neosimsim-formatter "sed 's/[[:blank:]]*$//'"
+(defvar-local neosimsim-formatter "sed 's/[[:blank:]]*$//'"
   "Command used by `neosimsim-format-buffer'.")
-(make-variable-buffer-local 'neosimsim-formatter)
+
 (defun neosimsim-format-buffer ()
   "Format the current buffer using the shell command stored in `neosimsim-formatter'."
   (interactive)
