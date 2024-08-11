@@ -497,10 +497,12 @@ When region is active apply from START to END."
 (defun neosimsim-format-buffer ()
   "Format the current buffer using the shell command stored in `neosimsim-formatter'."
   (interactive)
-  (let ((p (point))
+  (let ((prev-point (point))
         (prev-point-max (point-max)))
     (pipe-shell-region neosimsim-formatter (point-min) (point-max))
-    (goto-char (+ p (- (point-max) prev-point-max)))))
+    (let ((buf-len-diff (- (point-max) prev-point-max)))
+      (goto-char (+ prev-point buf-len-diff)))))
+
 (bind-key "C-x M-f" #'neosimsim-format-buffer)
 
 (defun neosimsim-emacs-lisp-mode-hook ()
