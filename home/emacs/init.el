@@ -359,16 +359,21 @@ Region to shell command and replace region with the output,
 combined stdout and stderr.  The region is only replaced when the
 shell command exits 0, otherwise the commands output (combined
 stdout and stderr) is displayed in *Shell Command Output*."
-  (let ((buffer (get-buffer-create (format "*Pipe Shell Region Output: %s*" cmd))))
-    (with-current-buffer buffer (delete-region (point-min) (point-max)))
-    (if (equal 0 (call-shell-region start end cmd nil buffer))
+  (let ((proc-buffer (get-buffer-create (format "*Pipe Shell Region Output: %s*" cmd)))
+        (prev-point (point)))
+    (with-current-buffer proc-buffer
+      (delete-region (point-min) (point-max)))
+    (if (equal 0 (call-shell-region start end cmd nil proc-buffer))
         (progn (unless (string=
                         (buffer-substring-no-properties start end)
-                        (with-current-buffer buffer (buffer-string)))
+                        (with-current-buffer proc-buffer (buffer-string)))
                  (delete-region start end)
-                 (insert-buffer-substring buffer))
-               (kill-buffer buffer))
-      (display-buffer buffer))))
+                 (insert-buffer-substring proc-buffer)
+                 (goto-char prev-point))
+               (let ((proc-window (get-buffer-window proc-buffer)))
+                 (when proc-window (quit-window nil proc-window)))
+               (kill-buffer proc-buffer)))
+    (display-buffer proc-buffer)))
 
 (defun track ()
   (interactive)
@@ -497,11 +502,7 @@ When region is active apply from START to END."
 (defun neosimsim-format-buffer ()
   "Format the current buffer using the shell command stored in `neosimsim-formatter'."
   (interactive)
-  (let ((prev-point (point))
-        (prev-point-max (point-max)))
-    (pipe-shell-region neosimsim-formatter (point-min) (point-max))
-    (let ((buf-len-diff (- (point-max) prev-point-max)))
-      (goto-char (+ prev-point buf-len-diff)))))
+  (pipe-shell-region neosimsim-formatter (point-min) (point-max)))
 
 (bind-key "C-x M-f" #'neosimsim-format-buffer)
 
