@@ -312,7 +312,7 @@ version controller are excluded."
                  ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
 
   :bind (:map eglot-mode-map
-              ([remap format-buffer] . eglot-format-buffer)
+              ([remap neosimsim-format-buffer] . eglot-format-buffer)
               ("C-c C-e a" . eglot-code-actions)
               ("C-c C-e i" . eglot-code-action-organize-imports)
               ("C-c C-e r" . eglot-rename)))
@@ -492,16 +492,16 @@ When region is active apply from START to END."
   (add-hook 'text-mode-hook #'neosimsim-text-mode-hook))
 
 (defvar neosimsim-formatter "sed 's/[[:blank:]]*$//'"
-  "Command used by `format-buffer'.")
+  "Command used by `neosimsim-format-buffer'.")
 (make-variable-buffer-local 'neosimsim-formatter)
-(defun format-buffer ()
+(defun neosimsim-format-buffer ()
   "Format the current buffer using the shell command stored in `neosimsim-formatter'."
   (interactive)
   (let ((p (point))
         (prev-point-max (point-max)))
     (pipe-shell-region neosimsim-formatter (point-min) (point-max))
     (goto-char (+ p (- (point-max) prev-point-max)))))
-(bind-key "C-x M-f" #'format-buffer)
+(bind-key "C-x M-f" #'neosimsim-format-buffer)
 
 (defun neosimsim-emacs-lisp-mode-hook ()
   (indent-tabs-mode -1))
@@ -547,7 +547,7 @@ When region is active apply from START to END."
   (elixir-ts-comment-doc-identifier ((t (:inherit elixir-ts-attribute))))
 
   :bind (:map elixir-ts-mode-map
-              ([remap format-buffer] . elixir-format))
+              ([remap neosimsim-format-buffer] . elixir-format))
 
   :config
   (add-hook 'elixir-ts-mode-hook #'elixir-setup))
