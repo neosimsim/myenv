@@ -34,6 +34,7 @@
       company
       counsel
       dhall-mode
+      eglot
       eglot-x
       elixir-ts-mode
       elm-mode
