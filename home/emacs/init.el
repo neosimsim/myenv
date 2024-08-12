@@ -698,7 +698,7 @@ or when in a project.  (See `neosimsim-project-find-root')"
   "`compilation-filter-hook' to apply ANSI color codes."
   (ansi-color-apply-on-region compilation-filter-start (point)))
 
-(setq neosimsim-path-locus-regex "\\(\\([[:alnum:]/._]+\\):\\([[:digit:]]+\\)\\(:\\([[:digit:]]+\\)?\\)?\\)")
+(defconst neosimsim-path-locus-regex "\\(\\([[:alnum:]/._]+\\):\\([[:digit:]]+\\)\\(:\\([[:digit:]]+\\)?\\)?\\)")
 
 (use-package compile
   :config
