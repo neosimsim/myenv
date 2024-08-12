@@ -705,6 +705,6 @@ or when in a project.  (See `neosimsim-project-find-root')"
   (add-hook 'compilation-filter-hook #'neosimsim-colorize-compilation-buffer)
 
   (add-to-list 'compilation-error-regexp-alist-alist
-               '(path-locus neosimsim-path-locus-regex 2 3 5 0 1))
+               `(path-locus ,neosimsim-path-locus-regex 2 3 5 0 1))
 
   (add-to-list 'compilation-error-regexp-alist 'path-locus))
