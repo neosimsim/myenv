@@ -142,6 +142,7 @@
   (org-html-checkbox-type 'unicode))
 
 (defun neosimsim-git-commit-mode-hook ()
+  "Personal hook for `git-commit-mode-hook'."
   (flyspell-mode))
 
 (use-package git-commit
@@ -296,6 +297,7 @@ version controller are excluded."
   (add-to-list 'project-find-functions #'neosimsim-project-find-root))
 
 (defun neosimsim-eglot-managed-mode-hook ()
+  "Personal hook for `eglot-managed-mode-hook'."
   (eglot-inlay-hints-mode -1))
 
 (use-package eglot
@@ -376,6 +378,7 @@ stdout and stderr) is displayed in *Shell Command Output*."
     (display-buffer proc-buffer)))
 
 (defun track ()
+  "Open today's tracking file."
   (interactive)
   (find-file (substring (shell-command-to-string "date +'~/doc/tracking/%Y-%m'") 0 -1)))
 
@@ -431,11 +434,13 @@ When region is active send from START to END."
 (defalias 'tm #'send-to-tmux-region)
 
 (defun tmux-git ()
+  "Open new timux window in git root."
   (interactive)
   (let ((git-root (substring (shell-command-to-string "git rev-parse --show-toplevel") 0 -1)))
     (call-process "tmux" nil nil nil "new-window" "-c" git-root)))
 
 (defun tmux-cwd ()
+  "Open new tmux window in `default-directory'."
   (interactive)
   (call-process "tmux" nil nil nil "new-window" "-c" default-directory))
 
@@ -451,6 +456,9 @@ When region is active apply from START to END."
 (keymap-global-set "C-c C-u" #'apply-uni-region)
 
 (defun copy-buffer-name ()
+  "Puts the current buffer file-name in killring.
+
+If buffer is not associated with a file the buffer name is used."
   (interactive)
   (kill-new (if (buffer-file-name)
                 (buffer-file-name)
@@ -471,6 +479,7 @@ When region is active apply from START to END."
 (use-package rg)
 
 (defun neosimsim-prog-mode-hook ()
+  "Personal hook for `prog-mode-hook'."
   (setq indicate-empty-lines t)
   (setq show-trailing-whitespace t))
 
@@ -484,6 +493,7 @@ When region is active apply from START to END."
   (treesit-font-lock-level 4))
 
 (defun neosimsim-text-mode-hook ()
+  "Personal hook for `text-mode-hook'."
   (mixed-pitch-mode t)
   (setq indicate-empty-lines t)
   (setq show-trailing-whitespace t))
@@ -497,16 +507,17 @@ When region is active apply from START to END."
   (add-hook 'text-mode-hook #'neosimsim-text-mode-hook))
 
 (defvar-local neosimsim-formatter "sed 's/[[:blank:]]*$//'"
-  "Command used by `neosimsim-format-buffer'.")
+  "Shell command used by `neosimsim-format-buffer'.")
 
 (defun neosimsim-format-buffer ()
-  "Format the current buffer using the shell command stored in `neosimsim-formatter'."
+  "Format the current buffer using the `neosimsim-formatter'."
   (interactive)
   (pipe-shell-region neosimsim-formatter (point-min) (point-max)))
 
 (bind-key "C-x M-f" #'neosimsim-format-buffer)
 
 (defun neosimsim-emacs-lisp-mode-hook ()
+  "Personal hook for `emacs-lisp-mode-hook'."
   (indent-tabs-mode -1))
 
 (use-package elisp-mode
@@ -515,6 +526,7 @@ When region is active apply from START to END."
   (add-hook 'emacs-lisp-mode-hook #'neosimsim-emacs-lisp-mode-hook))
 
 (defun haskell-setup ()
+  "Personal hook for `haskell-mode-hook'."
   (setq neosimsim-formatter "ormolu --no-cabal"))
 
 (use-package haskell-mode
@@ -523,6 +535,7 @@ When region is active apply from START to END."
   (add-hook 'haskell-mode-hook #'haskell-setup))
 
 (defun cabal-setup ()
+  "Personal hook for `haskell-cabal-mode-hook'."
   (setq neosimsim-formatter "cabal-fmt"))
 
 (use-package haskell-cabal
@@ -531,6 +544,7 @@ When region is active apply from START to END."
   (add-hook 'haskell-cabal-mode-hook #'cabal-setup))
 
 (defun fish-setup ()
+  "Personal hook for `fish-mode-hook'."
   (setq neosimsim-formatter "fish_indent"))
 
 (use-package fish-mode
@@ -539,6 +553,7 @@ When region is active apply from START to END."
   (add-hook 'fish-mode-hook #'fish-setup))
 
 (defun elixir-setup ()
+  "Personal hook for `elixir-mode-hook'."
   (setq neosimsim-project-root-markers '(".git" "mix.lock")))
 
 (use-package elixir-ts-mode
@@ -556,6 +571,7 @@ When region is active apply from START to END."
   (add-hook 'elixir-ts-mode-hook #'elixir-setup))
 
 (defun term-setup ()
+  "Personal hook for `term-mode-hook'."
   (modify-syntax-entry ?: "_" term-mode-syntax-table)
   (modify-syntax-entry ?. "_" term-mode-syntax-table))
 
@@ -566,6 +582,7 @@ When region is active apply from START to END."
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
 (defun rust-setup ()
+  "Personal hook for `rust-mode-hook'."
   (setq neosimsim-project-root-markers '(".git" "Cargo.lock"))
   (setq neosimsim-formatter "rustfmt"))
 
@@ -594,6 +611,7 @@ When region is active apply from START to END."
   (setq rustic-compilation-panic '("thread '[^']+' panicked at \\([^\n]+\\):\\([0-9]+\\):\\([0-9]+\\)" 1 2 3)))
 
 (defun nix-setup ()
+  "Personal hook for `nix-mode-hook'."
   (setq neosimsim-formatter "nixpkgs-fmt"))
 
 (use-package nix-ts-mode
@@ -602,6 +620,7 @@ When region is active apply from START to END."
   (add-hook 'nix-ts-mode-hook #'nix-setup))
 
 (defun neosimsim-Info-mode-hook ()
+  "Personal hook for `Info-mode-hook'."
   (mixed-pitch-mode t))
 
 (use-package info
@@ -619,6 +638,7 @@ When region is active apply from START to END."
          ("C-S-<right>" . buf-move-right)))
 
 (defun neosimsim-python-mode-hook ()
+  "Personal hook for `python-mode-hook'."
   (setq neosimsim-project-root-markers '(".git" "pyproject.toml")))
 
 (use-package python
@@ -636,6 +656,7 @@ When region is active apply from START to END."
 (use-package yaml-ts-mode)
 
 (defun neosimsim-json-setup ()
+  "Personal hook for `json-mode-hook'."
   (setq neosimsim-formatter "jq ."))
 
 (use-package json-ts-mode
@@ -667,6 +688,7 @@ or when in a project.  (See `neosimsim-project-find-root')"
 (use-package ansi-color)
 
 (defun neosimsim-colorize-compilation-buffer ()
+  "`compilation-filter-hook' to apply ANSI color codes."
   (ansi-color-apply-on-region compilation-filter-start (point)))
 
 (setq neosimsim-path-locus-regex "\\(\\([[:alnum:]/._]+\\):\\([[:digit:]]+\\)\\(:\\([[:digit:]]+\\)?\\)?\\)")
