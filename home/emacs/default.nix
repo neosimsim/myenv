@@ -27,7 +27,6 @@
       amx
       avy
       awk-ts-mode
-      breadcrumb
       buffer-move
       color-theme-sanityinc-tomorrow
       combobulate
