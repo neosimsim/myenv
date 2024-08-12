@@ -60,6 +60,8 @@
 
 (use-package em-term
   :defer t
+  :defines eshell-mode-map
+
   :config
   (add-to-list 'eshell-visual-subcommands '("git" . ("log" "diff" "show")))
   (add-to-list 'eshell-visual-options '("git" . ("--help" "--paginate")))
@@ -603,6 +605,9 @@ If buffer is not associated with a file the buffer name is used."
 
 (use-package rustic
   :defer t
+  :defines
+  rustic-compilation-panic
+
   :custom
   (rustic-lsp-client #'eglot)
 
@@ -685,7 +690,9 @@ or when in a project.  (See `neosimsim-project-find-root')"
 
 (bind-key "C-c C-c C-f" #'neosimsim-fzf)
 
-(use-package ansi-color)
+(use-package ansi-color
+  :functions
+  ansi-color-apply-on-region)
 
 (defun neosimsim-colorize-compilation-buffer ()
   "`compilation-filter-hook' to apply ANSI color codes."
