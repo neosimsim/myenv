@@ -457,7 +457,7 @@ When region is active apply from START to END."
   (pipe-shell-region "uni" start end))
 (keymap-global-set "C-c C-u" #'apply-uni-region)
 
-(defun copy-buffer-name ()
+(defun neosimsim-copy-buffer-file-or-name ()
   "Puts the current buffer file-name in killring.
 
 If buffer is not associated with a file the buffer name is used."
