@@ -41,6 +41,7 @@
   (major-mode-remap-alist
    '((elixir-mode . elixir-ts-mode)
      (js-json-mode . json-ts-mode)
+     (css-mode . css-ts-mode)
      (python-mode . python-ts-mode))))
 
 (use-package simple
