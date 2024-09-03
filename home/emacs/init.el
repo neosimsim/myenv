@@ -87,6 +87,7 @@
          ([remap org-set-tags-command] . counsel-org-tag))
 
   :custom
+  (org-export-backends '(ascii html icalendar latex md odt))
   (org-modules '(ol-doi
                  ol-w3m
                  ol-bbdb
