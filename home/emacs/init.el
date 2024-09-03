@@ -378,8 +378,8 @@ stdout and stderr) is displayed in *Shell Command Output*."
                  (goto-char prev-point))
                (let ((proc-window (get-buffer-window proc-buffer)))
                  (when proc-window (quit-window nil proc-window)))
-               (kill-buffer proc-buffer)))
-    (display-buffer proc-buffer)))
+               (kill-buffer proc-buffer))
+      (display-buffer proc-buffer))))
 
 (defun track ()
   "Open today's tracking file."
