@@ -675,6 +675,7 @@ If buffer is not associated with a file the buffer name is used."
   :hook ((eglot-mode . yas-minor-mode)))
 
 (use-package combobulate
+  :load-path "~/src/combobulate"
   :hook
   json-ts-mode
   yaml-ts-mode)
