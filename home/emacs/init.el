@@ -77,6 +77,19 @@
               ("M-g M-n" . flymake-goto-next-error)
               ("M-g M-p" . flymake-goto-prev-error)))
 
+(use-package face-remap
+  :custom-face
+  (variable-pitch ((t (:height 1.15 :family "Free Sans")))))
+
+(use-package mixed-pitch
+  :hook
+  (Info-mode . mixed-pitch-mode)
+  (org-mode . mixed-pitch-mode)
+  (makdown-mode . mixed-pitch-mode)
+
+  :custom
+  (mixed-pitch-set-height t))
+
 (use-package org
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
@@ -626,15 +639,6 @@ If buffer is not associated with a file the buffer name is used."
   :mode "\\.nix\\'"
   :config
   (add-hook 'nix-ts-mode-hook #'nix-setup))
-
-(defun neosimsim-Info-mode-hook ()
-  "Personal hook for `Info-mode-hook'."
-  (mixed-pitch-mode t))
-
-(use-package info
-  :defer t
-  :config
-  (add-hook 'Info-mode-hook #'neosimsim-Info-mode-hook))
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode))
