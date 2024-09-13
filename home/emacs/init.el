@@ -512,14 +512,11 @@ If buffer is not associated with a file the buffer name is used."
 
 (defun neosimsim-text-mode-hook ()
   "Personal hook for `text-mode-hook'."
-  (mixed-pitch-mode t)
   (setq indicate-empty-lines t)
   (setq show-trailing-whitespace t))
 
 (use-package text-mode
   :defer t
-  :functions
-  mixed-pitch-mode
 
   :config
   (add-hook 'text-mode-hook #'neosimsim-text-mode-hook))
