@@ -16,7 +16,6 @@
 
   :config
   (show-paren-mode 1)
-  (global-display-line-numbers-mode)
 
   (menu-bar-mode 0)
 
@@ -80,6 +79,11 @@
 (use-package face-remap
   :custom-face
   (variable-pitch ((t (:height 1.15 :family "Free Sans")))))
+
+(use-package display-line-numbers
+  :hook
+  prog-mode
+  yaml-ts-mode)
 
 (use-package mixed-pitch
   :hook
