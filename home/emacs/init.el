@@ -625,6 +625,9 @@ If buffer is not associated with a file the buffer name is used."
   :defines
   rustic-compilation-panic
 
+  :bind (:map rustic-mode-map
+              ("<f5>" . rustic-cargo-check))
+
   :custom
   (rustic-lsp-client #'eglot)
 
