@@ -498,7 +498,12 @@ If buffer is not associated with a file the buffer name is used."
   fzf-find-file-in-dir
   fzf-find-file)
 
-(use-package rg)
+(use-package rg
+  :defer t
+  :config
+  (rg-enable-default-bindings)
+
+  :bind (("C-c s" . rg-menu)))
 
 (defun neosimsim-prog-mode-hook ()
   "Personal hook for `prog-mode-hook'."
