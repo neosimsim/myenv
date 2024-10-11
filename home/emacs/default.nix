@@ -49,6 +49,7 @@
       magit
       material-theme
       mixed-pitch
+      modus-themes
       monokai-theme
       move-text
       nix-ts-mode
@@ -61,6 +62,7 @@
       rust-mode
       rust-playground
       rustic
+      solo-jazz-theme
       spacemacs-theme
       treesit-grammars.with-all-grammars
       typescript-mode

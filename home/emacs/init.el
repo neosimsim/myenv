@@ -278,12 +278,13 @@
   (color-theme-sanityinc-tomorrow-day))
 
 (use-package leuven-theme
-  :config
-  (load-theme 'leuven t)
-
   :custom-face
   (eshell-prompt ((t (:foreground "medium blue" :weight bold))))
   (eglot-mode-line ((t (:inherit (mode-line-emphasis))))))
+
+(use-package modus-operandi-theme
+  :config
+  (load-theme 'modus-operandi t))
 
 ;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
 (defcustom neosimsim-project-root-markers
