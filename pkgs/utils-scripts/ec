@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # https://github.com/arcticicestudio/nord-emacs/issues/59
-emacsclient -e "(load-theme 'leuven t)" -c -a '' "$@"
+emacsclient -e "(load-theme 'modus-operandi t)" -c -a '' "$@"
