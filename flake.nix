@@ -278,13 +278,6 @@
               imports = [
                 ./home
               ];
-
-              home.stateVersion = "22.05";
-
-              myenv = {
-                enable = true;
-                managePlasma = config.services.xserver.desktopManager.plasma5.enable;
-              };
             };
           };
         };
