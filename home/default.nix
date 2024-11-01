@@ -4,7 +4,6 @@ let
 in
 {
   options.myenv = {
-
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -41,7 +40,6 @@ in
 
     nixpkgs.overlays = with inputs; [
       self.overlays.default
-      emacs-overlay.overlay
       nur.overlay
     ];
 

@@ -8,6 +8,9 @@
   };
 
   config = lib.mkIf config.myenv.xserver.enable {
+    programs.emacs.package = pkgs.emacs-git;
+    home.sessionVariables.EDITOR = "emacsclient -a ''";
+
     xresources.properties = {
       "Xft.autohint" = 0;
       "Xft.lcdfilter" = "lcddefault";

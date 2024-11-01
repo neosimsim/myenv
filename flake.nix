@@ -241,6 +241,7 @@
           plan9port.enable = true;
           chromium.enable = true;
           firefox.enable = true;
+          emacs.enable = true;
         };
 
         packages.x86_64-linux.withPlasmaWayland = homePackage "x86_64-linux" {
@@ -251,11 +252,13 @@
           plan9port.enable = true;
           chromium.enable = true;
           firefox.enable = true;
+          emacs.enable = true;
         };
 
         packages.x86_64-linux.noX = homePackage "x86_64-linux" {
           enable = true;
           plan9port.enable = true;
+          emacs.enable = true;
         };
 
         packages.aarch64-darwin.default = mkHomePackage self.homeConfigurations.neosimsim;

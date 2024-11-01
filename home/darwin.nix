@@ -8,6 +8,9 @@ lib.mkIf (pkgs.stdenv.isDarwin && config.myenv.enable) {
 
   programs.home-manager.enable = true;
 
+  programs.emacs.package = pkgs.emacs-git;
+  home.sessionVariables.EDITOR = "emacsclient -a ''";
+
   programs.emacs.extraConfig = ''
     (setq explicit-shell-file-name "${config.programs.fish.package}/bin/fish")
     (setenv "PATH" (concat "${config.home.profileDirectory}/bin:" (getenv "PATH")))
