@@ -13,15 +13,6 @@
         EDITOR = "emacsclient -a ''";
         BROWSER = "chromium";
       };
-      file = {
-        "lib/plumbing".source = ./plumbing;
-      };
-      packages = with pkgs; [
-        acmego
-        editinacme
-        meld
-        Watch
-      ];
     };
 
     xdg.configFile."alacritty/alacritty.yml".text = ''

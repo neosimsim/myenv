@@ -25,6 +25,7 @@ in
     ./wayland.nix
     ./gui-support.nix
     ./tmux
+    ./plan9port.nix
   ];
 
   config = mkIf config.myenv.enable {
@@ -72,7 +73,6 @@ in
         nix-prefetch-scripts
         pandoc
         passage
-        plan9port
         ripgrep
         typespeed
         unzip
