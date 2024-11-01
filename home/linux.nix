@@ -1,5 +1,5 @@
 { pkgs, lib, config, ... }:
-lib.mkIf (pkgs.stdenv.isLinux && config.myenv.enable) {
+lib.mkIf (pkgs.stdenv.isLinux && config.myenv.coreutils.enable) {
   home.sessionVariables = {
     XDG_DESKTOP_DIR = "$HOME";
     XDG_DOCUMENTS_DIR = "$HOME/doc";

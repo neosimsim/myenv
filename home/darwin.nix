@@ -1,5 +1,5 @@
 { pkgs, lib, config, ... }:
-lib.mkIf (pkgs.stdenv.isDarwin && config.myenv.enable) {
+lib.mkIf (pkgs.stdenv.isDarwin && config.myenv.coreutils.enable) {
 
   home.packages = with pkgs; [
     # Add nix to ensure it matches this flake and so it's added to emacs PATH.

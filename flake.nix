@@ -234,7 +234,7 @@
       in
       {
         packages.x86_64-linux.withPlasma = homePackage "x86_64-linux" {
-          enable = true;
+          coreutils.enable = true;
           managePlasma = true;
           xserver.enable = true;
           manageGhc = true;
@@ -245,7 +245,7 @@
         };
 
         packages.x86_64-linux.withPlasmaWayland = homePackage "x86_64-linux" {
-          enable = true;
+          coreutils.enable = true;
           managePlasma = true;
           manageWayland = true;
           manageGhc = true;
@@ -256,7 +256,7 @@
         };
 
         packages.x86_64-linux.noX = homePackage "x86_64-linux" {
-          enable = true;
+          coreutils.enable = true;
           plan9port.enable = true;
           emacs.enable = true;
         };
@@ -305,7 +305,7 @@
                   homeDirectory = "/Users/neosimsim";
                 };
 
-                myenv.enable = true;
+                myenv.coreutils.enable = true;
               })
             ];
           };

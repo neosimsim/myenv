@@ -1,12 +1,13 @@
-{ pkgs, config, lib, inputs, ... }: with lib;
+{ pkgs, config, lib, inputs, ... }:
 let
   aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
 in
 {
-  options.myenv = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
+  options = {
+    myenv.coreutils = {
+      enable = lib.mkEnableOption ''
+        Install utils I can't live without.
+      '';
     };
   };
 
@@ -25,7 +26,7 @@ in
     ./plan9port.nix
   ];
 
-  config = mkIf config.myenv.enable {
+  config = lib.mkIf config.myenv.coreutils.enable {
     nix = {
       # The HomeManager NixOS module sets nix.package, so we override to use
       # the same configuration for NixOS and non-NixOS.
