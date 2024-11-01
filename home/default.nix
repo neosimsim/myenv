@@ -38,7 +38,6 @@ in
 
     nixpkgs.overlays = with inputs; [
       self.overlays.default
-      nur.overlay
     ];
 
     home = {

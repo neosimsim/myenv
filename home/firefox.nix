@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }: with lib;
+{ pkgs, lib, config, inputs, ... }: with lib;
 {
   options = {
     myenv.firefox = {
@@ -9,6 +9,10 @@
   };
 
   config = lib.mkIf config.myenv.firefox.enable {
+    nixpkgs.overlays = with inputs; [
+      nur.overlay
+    ];
+
     programs.firefox = {
       enable = true;
 
