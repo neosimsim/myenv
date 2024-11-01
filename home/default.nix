@@ -11,8 +11,6 @@ in
   };
 
   imports = [
-    inputs.plasma-manager.homeManagerModules.plasma-manager
-
     ./chromium.nix
     ./darwin.nix
     ./emacs

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: with lib;
+{ config, lib, pkgs, inputs, ... }: with lib;
 {
   options = {
     myenv.managePlasma = mkOption {
@@ -6,6 +6,10 @@
       default = false;
     };
   };
+
+  imports = [
+    inputs.plasma-manager.homeManagerModules.plasma-manager
+  ];
 
   config = mkIf config.myenv.managePlasma {
     home.sessionVariables = {
