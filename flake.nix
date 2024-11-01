@@ -292,6 +292,7 @@
                 };
 
                 myenv.coreutils.enable = true;
+                myenv.emacs.enable = true;
               })
             ];
           };
