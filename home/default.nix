@@ -78,8 +78,6 @@ in
       ] ++ (with haskellPackages; [
         hconv
         hookmark
-      ]) ++ (with nodePackages; [
-        typescript-language-server
       ]);
 
       sessionVariables = {
