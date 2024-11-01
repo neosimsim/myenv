@@ -137,7 +137,6 @@
                 ${checkPresent} $path/bin/firefox-esr
                 ${checkPresent} $path/bin/chromium
                 ${checkPresent} $path/bin/Afmt
-                ${checkPresent} $path/bin/mplayer
                 ${checkPresent} $path/bin/ghc
                 ${checkPresent} $path/bin/haskell-language-server-wrapper
 
@@ -162,7 +161,6 @@
                 ${checkPresent} $path/bin/firefox-esr
                 ${checkPresent} $path/bin/chromium
                 ${checkPresent} $path/bin/Afmt
-                ${checkPresent} $path/bin/mplayer
                 ${checkPresent} $path/bin/ghc
                 ${checkPresent} $path/bin/wl-copy
                 ${checkPresent} $path/bin/haskell-language-server-wrapper
@@ -238,8 +236,11 @@
         packages.x86_64-linux.withPlasma = homePackage "x86_64-linux" {
           enable = true;
           managePlasma = true;
+          xserver.enable = true;
           manageGhc = true;
           plan9port.enable = true;
+          chromium.enable = true;
+          firefox.enable = true;
         };
 
         packages.x86_64-linux.withPlasmaWayland = homePackage "x86_64-linux" {
@@ -248,6 +249,8 @@
           manageWayland = true;
           manageGhc = true;
           plan9port.enable = true;
+          chromium.enable = true;
+          firefox.enable = true;
         };
 
         packages.x86_64-linux.noX = homePackage "x86_64-linux" {
@@ -277,7 +280,6 @@
 
               myenv = {
                 enable = true;
-                guiSupport = config.services.xserver.enable;
                 managePlasma = config.services.xserver.desktopManager.plasma5.enable;
               };
             };
@@ -301,7 +303,6 @@
                 };
 
                 myenv.enable = true;
-                myenv.guiSupport = true;
               })
             ];
           };

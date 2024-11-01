@@ -23,7 +23,7 @@ in
     ./linux.nix
     ./plasma.nix
     ./wayland.nix
-    ./gui-support.nix
+    ./xserver.nix
     ./tmux
     ./plan9port.nix
   ];
@@ -95,9 +95,7 @@ in
         GOBIN = "$HOME/bin";
         FZF_DEFAULT_COMMAND = "fd --type file --follow --hidden --exclude .git";
         FZF_CTRL_T_COMMAND = "$FZF_DEFAULT_COMMAND";
-      } // (lib.optionalAttrs (! config.myenv.guiSupport) {
-        EDITOR = "emacsclient -ca  ''";
-      });
+      };
 
       # don't use sessionPath because I want to prefix PATH
       sessionVariablesExtra = ''

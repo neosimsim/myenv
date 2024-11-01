@@ -5,10 +5,7 @@
       if config.myenv.manageWayland
       # use emacs Pure GTK to make use of Wayland scaling
       then emacs-pgtk
-      else
-        if config.myenv.guiSupport
-        then emacs-git
-        else emacs-git-nox;
+      else emacs-git;
 
     overrides = ethis: eprev: {
       eglot-x = ethis.callPackage ./eglot-x.nix { inherit (inputs) eglot-x; };

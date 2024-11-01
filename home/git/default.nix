@@ -1,10 +1,7 @@
-{ pkgs, config, ... }: {
+{ pkgs, lib, ... }: {
   programs.git = {
     enable = true;
-    package =
-      if config.myenv.guiSupport
-      then pkgs.gitFull
-      else pkgs.git;
+    package = lib.mkDefault pkgs.gitFull;
     attributes = [
       "*.gz diff=compressed"
       "*.bz2 diff=compressed"
