@@ -46,7 +46,6 @@ in
       packages = with pkgs; [
         age
         aspell
-        cabal-shell
         cargo-outdated
         rustup
         clisp

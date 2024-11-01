@@ -19,6 +19,7 @@ in
     home.packages = [
       ghc
     ] ++ (with pkgs; [
+      cabal-shell
       haskell-language-server
     ]) ++ (with pkgs.haskellPackages; [
       apply-refact
