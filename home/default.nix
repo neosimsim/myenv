@@ -56,7 +56,6 @@ in
         fd
         fzf
         gcc
-        git-lfs
         gnumake
         htop
         isync
@@ -68,15 +67,11 @@ in
         pandoc
         passage
         ripgrep
-        typespeed
         unzip
         utils-go
         utils-scripts
         utils-rust
-      ] ++ (with haskellPackages; [
-        hconv
-        hookmark
-      ]);
+      ];
 
       sessionVariables = {
         VISUAL = "$EDITOR";

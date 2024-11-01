@@ -40,14 +40,6 @@
       url = "github:9fans/go";
       flake = false;
     };
-
-    hookmark = {
-      url = "gitlab:neosimsim/hookmark";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
   };
 
   outputs =
@@ -58,7 +50,6 @@
     , flake-utils
     , home-manager
     , nixpkgs
-    , hookmark
     , nur
     , plan9fansGo
     , plasma-manager

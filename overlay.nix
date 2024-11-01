@@ -1,16 +1,4 @@
 inputs: final: prev: {
-
-  haskellPackages = with prev;
-    (haskellPackages.override {
-      overrides = finalHs: prevHs: {
-        # Using callCabal2nix, which is used by packageSourceOverrides,
-        # breaks `nix show` and `nix check`.
-        # https://nixos.wiki/wiki/Import_From_Derivation#IFD_and_Haskell
-        hconv = finalHs.callPackage ./pkgs/hconv.nix { };
-        hookmark = (inputs.hookmark.overlays.default final prev).haskellPackages.hookmark;
-      };
-    });
-
   utils-scripts = import ./pkgs/utils-scripts { pkgs = prev; };
 
   utils-go = import ./pkgs/utils-go { pkgs = prev; };

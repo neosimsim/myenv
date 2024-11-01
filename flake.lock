@@ -110,29 +110,6 @@
         "type": "github"
       }
     },
-    "hookmark": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1713344422,
-        "narHash": "sha256-NUeNZOURpX4uwIZDMVXjOCSkKybEXFrave5RauMKZZ8=",
-        "owner": "neosimsim",
-        "repo": "hookmark",
-        "rev": "162dd3c823040daf317fcc3210baa2be8652eb62",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "neosimsim",
-        "repo": "hookmark",
-        "type": "gitlab"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1729413321,
@@ -226,7 +203,6 @@
         "emacs-overlay": "emacs-overlay",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
-        "hookmark": "hookmark",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "plan9fansGo": "plan9fansGo",
