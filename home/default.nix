@@ -24,6 +24,7 @@ in
     ./xserver.nix
     ./tmux
     ./plan9port.nix
+    ./go.nix
   ];
 
   config = lib.mkIf config.myenv.coreutils.enable {
@@ -57,9 +58,6 @@ in
         gcc
         git-lfs
         gnumake
-        go
-        gosec
-        gotools
         htop
         isync
         jq
@@ -84,9 +82,6 @@ in
         VISUAL = "$EDITOR";
         FCEDIT = "$EDITOR";
         CDPATH = ".:$HOME:$HOME/src";
-        GOOS = "linux";
-        GOARCH = "amd64";
-        GOBIN = "$HOME/bin";
         FZF_DEFAULT_COMMAND = "fd --type file --follow --hidden --exclude .git";
         FZF_CTRL_T_COMMAND = "$FZF_DEFAULT_COMMAND";
       };

@@ -242,6 +242,7 @@
           chromium.enable = true;
           firefox.enable = true;
           emacs.enable = true;
+          go.enable = true;
         };
 
         packages.x86_64-linux.withPlasmaWayland = homePackage "x86_64-linux" {
@@ -253,6 +254,7 @@
           chromium.enable = true;
           firefox.enable = true;
           emacs.enable = true;
+          go.enable = true;
         };
 
         packages.x86_64-linux.noX = homePackage "x86_64-linux" {
