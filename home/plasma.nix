@@ -1,9 +1,10 @@
 { config, lib, pkgs, inputs, ... }: with lib;
 {
   options = {
-    myenv.managePlasma = mkOption {
-      type = types.bool;
-      default = false;
+    myenv.plasma = {
+      enable = mkEnableOption ''
+        Confige KDE plasma.
+      '';
     };
   };
 
@@ -11,7 +12,7 @@
     inputs.plasma-manager.homeManagerModules.plasma-manager
   ];
 
-  config = mkIf config.myenv.managePlasma {
+  config = mkIf config.myenv.plasma.enable {
     home.sessionVariables = {
       PLASMA_USE_QT_SCALING = 1;
     };

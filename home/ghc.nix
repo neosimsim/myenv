@@ -8,13 +8,14 @@ let
 in
 {
   options = {
-    myenv.manageGhc = mkOption {
-      type = types.bool;
-      default = false;
+    myenv.ghc = {
+      enable = mkEnableOption ''
+        Setup Haskell (GHC) development environment.
+      '';
     };
   };
 
-  config = mkIf config.myenv.manageGhc {
+  config = mkIf config.myenv.ghc.enable {
     home.packages = [
       ghc
     ] ++ (with pkgs; [

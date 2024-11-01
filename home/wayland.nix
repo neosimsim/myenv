@@ -1,10 +1,9 @@
 { pkgs, lib, config, ... }: {
-  options.myenv.manageWayland = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-  };
+  options.myenv.wayland.enable = lib.mkEnableOption ''
+    Configure Wayland.
+  '';
 
-  config = lib.mkIf config.myenv.manageWayland {
+  config = lib.mkIf config.myenv.wayland.enable {
     home.packages = with pkgs; [
       wl-clipboard-rs
     ];

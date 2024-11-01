@@ -235,9 +235,9 @@
       {
         packages.x86_64-linux.withPlasma = homePackage "x86_64-linux" {
           coreutils.enable = true;
-          managePlasma = true;
+          plasma.enable = true;
           xserver.enable = true;
-          manageGhc = true;
+          ghc.enable = true;
           plan9port.enable = true;
           chromium.enable = true;
           firefox.enable = true;
@@ -246,9 +246,9 @@
 
         packages.x86_64-linux.withPlasmaWayland = homePackage "x86_64-linux" {
           coreutils.enable = true;
-          managePlasma = true;
-          manageWayland = true;
-          manageGhc = true;
+          plasma.enable = true;
+          wayland.enable = true;
+          ghc.enable = true;
           plan9port.enable = true;
           chromium.enable = true;
           firefox.enable = true;
