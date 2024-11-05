@@ -77,6 +77,7 @@
               ("M-g M-p" . flymake-goto-prev-error)))
 
 (use-package face-remap
+  :if (eq system-type 'gnu/linux)
   :custom-face
   (variable-pitch ((t (:height 1.15 :family "Free Sans")))))
 
