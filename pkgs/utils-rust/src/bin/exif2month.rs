@@ -137,9 +137,13 @@ trait Runner {
                                         format!("unable to read file name from {path:?}")
                                     })?,
                                 );
-                                match Self::rename(path, to) {
-                                    Ok(()) => {}
-                                    Err(err) => eprintln!("{err}"),
+                                if to.exists() {
+                                    eprintln!("{to:?} already exists");
+                                } else {
+                                    match Self::rename(path, to) {
+                                        Ok(()) => {}
+                                        Err(err) => eprintln!("{err}"),
+                                    }
                                 }
                             }
                         },
