@@ -10,8 +10,12 @@ name = "uni"
 name = "dtt"
 path = "src/bin/do-the-thing.rs"
 
+[[bin]]
+name = "exif2month"
+
 [dependencies]
 clap = { version = "4.5.14", features = ["derive"] }
+kamadak-exif = "0.6.1"
 pretty_assertions = "1.4.0"
 regex = "1.10.5"
 
