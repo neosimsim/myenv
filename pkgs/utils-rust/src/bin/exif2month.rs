@@ -83,9 +83,9 @@ where
             Value::Ascii(ref vec) if !vec.is_empty() => DateTime::from_ascii(&vec[0])
                 .map(MonthOfYear::from)
                 .map_err(|err| err.to_string()),
-            _ => Err(String::from("no DateTime field present")),
+            _ => Err(String::from("No DateTime field present")),
         },
-        None => Err(String::from("no DateTime field present")),
+        None => Err(String::from("No DateTime field present")),
     }
 }
 
@@ -119,7 +119,7 @@ trait Runner {
 
     fn run(input_dir: &PathBuf, targed_dir: &Path) -> Result<(), String> {
         let scan_results = scan_dir(input_dir)
-            .map_err(|err| format!("can't scan {dir:?}: {err}", dir = input_dir,))?;
+            .map_err(|err| format!("Can't scan {dir:?}: {err}", dir = input_dir,))?;
 
         for result in scan_results {
             match result {
