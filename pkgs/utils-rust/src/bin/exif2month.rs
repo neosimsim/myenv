@@ -81,33 +81,27 @@ where
 {
     let mut parser = MediaParser::new();
     let ms = MediaSource::file_path(path.as_ref())
-        .map_err(|err| format!("Error opining {path:?}: {err}", path = path.as_ref()))?;
+        .map_err(|err| format!("Error opining {path}: {err}", path = path_string(&path)))?;
 
     if ms.has_exif() {
         // Parse the file as an Exif-compatible file
-        let iter: ExifIter = parser.parse(ms).map_err(|err| {
-            format!(
-                "Error reading exif for {path:?}: {err}",
-                path = path.as_ref()
-            )
-        })?;
+        let iter: ExifIter = parser
+            .parse(ms)
+            .map_err(|err| format!("Error reading exif for: {err}"))?;
         let exif: Exif = iter.into();
         exif.get(ExifTag::DateTimeOriginal)
             .ok_or_else(|| String::from("No DateTime field present"))
             .and_then(MonthOfYear::try_from)
     } else if ms.has_track() {
         // Parse the file as a track
-        let info: TrackInfo = parser.parse(ms).map_err(|err| {
-            format!(
-                "Error reading tracke info {path:?}: {err}",
-                path = path.as_ref()
-            )
-        })?;
+        let info: TrackInfo = parser
+            .parse(ms)
+            .map_err(|err| format!("Error reading tracke info: {err}"))?;
         info.get(TrackInfoTag::CreateDate)
             .ok_or_else(|| String::from("No DateTime field present"))
             .and_then(MonthOfYear::try_from)
     } else {
-        Err(format!("Unknown media type {path:?}", path = path.as_ref()))
+        Err(format!("Unknown media type"))
     }
 }
 
@@ -143,28 +137,38 @@ trait Runner {
 
     fn run(input_dir: &PathBuf, targed_dir: &Path) -> Result<(), String> {
         let scan_results = scan_dir(input_dir)
-            .map_err(|err| format!("Can't scan {dir:?}: {err}", dir = input_dir,))?;
+            .map_err(|err| format!("Can't scan {dir}: {err}", dir = path_string(input_dir)))?;
 
         for result in scan_results {
             match result {
                 Err(err) => eprintln!("{}", err),
                 Ok(scan) => {
                     let path = scan.path();
-                    let month_of_year_result = read_month_of_year(&path)
-                        .map_err(|err| format!("Unable to read date from {path:?}: {err}"));
+                    let month_of_year_result = read_month_of_year(&path).map_err(|err| {
+                        format!(
+                            "Unable to read date from {path}: {err}",
+                            path = path_string(&path)
+                        )
+                    });
                     match month_of_year_result {
                         Err(err) => eprintln!("{}", err),
                         Ok(month_of_year) => {
                             let to = targed_dir.join(PathBuf::from(month_of_year)).join(
                                 path.file_name().ok_or_else(|| {
-                                    format!("Unable to read file name from {path:?}")
+                                    format!(
+                                        "Unable to read file name from {path}",
+                                        path = path_string(&path)
+                                    )
                                 })?,
                             );
                             if to.exists() {
                                 eprintln!("{to:?} already exists");
                             } else {
                                 match to.parent() {
-                                    None => eprintln!("Can't read parent for {path:?}"),
+                                    None => eprintln!(
+                                        "Can't read parent for {path}",
+                                        path = path_string(&path)
+                                    ),
                                     Some(parent) => match Self::create_dir_all(parent) {
                                         Err(err) => eprintln!("{err}"),
                                         Ok(()) => match Self::rename(path, to) {
@@ -205,13 +209,24 @@ struct DryRunner {}
 impl Runner for DryRunner {
     type Event = DryRunEvent;
 
-    fn create_dir_all<P: AsRef<Path>>(path: P) -> std::io::Result<()> {
-        println!("create directory {path:?}", path = path.as_ref());
+    fn create_dir_all<P: AsRef<Path>>(_path: P) -> std::io::Result<()> {
+        // println!("create directory {path:?}", path = path.as_ref());
         Ok(())
     }
 
     fn rename<P: AsRef<Path>, Q: AsRef<Path>>(from: P, to: Q) -> std::io::Result<()> {
-        println!("{from:?} -> {to:?}", from = from.as_ref(), to = to.as_ref());
+        println!(
+            "{from} -> {to}",
+            from = path_string(from),
+            to = path_string(to)
+        );
         Ok(())
     }
+}
+
+fn path_string<P: AsRef<Path>>(path: P) -> String {
+    let os_string: &std::ffi::OsStr = path.as_ref().as_ref();
+    <&str>::try_from(os_string)
+        .map(String::from)
+        .unwrap_or_else(|_| format!("{path:?}", path = path.as_ref()))
 }
