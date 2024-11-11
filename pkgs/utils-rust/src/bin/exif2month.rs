@@ -126,27 +126,26 @@ trait Runner {
                 Err(err) => eprintln!("{}", err),
                 Ok(scan) => {
                     let path = scan.path();
-                    match path.parent() {
-                        None => eprintln!("can't read parent for {path:?}"),
-                        Some(parent) => match Self::create_dir_all(parent) {
-                            Err(err) => eprintln!("{err}"),
-                            Ok(()) => {
-                                let month_of_year = read_month_of_year(&path)?;
-                                let to = targed_dir.join(PathBuf::from(month_of_year)).join(
-                                    path.file_name().ok_or_else(|| {
-                                        format!("unable to read file name from {path:?}")
-                                    })?,
-                                );
-                                if to.exists() {
-                                    eprintln!("{to:?} already exists");
-                                } else {
-                                    match Self::rename(path, to) {
-                                        Ok(()) => {}
-                                        Err(err) => eprintln!("{err}"),
-                                    }
-                                }
-                            }
-                        },
+                    let month_of_year = read_month_of_year(&path)?;
+                    let to =
+                        targed_dir
+                            .join(PathBuf::from(month_of_year))
+                            .join(path.file_name().ok_or_else(|| {
+                                format!("unable to read file name from {path:?}")
+                            })?);
+                    if to.exists() {
+                        eprintln!("{to:?} already exists");
+                    } else {
+                        match to.parent() {
+                            None => eprintln!("can't read parent for {path:?}"),
+                            Some(parent) => match Self::create_dir_all(parent) {
+                                Err(err) => eprintln!("{err}"),
+                                Ok(()) => match Self::rename(path, to) {
+                                    Ok(()) => {}
+                                    Err(err) => eprintln!("{err}"),
+                                },
+                            },
+                        }
                     }
                 }
             }
