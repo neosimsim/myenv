@@ -5,8 +5,11 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use chrono::Datelike;
 use clap::{arg, Parser};
-use exif::{self, DateTime, In, Tag, Value};
+use nom_exif::{
+    EntryValue, Exif, ExifIter, ExifTag, MediaParser, MediaSource, TrackInfo, TrackInfoTag,
+};
 
 #[derive(Parser)]
 struct Cli {
@@ -32,8 +35,8 @@ fn main() -> Result<(), String> {
 
 #[derive(Debug)]
 struct MonthOfYear {
-    year: u16,
-    month: u8,
+    year: i32,
+    month: u32,
 }
 
 impl From<MonthOfYear> for PathBuf {
@@ -58,11 +61,16 @@ fn test_path_buf_from_year_of_month() {
     assert_eq!(PathBuf::from("2024/02"), PathBuf::from(yom));
 }
 
-impl From<DateTime> for MonthOfYear {
-    fn from(date_time: DateTime) -> Self {
-        Self {
-            year: date_time.year,
-            month: date_time.month,
+impl TryFrom<&EntryValue> for MonthOfYear {
+    type Error = String;
+
+    fn try_from(value: &EntryValue) -> Result<Self, Self::Error> {
+        match value.as_time() {
+            Some(date_time) => Ok(Self {
+                year: date_time.year(),
+                month: date_time.month(),
+            }),
+            None => Err(format!("Cannot read {value:?} as time")),
         }
     }
 }
@@ -71,21 +79,35 @@ fn read_month_of_year<P>(path: P) -> Result<MonthOfYear, String>
 where
     P: AsRef<Path>,
 {
-    let file = std::fs::File::open(path).map_err(|err| err.to_string())?;
-    let mut bufreader = std::io::BufReader::new(&file);
-    let exifreader = exif::Reader::new();
-    let exif = exifreader
-        .read_from_container(&mut bufreader)
-        .map_err(|err| err.to_string())?;
+    let mut parser = MediaParser::new();
+    let ms = MediaSource::file_path(path.as_ref())
+        .map_err(|err| format!("Error opining {path:?}: {err}", path = path.as_ref()))?;
 
-    match exif.get_field(Tag::DateTime, In::PRIMARY) {
-        Some(field) => match field.value {
-            Value::Ascii(ref vec) if !vec.is_empty() => DateTime::from_ascii(&vec[0])
-                .map(MonthOfYear::from)
-                .map_err(|err| err.to_string()),
-            _ => Err(String::from("No DateTime field present")),
-        },
-        None => Err(String::from("No DateTime field present")),
+    if ms.has_exif() {
+        // Parse the file as an Exif-compatible file
+        let iter: ExifIter = parser.parse(ms).map_err(|err| {
+            format!(
+                "Error reading exif for {path:?}: {err}",
+                path = path.as_ref()
+            )
+        })?;
+        let exif: Exif = iter.into();
+        exif.get(ExifTag::DateTimeOriginal)
+            .ok_or_else(|| String::from("No DateTime field present"))
+            .and_then(MonthOfYear::try_from)
+    } else if ms.has_track() {
+        // Parse the file as a track
+        let info: TrackInfo = parser.parse(ms).map_err(|err| {
+            format!(
+                "Error reading tracke info {path:?}: {err}",
+                path = path.as_ref()
+            )
+        })?;
+        info.get(TrackInfoTag::CreateDate)
+            .ok_or_else(|| String::from("No DateTime field present"))
+            .and_then(MonthOfYear::try_from)
+    } else {
+        Err(format!("Unknown media type {path:?}", path = path.as_ref()))
     }
 }
 
@@ -113,6 +135,8 @@ fn scan_dir(dir: &PathBuf) -> std::io::Result<Box<dyn Iterator<Item = std::io::R
 }
 
 trait Runner {
+    type Event;
+
     fn create_dir_all<P: AsRef<Path>>(path: P) -> std::io::Result<()>;
 
     fn rename<P: AsRef<Path>, Q: AsRef<Path>>(from: P, to: Q) -> std::io::Result<()>;
@@ -163,6 +187,8 @@ trait Runner {
 struct IORunner {}
 
 impl Runner for IORunner {
+    type Event = ();
+
     fn create_dir_all<P: AsRef<Path>>(path: P) -> std::io::Result<()> {
         std::fs::create_dir_all(path)
     }
@@ -172,9 +198,13 @@ impl Runner for IORunner {
     }
 }
 
+enum DryRunEvent {}
+
 struct DryRunner {}
 
 impl Runner for DryRunner {
+    type Event = DryRunEvent;
+
     fn create_dir_all<P: AsRef<Path>>(path: P) -> std::io::Result<()> {
         println!("create directory {path:?}", path = path.as_ref());
         Ok(())
