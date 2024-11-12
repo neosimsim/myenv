@@ -12,6 +12,7 @@ use nom_exif::{
     EntryValue, Exif, ExifIter, ExifTag, MediaParser, MediaSource, TrackInfo, TrackInfoTag,
 };
 use sha2::{Digest, Sha256};
+use std::os::unix::fs::MetadataExt;
 use std::{fs, io};
 
 #[derive(Parser)]
@@ -187,34 +188,93 @@ trait Runner {
             })?);
 
         if to.exists() {
-            if is_same_path(&path, &to)? {
-                return Err(format!(
-                    "{path} and {to} is the same file and is skipped.",
-                    path = path_string(&path),
-                    to = path_string(to),
-                ));
+            Self::handle_existing_target(&path, &to)
+        } else {
+            let parent = to.parent().ok_or_else(|| {
+                format!("Can't read parent for {path}", path = path_string(&path))
+            })?;
+
+            Self::create_dir_all(parent).map_err(|err| err.to_string())?;
+            Self::rename(path, to).map_err(|err| err.to_string())
+        }
+    }
+
+    fn handle_existing_target(path: &PathBuf, to: &PathBuf) -> Result<(), String> {
+        if is_same_device(path, to)? {
+            if is_same_inode(path, to)? {
+                if !is_same_path(path, to)? && number_of_hardlinks(path)? > 1 {
+                    eprintln!(
+                        "{path} and {to} are hardlinks to the same inode. Removing {path}",
+                        to = path_string(to),
+                        path = path_string(path)
+                    );
+                    Self::remove_file(path).map_err(|err| err.to_string())
+                } else {
+                    Err(format!(
+                        "{path} and {to} is the same file and is skipped.",
+                        path = path_string(path),
+                        to = path_string(to),
+                    ))
+                }
             } else if is_same_content(&path, &to)? {
                 eprintln!(
                     "{to} already exists with same hash. Removing {path}",
-                    to = path_string(&to),
-                    path = path_string(&path)
+                    to = path_string(to),
+                    path = path_string(path)
                 );
-                return Self::remove_file(path).map_err(|err| err.to_string());
+                Self::remove_file(path).map_err(|err| err.to_string())
             } else {
-                return Err(format!(
+                Err(format!(
                     "{to} already exists and is skipped.",
                     to = path_string(to)
-                ));
+                ))
             }
-        };
-
-        let parent = to
-            .parent()
-            .ok_or_else(|| format!("Can't read parent for {path}", path = path_string(&path)))?;
-
-        Self::create_dir_all(parent).map_err(|err| err.to_string())?;
-        Self::rename(path, to).map_err(|err| err.to_string())
+        } else if is_same_content(&path, &to)? {
+            eprintln!(
+                "{to} already exists with same hash. Removing {path}",
+                to = path_string(to),
+                path = path_string(path)
+            );
+            Self::remove_file(path).map_err(|err| err.to_string())
+        } else {
+            Err(format!(
+                "{to} already exists and is skipped.",
+                to = path_string(to)
+            ))
+        }
     }
+}
+
+fn is_same_device(path1: &PathBuf, path2: &PathBuf) -> Result<bool, String> {
+    let meta1 = path1.metadata().map_err(|err| {
+        format!(
+            "Error reading metadata for {path1}: {err}",
+            path1 = path_string(path1)
+        )
+    })?;
+    let meta2 = path2.metadata().map_err(|err| {
+        format!(
+            "Error reading metadata for {path2}: {err}",
+            path2 = path_string(path2)
+        )
+    })?;
+    Ok(meta1.dev() == meta2.dev() && meta1.rdev() == meta2.rdev())
+}
+
+fn is_same_inode(path1: &PathBuf, path2: &PathBuf) -> Result<bool, String> {
+    let meta1 = path1.metadata().map_err(|err| {
+        format!(
+            "Error reading metadata for {path1}: {err}",
+            path1 = path_string(path1)
+        )
+    })?;
+    let meta2 = path2.metadata().map_err(|err| {
+        format!(
+            "Error reading metadata for {path2}: {err}",
+            path2 = path_string(path2)
+        )
+    })?;
+    Ok(meta1.ino() == meta2.ino())
 }
 
 struct IORunner {}
@@ -267,6 +327,18 @@ fn path_string<P: AsRef<Path>>(path: P) -> String {
     <&str>::try_from(os_string)
         .map(String::from)
         .unwrap_or_else(|_| format!("{path:?}", path = path.as_ref()))
+}
+
+fn number_of_hardlinks<P: AsRef<Path>>(path: P) -> Result<u64, String> {
+    path.as_ref()
+        .metadata()
+        .map_err(|err| {
+            format!(
+                "Error reading metadata for {path}: {err}",
+                path = path_string(path)
+            )
+        })
+        .map(|meta| meta.nlink())
 }
 
 fn is_same_path<P: AsRef<Path>>(path1: P, path2: P) -> Result<bool, String> {
