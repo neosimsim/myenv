@@ -187,6 +187,13 @@ trait Runner {
             })?);
 
         if to.exists() {
+            if path == to {
+                return Err(format!(
+                    "{path} and {to} is the same file and is skipped.",
+                    path = path_string(&path),
+                    to = path_string(to),
+                ));
+            }
             let from_hash = sha256(&path).unwrap();
             let to_hash = sha256(&to).unwrap();
             if from_hash == to_hash {
