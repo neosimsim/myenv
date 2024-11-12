@@ -187,16 +187,13 @@ trait Runner {
             })?);
 
         if to.exists() {
-            if canonicalize(&path).unwrap() == canonicalize(&to).unwrap() {
+            if is_same_path(&path, &to)? {
                 return Err(format!(
                     "{path} and {to} is the same file and is skipped.",
                     path = path_string(&path),
                     to = path_string(to),
                 ));
-            }
-            let from_hash = sha256(&path).unwrap();
-            let to_hash = sha256(&to).unwrap();
-            if from_hash == to_hash {
+            } else if is_same_content(&path, &to)? {
                 eprintln!(
                     "{to} already exists with same hash. Removing {path}",
                     to = path_string(&to),
@@ -270,4 +267,36 @@ fn path_string<P: AsRef<Path>>(path: P) -> String {
     <&str>::try_from(os_string)
         .map(String::from)
         .unwrap_or_else(|_| format!("{path:?}", path = path.as_ref()))
+}
+
+fn is_same_path<P: AsRef<Path>>(path1: P, path2: P) -> Result<bool, String> {
+    let canonical_path1 = canonicalize(&path1).map_err(|err| {
+        format!(
+            "Error canonicalizing {path1}: {err}",
+            path1 = path_string(path1)
+        )
+    })?;
+    let canonical_path2 = canonicalize(&path2).map_err(|err| {
+        format!(
+            "Error canonicalizing {path2}: {err}",
+            path2 = path_string(path2)
+        )
+    })?;
+    Ok(canonical_path1 == canonical_path2)
+}
+
+fn is_same_content<P: AsRef<Path>>(path1: P, path2: P) -> Result<bool, String> {
+    let hash1 = sha256(&path1).map_err(|err| {
+        format!(
+            "Error computing sha256 for {path1}: {err}",
+            path1 = path_string(path1)
+        )
+    })?;
+    let hash2 = sha256(&path2).map_err(|err| {
+        format!(
+            "Error computing sha256 for {path2}: {err}",
+            path2 = path_string(path2)
+        )
+    })?;
+    Ok(hash1 == hash2)
 }
