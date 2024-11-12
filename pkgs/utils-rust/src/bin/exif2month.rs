@@ -5,11 +5,14 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use base64ct::{Base64, Encoding};
 use chrono::Datelike;
 use clap::{arg, Parser};
 use nom_exif::{
     EntryValue, Exif, ExifIter, ExifTag, MediaParser, MediaSource, TrackInfo, TrackInfoTag,
 };
+use sha2::{Digest, Sha256};
+use std::{fs, io};
 
 #[derive(Parser)]
 struct Cli {
@@ -105,6 +108,14 @@ where
     }
 }
 
+fn sha256<P: AsRef<Path>>(path: P) -> std::io::Result<String> {
+    let mut file = fs::File::open(&path)?;
+    let mut hasher = Sha256::new();
+    let _n = io::copy(&mut file, &mut hasher)?;
+    let hash = hasher.finalize();
+    Ok(Base64::encode_string(&hash))
+}
+
 fn scan_dir(dir: &PathBuf) -> std::io::Result<Box<dyn Iterator<Item = std::io::Result<DirEntry>>>> {
     let read_dirs = read_dir(dir)?;
 
@@ -134,6 +145,8 @@ trait Runner {
     fn create_dir_all<P: AsRef<Path>>(path: P) -> std::io::Result<()>;
 
     fn rename<P: AsRef<Path>, Q: AsRef<Path>>(from: P, to: Q) -> std::io::Result<()>;
+
+    fn remove_file<P: AsRef<Path>>(path: P) -> std::io::Result<()>;
 
     fn run(input_dir: &PathBuf, targed_dir: &Path) -> Result<(), String> {
         let scan_results = scan_dir(input_dir)
@@ -174,7 +187,21 @@ trait Runner {
             })?);
 
         if to.exists() {
-            return Err(format!("{to:?} already exists"));
+            let from_hash = sha256(&path).unwrap();
+            let to_hash = sha256(&to).unwrap();
+            if from_hash == to_hash {
+                eprintln!(
+                    "{to} already exists with same hash. Removing {path}",
+                    to = path_string(&to),
+                    path = path_string(&path)
+                );
+                return Self::remove_file(path).map_err(|err| err.to_string());
+            } else {
+                return Err(format!(
+                    "{to} already exists and is skipped.",
+                    to = path_string(to)
+                ));
+            }
         };
 
         let parent = to
@@ -198,6 +225,10 @@ impl Runner for IORunner {
     fn rename<P: AsRef<Path>, Q: AsRef<Path>>(from: P, to: Q) -> std::io::Result<()> {
         std::fs::rename(from, to)
     }
+
+    fn remove_file<P: AsRef<Path>>(path: P) -> std::io::Result<()> {
+        std::fs::remove_file(path)
+    }
 }
 
 enum DryRunEvent {}
@@ -218,6 +249,11 @@ impl Runner for DryRunner {
             from = path_string(from),
             to = path_string(to)
         );
+        Ok(())
+    }
+
+    fn remove_file<P: AsRef<Path>>(path: P) -> std::io::Result<()> {
+        println!("Removing {path}", path = path_string(path));
         Ok(())
     }
 }
