@@ -1,6 +1,6 @@
 use std::{
     env,
-    fs::{read_dir, DirEntry},
+    fs::{canonicalize, read_dir, DirEntry},
     iter::once,
     path::{Path, PathBuf},
 };
@@ -187,7 +187,7 @@ trait Runner {
             })?);
 
         if to.exists() {
-            if path == to {
+            if canonicalize(&path).unwrap() == canonicalize(&to).unwrap() {
                 return Err(format!(
                     "{path} and {to} is the same file and is skipped.",
                     path = path_string(&path),
