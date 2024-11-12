@@ -101,7 +101,7 @@ where
             .ok_or_else(|| String::from("No DateTime field present"))
             .and_then(MonthOfYear::try_from)
     } else {
-        Err(format!("Unknown media type"))
+        Err(String::from("Unknown media type"))
     }
 }
 
@@ -140,51 +140,49 @@ trait Runner {
             .map_err(|err| format!("Can't scan {dir}: {err}", dir = path_string(input_dir)))?;
 
         for result in scan_results {
-            match result {
-                Err(err) => eprintln!("{}", err),
-                Ok(scan) => {
-                    let path = scan.path();
-                    let month_of_year = read_month_of_year(&path)
-                        .map_err(|err| {
-                            format!(
-                                "Unable to read date from {path}: {err}",
-                                path = path_string(&path)
-                            )
-                        })
-                        .map(PathBuf::from)
-                        .unwrap_or_else(|err| {
-                            eprintln!("{}", err);
-                            PathBuf::from("unsorted")
-                        });
-                    let to = targed_dir
-                        .join(month_of_year)
-                        .join(path.file_name().ok_or_else(|| {
-                            format!(
-                                "Unable to read file name from {path}",
-                                path = path_string(&path)
-                            )
-                        })?);
-                    if to.exists() {
-                        eprintln!("{to:?} already exists");
-                    } else {
-                        match to.parent() {
-                            None => {
-                                eprintln!("Can't read parent for {path}", path = path_string(&path))
-                            }
-                            Some(parent) => match Self::create_dir_all(parent) {
-                                Err(err) => eprintln!("{err}"),
-                                Ok(()) => match Self::rename(path, to) {
-                                    Ok(()) => {}
-                                    Err(err) => eprintln!("{err}"),
-                                },
-                            },
-                        }
-                    }
-                }
-            }
+            let () = result
+                .map_err(|err| err.to_string())
+                .and_then(|scan| Self::move_file_to_month(scan, targed_dir))
+                .unwrap_or_else(|err| eprintln!("{err}"));
         }
 
         Ok(())
+    }
+
+    fn move_file_to_month(dir_entry: DirEntry, targed_dir: &Path) -> Result<(), String> {
+        let path = dir_entry.path();
+        let month_of_year = read_month_of_year(&path)
+            .map_err(|err| {
+                format!(
+                    "Unable to read date from {path}: {err}",
+                    path = path_string(&path)
+                )
+            })
+            .map(PathBuf::from)
+            .unwrap_or_else(|err| {
+                eprintln!("{}", err);
+                PathBuf::from("unsorted")
+            });
+
+        let to = targed_dir
+            .join(month_of_year)
+            .join(path.file_name().ok_or_else(|| {
+                format!(
+                    "Unable to read file name from {path}",
+                    path = path_string(&path)
+                )
+            })?);
+
+        if to.exists() {
+            return Err(format!("{to:?} already exists"));
+        };
+
+        let parent = to
+            .parent()
+            .ok_or_else(|| format!("Can't read parent for {path}", path = path_string(&path)))?;
+
+        Self::create_dir_all(parent).map_err(|err| err.to_string())?;
+        Self::rename(path, to).map_err(|err| err.to_string())
     }
 }
 
