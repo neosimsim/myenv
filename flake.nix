@@ -289,6 +289,10 @@
                   stateVersion = "22.05";
                   username = "neosimsim";
                   homeDirectory = "/Users/neosimsim";
+
+                  packages = with pkgs; [
+                    cgoban
+                  ];
                 };
 
                 myenv.coreutils.enable = true;
