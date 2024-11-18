@@ -616,35 +616,30 @@ If buffer is not associated with a file the buffer name is used."
   (setq neosimsim-project-root-markers '(".git" "Cargo.lock"))
   (setq neosimsim-formatter "rustfmt"))
 
-(use-package rust-mode
+(use-package rustic
   :defer t
+  :after rust-mode
   :defines
   rust-load-optional-libraries
   rust-mode-map
+  rustic-compilation-panic
 
   :init
   (setq rust-load-optional-libraries t)
 
-  :custom
-  (rust-mode-treesitter-derive t)
-
-  :config
-  (add-hook 'rust-mode-hook #'rust-setup))
-
-(use-package rustic
-  :defer t
-  :defines
-  rustic-compilation-panic
 
   :bind (:map rustic-mode-map
               ("<f5>" . rustic-cargo-check))
 
   :custom
+  (rust-mode-treesitter-derive t)
   (rustic-lsp-client #'eglot)
 
   :config
+  (add-hook 'rust-mode-hook #'rust-setup)
   ;; Workaround for https://github.com/brotzeit/rustic/issues/573
   (setq rustic-compilation-panic '("thread '[^']+' panicked at \\([^\n]+\\):\\([0-9]+\\):\\([0-9]+\\)" 1 2 3)))
+
 
 (defun nix-setup ()
   "Personal hook for `nix-mode-hook'."
