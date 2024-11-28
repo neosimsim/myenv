@@ -82,6 +82,7 @@
         treesit-grammars.with-all-grammars
         typescript-mode
         yasnippet
+	yasnippet-snippets
 
         # have a look into
         shackle # recommended in https://robert.kra.hn/posts/rust-emacs-setup/#additional-packages
