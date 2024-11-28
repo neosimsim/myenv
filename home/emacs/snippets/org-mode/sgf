@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: sgf
+# key: sgf
+# --
+
+#+name: ${1:key}-description
+#+begin_export latex :noexport
+${6:description}
+#+end_export
+
+#+name: $1-figure
+#+begin_src sh :exports results :results latex output output :stdin $1-description :var sgf_file=${5:(org-entry-get (point) "sgf_file")}
+  ./sgf2tex "${2:caption}" fig:$1 $sgf_file ${3:0} ${4:last}
+#+end_src

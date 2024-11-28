@@ -686,7 +686,8 @@ If buffer is not associated with a file the buffer name is used."
   (add-hook 'json-ts-mode-hook #'neosimsim-json-setup))
 
 (use-package yasnippet
-  :hook ((eglot-mode . yas-minor-mode)))
+  :hook ((eglot-mode . yas-minor-mode)
+         (org-mode . yas-minor-mode)))
 
 (use-package combobulate
   :load-path "~/src/combobulate"

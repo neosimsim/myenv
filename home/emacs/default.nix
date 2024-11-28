@@ -16,6 +16,11 @@
       EDITOR = lib.mkDefault "emacsclient -ca  ''";
     };
 
+    home.file.".config/emacs/snippets" = {
+      recursive = true;
+      source = ./snippets;
+    };
+
     programs.emacs = {
       enable = true;
       package = lib.mkDefault pkgs.emacs-git-nox;
