@@ -1,14 +1,15 @@
 # -*- mode: snippet -*-
 # name: sgf
 # key: sgf
+# expand-env: ((yas-indent-line 'fixed))
 # --
 
-#+name: $1-figure
-#+begin_src sh :exports results :results latex output output :stdin $1-description :var sgf_file=(org-entry-get (point) "sgf_file")
-  ./sgf2tex "${2:caption}" fig:$1 $sgf_file ${3:0} ${4:last}
+#+name: ${1:key}-figure
+#+begin_src sh :exports results :results latex output :stdin $1-description[:results latex]()
+  ./sgf2tex "${2:caption}" fig:$1 `(org-entry-get (point) "sgf_file")` ${3:0} ${4:last}
 #+end_src
 
-#+name: ${1:key}-description
-#+begin_export latex :noexport
+#+name: $1-description
+#+begin_src org :exports none
 $0
-#+end_export
+#+end_src
