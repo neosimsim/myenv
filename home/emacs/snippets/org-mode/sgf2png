@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: sgf2png
+# key: sgf2png
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+#+name: ${1:key}
+#+begin_src sh :exports results :results output file
+  ./sgf2png `(org-entry-get (point) "sgf_file")` ${2:0} ${3:last}
+#+end_src
+#+CAPTION: ${4:caption}
+#+ATTR_LATEX: :width 0.6\textwidth :placement [H]
+#+RESULTS: $1
+
+$0 [[$1]]
