@@ -60,7 +60,8 @@
 (use-package custom
   :config
   (setq custom-file "~/.config/emacs-custom.el")
-  (load custom-file))
+  (when (file-exists-p custom-file)
+    (load custom-file)))
 
 (use-package em-term
   :defer t
