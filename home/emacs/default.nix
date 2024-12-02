@@ -48,6 +48,7 @@
         company
         counsel
         dhall-mode
+        direnv
         eglot
         eglot-x
         elixir-ts-mode
