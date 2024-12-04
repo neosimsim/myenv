@@ -93,7 +93,5 @@ in
         set -U fish_greeting
       '';
     };
-
-    programs.direnv.enable = true;
   };
 }
