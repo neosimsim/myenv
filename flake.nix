@@ -265,6 +265,7 @@
           home-manager = {
             useGlobalPkgs = false;
             useUserPackages = true;
+            # FIXME This makes inputs available as input even outside of this repo, when this module is used.
             extraSpecialArgs = { inherit inputs; };
 
             users.neosimsim = { ... }: {
