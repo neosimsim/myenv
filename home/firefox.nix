@@ -10,7 +10,7 @@
 
   config = lib.mkIf config.myenv.firefox.enable {
     nixpkgs.overlays = with inputs; [
-      nur.overlay
+      nur.overlays.default
     ];
 
     programs.firefox = {
