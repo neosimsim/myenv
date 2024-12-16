@@ -28,6 +28,7 @@ BIN = \
 	fzf-tags \
 	games \
 	getmod \
+	git-push-all-commits \
 	git-no-unstaged \
 	git-to-dot \
 	hsinit \

@@ -1,0 +1,34 @@
+#!/usr/bin/env fish
+
+argparse --name=git-push-all-commits n/dry-run remote= -- $argv
+or return
+
+set -u push (git rev-parse --symbolic-full-name  @)
+or exit 1
+
+if [ (count $argv) -eq 0 ]
+    set upstream (git rev-parse --symbolic-full-name  @{push})
+else
+    set upstream $argv[1]
+end
+
+if ! set -l revs (git log --reverse --pretty=format:%H $upstream..)
+    exit 1
+end
+
+if set -q _flag_remote
+    set remote $_flag_remote
+else
+    set remote origin
+end
+
+for rev in $revs
+    if set -q _flag_dry_run
+	echo '#' (git log -1 --pretty='format:%h %s' $rev)
+        echo git push --force-with-lease $remote $rev:$push
+    else
+	echo '#' (git log -1 --pretty='format:%h %s' $rev) >&2
+        git push --force-with-lease $remote $rev:$push
+        sleep 2
+    end
+end
