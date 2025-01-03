@@ -347,6 +347,11 @@ version controller are excluded."
                '((rust-ts-mode rust-mode rustic-mode) .
                  ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
 
+  (setq-default eglot-workspace-configuration
+    '((:gopls .
+        ((staticcheck . t)
+         (matcher . "CaseSensitive")))))
+
   :bind (:map eglot-mode-map
               ([remap neosimsim-format-buffer] . eglot-format-buffer)
               ("C-c C-e a" . eglot-code-actions)
@@ -654,6 +659,7 @@ If buffer is not associated with a file the buffer name is used."
 
 (defun go-setup ()
   "Personal hook for `go-ts-mode-hook'."
+  (setq neosimsim-project-root-markers '("go.mod"))
   (setq neosimsim-formatter "gofmt"))
 
 (use-package go-ts-mode
