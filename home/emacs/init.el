@@ -696,7 +696,8 @@ If buffer is not associated with a file the buffer name is used."
 (use-package combobulate
   :hook
   json-ts-mode
-  yaml-ts-mode)
+  yaml-ts-mode
+  go-ts-mode)
 
 (defun neosimsim-fzf (&optional prompt-dir)
   "Wrapper around `fzf-find-file'.
