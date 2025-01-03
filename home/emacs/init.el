@@ -694,7 +694,6 @@ If buffer is not associated with a file the buffer name is used."
   (yas-global-mode))
 
 (use-package combobulate
-  :load-path "~/src/combobulate"
   :hook
   json-ts-mode
   yaml-ts-mode)
