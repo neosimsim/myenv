@@ -652,7 +652,13 @@ If buffer is not associated with a file the buffer name is used."
   :config
   (add-hook 'nix-ts-mode-hook #'nix-setup))
 
-(use-package go-ts-mode)
+(defun go-setup ()
+  "Personal hook for `go-ts-mode-hook'."
+  (setq neosimsim-formatter "gofmt"))
+
+(use-package go-ts-mode
+  :config
+  (add-hook 'go-ts-mode-hook #'go-setup))
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode))
