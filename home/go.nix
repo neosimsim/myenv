@@ -10,6 +10,7 @@
   config = lib.mkIf config.myenv.go.enable {
     home.packages = with pkgs; [
       go
+      gopls
       gosec
       gotools
     ];
