@@ -12,7 +12,8 @@
       go
       gopls
       gosec
-      gotools
+      gotools # e.g. goimports
+      go-tools # e.g. staticcheck
     ];
 
     home.sessionVariables = {
