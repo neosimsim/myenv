@@ -5,5 +5,5 @@ pkgs.buildGoModule {
 
   src = ./.;
 
-  vendorHash = "sha256-xEKB+i6bbkdYZMsH5jHLUacff6aGam1Pm0JQUw9IuZY=";
+  vendorHash = "sha256-8bs1W7Bsdi3cVlefSru46nu2qK/1yA0xev2HV6FUs6w=";
 }

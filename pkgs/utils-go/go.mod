@@ -1,5 +1,5 @@
-module gitlab.com/neosimsim/myenv/pkgs/golang
+module github.com/neosimsim/myenv/pkgs/utils-go
 
-go 1.16
+go 1.23
 
-require 9fans.net/go v0.0.4 // indirect
+require 9fans.net/go v0.0.7
