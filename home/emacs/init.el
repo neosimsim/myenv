@@ -125,7 +125,7 @@
                  ol-eww))
 
   (org-agenda-start-with-log-mode t)
-  (org-log-done t)
+  (org-log-done 'time)
   (org-log-into-drawer t)
 
   (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s%b")
