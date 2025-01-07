@@ -124,9 +124,6 @@
                  ol-rmail
                  ol-eww))
 
-  (org-todo-keywords
-   '((sequence "TODO(t)" "NEXT(n!/!)" "|" "DONE(d!/!)")))
-
   (org-agenda-start-with-log-mode t)
   (org-log-done t)
   (org-log-into-drawer t)
