@@ -346,8 +346,7 @@ version controller are excluded."
 
   (setq-default eglot-workspace-configuration
     '((:gopls .
-        ((staticcheck . t)
-         (matcher . "CaseSensitive")))))
+        ((staticcheck . t)))))
 
   :bind (:map eglot-mode-map
               ([remap neosimsim-format-buffer] . eglot-format-buffer)
