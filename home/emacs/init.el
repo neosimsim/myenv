@@ -150,6 +150,7 @@
    'org-babel-load-languages
    '((emacs-lisp . t)
      (org . t)
+     (calc . t)
      (shell . t))))
 
 (use-package org-capture
