@@ -44,10 +44,10 @@ in
 
     home = {
       packages = with pkgs; [
+        # (sort-lines nil (string-match "^" (buffer-string) (point)) (string-match "^$" (buffer-string) (point)))
         age
         aspell
         cargo-outdated
-        rustup
         clisp
         dhall
         dhall-json
@@ -61,15 +61,16 @@ in
         jq
         libarchive
         nil
-        nixpkgs-fmt
         nix-prefetch-scripts
+        nixpkgs-fmt
         pandoc
         passage
         ripgrep
+        rustup
         unzip
         utils-go
-        utils-scripts
         utils-rust
+        utils-scripts
       ];
 
       sessionVariables = {
