@@ -151,7 +151,8 @@
    '((emacs-lisp . t)
      (org . t)
      (calc . t)
-     (shell . t))))
+     (shell . t)
+     (scheme . t))))
 
 (use-package org-capture
   :defer t

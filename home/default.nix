@@ -56,6 +56,7 @@ in
         fzf
         gcc
         gnumake
+        guile
         htop
         isync
         jq

@@ -55,6 +55,7 @@
         erlang
         fish-mode
         fzf
+        geiser-guile
         haskell-mode
         highlight-symbol
         htmlize
