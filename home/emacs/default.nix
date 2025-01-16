@@ -56,6 +56,7 @@
         fish-mode
         fzf
         geiser-guile
+        geiser-chicken
         haskell-mode
         highlight-symbol
         htmlize
