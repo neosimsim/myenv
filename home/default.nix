@@ -47,13 +47,6 @@ in
         # (sort-lines nil (string-match "^" (buffer-string) (point)) (string-match "^$" (buffer-string) (point)))
         age
         aspell
-        cargo-outdated
-        chicken
-        # required for geiser, see https://gitlab.com/emacs-geiser/chicken
-        chickenPackages.chickenEggs.apropos
-        chickenPackages.chickenEggs.chicken-doc
-        chickenPackages.chickenEggs.srfi-1
-        chickenPackages.chickenEggs.srfi-18
         clisp
         dhall
         dhall-json
@@ -62,7 +55,6 @@ in
         fzf
         gcc
         gnumake
-        gnuplot
         guile
         htop
         isync
