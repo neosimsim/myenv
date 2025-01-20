@@ -152,7 +152,6 @@
      (org . t)
      (calc . t)
      (shell . t)
-     (gnuplot . t)
      (scheme . t))))
 
 (use-package org-capture
@@ -193,58 +192,6 @@
 (use-package magit-extras
   :after (:any project magit))
 
-(use-package ivy
-  :disabled
-  :demand t
-  :config
-  (ivy-mode t)
-
-  :custom
-  (ivy-extra-directories ())
-  (ivy-use-virtual-buffers t)
-  (ivy-use-selectable-prompt t)
-  (ivy-count-format "(%d/%d) ")
-  (ivy-format-functions-alist
-   '((counsel-compile-env . counsel-compile-env--format-hint)
-     (counsel-kmacro . counsel--kmacro-format-function)
-     (counsel-colors-web . counsel--colors-web-format-function)
-     (counsel-colors-emacs . counsel--colors-emacs-format-function)
-     (counsel-evil-registers . counsel--yank-pop-format-function)
-     (counsel-yank-pop . counsel--yank-pop-format-function)
-     (counsel-git-log . counsel--git-log-format-function)
-     (counsel-faces . counsel--faces-format-function)
-     (swiper-isearch . swiper-isearch-format-function)
-     (swiper-all . swiper--all-format-function)
-     (swiper-multi . swiper--all-format-function)
-     (t . ivy-format-function-arrow)))
-
-  :bind (("C-c C-r" . ivy-resume)
-         :map ivy-mode-map
-         ("C-<return>" . ivy-immediate-done)))
-
-(use-package counsel
-  :disabled
-  :demand t
-  :config
-  (counsel-mode t)
-
-  :custom
-  (counsel-rg-base-command '("rg" "--max-columns" "240" "--with-filename" "--no-heading"
-                             "--line-number" "--color" "never" "%s" "--hidden" "--glob" "!.git"))
-
-  :bind (("C-c g" . counsel-git)
-         ("C-c k" . counsel-rg)))
-
-(use-package swiper
-  :disabled
-  :bind
-  ("C-S-s" . swiper))
-
-(use-package amx
-  :disabled
-  :config
-  (amx-mode 1))
-
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer))
@@ -259,35 +206,6 @@
 (use-package ediff
   :custom
   (ediff-window-setup-function #'ediff-setup-windows-plain))
-
-(use-package spacemacs-theme
-  :disabled
-  :custom
-  (spacemacs-theme-org-bold nil)
-  (spacemacs-theme-org-height nil)
-
-  :config
-  (defun light-theme ()
-    (interactive)
-    (load-theme 'spacemacs-light t)
-    (disable-theme 'spacemacs-dark))
-
-  (defun dark-theme ()
-    (interactive)
-    (load-theme 'spacemacs-dark t)
-    (disable-theme 'spacemacs-light))
-
-  (light-theme))
-
-(use-package color-theme-sanityinc-tomorrow
-  :disabled
-  :config
-  (color-theme-sanityinc-tomorrow-day))
-
-(use-package leuven-theme
-  :custom-face
-  (eshell-prompt ((t (:foreground "medium blue" :weight bold))))
-  (eglot-mode-line ((t (:inherit (mode-line-emphasis))))))
 
 (use-package modus-operandi-theme
   :config
