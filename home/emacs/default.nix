@@ -38,6 +38,7 @@
       extraConfig = builtins.readFile ./init.el;
       extraPackages = epkgs: with epkgs; [
         # (sort-lines nil (string-match "^" (buffer-string) (point)) (string-match "^$" (buffer-string) (point)))
+	gnuplot
         alchemist
         amx
         avy

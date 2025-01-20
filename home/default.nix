@@ -62,6 +62,7 @@ in
         fzf
         gcc
         gnumake
+        gnuplot
         guile
         htop
         isync
