@@ -152,6 +152,7 @@
      (org . t)
      (calc . t)
      (shell . t)
+     (gnuplot . t)
      (scheme . t))))
 
 (use-package org-capture
