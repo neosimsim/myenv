@@ -50,7 +50,6 @@
         fish-mode
         fzf
         geiser-guile
-        haskell-mode
         highlight-symbol
         magit
         mixed-pitch

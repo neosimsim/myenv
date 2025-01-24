@@ -16,7 +16,7 @@ in
     ./darwin.nix
     ./emacs
     ./firefox.nix
-    ./ghc.nix
+    ./ghc
     ./git
     ./linux.nix
     ./plasma.nix

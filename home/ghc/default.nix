@@ -85,5 +85,13 @@ in
     home.shellAliases = lib.mkIf pkgs.stdenv.isOpenBSD {
       cabal = "env TMPDIR=/usr/local/cabal/build/ cabal";
     };
+
+    programs.emacs = {
+      extraPackages = epkgs: with epkgs; [
+        haskell-mode
+      ];
+
+      extraConfig = builtins.readFile ./emacs.el;
+    };
   };
 }
