@@ -43,6 +43,8 @@
   (make-backup-files nil)
   (major-mode-remap-alist
    '((elixir-mode . elixir-ts-mode)
+     (js-mode . js-ts-mode)
+     (javascript-mode . js-ts-mode)
      (js-json-mode . json-ts-mode)
      (css-mode . css-ts-mode)
      (python-mode . python-ts-mode))))
@@ -626,6 +628,7 @@ If buffer is not associated with a file the buffer name is used."
   :hook
   json-ts-mode
   yaml-ts-mode
+  js-ts-mode
   go-ts-mode)
 
 (defun neosimsim-fzf (&optional prompt-dir)
