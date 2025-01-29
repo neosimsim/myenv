@@ -235,7 +235,7 @@ be a sub-project root.  In that case the sub-folder is returned as root
 but if under version control, it is still marked as such, so that the
 correct implementation for `project-files' is used and files ignored by
 version controller are excluded."
-  (when-let ((root (locate-dominating-file path #'neosimsim--project-root-p)))
+  (when-let* ((root (locate-dominating-file path #'neosimsim--project-root-p)))
     (if (project-try-vc root)
         (list 'vc 'Git (expand-file-name root))
       (cons 'transient (expand-file-name root)))))
