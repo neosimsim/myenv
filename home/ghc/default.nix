@@ -90,8 +90,8 @@ in
       extraPackages = epkgs: with epkgs; [
         haskell-mode
       ];
-
-      extraConfig = builtins.readFile ./emacs.el;
     };
+
+    myenv.emacs.extraConfig = builtins.readFile ./emacs.el;
   };
 }

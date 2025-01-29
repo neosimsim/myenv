@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (setenv "EDITOR" "emacsclient")
 (setenv "PAGER" "cat")
 
@@ -29,11 +31,7 @@
 
   (when (fboundp #'set-fontset-font)
     (set-fontset-font t '(#x1f000 . #x1faff)
-                      (font-spec :family "Noto Color Emoji")))
-
-  (when (eq system-type 'darwin)
-    (setq mac-option-modifier 'none)
-    (setq mac-command-modifier 'meta)))
+                      (font-spec :family "Noto Color Emoji"))))
 
 (use-package files
   :custom
