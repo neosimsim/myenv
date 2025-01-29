@@ -25,6 +25,7 @@ in
     ./tmux
     ./plan9port.nix
     ./go.nix
+    ./texlive.nix
   ];
 
   config = lib.mkIf config.myenv.coreutils.enable {

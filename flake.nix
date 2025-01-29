@@ -246,6 +246,7 @@
           firefox.enable = true;
           emacs.enable = true;
           go.enable = true;
+          texlive.enable = true;
         };
 
         packages.x86_64-linux.noX = homePackage "x86_64-linux" {
