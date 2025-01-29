@@ -49,7 +49,7 @@
         elixir-ts-mode
         fish-mode
         fzf
-        geiser-guile
+        geiser-racket
         highlight-symbol
         magit
         mixed-pitch

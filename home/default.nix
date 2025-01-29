@@ -56,6 +56,7 @@ in
         gcc
         gnumake
         guile
+        racket
         htop
         isync
         jq

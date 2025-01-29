@@ -280,7 +280,7 @@ impl Config {
         let editor = match var_os("EDITOR") {
             Some(editor_command) => {
                 let editor_parts = editor_command.to_str().unwrap().split_ascii_whitespace();
-                get_editor(editor_parts).unwrap_or_else(|| Editor::Unknown(editor_command))
+                get_editor(editor_parts).unwrap_or(Editor::Unknown(editor_command))
             }
             None => Editor::Vis,
         };
