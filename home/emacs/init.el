@@ -49,7 +49,8 @@
   :custom
   (kill-whole-line t "Also delete new-line")
   (set-mark-command-repeat-pop t)
-  (column-number-mode t "Also show column of point in info bar"))
+  (column-number-mode t "Also show column of point in info bar")
+  (indent-tabs-mode nil))
 
 (use-package minibuffer
   :custom
@@ -467,15 +468,6 @@ If buffer is not associated with a file the buffer name is used."
   (pipe-shell-region neosimsim-formatter (point-min) (point-max)))
 
 (bind-key "C-x M-f" #'neosimsim-format-buffer)
-
-(defun neosimsim-emacs-lisp-mode-hook ()
-  "Personal hook for `emacs-lisp-mode-hook'."
-  (indent-tabs-mode -1))
-
-(use-package elisp-mode
-  :defer t
-  :config
-  (add-hook 'emacs-lisp-mode-hook #'neosimsim-emacs-lisp-mode-hook))
 
 (defun fish-setup ()
   "Personal hook for `fish-mode-hook'."
