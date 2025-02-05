@@ -57,7 +57,6 @@ in
         gcc
         gnumake
         guile
-        racket
         htop
         isync
         jq
@@ -67,6 +66,7 @@ in
         nixpkgs-fmt
         pandoc
         passage
+        racket
         ripgrep
         rustup
         unzip
