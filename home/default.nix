@@ -69,6 +69,7 @@ in
         racket
         ripgrep
         rustup
+        sbcl
         unzip
         utils-go
         utils-rust

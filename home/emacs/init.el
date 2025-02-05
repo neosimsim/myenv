@@ -151,6 +151,7 @@
      (org . t)
      (calc . t)
      (shell . t)
+     (lisp . t)
      (scheme . t))))
 
 (use-package org-capture
@@ -633,3 +634,7 @@ or when in a project.  (See `neosimsim-project-find-root')"
                `(path-locus ,neosimsim-path-locus-regex 2 3 5 0 1))
 
   (add-to-list 'compilation-error-regexp-alist 'path-locus))
+
+(use-package slime
+  :config
+  (setq inferior-lisp-program "sbcl"))

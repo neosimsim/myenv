@@ -74,6 +74,7 @@
         rg
         rust-mode
         rustic
+        slime
         treesit-grammars.with-all-grammars
         typescript-mode
         yasnippet
