@@ -131,18 +131,20 @@
                               (tags . " %i %-12:c")
                               (search . " %i %-12:c")))
 
-  (org-agenda-custom-commands '(("d" "Dashboard"
-                                 ((agenda "")
-                                  (todo "NEXT"
-                                        ((org-agenda-overriding-header "Next Tasks")))
-                                  (alltodo ""
-                                           ((org-agenda-overriding-header "Add TODOs")))))
+  (org-agenda-custom-commands
+   '(("d" "Dashboard"
+      ((agenda "")
+       (todo "NEXT"
+             ((org-agenda-overriding-header "Next Tasks")))
+       (alltodo ""
+                ((org-agenda-overriding-header "Add TODOs")))))
 
-                                ("n" "Next Tasks" todo "NEXT"
-                                 ((org-agenda-overriding-header "Next Tasks")))
+     ("n" "Next Tasks" todo "NEXT"
+      ((org-agenda-overriding-header "Next Tasks")))
 
-                                ("w" "Work TODOs" tags-todo "work"
-                                 ((org-agenda-overriding-header "Work TODOs")))))
+     ("w" "Work TODOs" tags-todo "work"
+      ((org-agenda-overriding-header "Work TODOs")))))
+
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
