@@ -158,16 +158,17 @@
 (use-package org-capture
   :defer t
   :custom
-  (org-capture-templates '(("t" "Task" entry (file "~/notes/todo.org")
-                            "" :empty-lines 1)
+  (org-capture-templates
+   '(("t" "Task" entry (file "~/notes/todo.org")
+      "" :empty-lines 1)
 
-                           ("o" "Offenen Fragen" entry (clock)
-                            "" :empty-lines 1)
+     ("o" "Offenen Fragen" entry (clock)
+      "" :empty-lines 1)
 
-                           ("b" "Bookmark link from clipboard" entry (file "~/notes/links.org")
-                            "* %(org-cliplink-capture)"
-                            :immediate-finish t
-                            :jump-to-captured t))))
+     ("b" "Bookmark link from clipboard" entry (file "~/notes/links.org")
+      "* %(org-cliplink-capture)"
+      :immediate-finish t
+      :jump-to-captured t))))
 
 (use-package ox-html
   :defer t
