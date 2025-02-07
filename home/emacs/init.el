@@ -105,8 +105,7 @@
          ("C-c l" . org-store-link)
          ("C-c C-x C-o" . org-clock-out)
          ("C-c C-x C-j" . org-clock-goto)
-         ("C-c C-x C-x" . org-clock-in-last)
-         ([remap org-set-tags-command] . counsel-org-tag))
+         ("C-c C-x C-x" . org-clock-in-last))
 
   :custom
   (org-export-backends '(ascii html icalendar latex md odt))
