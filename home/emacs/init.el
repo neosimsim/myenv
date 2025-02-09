@@ -119,6 +119,10 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
   :custom
   (mixed-pitch-set-height t))
 
+(defun neosimsim-org-mode-hook ()
+  "Personal hook for `org-mode'."
+  (yas-minor-mode -1))
+
 (use-package org
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
@@ -173,7 +177,9 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
      (calc . t)
      (shell . t)
      (lisp . t)
-     (scheme . t))))
+     (scheme . t)))
+
+  (add-hook 'org-mode-hook #'neosimsim-org-mode-hook))
 
 (use-package org-capture
   :defer t
