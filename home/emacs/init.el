@@ -655,6 +655,8 @@ or when in a project.  (See `neosimsim-project-find-root')"
 (defconst neosimsim-path-locus-regex "\\(\\([[:alnum:]/._]+\\):\\([[:digit:]]+\\)\\(:\\([[:digit:]]+\\)?\\)?\\)")
 
 (use-package compile
+  :bind (("<f5>" . compile)
+         ("S-<f5>" . recompile))
   :config
   (add-hook 'compilation-filter-hook #'neosimsim-colorize-compilation-buffer)
 
