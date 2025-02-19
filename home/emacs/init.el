@@ -216,10 +216,6 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
   (magit-blame-echo-style 'show-lines
                           "Show commit info before chunks. The default value 'lines just shows an empty line"))
 
-;; Ensure magit-extras for `magit-project-status'.
-(use-package magit-extras
-  :after (:any project magit))
-
 ;; ibuffer is a bit smarter than buffer-menu, e.g. has filters
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer))
@@ -272,6 +268,15 @@ version controller are excluded."
   :defer t
   :functions
   project-try-vc
+
+  :custom
+  (project-switch-commands
+   '((project-find-file "Find file")
+     (project-find-dir "Find directory")
+     (rg-project "rg" "g")
+     (project-eshell "Eshell")
+     (magit-project-status "Magit" "m")
+     (project-any-command "Other")))
 
   :config
   (add-to-list 'project-find-functions #'neosimsim-project-find-root))
@@ -462,7 +467,6 @@ If buffer is not associated with a file the buffer name is used."
   (rg-enable-default-bindings)
 
   :bind (("C-c s" . rg-menu)
-         ([remap project-find-regexp] . rg-project)
          :map rg-mode-map
          ([remap save-buffer] . wgrep-save-all-buffers)))
 
