@@ -461,7 +461,10 @@ If buffer is not associated with a file the buffer name is used."
   :config
   (rg-enable-default-bindings)
 
-  :bind (("C-c s" . rg-menu)))
+  :bind (("C-c s" . rg-menu)
+         ([remap project-find-regexp] . rg-project)
+         :map rg-mode-map
+         ([remap save-buffer] . wgrep-save-all-buffers)))
 
 (defun neosimsim-prog-mode-hook ()
   "Personal hook for `prog-mode-hook'."
