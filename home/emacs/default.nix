@@ -65,7 +65,6 @@
         geiser-racket
         highlight-symbol
         magit
-        mixed-pitch
         modus-themes
         move-text
         nix-ts-mode

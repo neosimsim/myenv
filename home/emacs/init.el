@@ -87,24 +87,38 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
               ("M-g M-n" . flymake-goto-next-error)
               ("M-g M-p" . flymake-goto-prev-error)))
 
+(defvar neosimsim-variable-pitch-scale 1.1
+  "Height scale used for `variable-pitch' face.
+
+This values is intended to be set, so fixed and variable pitch faces
+are close to the same size. Without this scale variable pitch faces
+tend to be smaller.")
+
+(defvar neosimsim-variable-pitch-scale-normalization 0.9
+  "Normalization scale for monospace faces in `variable-pitch-mode'.
+
+This values is used to normalize fixed pitch faces, so fixed and
+variable pitch faces are close to the same size. Without this scale
+variable pitch faces tend to be smaller.")
+
 (use-package face-remap
   :if (eq system-type 'gnu/linux)
   :custom-face
-  (variable-pitch ((t (:height 1.15 :family "Free Sans")))))
+  (default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight regular :height 113 :width normal))))
+  (variable-pitch ((t (:height ,neosimsim-variable-pitch-scale :family "Free Sans")))))
 
 (use-package display-line-numbers
   :hook
   prog-mode
   yaml-ts-mode)
 
-(use-package mixed-pitch
-  :hook
-  (Info-mode . mixed-pitch-mode)
-  (org-mode . mixed-pitch-mode)
-  (makdown-mode . mixed-pitch-mode)
+(use-package info
+  :config
+  (add-hook 'Info-mode-hook #'variable-pitch-mode))
 
-  :custom
-  (mixed-pitch-set-height t))
+(use-package markdown-mode
+  :config
+  (add-hook 'markdown-mode-hook #'variable-pitch-mode))
 
 (defun neosimsim-org-mode-hook ()
   "Personal hook for `org-mode'."
@@ -156,6 +170,16 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
      ("w" "Work TODOs" tags-todo "work"
       ((org-agenda-overriding-header "Work TODOs")))))
 
+  :custom-face
+  ;; Even with `variable-pitch-mode' in org-mode, I want certain faces to still be Monospace and
+  ;; with the original height, i.e. with `neosimsim-variable-pitch-scale' reversed.
+  (org-table ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
+  (org-code ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
+  (org-verbatim ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
+  (org-meta-line ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
+  (org-block ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
+  (org-block-begin-line ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
+
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -166,6 +190,7 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
      (lisp . t)
      (scheme . t)))
 
+  (add-hook 'org-mode-hook #'variable-pitch-mode)
   (add-hook 'org-mode-hook #'neosimsim-org-mode-hook))
 
 (use-package org-capture
