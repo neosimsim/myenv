@@ -34,8 +34,6 @@
       };
     };
 
-    nur.url = "github:nix-community/NUR";
-
     plan9fansGo = {
       url = "github:9fans/go";
       flake = false;
@@ -50,7 +48,6 @@
     , flake-utils
     , home-manager
     , nixpkgs
-    , nur
     , plan9fansGo
     , plasma-manager
     }@inputs:

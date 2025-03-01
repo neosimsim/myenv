@@ -9,10 +9,6 @@
   };
 
   config = lib.mkIf config.myenv.firefox.enable {
-    nixpkgs.overlays = with inputs; [
-      nur.overlays.default
-    ];
-
     programs.firefox = {
       enable = true;
 
@@ -72,10 +68,6 @@
             "toolkit.telemetry.updatePing.enabled" = false;
           };
 
-          extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-            ublock-origin
-            vimium
-          ];
         };
       };
     };
