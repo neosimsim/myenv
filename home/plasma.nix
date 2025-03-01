@@ -17,8 +17,7 @@
       PLASMA_USE_QT_SCALING = 1;
     };
 
-    home.packages = with pkgs; [
-      kalendar
+    home.packages = with pkgs.kdePackages; [
       kompare
       kigo
     ];
