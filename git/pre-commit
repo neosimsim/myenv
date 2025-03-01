@@ -20,11 +20,10 @@ nix flake check
 nixpkgs-fmt --check $(find . -name '*.nix')
 
 nix shell .#noX.pkgs.emacs-git-with-packages --command emacs --batch --eval "(package-activate-all)" -l home/emacs/init.el
-nix shell .#withPlasma.pkgs.emacs-git-with-packages --command emacs --batch --eval "(package-activate-all)" -l home/emacs/init.el
-nix shell .#withPlasmaWayland.pkgs.emacs-pgtk-with-packages --command emacs --batch --eval "(package-activate-all)" -l home/emacs/init.el
+nix shell .#withPlasma.pkgs.emacs-pgtk-with-packages --command emacs --batch --eval "(package-activate-all)" -l home/emacs/init.el
 (
     cd home/emacs
-    nix shell .#withPlasmaWayland.pkgs.emacs-pgtk-with-packages --command \
+    nix shell .#withPlasma.pkgs.emacs-pgtk-with-packages --command \
         emacs --batch -l ert -l init.el -l init-tests.el -f ert-run-tests-batch-and-exit
 )
 

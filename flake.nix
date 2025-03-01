@@ -114,33 +114,9 @@
               '';
             in
             {
-              checkWithPlasma = pkgs.runCommand "test-myenv-with-plasma"
+              checkWithPlasma = pkgs.runCommand "test-myenv-with-plasma-wayland"
                 rec {
                   path = self.packages.x86_64-linux.withPlasma;
-                  homeFiles = path.home-files;
-                } ''
-                ${checkPresent} $path/bin/emacs
-                ${checkPresent} $path/bin/fm
-                ${checkPresent} $path/bin/dtt
-                ${checkPresent} $path/bin/firefox-esr
-                ${checkPresent} $path/bin/chromium
-                ${checkPresent} $path/bin/Afmt
-                ${checkPresent} $path/bin/ghc
-                ${checkPresent} $path/bin/haskell-language-server-wrapper
-
-                ${checkPresent} $homeFiles/.config/git/config
-                ${checkPresent} $homeFiles/.Xresources
-                ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
-                ${checkPresent} $homeFiles/.ghci
-                ${checkPresentDir} $homeFiles/.config/chromium
-                ${checkPresent} $homeFiles/lib/plumbing
-
-                echo successful >$out
-              '';
-
-              checkWithPlasmaWayland = pkgs.runCommand "test-myenv-with-plasma-wayland"
-                rec {
-                  path = self.packages.x86_64-linux.withPlasmaWayland;
                   homeFiles = path.home-files;
                 } ''
                 ${checkPresent} $path/bin/emacs
@@ -222,18 +198,6 @@
       in
       {
         packages.x86_64-linux.withPlasma = homePackage "x86_64-linux" {
-          coreutils.enable = true;
-          plasma.enable = true;
-          xserver.enable = true;
-          ghc.enable = true;
-          plan9port.enable = true;
-          chromium.enable = true;
-          firefox.enable = true;
-          emacs.enable = true;
-          go.enable = true;
-        };
-
-        packages.x86_64-linux.withPlasmaWayland = homePackage "x86_64-linux" {
           coreutils.enable = true;
           plasma.enable = true;
           wayland.enable = true;
