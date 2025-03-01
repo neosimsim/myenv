@@ -9,10 +9,6 @@ lib.mkIf (pkgs.stdenv.isDarwin && config.myenv.coreutils.enable) {
   programs.home-manager.enable = true;
 
   programs.emacs.package = pkgs.emacs-git;
-  myenv.emacs.extraConfig = ''
-    (setq mac-option-modifier 'none)
-    (setq mac-command-modifier 'meta)
-  '';
 
   home.sessionVariables.EDITOR = "emacsclient -a ''";
 

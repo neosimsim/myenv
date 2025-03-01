@@ -91,7 +91,5 @@ in
         haskell-mode
       ];
     };
-
-    myenv.emacs.extraConfig = builtins.readFile ./emacs.el;
   };
 }

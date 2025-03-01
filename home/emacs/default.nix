@@ -4,14 +4,6 @@
       enable = lib.mkEnableOption ''
         Enables emacs together my configurations.
       '';
-
-      extraConfig = lib.mkOption {
-        type = lib.types.lines;
-        default = "";
-        description = ''
-          Extra emacs config
-        '';
-      };
     };
   };
 
@@ -43,11 +35,7 @@
         };
       };
 
-      extraConfig = lib.strings.concatStringsSep "\n" [
-        (builtins.readFile ./init.el)
-        ";;; Extra Config"
-        config.myenv.emacs.extraConfig
-      ];
+      extraConfig = builtins.readFile ./init.el;
 
       extraPackages = epkgs: with epkgs; [
         # (sort-lines nil (string-match "^" (buffer-string) (point)) (string-match "^$" (buffer-string) (point)))

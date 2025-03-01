@@ -34,7 +34,13 @@
                       (font-spec :family "Noto Color Emoji"))
     ;; Font for playing cards
     (set-fontset-font t '(#x1f0a0 . #x1f0ff)
-                      (font-spec :family "DejaVu Sans"))))
+                      (font-spec :family "DejaVu Sans")))
+
+  (when (boundp 'mac-option-modifier)
+    (setq mac-option-modifier 'none))
+
+  (when (boundp 'mac-command-modifier)
+    (setq mac-command-modifier 'meta)))
 
 (defun neosimsim-make-frame-hook (frame)
   "Force settings when new FRAME is make.
@@ -687,3 +693,23 @@ or when in a project.  (See `neosimsim-project-find-root')"
 (use-package slime
   :config
   (setq inferior-lisp-program "sbcl"))
+
+(when (package-installed-p 'haskell-mode)
+  (defun haskell-setup ()
+    "Personal hook for `haskell-mode-hook'."
+    (setq neosimsim-formatter "ormolu --no-cabal"))
+
+  (use-package haskell-mode
+    :defer t
+    :config
+    (add-hook 'haskell-mode-hook #'haskell-setup)))
+
+(when (package-installed-p 'haskell-cabal-mode)
+  (defun cabal-setup ()
+    "Personal hook for `haskell-cabal-mode-hook'."
+    (setq neosimsim-formatter "cabal-fmt"))
+
+  (use-package haskell-cabal
+    :defer t
+    :config
+    (add-hook 'haskell-cabal-mode-hook #'cabal-setup)))
