@@ -8,15 +8,9 @@ lib.mkIf (pkgs.stdenv.isDarwin && config.myenv.coreutils.enable) {
 
   programs.home-manager.enable = true;
 
-  programs.emacs.package = pkgs.emacs-git;
+  myenv.emacs.package = pkgs.emacs-git;
 
   home.sessionVariables.EDITOR = "emacsclient -a ''";
-
-  programs.emacs.extraConfig = ''
-    (setq explicit-shell-file-name "${config.programs.fish.package}/bin/fish")
-    (setenv "PATH" (concat "${config.home.profileDirectory}/bin:" (getenv "PATH")))
-    (setq exec-path (append '("${config.home.profileDirectory}/bin") exec-path))
-  '';
 
   targets.darwin.search = "DuckDuckGo";
 }

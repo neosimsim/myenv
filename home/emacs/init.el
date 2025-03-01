@@ -40,7 +40,14 @@
     (setq mac-option-modifier 'none))
 
   (when (boundp 'mac-command-modifier)
-    (setq mac-command-modifier 'meta)))
+    (setq mac-command-modifier 'meta))
+
+  ;; nix on macOS does not effect the global PATH so I path it here to
+  ;; be sure Emacs knows all my tools, like rg etc.
+  (when (eq system-type 'darwin)
+    (setq explicit-shell-file-name "@fish@/bin/fish")
+    (setenv "PATH" (concat "@profileDirectory@/bin:" (getenv "PATH")))
+    (setq exec-path (append '("@profileDirectory@/bin") exec-path))))
 
 (when (daemonp)
   (defun neosimsim-make-frame-hook (frame)

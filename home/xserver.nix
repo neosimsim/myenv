@@ -8,7 +8,7 @@
   };
 
   config = lib.mkIf config.myenv.xserver.enable {
-    programs.emacs.package = pkgs.emacs-git;
+    myenv.emacs.package = pkgs.emacs-git;
     home.sessionVariables.EDITOR = "emacsclient -a ''";
 
     xresources.properties = {

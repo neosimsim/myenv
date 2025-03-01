@@ -86,10 +86,8 @@ in
       cabal = "env TMPDIR=/usr/local/cabal/build/ cabal";
     };
 
-    programs.emacs = {
-      extraPackages = epkgs: with epkgs; [
-        haskell-mode
-      ];
-    };
+    myenv.emacs.extraPackages = epkgs: with epkgs; [
+      haskell-mode
+    ];
   };
 }
