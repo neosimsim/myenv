@@ -159,11 +159,6 @@ variable pitch faces tend to be smaller.")
   (org-log-done 'time)
   (org-log-into-drawer t)
 
-  (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s%b")
-                              (todo . " %i %-12:c%b")
-                              (tags . " %i %-12:c")
-                              (search . " %i %-12:c")))
-
   (org-agenda-custom-commands
    '(("d" "Dashboard"
       ((agenda "")
