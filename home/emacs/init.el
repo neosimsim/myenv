@@ -609,9 +609,6 @@ If buffer is not associated with a file the buffer name is used."
   :config
   (add-hook 'go-ts-mode-hook #'go-setup))
 
-(use-package nov
-  :mode ("\\.epub\\'" . nov-mode))
-
 (use-package buffer-move
   :bind (("C-S-<up>"    . buf-move-up)
          ("C-S-<down>"  . buf-move-down)
