@@ -1,4 +1,4 @@
-;; -*- lexical-binding: t; -*-
+;; -*- lexical-binding: t; no-byte-compile: t -*-
 
 (setenv "EDITOR" "emacsclient")
 (setenv "PAGER" "cat")
@@ -42,21 +42,21 @@
   (when (boundp 'mac-command-modifier)
     (setq mac-command-modifier 'meta)))
 
-(defun neosimsim-make-frame-hook (frame)
-  "Force settings when new FRAME is make.
+(when (daemonp)
+  (defun neosimsim-make-frame-hook (frame)
+    "Force settings when new FRAME is make.
 
 Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/59."
-  (with-selected-frame frame
-    (load-theme 'modus-operandi t)
-    (set-fontset-font t '(#x1f000 . #x1faff)
-                      (font-spec :family "Noto Color Emoji"))
-    ;; Font for playing cards
-    (set-fontset-font t '(#x1f0a0 . #x1f0ff)
-                      (font-spec :family "DejaVu Sans")))
+    (with-selected-frame frame
+      (load-theme 'modus-operandi t)
+      (set-fontset-font t '(#x1f000 . #x1faff)
+			(font-spec :family "Noto Color Emoji"))
+      ;; Font for playing cards
+      (set-fontset-font t '(#x1f0a0 . #x1f0ff)
+			(font-spec :family "DejaVu Sans")))
 
-  (remove-hook 'after-make-frame-functions #'neosimsim-make-frame-hook))
+    (remove-hook 'after-make-frame-functions #'neosimsim-make-frame-hook))
 
-(when (daemonp)
   (add-hook 'after-make-frame-functions #'neosimsim-make-frame-hook))
 
 (use-package files
@@ -128,10 +128,6 @@ variable pitch faces tend to be smaller.")
   :config
   (add-hook 'markdown-mode-hook #'variable-pitch-mode))
 
-(defun neosimsim-org-mode-hook ()
-  "Personal hook for `org-mode'."
-  (yas-minor-mode -1))
-
 (use-package org
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
@@ -139,6 +135,11 @@ variable pitch faces tend to be smaller.")
          ("C-c C-x C-o" . org-clock-out)
          ("C-c C-x C-j" . org-clock-goto)
          ("C-c C-x C-x" . org-clock-in-last))
+
+  :init
+  (defun neosimsim-org-mode-hook ()
+    "Personal hook for `org-mode'."
+    (yas-minor-mode -1))
 
   :custom
   (org-export-backends '(ascii html icalendar latex md odt))
@@ -216,14 +217,15 @@ variable pitch faces tend to be smaller.")
   :custom
   (org-html-checkbox-type 'unicode))
 
-(defun neosimsim-git-commit-mode-hook ()
-  "Personal hook for `git-commit-mode-hook'."
-  (flyspell-mode))
-
 (use-package git-commit
   :defer t
-  :config
 
+  :init
+  (defun neosimsim-git-commit-mode-hook ()
+    "Personal hook for `git-commit-mode-hook'."
+    (flyspell-mode))
+
+  :config
   (add-hook 'git-commit-mode-hook #'neosimsim-git-commit-mode-hook))
 
 (use-package magit
@@ -281,8 +283,6 @@ version controller are excluded."
 
 (use-package project
   :defer t
-  :functions
-  project-try-vc
 
   :custom
   (project-switch-commands
@@ -296,13 +296,13 @@ version controller are excluded."
   :config
   (add-to-list 'project-find-functions #'neosimsim-project-find-root))
 
-(defun neosimsim-eglot-managed-mode-hook ()
-  "Personal hook for `eglot-managed-mode-hook'."
-  (eglot-inlay-hints-mode -1))
-
 (use-package eglot
   :defer t
-  :functions eglot-inlay-hints-mode
+  :init
+  (defun neosimsim-eglot-managed-mode-hook ()
+    "Personal hook for `eglot-managed-mode-hook'."
+    (eglot-inlay-hints-mode -1))
+
   :config
   (add-hook 'eglot-managed-mode-hook #'neosimsim-eglot-managed-mode-hook)
 
@@ -314,8 +314,8 @@ version controller are excluded."
                  ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
 
   (setq-default eglot-workspace-configuration
-    '((:gopls .
-        ((staticcheck . t)))))
+                '((:gopls .
+                          ((staticcheck . t)))))
 
   :bind (:map eglot-mode-map
               ([remap neosimsim-format-buffer] . eglot-format-buffer)
@@ -324,9 +324,6 @@ version controller are excluded."
               ("C-c C-e r" . eglot-rename)))
 
 (use-package eglot-x
-  :functions
-  eglot-x-setup
-
   :after (eglot)
   :config
   (eglot-x-setup)
@@ -465,16 +462,8 @@ If buffer is not associated with a file the buffer name is used."
               (buffer-name))))
 
 (use-package move-text
-  :functions
-  move-text-default-bindings
-
   :config
   (move-text-default-bindings))
-
-(use-package fzf
-  :functions
-  fzf-find-file-in-dir
-  fzf-find-file)
 
 (use-package rg
   :defer t
@@ -485,13 +474,14 @@ If buffer is not associated with a file the buffer name is used."
          :map rg-mode-map
          ([remap save-buffer] . wgrep-save-all-buffers)))
 
-(defun neosimsim-prog-mode-hook ()
-  "Personal hook for `prog-mode-hook'."
-  (setq indicate-empty-lines t)
-  (setq show-trailing-whitespace t))
-
 (use-package prog-mode
   :defer t
+  :init
+  (defun neosimsim-prog-mode-hook ()
+    "Personal hook for `prog-mode-hook'."
+    (setq indicate-empty-lines t)
+    (setq show-trailing-whitespace t))
+
   :config
   (add-hook 'prog-mode-hook #'neosimsim-prog-mode-hook))
 
@@ -499,13 +489,14 @@ If buffer is not associated with a file the buffer name is used."
   :custom
   (treesit-font-lock-level 4))
 
-(defun neosimsim-text-mode-hook ()
-  "Personal hook for `text-mode-hook'."
-  (setq indicate-empty-lines t)
-  (setq show-trailing-whitespace t))
-
 (use-package text-mode
   :defer t
+
+  :init
+  (defun neosimsim-text-mode-hook ()
+    "Personal hook for `text-mode-hook'."
+    (setq indicate-empty-lines t)
+    (setq show-trailing-whitespace t))
 
   :config
   (add-hook 'text-mode-hook #'neosimsim-text-mode-hook))
@@ -547,13 +538,15 @@ If buffer is not associated with a file the buffer name is used."
   :config
   (add-hook 'elixir-ts-mode-hook #'elixir-setup))
 
-(defun term-setup ()
-  "Personal hook for `term-mode-hook'."
-  (modify-syntax-entry ?: "_" term-mode-syntax-table)
-  (modify-syntax-entry ?. "_" term-mode-syntax-table))
-
 (use-package term
   :defer t
+
+  :init
+  (defun term-setup ()
+    "Personal hook for `term-mode-hook'."
+    (modify-syntax-entry ?: "_" term-mode-syntax-table)
+    (modify-syntax-entry ?. "_" term-mode-syntax-table))
+
   :config
   (add-hook 'term-mode-hook #'term-setup)
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
@@ -566,10 +559,6 @@ If buffer is not associated with a file the buffer name is used."
 (use-package rustic
   :defer t
   :after rust-mode
-  :defines
-  rust-load-optional-libraries
-  rust-mode-map
-  rustic-compilation-panic
 
   :init
   (setq rust-load-optional-libraries t)
@@ -612,11 +601,12 @@ If buffer is not associated with a file the buffer name is used."
          ("C-S-<left>"  . buf-move-left)
          ("C-S-<right>" . buf-move-right)))
 
-(defun neosimsim-python-mode-hook ()
-  "Personal hook for `python-mode-hook'."
-  (setq neosimsim-project-root-markers '(".git" "pyproject.toml")))
-
 (use-package python
+  :init
+  (defun neosimsim-python-mode-hook ()
+    "Personal hook for `python-mode-hook'."
+    (setq neosimsim-project-root-markers '(".git" "pyproject.toml")))
+
   :config
   (add-hook 'python-ts-mode-hook #'neosimsim-python-mode-hook))
 
@@ -649,6 +639,8 @@ If buffer is not associated with a file the buffer name is used."
   js-ts-mode
   go-ts-mode)
 
+(use-package fzf)
+
 (defun neosimsim-fzf (&optional prompt-dir)
   "Wrapper around `fzf-find-file'.
 
@@ -663,19 +655,19 @@ or when in a project.  (See `neosimsim-project-find-root')"
 
 (bind-key "C-c C-c C-f" #'neosimsim-fzf)
 
-(use-package ansi-color
-  :functions
-  ansi-color-apply-on-region)
-
-(defun neosimsim-colorize-compilation-buffer ()
-  "`compilation-filter-hook' to apply ANSI color codes."
-  (ansi-color-apply-on-region compilation-filter-start (point)))
+(use-package ansi-color)
 
 (defconst neosimsim-path-locus-regex "\\(\\([[:alnum:]/._]+\\):\\([[:digit:]]+\\)\\(:\\([[:digit:]]+\\)?\\)?\\)")
 
 (use-package compile
   :bind (("<f5>" . compile)
          ("S-<f5>" . recompile))
+
+  :init
+  (defun neosimsim-colorize-compilation-buffer ()
+    "`compilation-filter-hook' to apply ANSI color codes."
+    (ansi-color-apply-on-region compilation-filter-start (point)))
+
   :config
   (add-hook 'compilation-filter-hook #'neosimsim-colorize-compilation-buffer)
 
@@ -689,21 +681,25 @@ or when in a project.  (See `neosimsim-project-find-root')"
   (setq inferior-lisp-program "sbcl"))
 
 (when (package-installed-p 'haskell-mode)
-  (defun haskell-setup ()
-    "Personal hook for `haskell-mode-hook'."
-    (setq neosimsim-formatter "ormolu --no-cabal"))
-
   (use-package haskell-mode
     :defer t
+
+    :init
+    (defun haskell-setup ()
+      "Personal hook for `haskell-mode-hook'."
+      (setq neosimsim-formatter "ormolu --no-cabal"))
+
     :config
     (add-hook 'haskell-mode-hook #'haskell-setup)))
 
 (when (package-installed-p 'haskell-cabal-mode)
-  (defun cabal-setup ()
-    "Personal hook for `haskell-cabal-mode-hook'."
-    (setq neosimsim-formatter "cabal-fmt"))
-
   (use-package haskell-cabal
     :defer t
+
     :config
+    (defun cabal-setup ()
+      "Personal hook for `haskell-cabal-mode-hook'."
+      (setq neosimsim-formatter "cabal-fmt"))
+
+
     (add-hook 'haskell-cabal-mode-hook #'cabal-setup)))
