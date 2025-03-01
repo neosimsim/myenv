@@ -69,7 +69,9 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
      (javascript-mode . js-ts-mode)
      (js-json-mode . json-ts-mode)
      (css-mode . css-ts-mode)
-     (python-mode . python-ts-mode))))
+     (python-mode . python-ts-mode)))
+
+  (trusted-content '("~/src/myenv/")))
 
 (use-package simple
   :custom
