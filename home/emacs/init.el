@@ -97,14 +97,14 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
   "Height scale used for `variable-pitch' face.
 
 This values is intended to be set, so fixed and variable pitch faces
-are close to the same size. Without this scale variable pitch faces
+are close to the same size.  Without this scale variable pitch faces
 tend to be smaller.")
 
 (defvar neosimsim-variable-pitch-scale-normalization 0.9
   "Normalization scale for monospace faces in `variable-pitch-mode'.
 
 This values is used to normalize fixed pitch faces, so fixed and
-variable pitch faces are close to the same size. Without this scale
+variable pitch faces are close to the same size.  Without this scale
 variable pitch faces tend to be smaller.")
 
 (use-package face-remap
