@@ -56,11 +56,12 @@
 Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/59."
     (with-selected-frame frame
       (load-theme 'modus-operandi t)
-      (set-fontset-font t '(#x1f000 . #x1faff)
-			(font-spec :family "Noto Color Emoji"))
-      ;; Font for playing cards
-      (set-fontset-font t '(#x1f0a0 . #x1f0ff)
-			(font-spec :family "DejaVu Sans")))
+      (when (fboundp #'set-fontset-font)
+        (set-fontset-font t '(#x1f000 . #x1faff)
+			  (font-spec :family "Noto Color Emoji"))
+        ;; Font for playing cards
+        (set-fontset-font t '(#x1f0a0 . #x1f0ff)
+			  (font-spec :family "DejaVu Sans"))))
 
     (remove-hook 'after-make-frame-functions #'neosimsim-make-frame-hook))
 
