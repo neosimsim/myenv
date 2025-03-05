@@ -103,7 +103,7 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
               ("M-g M-n" . flymake-goto-next-error)
               ("M-g M-p" . flymake-goto-prev-error)))
 
-(defvar neosimsim-variable-pitch-scale 1.1
+(defvar neosimsim-variable-pitch-scale 1.15
   "Height scale used for `variable-pitch' face.
 
 This values is intended to be set, so fixed and variable pitch faces
