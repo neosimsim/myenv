@@ -120,7 +120,7 @@ variable pitch faces tend to be smaller.")
 (use-package face-remap
   :if (eq system-type 'gnu/linux)
   :custom-face
-  (default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight regular :height 113 :width normal))))
+  (default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight regular :height 102 :width normal))))
   (variable-pitch ((t (:height ,neosimsim-variable-pitch-scale :family "Free Sans")))))
 
 (use-package display-line-numbers
