@@ -185,12 +185,7 @@ variable pitch faces tend to be smaller.")
   :custom-face
   ;; Even with `variable-pitch-mode' in org-mode, I want certain faces to still be Monospace and
   ;; with the original height, i.e. with `neosimsim-variable-pitch-scale' reversed.
-  (org-table ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
-  (org-code ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
-  (org-verbatim ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
-  (org-meta-line ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
-  (org-block ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
-  (org-block-begin-line ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
+  (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
 
   :config
   (org-babel-do-load-languages
