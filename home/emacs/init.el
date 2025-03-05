@@ -182,11 +182,6 @@ variable pitch faces tend to be smaller.")
      ("w" "Work TODOs" tags-todo "work"
       ((org-agenda-overriding-header "Work TODOs")))))
 
-  :custom-face
-  ;; Even with `variable-pitch-mode' in org-mode, I want certain faces to still be Monospace and
-  ;; with the original height, i.e. with `neosimsim-variable-pitch-scale' reversed.
-  (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization)))
-
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -254,6 +249,13 @@ variable pitch faces tend to be smaller.")
 (use-package modus-operandi-theme
   :config
   (load-theme 'modus-operandi t))
+
+(use-package modus-operandi-theme
+  :if (eq system-type 'gnu/linux)
+  :custom-face
+  ;; Even with `variable-pitch-mode' in org-mode, I want certain faces to still be Monospace and
+  ;; with the original height, i.e. with `neosimsim-variable-pitch-scale' reversed.
+  (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization))))
 
 ;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
 (defcustom neosimsim-project-root-markers
