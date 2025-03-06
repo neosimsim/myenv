@@ -30,13 +30,6 @@
   (when (fboundp #'scroll-bar-mode)
     (scroll-bar-mode 0))
 
-  (when (fboundp #'set-fontset-font)
-    (set-fontset-font t '(#x1f000 . #x1faff)
-                      (font-spec :family "Noto Color Emoji"))
-    ;; Font for playing cards
-    (set-fontset-font t '(#x1f0a0 . #x1f0ff)
-                      (font-spec :family "DejaVu Sans")))
-
   (when (boundp 'mac-option-modifier)
     (setq mac-option-modifier 'none))
 
@@ -56,6 +49,12 @@
   (default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight regular :height 102 :width normal))))
   (variable-pitch ((t (:family "FreeSans" :foundry "GNU " :slant normal :weight regular :height 117 :width normal)))))
 
+(use-package face-remap
+  :if (eq system-type 'darwin)
+  :custom-face
+  (default ((t (:family "Menlo" :foundry "nil" :slant normal :weight regular :height 140 :width normal))))
+  (variable-pitch ((t (:family "Tahoma" :foundry "nil" :slant normal :weight regular :height 140 :width normal)))))
+
 (use-package modus-operandi-theme
   :config
   (load-theme 'modus-operandi t))
@@ -65,23 +64,43 @@
   :custom-face
   (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono"))))
 
-(when (daemonp)
+(use-package modus-operandi-theme
+  :if (eq system-type 'darwin)
+  :custom-face
+  (modus-themes-fixed-pitch ((nil :family "Menlo"))))
+
+(defun neosimsim-patch-fonts ()
+  (when (fboundp #'set-fontset-font)
+    (pcase system-type
+      ('gnu/linux
+       ;; Font for Emojis: 🍵
+       (set-fontset-font t '(#x1f000 . #x1faff)
+                         (font-spec :family "Noto Color Emoji"))
+       ;; Font for playing cards: 🃉
+       (set-fontset-font t '(#x1f0a0 . #x1f0ff)
+                         (font-spec :family "DejaVu Sans")))
+      ('darwin
+       ;; Font for Emojis: 🍵
+       (set-fontset-font t '(#x1f000 . #x1faff)
+                         (font-spec :family "Apple Color Emoji"))
+       ;; Font for playing cards: 🃉
+       (set-fontset-font t '(#x1f0a0 . #x1f0ff)
+                         (font-spec :family "Apple Symbols"))))))
+
+(cond
+ ((daemonp)
   (defun neosimsim-make-frame-hook (frame)
     "Force settings when new FRAME is make.
 
 Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/59."
     (with-selected-frame frame
       (load-theme 'modus-operandi t)
-      (when (fboundp #'set-fontset-font)
-        (set-fontset-font t '(#x1f000 . #x1faff)
-			  (font-spec :family "Noto Color Emoji"))
-        ;; Font for playing cards
-        (set-fontset-font t '(#x1f0a0 . #x1f0ff)
-			  (font-spec :family "DejaVu Sans"))))
+      (neosimsim-patch-fonts))
 
     (remove-hook 'after-make-frame-functions #'neosimsim-make-frame-hook))
 
   (add-hook 'after-make-frame-functions #'neosimsim-make-frame-hook))
+ (t (neosimsim-patch-fonts)))
 
 (use-package files
   :custom
