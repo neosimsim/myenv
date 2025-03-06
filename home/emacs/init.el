@@ -49,6 +49,21 @@
     (setenv "PATH" (concat "@profileDirectory@/bin:" (getenv "PATH")))
     (setq exec-path (append '("@profileDirectory@/bin") exec-path))))
 
+(use-package face-remap
+  :if (eq system-type 'gnu/linux)
+  :custom-face
+  (default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight regular :height 102 :width normal))))
+  (variable-pitch ((t (:family "FreeSans" :foundry "GNU " :slant normal :weight regular :height 117 :width normal)))))
+
+(use-package modus-operandi-theme
+  :config
+  (load-theme 'modus-operandi t))
+
+(use-package modus-operandi-theme
+  :if (eq system-type 'gnu/linux)
+  :custom-face
+  (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono"))))
+
 (when (daemonp)
   (defun neosimsim-make-frame-hook (frame)
     "Force settings when new FRAME is make.
@@ -102,26 +117,6 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
   :bind (:map flymake-mode-map
               ("M-g M-n" . flymake-goto-next-error)
               ("M-g M-p" . flymake-goto-prev-error)))
-
-(defvar neosimsim-variable-pitch-scale 1.15
-  "Height scale used for `variable-pitch' face.
-
-This values is intended to be set, so fixed and variable pitch faces
-are close to the same size.  Without this scale variable pitch faces
-tend to be smaller.")
-
-(defvar neosimsim-variable-pitch-scale-normalization 0.9
-  "Normalization scale for monospace faces in `variable-pitch-mode'.
-
-This values is used to normalize fixed pitch faces, so fixed and
-variable pitch faces are close to the same size.  Without this scale
-variable pitch faces tend to be smaller.")
-
-(use-package face-remap
-  :if (eq system-type 'gnu/linux)
-  :custom-face
-  (default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight regular :height 102 :width normal))))
-  (variable-pitch ((t (:height ,neosimsim-variable-pitch-scale :family "Free Sans")))))
 
 (use-package display-line-numbers
   :hook
@@ -245,17 +240,6 @@ variable pitch faces tend to be smaller.")
 (use-package ediff
   :custom
   (ediff-window-setup-function #'ediff-setup-windows-plain))
-
-(use-package modus-operandi-theme
-  :config
-  (load-theme 'modus-operandi t))
-
-(use-package modus-operandi-theme
-  :if (eq system-type 'gnu/linux)
-  :custom-face
-  ;; Even with `variable-pitch-mode' in org-mode, I want certain faces to still be Monospace and
-  ;; with the original height, i.e. with `neosimsim-variable-pitch-scale' reversed.
-  (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono" :height ,neosimsim-variable-pitch-scale-normalization))))
 
 ;; Idea from https://andreyorst.gitlab.io/posts/2022-07-16-project-el-enhancements/
 (defcustom neosimsim-project-root-markers
