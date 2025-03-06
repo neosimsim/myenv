@@ -10,6 +10,7 @@
   (cursor-type 'bar)
   (frame-resize-pixelwise t "Don't leave empty boarders when maximized on e.g. KDE")
   (default-frame-alist '((fullscreen . maximized)) "Start in fullscreen")
+  (inhibit-startup-screen t)
 
   :hook
   ('before-save . delete-trailing-whitespace)
