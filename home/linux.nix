@@ -10,4 +10,8 @@ lib.mkIf (pkgs.stdenv.isLinux && config.myenv.coreutils.enable) {
     XDG_TEMPLATES_DIR = "$HOME/Templates";
     XDG_VIDEOS_DIR = "$HOME/Videos";
   };
+
+  home.packages = with pkgs; [
+    racket
+  ];
 }

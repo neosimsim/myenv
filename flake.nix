@@ -248,6 +248,8 @@
               ./home
 
               ({ pkgs, config, ... }: {
+                programs.zsh.enable = true;
+
                 home = {
                   stateVersion = "22.05";
                   username = "neosimsim";
@@ -255,6 +257,10 @@
 
                   packages = with pkgs; [
                     cgoban
+                  ];
+
+                  sessionPath = [
+                    "/Applications/Racket v8.15/bin"
                   ];
                 };
 

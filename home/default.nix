@@ -66,7 +66,6 @@ in
         nixpkgs-fmt
         pandoc
         passage
-        racket
         ripgrep
         rustup
         sbcl
