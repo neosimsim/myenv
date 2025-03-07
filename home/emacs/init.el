@@ -73,6 +73,9 @@
   (when (fboundp #'set-fontset-font)
     (pcase system-type
       ('gnu/linux
+       ;; Arabic/Kurdish: کتێبەکەم
+       (set-fontset-font t '(#x0600 . #x06ff)
+                         (font-spec :family "Noto Naskh Arabic UI"))
        ;; Font for Emojis: 🍵
        (set-fontset-font t '(#x1f000 . #x1faff)
                          (font-spec :family "Noto Color Emoji"))
