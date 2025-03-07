@@ -80,6 +80,9 @@
        (set-fontset-font t '(#x1f0a0 . #x1f0ff)
                          (font-spec :family "DejaVu Sans")))
       ('darwin
+       ;; Arabic/Kurdish: کتێبەکەم
+       (set-fontset-font t '(#x0600 . #x06ff)
+                         (font-spec :family "Geeza Pro"))
        ;; Font for Emojis: 🍵
        (set-fontset-font t '(#x1f000 . #x1faff)
                          (font-spec :family "Apple Color Emoji"))
