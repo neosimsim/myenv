@@ -61,6 +61,7 @@ in
         isync
         jq
         libarchive
+        mermaid-cli
         nil
         nix-prefetch-scripts
         nixpkgs-fmt

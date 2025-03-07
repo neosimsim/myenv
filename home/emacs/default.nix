@@ -11,7 +11,7 @@ let
       inherit (config.home)
         profileDirectory;
 
-      fishPath = "${pkgs.fish}/bin/fish";
+      mermaid_cli = pkgs.mermaid-cli;
     };
 
     defaultInitFile = true;
@@ -94,6 +94,7 @@ in
       modus-themes
       move-text
       nix-ts-mode
+      ob-mermaid
       org-cliplink
       osm
       rg

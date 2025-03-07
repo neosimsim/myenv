@@ -205,7 +205,8 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
      (calc . t)
      (shell . t)
      (lisp . t)
-     (scheme . t)))
+     (scheme . t)
+     (mermaid . t)))
 
   (add-hook 'org-mode-hook #'variable-pitch-mode)
   (add-hook 'org-mode-hook #'neosimsim-org-mode-hook))
@@ -712,3 +713,7 @@ or when in a project.  (See `neosimsim-project-find-root')"
 
 
     (add-hook 'haskell-cabal-mode-hook #'cabal-setup)))
+
+(use-package ob-mermaid
+  :custom
+  (ob-mermaid-cli-path "@mermaid_cli@/bin/mmdc"))
