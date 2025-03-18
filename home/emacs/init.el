@@ -47,7 +47,7 @@
   :if (eq system-type 'gnu/linux)
   :custom-face
   (default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight regular :height 102 :width normal))))
-  (variable-pitch ((t (:family "FreeSans" :foundry "GNU " :slant normal :weight regular :height 117 :width normal)))))
+  (variable-pitch ((t (:family "FreeSans" :foundry "GNU " :slant normal :weight regular :height 110 :width normal)))))
 
 (use-package face-remap
   :if (eq system-type 'darwin)
@@ -62,7 +62,7 @@
 (use-package modus-operandi-theme
   :if (eq system-type 'gnu/linux)
   :custom-face
-  (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono"))))
+  (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono" :height 102))))
 
 (use-package modus-operandi-theme
   :if (eq system-type 'darwin)
