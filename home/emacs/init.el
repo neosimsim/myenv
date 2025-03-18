@@ -194,13 +194,13 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
       ((agenda "")
        (todo "NEXT"
              ((org-agenda-overriding-header "Next Tasks")))
-       (alltodo ""
-                ((org-agenda-overriding-header "Add TODOs")))))
+       (tags-todo "TODO<>{REPEAT}"
+                ((org-agenda-overriding-header "All TODOs")))))
 
      ("n" "Next Tasks" todo "NEXT"
       ((org-agenda-overriding-header "Next Tasks")))
 
-     ("w" "Work TODOs" tags-todo "work"
+     ("w" "Work TODOs" tags-todo "work+TODO<>{REPEAT}"
       ((org-agenda-overriding-header "Work TODOs")))))
 
   :config
