@@ -9,7 +9,7 @@
     ];
 
     # use emacs Pure GTK to make use of Wayland scaling
-    myenv.emacs.package = pkgs.emacs-pgtk;
+    myenv.emacs.package = pkgs.emacs-git-pgtk;
     home.sessionVariables.EDITOR = "emacsclient -a ''";
   };
 }
