@@ -722,4 +722,4 @@ or when in a project.  (See `neosimsim-project-find-root')"
 
 (use-package ob-mermaid
   :custom
-  (ob-mermaid-cli-path "@mermaid_cli@/bin/mmdc"))
+  (ob-mermaid-cli-path "@profileDirectory@/bin/mmdc"))

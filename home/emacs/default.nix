@@ -10,8 +10,6 @@ let
 
       inherit (config.home)
         profileDirectory;
-
-      mermaid_cli = pkgs.mermaid-cli;
     };
 
     defaultInitFile = true;
