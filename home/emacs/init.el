@@ -319,8 +319,13 @@ version controller are excluded."
     "Personal hook for `eglot-managed-mode-hook'."
     (eglot-inlay-hints-mode -1))
 
+  :hook
+  (nix-mode . eglot-ensure)
+
   :config
   (add-hook 'eglot-managed-mode-hook #'neosimsim-eglot-managed-mode-hook)
+
+  (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
 
   (add-to-list 'eglot-server-programs
                '((elixir-mode elixir-ts-mode heex-ts-mode) . ("lexical")))
