@@ -728,3 +728,6 @@ or when in a project.  (See `neosimsim-project-find-root')"
 (use-package ob-mermaid
   :custom
   (ob-mermaid-cli-path "@profileDirectory@/bin/mmdc"))
+
+(use-package qml-mode
+  :ensure t)
