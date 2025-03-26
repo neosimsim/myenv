@@ -6,6 +6,7 @@
   config = lib.mkIf config.myenv.wayland.enable {
     home.packages = with pkgs; [
       wl-clipboard-rs
+      librewolf
     ];
 
     # use emacs Pure GTK to make use of Wayland scaling
