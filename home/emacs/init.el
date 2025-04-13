@@ -62,7 +62,7 @@
 (use-package modus-operandi-theme
   :if (eq system-type 'gnu/linux)
   :custom-face
-  (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono" :height 102))))
+  (modus-themes-fixed-pitch ((nil :family "DejaVu Sans Mono"))))
 
 (use-package modus-operandi-theme
   :if (eq system-type 'darwin)
