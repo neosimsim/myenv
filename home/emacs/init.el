@@ -20,9 +20,6 @@
 
   (menu-bar-mode 0)
 
-  ;; Enforce US time locale to ensure compatibility of Org Mode timestamps with Plain Org.
-  (setq system-time-locale "en_US.UTF-8")
-
   ;; GUI specifics:
   ;; Note that (display-graphic-p) does not work in case of emacs-server
   (when (fboundp #'tool-bar-mode)
