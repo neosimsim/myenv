@@ -64,6 +64,7 @@ in
         nil
         nix-prefetch-scripts
         nixpkgs-fmt
+        nodePackages.prettier
         pandoc
         passage
         ripgrep

@@ -639,7 +639,10 @@ If buffer is not associated with a file the buffer name is used."
   :custom
   (dhall-format-arguments '("--unicode")))
 
-(use-package yaml-ts-mode)
+(use-package yaml-ts-mode
+  :mode "\\.ya?ml\\'"
+  :bind (:map yaml-ts-mode-map
+              ([remap neosimsim-format-buffer] . prettier-js)))
 
 (defun neosimsim-json-setup ()
   "Personal hook for `json-mode-hook'."
@@ -730,4 +733,7 @@ or when in a project.  (See `neosimsim-project-find-root')"
   (ob-mermaid-cli-path "@profileDirectory@/bin/mmdc"))
 
 (use-package qml-mode
+  :ensure t)
+
+(use-package prettier-js
   :ensure t)
