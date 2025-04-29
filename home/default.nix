@@ -1,4 +1,4 @@
-{ pkgs, config, lib, inputs, ... }:
+{ pkgs, config, lib, ... }:
 let
   aspell = pkgs.aspellWithDicts (p: with p; [ en de ]);
 in
@@ -38,10 +38,6 @@ in
         "flakes"
       ];
     };
-
-    nixpkgs.overlays = with inputs; [
-      self.overlays.default
-    ];
 
     home = {
       packages = with pkgs; [

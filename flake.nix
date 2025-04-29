@@ -50,8 +50,91 @@
     , nixpkgs
     , plan9fansGo
     , plasma-manager
-    }@inputs:
+    }:
     let
+
+      inputsModule = {
+        imports = [
+          plasma-manager.homeManagerModules.plasma-manager
+        ];
+
+        config = {
+          nixpkgs.overlays = [
+            emacs-overlay.overlay
+            self.overlays.default
+
+            (final: prev: {
+              emacsPackagesFor = emacs: (prev.emacsPackagesFor emacs).overrideScope (emacsFinal: emacsPrev: {
+                eglot-x = emacsFinal.trivialBuild {
+                  pname = "eglot-x";
+                  version = "0.6";
+                  src = eglot-x;
+                };
+                combobulate = emacsFinal.trivialBuild {
+                  pname = "combobulate";
+                  version = "0.0";
+                  src = combobulate;
+                };
+              });
+
+              editinacme = prev.buildGoModule {
+                name = "editinacme";
+
+                src = plan9fansGo;
+
+                vendorHash = "sha256-/pjqN11vZF+AX3OctaDAMb+s4W173bMWkjkNbUD14GA";
+
+                buildPhase = ''
+                  go install 9fans.net/go/acme/editinacme
+                '';
+
+                meta = with prev.lib; {
+                  homepage = "https://github.com/9fans/go";
+                  license = licenses.mit;
+                  platforms = platforms.linux ++ platforms.darwin;
+                };
+              };
+
+              acmego = prev.buildGoModule {
+                name = "acmego";
+
+                src = plan9fansGo;
+
+                vendorHash = "sha256-/pjqN11vZF+AX3OctaDAMb+s4W173bMWkjkNbUD14GA=";
+
+                buildPhase = ''
+                  go install 9fans.net/go/acme/acmego
+                '';
+
+                meta = with prev.lib; {
+                  homepage = "https://github.com/9fans/go";
+                  license = licenses.mit;
+                  platforms = platforms.linux ++ platforms.darwin;
+                };
+              };
+
+              Watch = prev.buildGoModule {
+                name = "Watch";
+
+                src = plan9fansGo;
+
+                vendorHash = "sha256-/pjqN11vZF+AX3OctaDAMb+s4W173bMWkjkNbUD14GA=";
+
+                buildPhase = ''
+                  go install 9fans.net/go/acme/Watch
+                '';
+
+                meta = with prev.lib; {
+                  homepage = "https://github.com/9fans/go";
+                  license = licenses.mit;
+                  platforms = platforms.linux ++ platforms.darwin;
+                };
+              };
+
+            })
+          ];
+        };
+      };
 
       inherit (nixpkgs.lib.strings)
         concatStrings
@@ -174,9 +257,8 @@
             homeConfig = home-manager.lib.homeManagerConfiguration {
               pkgs = nixpkgs.legacyPackages.${system};
 
-              extraSpecialArgs = { inherit inputs; };
-
               modules = [
+                inputsModule
                 ./home
 
                 ({ pkgs, config, ... }: {
@@ -227,11 +309,10 @@
           home-manager = {
             useGlobalPkgs = false;
             useUserPackages = true;
-            # FIXME This makes inputs available as input even outside of this repo, when this module is used.
-            extraSpecialArgs = { inherit inputs; };
 
             users.neosimsim = { ... }: {
               imports = [
+                inputsModule
                 ./home
               ];
             };
@@ -242,9 +323,8 @@
           neosimsim = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
-            extraSpecialArgs = { inherit inputs; };
-
             modules = [
+              inputsModule
               ./home
 
               ({ pkgs, config, ... }: {
@@ -271,7 +351,7 @@
           };
         };
 
-        overlays.default = import ./overlay.nix inputs;
+        overlays.default = import ./overlay.nix;
       }
     );
 }

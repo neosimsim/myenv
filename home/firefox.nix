@@ -1,4 +1,4 @@
-{ pkgs, lib, config, inputs, ... }: with lib;
+{ pkgs, lib, config, ... }: with lib;
 {
   options = {
     myenv.firefox = {

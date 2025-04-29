@@ -1,4 +1,4 @@
-{ pkgs, config, lib, inputs, ... }:
+{ pkgs, config, lib, ... }:
 let
   customEmacs = pkgs.emacsWithPackagesFromUsePackage {
     config = pkgs.substituteAll {
@@ -14,17 +14,6 @@ let
 
     defaultInitFile = true;
     package = config.myenv.emacs.package;
-
-    override = final: prev: {
-      eglot-x = final.callPackage ./eglot-x.nix { inherit (inputs) eglot-x; };
-
-      combobulate = final.trivialBuild {
-        pname = "combobulate";
-        version = "0.0";
-        src = inputs.combobulate;
-      };
-    };
-
     extraEmacsPackages = config.myenv.emacs.extraPackages;
   };
 in
@@ -58,10 +47,6 @@ in
   };
 
   config = lib.mkIf config.myenv.emacs.enable {
-    nixpkgs.overlays = with inputs; [
-      emacs-overlay.overlay
-    ];
-
     home.sessionVariables = {
       EDITOR = lib.mkDefault "emacsclient -ca  ''";
     };
