@@ -72,7 +72,7 @@
                 };
                 combobulate = emacsFinal.trivialBuild {
                   pname = "combobulate";
-                  version = "0.0";
+                  version = "0.1";
                   src = combobulate;
                 };
               });
