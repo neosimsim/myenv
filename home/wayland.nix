@@ -7,6 +7,7 @@
     home.packages = with pkgs; [
       wl-clipboard-rs
       librewolf
+      gnuplot_qt
     ];
 
     # use emacs Pure GTK to make use of Wayland scaling

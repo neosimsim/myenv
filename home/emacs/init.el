@@ -209,6 +209,7 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
      (shell . t)
      (lisp . t)
      (scheme . t)
+     (gnuplot .t)
      (mermaid . t)))
 
   (add-hook 'org-mode-hook #'variable-pitch-mode)
@@ -734,3 +735,8 @@ or when in a project.  (See `neosimsim-project-find-root')"
 
 (use-package prettier-js
   :ensure t)
+
+(use-package gnuplot
+  :ensure t
+  :custom
+  (gnuplot-program "gnuplot"))
