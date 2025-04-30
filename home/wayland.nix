@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }: {
   options.myenv.wayland.enable = lib.mkEnableOption ''
-    Configure Wayland.
+    Configure Wayland, i.e. GUI tools for GNU/Linux.
   '';
 
   config = lib.mkIf config.myenv.wayland.enable {

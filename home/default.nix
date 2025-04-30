@@ -21,7 +21,6 @@ in
     ./linux.nix
     ./plasma.nix
     ./wayland.nix
-    ./xserver.nix
     ./tmux
     ./plan9port.nix
     ./go.nix
