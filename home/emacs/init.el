@@ -333,8 +333,12 @@ version controller are excluded."
                  ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
 
   (setq-default eglot-workspace-configuration
-                '((:gopls .
-                          ((staticcheck . t)))))
+                '(:nil
+                  (:formatting
+                   (:command ["nixpkgs-fmt"]))
+
+                  :gopls
+                  (:staticcheck t)))
 
   :bind (:map eglot-mode-map
               ([remap neosimsim-format-buffer] . eglot-format-buffer)
