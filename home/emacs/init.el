@@ -208,7 +208,6 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
      (calc . t)
      (shell . t)
      (lisp . t)
-     (scheme . t)
      (gnuplot .t)
      (mermaid . t)))
 

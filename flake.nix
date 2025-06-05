@@ -329,6 +329,14 @@
 
               ({ pkgs, config, ... }: {
                 programs.zsh.enable = true;
+                programs.zsh.initExtra = ''
+                  # Nix
+                  # macOS overwrite /etc/zshrc all the time, so we set it here also.
+                  if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+                    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+                  fi
+                  # End Nix
+                '';
 
                 home = {
                   stateVersion = "22.05";

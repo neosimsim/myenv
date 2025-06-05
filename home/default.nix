@@ -51,11 +51,8 @@ in
         fzf
         gcc
         gnumake
-        guile
         htop
-        isync
         jq
-        libarchive
         nil
         nix-prefetch-scripts
         nixpkgs-fmt
