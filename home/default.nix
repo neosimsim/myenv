@@ -12,10 +12,8 @@ in
   };
 
   imports = [
-    ./chromium.nix
     ./darwin.nix
     ./emacs
-    ./firefox.nix
     ./ghc
     ./git
     ./linux.nix
@@ -44,8 +42,6 @@ in
         age
         aspell
         clisp
-        dhall
-        dhall-json
         entr
         fd
         fzf
@@ -56,7 +52,6 @@ in
         nil
         nix-prefetch-scripts
         nixpkgs-fmt
-        nodePackages.prettier
         pandoc
         passage
         ripgrep

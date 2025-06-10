@@ -205,8 +205,6 @@
                 ${checkPresent} $path/bin/emacs
                 ${checkPresent} $path/bin/fm
                 ${checkPresent} $path/bin/dtt
-                ${checkPresent} $path/bin/firefox-esr
-                ${checkPresent} $path/bin/chromium
                 ${checkPresent} $path/bin/Afmt
                 ${checkPresent} $path/bin/ghc
                 ${checkPresent} $path/bin/wl-copy
@@ -214,9 +212,7 @@
 
                 ${checkPresent} $homeFiles/.config/git/config
                 ${checkMissing} $homeFiles/.Xresources
-                ${checkPresent} $homeFiles/.mozilla/firefox/default/user.js
                 ${checkPresent} $homeFiles/.ghci
-                ${checkPresentDir} $homeFiles/.config/chromium
                 ${checkPresent} $homeFiles/lib/plumbing
 
                 echo successful >$out
@@ -229,14 +225,10 @@
                 } ''
                 ${checkPresent} $path/bin/fm
                 ${checkPresent} $path/bin/dtt
-                ${checkMissing} $path/bin/firefox-esr
-                ${checkMissing} $path/bin/chromium
                 ${checkMissing} $path/bin/ghc
 
                 ${checkPresent} $homeFiles/.config/git/config
                 ${checkMissing} $homeFiles/.Xresources
-                ${checkMissing} $homeFiles/.mozilla/firefox/default/user.js
-                ${checkMissing} $homeFiles/.config/chromium
 
                 echo successful >$out
               '';
@@ -285,8 +277,6 @@
           wayland.enable = true;
           ghc.enable = true;
           plan9port.enable = true;
-          chromium.enable = true;
-          firefox.enable = true;
           emacs.enable = true;
           go.enable = true;
           texlive.enable = true;
