@@ -209,11 +209,14 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
    'org-babel-load-languages
    '((emacs-lisp . t)
      (org . t)
+     (nushell . t)
      (calc . t)
      (shell . t)
      (lisp . t)
      (gnuplot .t)
      (mermaid . t)))
+
+  (add-to-list 'org-src-lang-modes '("nu" . nushell-ts))
 
   (add-hook 'org-mode-hook #'variable-pitch-mode)
   (add-hook 'org-mode-hook #'neosimsim-org-mode-hook))
@@ -747,3 +750,12 @@ or when in a project.  (See `neosimsim-project-find-root')"
   :ensure t
   :custom
   (gnuplot-program "gnuplot"))
+
+(defun neosimsim-nushell-hook ()
+  "Personal hook for `nushell-ts-mode-hook'."
+  (setq neosimsim-formatter "nufmt --stdin"))
+
+(use-package nushell-ts-mode
+  :ensure t
+  :config
+  (add-hook 'nushell-ts-mode-hook #'neosimsim-nushell-hook))

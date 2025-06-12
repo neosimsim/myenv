@@ -123,6 +123,22 @@
         "type": "github"
       }
     },
+    "ob-nushell": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1732286278,
+        "narHash": "sha256-JxfQG3tHxj18VQaBz8yRqh00lAfBVQ+BiQZRcnYmTX8=",
+        "owner": "b3tchi",
+        "repo": "ob-nushell",
+        "rev": "2ced2ed8a841616c38cb898bbbd66624d7b841a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "b3tchi",
+        "repo": "ob-nushell",
+        "type": "github"
+      }
+    },
     "plan9fansGo": {
       "flake": false,
       "locked": {
@@ -170,6 +186,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "ob-nushell": "ob-nushell",
         "plan9fansGo": "plan9fansGo",
         "plasma-manager": "plasma-manager"
       }

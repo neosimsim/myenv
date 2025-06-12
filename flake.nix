@@ -26,6 +26,12 @@
       flake = false;
     };
 
+    ob-nushell =
+      {
+        url = "github:b3tchi/ob-nushell";
+        flake = false;
+      };
+
     plasma-manager = {
       url = "github:pjones/plasma-manager";
       inputs = {
@@ -43,6 +49,7 @@
   outputs =
     { self
     , combobulate
+    , ob-nushell
     , emacs-overlay
     , eglot-x
     , flake-utils
@@ -74,6 +81,11 @@
                   pname = "combobulate";
                   version = "0.1";
                   src = combobulate;
+                };
+                ob-nushell = emacsFinal.trivialBuild {
+                  pname = "ob-nushell";
+                  version = "0.1";
+                  src = ob-nushell;
                 };
               });
 

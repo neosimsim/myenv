@@ -23,6 +23,7 @@ in
     ./plan9port.nix
     ./go.nix
     ./texlive.nix
+    ./nushell
   ];
 
   config = lib.mkIf config.myenv.coreutils.enable {

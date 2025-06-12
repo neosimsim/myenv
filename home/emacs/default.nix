@@ -75,6 +75,7 @@ in
       move-text
       nix-ts-mode
       ob-mermaid
+      ob-nushell
       org-cliplink
       osm
       rg
