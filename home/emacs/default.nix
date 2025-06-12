@@ -1,10 +1,7 @@
 { pkgs, config, lib, ... }:
 let
   customEmacs = pkgs.emacsWithPackagesFromUsePackage {
-    config = pkgs.substituteAll {
-      name = "default.el";
-      src = ./init.el;
-
+    config = pkgs.replaceVars ./init.el {
       inherit (pkgs)
         fish;
 
