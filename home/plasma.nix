@@ -43,5 +43,15 @@
         "kwin"."Window No Border" = "Meta+B";
       };
     };
+
+    programs.konsole = {
+      enable = true;
+
+      defaultProfile = "Custom";
+
+      profiles.Custom = {
+        colorScheme = "Breeze Light";
+      };
+    };
   };
 }
