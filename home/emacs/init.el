@@ -210,6 +210,7 @@ Intended as workaround for https://github.com/arcticicestudio/nord-emacs/issues/
    '((emacs-lisp . t)
      (org . t)
      (nushell . t)
+     (jq . t)
      (calc . t)
      (shell . t)
      (lisp . t)
@@ -759,3 +760,6 @@ or when in a project.  (See `neosimsim-project-find-root')"
   :ensure t
   :config
   (add-hook 'nushell-ts-mode-hook #'neosimsim-nushell-hook))
+
+(use-package jq-mode
+  :ensure t)
