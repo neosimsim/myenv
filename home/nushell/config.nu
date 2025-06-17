@@ -12,3 +12,4 @@ $env.config = {
 
 use std/config light-theme
 $env.config.color_config = (light-theme)
+$env.LS_COLORS = (vivid generate ayu)

@@ -3,6 +3,7 @@
   home.packages = with pkgs;[
     nushell
     nufmt
+    vivid
   ];
 
   programs.nushell = {
