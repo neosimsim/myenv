@@ -32,9 +32,13 @@
         "baloofilerc"."General"."only basic indexing" = true;
         "kwalletrc"."Wallet"."Enabled" = true;
         "kwinrc"."Desktops"."Number" = 1;
+
         "kcminputrc"."Keyboard"."NumLock" = 0;
         "kcminputrc"."Mouse"."XLbInptAccelProfileFlat" = true;
         "kcminputrc"."Mouse"."XLbInptPointerAcceleration" = "-0.4";
+        "kcminputrc"."Libinput/12538/4416/INSTANT USB GAMING MOUSE "."PointerAcceleration" = "-0.200";
+        "kcminputrc"."Libinput/12538/4416/INSTANT USB GAMING MOUSE "."PointerAccelerationProfile" = 1;
+
         "klaunchrc"."BusyCursorSettings"."Bouncing" = false;
         "klaunchrc"."FeedbackStyle"."BusyCursor" = false;
       };
