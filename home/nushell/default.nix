@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
 
   home.packages = with pkgs;[
     nushell
@@ -9,9 +9,7 @@
   programs.nushell = {
     enable = true;
     configFile.source = ./config.nu;
-    environmentVariables = {
-      EDITOR = "emacsclient -a ''";
-    };
+    environmentVariables = config.home.sessionVariables;
   };
 
   programs.carapace = {
