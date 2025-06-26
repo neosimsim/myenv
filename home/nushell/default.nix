@@ -1,21 +1,31 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, lib, ... }: {
 
-  home.packages = with pkgs;[
-    nushell
-    nufmt
-    vivid
-  ];
-
-  programs.nushell = {
-    enable = true;
-    configFile.source = ./config.nu;
-    environmentVariables = config.home.sessionVariables;
+  options = {
+    myenv.nushell = {
+      enable = lib.mkEnableOption ''
+        Confige nushell.
+      '';
+    };
   };
 
-  programs.carapace = {
-    enable = true;
-    enableNushellIntegration = true;
-  };
+  config = lib.mkIf config.myenv.nushell.enable {
+    home.packages = with pkgs; [
+      nushell
+      nufmt
+      vivid
+    ];
 
-  programs.konsole.profiles.Custom.command = "${pkgs.nushell}/bin/nu";
+    programs.nushell = {
+      enable = true;
+      configFile.source = ./config.nu;
+      environmentVariables = config.home.sessionVariables;
+    };
+
+    programs.carapace = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
+
+    programs.konsole.profiles.Custom.command = "${pkgs.nushell}/bin/nu";
+  };
 }
