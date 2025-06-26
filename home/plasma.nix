@@ -10,6 +10,7 @@
 
   config = mkIf config.myenv.plasma.enable {
     home.sessionVariables = {
+      # X11 hack, see https://wiki.archlinux.org/title/HiDPI
       PLASMA_USE_QT_SCALING = 1;
     };
 
